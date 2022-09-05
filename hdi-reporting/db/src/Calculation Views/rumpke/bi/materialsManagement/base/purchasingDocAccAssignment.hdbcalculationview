@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.materialsManagement.base::purchasingDocAccAssignment" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="purchasingDocAccAssignment (EKKN)"/>
+  <metadata changedAt="2020-12-04 15:10:48.675"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="34"/>
+  <dataSources>
+    <DataSource id="EKKN">
+      <resourceUri>rumpke.bi.materialsManagement.base.s4hana::EKKN</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="EKKN">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="EKKN" columnName="MANDT"/>
+      </attribute>
+      <attribute id="purchasingDocumentNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="purchasingDocumentNumber"/>
+        <keyMapping columnObjectName="EKKN" columnName="EBELN"/>
+      </attribute>
+      <attribute id="itemNumberofPurchasingDocument" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="itemNumberofPurchasingDocument"/>
+        <keyMapping columnObjectName="EKKN" columnName="EBELP"/>
+      </attribute>
+      <attribute id="profitCenter" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProfitCenter"/>
+        <keyMapping columnObjectName="EKKN" columnName="PRCTR"/>
+      </attribute>
+      <attribute id="maintenanceOrder" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Order"/>
+        <keyMapping columnObjectName="EKKN" columnName="AUFNR"/>
+      </attribute>
+      <attribute id="costCenter" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="costCenter"/>
+        <keyMapping columnObjectName="EKKN" columnName="KOSTL"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="purchaseOrderQuantity" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="PurchaseOrderQuantity"/>
+        <measureMapping columnObjectName="EKKN" columnName="MENGE"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

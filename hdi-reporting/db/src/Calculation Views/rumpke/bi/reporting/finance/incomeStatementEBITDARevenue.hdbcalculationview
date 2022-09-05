@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.finance::incomeStatementEBITDARevenue" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="incomeStatementEBIDARevenue"/>
+  <metadata changedAt="2020-10-08 11:19:43.177"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="41"/>
+  <dataSources>
+    <DataSource id="incomeStatement">
+      <resourceUri>rumpke.bi.reporting.finance::incomeStatement</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="source">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="rollingYearNo_1"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="rollingYearCalculation" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(component(now(),2) = 1, 0, &quot;rollingYearNo&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="incomeStatement">
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo_1" source="rollingYearNo"/>
+      </input>
+    <filter>(in (&quot;functionalAreaGroup&quot;,'TOTAL_REV','EBITDA TARGET')) AND (in (&quot;rollingYearNo&quot;,'0','-1')) AND (&quot;rollingMonthNo&quot; &lt;'0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="actual">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute aggregationType="sum" id="actual"/>
+        <viewAttribute id="rollingYearCalculation"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Actual'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="amount" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;actual&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="source"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="budget">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute aggregationType="sum" id="budget"/>
+        <viewAttribute id="rollingYearCalculation"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Budget'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="amount" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;budget&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="source"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="variance">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute aggregationType="sum" id="variance"/>
+        <viewAttribute id="rollingYearCalculation"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Variance'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="amount" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;variance&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="source"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Versions">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="amount"/>
+        <viewAttribute id="rollingYearCalculation"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="actual">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="amount" source="amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearCalculation" source="rollingYearCalculation"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="budget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="amount" source="amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearCalculation" source="rollingYearCalculation"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="variance">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="amount" source="amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearCalculation" source="rollingYearCalculation"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="QTD">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="version"/>
+        <viewAttribute aggregationType="sum" id="amount"/>
+        <viewAttribute id="rollingYearCalculation"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="QTDYTD" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(in(&quot;rollingMonthNo&quot;,-1, -2, -3), 'QTD', '')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="Versions"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="YTD">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="version"/>
+        <viewAttribute aggregationType="sum" id="amount"/>
+        <viewAttribute id="rollingYearCalculation"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="QTDYTD" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;rollingYearCalculation&quot; = 0 and &quot;rollingMonthNo&quot; &lt; 0, 'YTD', '')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="Versions"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="QTDYTD">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="amount"/>
+        <viewAttribute id="QTDYTD"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="QTD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="amount" source="amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTDYTD" source="QTDYTD"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="YTD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="amount" source="amount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTDYTD" source="QTDYTD"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="filterQTDYTD">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="QTDYTD"/>
+        <viewAttribute aggregationType="sum" id="amount"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="QTDYTD"/>
+    <filter>&quot;QTDYTD&quot;!=''</filter>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="filterQTDYTD">
+    <descriptions/>
+    <attributes>
+      <attribute id="functionalAreaGroup" hidden="true" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="functionalAreaGroup"/>
+      </attribute>
+      <attribute id="functionalAreaGroupDescription" hidden="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group Description"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="functionalAreaGroupDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="4" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="area" order="5" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="7" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="9" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="13" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="14" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="lineOfBusinessGroup" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Group"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="lineOfBusinessGroup"/>
+      </attribute>
+      <attribute id="fiscalYear" order="16" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="postingPeriod" order="17" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting Period"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="postingPeriod"/>
+      </attribute>
+      <attribute id="calMonth" order="18" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cal Month"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="calMonth"/>
+      </attribute>
+      <attribute id="priorMonth" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="priorMonth"/>
+      </attribute>
+      <attribute id="fiscYearPer" order="20" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="fiscYearPer"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="21" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="calQuarter" order="22" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="rollingYearNo" order="23" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Year Number (Current Year = 0)"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="rollingYearNo"/>
+      </attribute>
+      <attribute id="yearQuarter" order="24" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year-Quarter"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="year" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="year"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (MM-YYYY)"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="monthName" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month Name"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="monthName"/>
+      </attribute>
+      <attribute id="rollingMonthNo" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Month Number (Current Month = 0)"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="rollingMonthNo"/>
+      </attribute>
+      <attribute id="version" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="version"/>
+      </attribute>
+      <attribute id="QTDYTD" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QTD/YTD"/>
+        <keyMapping columnObjectName="filterQTDYTD" columnName="QTDYTD"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="amount" hidden="true" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="amount"/>
+        <measureMapping columnObjectName="filterQTDYTD" columnName="amount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="ebidtaTargetPercentOfRevenue" hidden="false" order="34" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="EBITDA Target % of Revenue"/>
+        <formula>if(&quot;totalRevenue&quot; &gt; 0, &quot;ebitdaTarget&quot;/&quot;totalRevenue&quot;, 0)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="totalRevenue" hidden="false" order="32" baseMeasure="amount" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Total Revenue"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroupDescription">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Total Revenue"/>
+          </filter>
+          <attributeName>functionalAreaGroupDescription</attributeName>
+        </restriction>
+      </measure>
+      <measure id="ebitdaTarget" hidden="false" order="33" baseMeasure="amount" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="EBITDA Target"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroupDescription">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="EBITDA TARGET"/>
+          </filter>
+          <attributeName>functionalAreaGroupDescription</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="source" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="649"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="actual" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="571"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="budget" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="571"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="variance" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="571"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Versions" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="437"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="QTD" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="YTD" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="QTDYTD" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="243"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="filterQTDYTD" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,1046 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.finance.budgetReview::budgetEBITDATargetPerRevenue" applyPrivilegeType="SQL_ANALYTIC_PRIVILEGE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Budget Schedule of EBITDA Target Percent of Revenue #4"/>
+  <metadata changedAt="2020-11-18 02:32:08.196"/>
+  <localVariables>
+    <variable id="IP_BudgetYr" parameter="true">
+      <descriptions defaultDescription="Budget Year"/>
+      <variableProperties datatype="VARCHAR" defaultValue="2021" length="4" mandatory="true" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeAttributes</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalYear</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="44"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.data.ddl::freezeData.incomeStatementFreeze">
+      <resourceUri>rumpke.bi.data.ddl::freezeData.incomeStatementFreeze</resourceUri>
+    </DataSource>
+    <DataSource id="incomeStatement">
+      <resourceUri>rumpke.bi.reporting.finance::incomeStatement</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="CYProjection">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="lineNumber"/>
+        <viewAttribute id="isCurrent"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="level2FunctionalArea"/>
+        <viewAttribute id="level2FunctionalAreaDescription"/>
+        <viewAttribute id="level3AccountGroup"/>
+        <viewAttribute id="level3AccountGroupDescription"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaDescription"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="rollingMonthNo"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="totalRevenueBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroup&quot;='TOTAL_REV',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="totalRevenueProjection" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroup&quot;='TOTAL_REV',&quot;projection&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Projection'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaTargetBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroup&quot;='EBITDA TARGET',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaTargetProjection" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroup&quot;='EBITDA TARGET',&quot;projection&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="thirdPartyRevenueBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;functionalAreaGroup&quot;='TOTAL_REV' AND &quot;distributionChannelPa&quot;!='INTERCOMPANY'),&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="thirdPartyRevenueProjection" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;functionalAreaGroup&quot;='TOTAL_REV' AND &quot;distributionChannelPa&quot;!='INTERCOMPANY'),&quot;projection&quot;,0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.data.ddl::freezeData.incomeStatementFreeze"/>
+    <filter>(&quot;isCurrent&quot; =1)</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="BudgetNxtYr">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="level2FunctionalArea"/>
+        <viewAttribute id="level2FunctionalAreaDescription"/>
+        <viewAttribute id="level3AccountGroup"/>
+        <viewAttribute id="level3AccountGroupDescription"/>
+        <viewAttribute id="level4AccountNumber"/>
+        <viewAttribute id="level4AccountNumberDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="totalRevenueBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroup&quot;='TOTAL_REV',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="totalRevenueProjection" length="23" scale="0" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroup&quot;='TOTAL_REV',&quot;projection&quot;,0)/1000</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Budget'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaTargetBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroup&quot;='EBITDA TARGET',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaTargetProjection" length="23" scale="0" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroup&quot;='EBITDA TARGET',&quot;projection&quot;,0)/1000</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="thirdPartyRevenueBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;functionalAreaGroup&quot;='TOTAL_REV' AND &quot;distributionChannelPa&quot;!='INTERCOMPANY'),&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="thirdPartyRevenueProjection" length="23" scale="0" expressionLanguage="COLUMN_ENGINE">
+          <formula>if((&quot;functionalAreaGroup&quot;='TOTAL_REV' AND &quot;distributionChannelPa&quot;!='INTERCOMPANY'),&quot;projection&quot;,0)/1000</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="incomeStatement"/>
+    <filter>'$$IP_BudgetYr$$'=&quot;fiscalYear&quot;</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="level2FunctionalArea"/>
+        <viewAttribute id="level2FunctionalAreaDescription"/>
+        <viewAttribute id="level3AccountGroup"/>
+        <viewAttribute id="level3AccountGroupDescription"/>
+        <viewAttribute id="level4AccountNumber"/>
+        <viewAttribute id="level4AccountNumberDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaDescription"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueProjection"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="thirdPartyRevenueBudget"/>
+        <viewAttribute id="thirdPartyRevenueProjection"/>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="lineNumber"/>
+        <viewAttribute id="isCurrent"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="BudgetNxtYr">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofTheFunctionalArea" source="nameofTheFunctionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2FunctionalArea" source="level2FunctionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2FunctionalAreaDescription" source="level2FunctionalAreaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level3AccountGroup" source="level3AccountGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level3AccountGroupDescription" source="level3AccountGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level4AccountNumber" source="level4AccountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level4AccountNumberDescription" source="level4AccountNumberDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="revenueCategory" source="revenueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterName" source="costCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPa" source="distributionChannelPa"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPaDescription" source="distributionChannelPaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalRevenueProjection" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ebitdaTargetProjection" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueBudget" source="thirdPartyRevenueBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="thirdPartyRevenueProjection" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="freezeDate" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="lineNumber" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="isCurrent" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="CYProjection">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="functionalArea" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nameofTheFunctionalArea" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2FunctionalArea" source="level2FunctionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2FunctionalAreaDescription" source="level2FunctionalAreaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level3AccountGroup" source="level3AccountGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level3AccountGroupDescription" source="level3AccountGroupDescription"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="level4AccountNumber" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="level4AccountNumberDescription" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="profitCenter" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="profitCenterDescription" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="revenueCategory" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="costCenter" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="costCenterName" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="year" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="rollingMonthNo" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPa" source="distributionChannelPa"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPaDescription" source="distributionChannelPaDescription"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalRevenueBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueProjection" source="totalRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ebitdaTargetBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetProjection" source="ebitdaTargetProjection"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="thirdPartyRevenueBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueProjection" source="thirdPartyRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineNumber" source="lineNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isCurrent" source="isCurrent"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="totalRevenue">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueProjection"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="thirdPartyRevenueBudget"/>
+        <viewAttribute id="thirdPartyRevenueProjection"/>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="lineNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="sacMetricName" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'totalRevenue'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="sacMetricDescription" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Total Revenue'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="sortMetric" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>'1'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Union_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="thirdPartyRevenue">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueProjection"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="thirdPartyRevenueBudget"/>
+        <viewAttribute id="thirdPartyRevenueProjection"/>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="lineNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="sacMetricName" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'thirdPartyRevenue'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="sacMetricDescription" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Third Party Revenue'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="sortMetric" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>'2'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Union_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ebitdaTarget">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueProjection"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="thirdPartyRevenueBudget"/>
+        <viewAttribute id="thirdPartyRevenueProjection"/>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="lineNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="sacMetricName" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'ebitdaTarget'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="sacMetricDescription" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'EBITDA TARGET'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="sortMetric" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>'3'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Union_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ebitdaTargetperTotalRev">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueProjection"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="thirdPartyRevenueBudget"/>
+        <viewAttribute id="thirdPartyRevenueProjection"/>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="lineNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="sacMetricName" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'ebitdaTargetperTotRev'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="sacMetricDescription" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'EBITDA TARGET % OF REVENUE - ALL SOURCES'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="sortMetric" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>'4'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Union_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ebitdaTargetperThirdPartyRev">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueProjection"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="thirdPartyRevenueBudget"/>
+        <viewAttribute id="thirdPartyRevenueProjection"/>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="lineNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="sacMetricName" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'ebitdaTargetperThirdPartyRev'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="sacMetricDescription" length="32" expressionLanguage="COLUMN_ENGINE">
+          <formula>'EBITDA TARGET % OF REVENUE - THIRD PARTY'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="sortMetric" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>'5'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Union_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueProjection"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="thirdPartyRevenueBudget"/>
+        <viewAttribute id="thirdPartyRevenueProjection"/>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="lineNumber"/>
+        <viewAttribute id="sacMetricName"/>
+        <viewAttribute datatype="VARCHAR" id="sacMetricDescription" length="32"/>
+        <viewAttribute datatype="NVARCHAR" id="sortMetric" length="2"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="totalRevenue">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueProjection" source="totalRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetProjection" source="ebitdaTargetProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueBudget" source="thirdPartyRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueProjection" source="thirdPartyRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineNumber" source="lineNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sacMetricName" source="sacMetricName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sacMetricDescription" source="sacMetricDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortMetric" source="sortMetric"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="thirdPartyRevenue">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueProjection" source="totalRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetProjection" source="ebitdaTargetProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueBudget" source="thirdPartyRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueProjection" source="thirdPartyRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineNumber" source="lineNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sacMetricName" source="sacMetricName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sacMetricDescription" source="sacMetricDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortMetric" source="sortMetric"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="ebitdaTarget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueProjection" source="totalRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetProjection" source="ebitdaTargetProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueBudget" source="thirdPartyRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueProjection" source="thirdPartyRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineNumber" source="lineNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sacMetricName" source="sacMetricName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sacMetricDescription" source="sacMetricDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortMetric" source="sortMetric"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="ebitdaTargetperTotalRev">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueProjection" source="totalRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetProjection" source="ebitdaTargetProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueBudget" source="thirdPartyRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueProjection" source="thirdPartyRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineNumber" source="lineNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sacMetricName" source="sacMetricName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sacMetricDescription" source="sacMetricDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortMetric" source="sortMetric"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="ebitdaTargetperThirdPartyRev">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueProjection" source="totalRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetProjection" source="ebitdaTargetProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueBudget" source="thirdPartyRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="thirdPartyRevenueProjection" source="thirdPartyRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineNumber" source="lineNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sacMetricName" source="sacMetricName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sacMetricDescription" source="sacMetricDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortMetric" source="sortMetric"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="area" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="area"/>
+        <keyMapping columnObjectName="Union_2" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="areaDescription"/>
+        <keyMapping columnObjectName="Union_2" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="region"/>
+        <keyMapping columnObjectName="Union_2" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="regionDescription"/>
+        <keyMapping columnObjectName="Union_2" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="district"/>
+        <keyMapping columnObjectName="Union_2" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="districtDescription"/>
+        <keyMapping columnObjectName="Union_2" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrict"/>
+        <keyMapping columnObjectName="Union_2" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrictDescription"/>
+        <keyMapping columnObjectName="Union_2" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Union_2" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineofBusinessDescription"/>
+        <keyMapping columnObjectName="Union_2" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="lineOfBusinessGroup" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusinessGroup"/>
+        <keyMapping columnObjectName="Union_2" columnName="lineOfBusinessGroup"/>
+      </attribute>
+      <attribute id="fiscalYear" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYear"/>
+        <keyMapping columnObjectName="Union_2" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="calMonth" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calMonth"/>
+        <keyMapping columnObjectName="Union_2" columnName="calMonth"/>
+      </attribute>
+      <attribute id="fiscYearPer" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscYearPer"/>
+        <keyMapping columnObjectName="Union_2" columnName="fiscYearPer"/>
+      </attribute>
+      <attribute id="rollingYearNo" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="rollingYearNo"/>
+        <keyMapping columnObjectName="Union_2" columnName="rollingYearNo"/>
+      </attribute>
+      <attribute id="year" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="year"/>
+        <keyMapping columnObjectName="Union_2" columnName="year"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calMonthDisplay"/>
+        <keyMapping columnObjectName="Union_2" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="monthName" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="monthName"/>
+        <keyMapping columnObjectName="Union_2" columnName="monthName"/>
+      </attribute>
+      <attribute id="rollingMonthNo" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="rollingMonthNo"/>
+        <keyMapping columnObjectName="Union_2" columnName="rollingMonthNo"/>
+      </attribute>
+      <attribute id="version" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="version"/>
+        <keyMapping columnObjectName="Union_2" columnName="version"/>
+      </attribute>
+      <attribute id="sacMetricName" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sacMetricName"/>
+        <keyMapping columnObjectName="Union_2" columnName="sacMetricName"/>
+      </attribute>
+      <attribute id="sacMetricDescription" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sacMetricDescription"/>
+        <keyMapping columnObjectName="Union_2" columnName="sacMetricDescription"/>
+      </attribute>
+      <attribute id="sortMetric" order="40" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sortMetric"/>
+        <keyMapping columnObjectName="Union_2" columnName="sortMetric"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="Freezedate" hidden="false" order="38" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Freezedate"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="8">
+          <formula>int(leftstr(string(&quot;freezeDate&quot;),6))-1</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="actual" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actual"/>
+        <measureMapping columnObjectName="Union_2" columnName="actual"/>
+      </measure>
+      <measure id="budget" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="budget"/>
+        <measureMapping columnObjectName="Union_2" columnName="budget"/>
+      </measure>
+      <measure id="projection" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="projection"/>
+        <measureMapping columnObjectName="Union_2" columnName="projection"/>
+      </measure>
+      <measure id="forecast" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="forecast"/>
+        <measureMapping columnObjectName="Union_2" columnName="forecast"/>
+      </measure>
+      <measure id="totalRevenueBudget" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalRevenueBudget"/>
+        <measureMapping columnObjectName="Union_2" columnName="totalRevenueBudget"/>
+      </measure>
+      <measure id="totalRevenueProjection" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalRevenueProjection"/>
+        <measureMapping columnObjectName="Union_2" columnName="totalRevenueProjection"/>
+      </measure>
+      <measure id="ebitdaTargetBudget" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="ebitdaTargetBudget"/>
+        <measureMapping columnObjectName="Union_2" columnName="ebitdaTargetBudget"/>
+      </measure>
+      <measure id="ebitdaTargetProjection" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="ebitdaTargetProjection"/>
+        <measureMapping columnObjectName="Union_2" columnName="ebitdaTargetProjection"/>
+      </measure>
+      <measure id="thirdPartyRevenueBudget" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="thirdPartyRevenueBudget"/>
+        <measureMapping columnObjectName="Union_2" columnName="thirdPartyRevenueBudget"/>
+      </measure>
+      <measure id="thirdPartyRevenueProjection" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="thirdPartyRevenueProjection"/>
+        <measureMapping columnObjectName="Union_2" columnName="thirdPartyRevenueProjection"/>
+      </measure>
+      <measure id="freezeDate" order="31" aggregationType="max" measureType="simple">
+        <descriptions defaultDescription="freezeDate"/>
+        <measureMapping columnObjectName="Union_2" columnName="freezeDate"/>
+      </measure>
+      <measure id="lineNumber" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="lineNumber"/>
+        <measureMapping columnObjectName="Union_2" columnName="lineNumber"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="caEBITDATargetperTotRevBudget" hidden="false" order="34" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="caEBITDATargetperTotRev - Budget"/>
+        <formula>If(&quot;totalRevenueBudget&quot;=0,0,&quot;ebitdaTargetBudget&quot;/&quot;totalRevenueBudget&quot;)</formula>
+      </measure>
+      <measure id="caEBITDATargetperTotRevProjection" hidden="false" order="35" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="caEBITDATargetperTotRev - Projection"/>
+        <formula>If(&quot;totalRevenueProjection&quot;=0,0,&quot;ebitdaTargetProjection&quot;/&quot;totalRevenueProjection&quot;)</formula>
+      </measure>
+      <measure id="caEBITDATargetperThirdPartyRevBudget" hidden="false" order="36" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="caEBITDATargetperThirdPartyRev - Budget"/>
+        <formula>If(&quot;thirdPartyRevenueBudget&quot;=0,0,&quot;ebitdaTargetBudget&quot;/&quot;thirdPartyRevenueBudget&quot;)</formula>
+      </measure>
+      <measure id="caEBITDATargetperThirdPartyRevProjection" hidden="false" order="37" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="caEBITDATargetperThirdPartyRev - Projection"/>
+        <formula>If(&quot;thirdPartyRevenueProjection&quot;=0,0,&quot;ebitdaTargetProjection&quot;/&quot;thirdPartyRevenueProjection&quot;)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions>
+      <localDimension id="orgHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">areaDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">regionDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">districtDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">subDistrictDescription</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="orgHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="orgHierarchy"/>
+            <levels>
+              <level levelAttribute="areaDescription" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="areaDescription"/>
+              <level levelAttribute="regionDescription" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="regionDescription"/>
+              <level levelAttribute="districtDescription" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="districtDescription"/>
+              <level levelAttribute="subDistrictDescription" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="subDistrictDescription"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="330" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CYProjection" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="529"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="BudgetNxtYr" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="529"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="413"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="totalRevenue" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="335"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="thirdPartyRevenue" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="335"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ebitdaTarget" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="335"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ebitdaTargetperTotalRev" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="335"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ebitdaTargetperThirdPartyRev" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="335"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

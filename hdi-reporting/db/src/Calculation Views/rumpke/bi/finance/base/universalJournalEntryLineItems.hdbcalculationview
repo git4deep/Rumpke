@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.finance.base::universalJournalEntryLineItems" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Universal Journal Entry Line Items"/>
+  <metadata changedAt="2020-09-08 19:23:33.584"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="25"/>
+  <dataSources>
+    <DataSource id="S4HANA::ACDOCA">
+      <resourceUri>S4HANA::ACDOCA</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="chartOfAccounts"/>
+        <viewAttribute id="salesOrganization"/>
+        <viewAttribute id="distributionChannel"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="amountInCompanyCodeCurrency"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="recordType"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="ledgerinGeneralLedgerAccounting"/>
+        <viewAttribute id="WWMTG_PA"/>
+        <viewAttribute id="tradingPartnerCompanyID"/>
+        <viewAttribute id="partnerProfitCenter"/>
+        <viewAttribute id="documentNumber"/>
+        <viewAttribute id="documentLineItem"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="accrualActuals" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;quantity&quot; != 0, &quot;amountInCompanyCodeCurrency&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="employeeCostActuals" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;quantity&quot; = 0 OR isNull(&quot;quantity&quot;), &quot;amountInCompanyCodeCurrency&quot;, 0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="S4HANA::ACDOCA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="RBUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="RCLNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="chartOfAccounts" source="KTOPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="salesOrganization" source="VKORG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannel" source="VTWEG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="KOKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="amountInCompanyCodeCurrency" source="HSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="FISCYEARPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recordType" source="RRCTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPa" source="WWDC_PA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="WWORD_PA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeMaterialGrp" source="WWMTG_PA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractType" source="WWCNT_PA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="RFAREA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="RCNTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="RACCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="POPER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="quantity" source="MSL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ledgerinGeneralLedgerAccounting" source="RLDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tradingPartnerCompanyID" source="RASSC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="partnerProfitCenter" source="PPRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentNumber" source="BELNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentLineItem" source="DOCLN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FISCYEARPER"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Projection_1" columnName="client"/>
+      </attribute>
+      <attribute id="companyCode" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="Projection_1" columnName="companyCode"/>
+      </attribute>
+      <attribute id="fiscalYear" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="accountNumber" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="chartOfAccounts" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Chart of Accounts"/>
+        <keyMapping columnObjectName="Projection_1" columnName="chartOfAccounts"/>
+      </attribute>
+      <attribute id="contractType" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Contract Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="contractType"/>
+      </attribute>
+      <attribute id="controllingArea" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area"/>
+        <keyMapping columnObjectName="Projection_1" columnName="controllingArea"/>
+      </attribute>
+      <attribute id="costCenter" order="9" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="distributionChannelPa" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel PA"/>
+        <keyMapping columnObjectName="Projection_1" columnName="distributionChannelPa"/>
+      </attribute>
+      <attribute id="distributionChannel" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel"/>
+        <keyMapping columnObjectName="Projection_1" columnName="distributionChannel"/>
+      </attribute>
+      <attribute id="fiscYearPer" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscYearPer"/>
+      </attribute>
+      <attribute id="functionalArea" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="Projection_1" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="ledgerinGeneralLedgerAccounting" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Ledger in General Ledger Accounting"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ledgerinGeneralLedgerAccounting"/>
+      </attribute>
+      <attribute id="orderType" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="orderType"/>
+      </attribute>
+      <attribute id="materialNumber" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="materialNumber"/>
+      </attribute>
+      <attribute id="plant" order="17" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="Projection_1" columnName="plant"/>
+      </attribute>
+      <attribute id="postingPeriod" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="postingPeriod"/>
+      </attribute>
+      <attribute id="profitCenter" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="recordType" order="20" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Record Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="recordType"/>
+      </attribute>
+      <attribute id="rumpkeMaterialGrp" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rumpke Material Group"/>
+        <keyMapping columnObjectName="Projection_1" columnName="rumpkeMaterialGrp"/>
+      </attribute>
+      <attribute id="salesOrganization" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Organization"/>
+        <keyMapping columnObjectName="Projection_1" columnName="salesOrganization"/>
+      </attribute>
+      <attribute id="tradingPartnerCompanyID" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company ID - Trading Partner"/>
+        <keyMapping columnObjectName="Projection_1" columnName="tradingPartnerCompanyID"/>
+      </attribute>
+      <attribute id="partnerProfitCenter" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center - Partner"/>
+        <keyMapping columnObjectName="Projection_1" columnName="partnerProfitCenter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="amountInCompanyCodeCurrency" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Amount in Company Code Currency"/>
+        <measureMapping columnObjectName="Projection_1" columnName="amountInCompanyCodeCurrency"/>
+      </measure>
+      <measure id="quantity" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Quantity"/>
+        <measureMapping columnObjectName="Projection_1" columnName="quantity"/>
+      </measure>
+      <measure id="accrualActuals" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual - Actuals (For Payroll)"/>
+        <measureMapping columnObjectName="Projection_1" columnName="accrualActuals"/>
+      </measure>
+      <measure id="employeeCostActuals" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee $ - Actuals (For Payroll)"/>
+        <measureMapping columnObjectName="Projection_1" columnName="employeeCostActuals"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

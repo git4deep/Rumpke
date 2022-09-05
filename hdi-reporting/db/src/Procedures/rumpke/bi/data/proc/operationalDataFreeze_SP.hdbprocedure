@@ -1,0 +1,846 @@
+PROCEDURE "rumpke.bi.data.proc::operationalDataFreeze_SP" (in p_ForceFreeze Integer DEFAULT 0)
+    LANGUAGE SQLSCRIPT
+    SQL SECURITY INVOKER AS
+   --READS SQL DATA AS
+BEGIN
+    DECLARE v_PerformDataFreeze Integer := 0;
+    DECLARE v_CurrentDate BigInt := to_bigint(to_char(CURRENT_TIMESTAMP, 'YYYYMMDDHHMISS'));
+    DECLARE v_CurrentMonth Integer := month(CURRENT_DATE);
+    
+    SELECT case when isf."freezeDate" is null and fp."FREEZEDATE" is not null then 1 else 0 end into v_PerformDataFreeze
+    FROM (select max("FREEZEDATE") as "FREEZEDATE" from "S4HANA::ZPLANFREEZCAL" where "FREEZETYPE" = 'OPERATIONAL' and "FREEZEDATE" <= CURRENT_DATE) fp
+    LEFT JOIN (select max("freezeDate") as "freezeDate" from "rumpke.bi.data.ddl::freezeData.incomeStatementFreeze" where "isCurrent" = 1) isf on isf."freezeDate" >= to_bigint(to_varchar(fp."FREEZEDATE", 'YYYYMMDDHHMISS'));
+
+    IF (v_PerformDataFreeze = 1 and v_PerformDataFreeze is not null) or p_ForceFreeze = 1 THEN
+
+        --delete from "RUMPKEADM"."rumpke.bi.data.ddl::freezeData.operationalDataFreeze" where "freezeDate" <= to_bigint(to_varchar(add_years(CURRENT_DATE, -3), 'YYYYMMDDHHMISS'));
+    
+    	update "rumpke.bi.data.ddl::freezeData.operationalDataFreeze" set "isCurrent" = 0 where "isCurrent" = 1;
+    
+    	insert into "rumpke.bi.data.ddl::freezeData.operationalDataFreeze" (
+    		"freezeDate", "lineNumber", "isCurrent", "freezeMonth",
+			"rollingMonthNo", "fiscalYear", "yearQuarter", "calMonthDisplay", "calQuarter", "calMonth", "calFiscalPeriod", "fiscYearPer", "area", "areaDescription", "region", "regionDescription", "district", "districtDescription", "subDistrict", 
+			"subDistrictDescription", "profitCenter", "lineOfBusiness", "lineofBusinessDescription", "profitCenterGroup", "lineOfBusinessGroup", "version", 
+			"totalRevenue", "EBITDATarget", "recyclingMaterialSales", "soldTons", "disposalTons", "processedTons", "totalBenefits", "totalWages", "nonEmployeeLaborHoursRecy", "nonEmployeeLaborCostDirectRecy", "maintenanceCostLabor", 
+			"totalEmployeeLaborHourDirect", "directLaborHours", "totalEmployeeLaborCostDirect", "maintenanceCostOther", "benefitRate", "maintenanceCostLaborWithBenefits", "totalMaintenanceCost", "employeeDirectLaborCostwithBenefits", 
+			"totalDirectLaborCost", 
+			"totalTruckCost", "gallons", "depreciation", "routeCustomerMiles", "yards", "insuranceAndClaims", "maintenanceParts", "maintenancePartsNonCapex", "maintenanceLaborNonCapex", "maintenanceTires", "maintenanceWarranty", 
+			"maintenanceWrecker", "fuelCost", "truckHours", "maintenanceLabor", "driverLaborCost", "disposalCost", "laborCostBenefitsDriver", "laborCostOtherDriver", "maintCostCapitalizedRepair", "discounts", "fuelSurchargeRevenue", 
+			"otherRevenue", "maintCostLaborOther", "lifts", "routeHours", "stops", "tonnage", "baseRevenue", "unitCount", "units", "mechanicHours", "commodityRevenue", "loads", "routeHoursWithMechanic", "caWageEligibleForBenefitsWeighted",
+			"allOthercosts", "compactorTons", "costOfOperations", "cubicYardsConsumed", "equipmentRepairCost", "equipmentHours", "excavatorLoaderTons", "expenseCubicYards", "ownershipCost", "payrollHours", "productivityDailyCover", 
+			"cellAmortization", "totalNetRevenue", "totalNetLaborCost", "totalNetEquipmentCost", "totalOtherLandfillExpenses", "totalLandfillOperatingExpense", "landfillOperatingProfit", "operatingIncome", "compactorHours", 
+			"excavatedCubicYards", "excavatorLoaderHours", "capexCost", "capexCubicYards", "equipmentCost",
+            "totalEquipmentCost", "totalRevenueIntercompany", "totalRevenue3rdParty", "totalNetRevenue3rdParty", "totalOtherRevenue", "outboundTons", "outboundLoads", "inboundTons", "inboundLoads", 
+            "haulingExpense", "disposalExpense", "otherTransferCost", "tonnage3rdParty", "tonnageIntercompany", "otherOperatingCost","otherIncomeInterestandAmortization"
+    	)
+    	select
+    		v_CurrentDate as "freezeDate",
+    		row_number() over(order by oh."fiscYearPer", oh."profitCenter") as "lineNumber",
+    		1 as "isCurrent",
+    		v_CurrentMonth,
+    		oh."rollingMonthNo",
+			oh."fiscalYear", oh."yearQuarter", oh."calMonthDisplay", oh."calQuarter", oh."calMonth", oh."fiscalPeriod", oh."fiscYearPer", oh."area", oh."areaDescription", oh."region", oh."regionDescription", 
+			oh."district", oh."districtDescription", oh."subDistrict", oh."subDistrictDescription", oh."profitCenter", oh."lineOfBusiness", oh."lineofBusinessDescription", oh."profitCenterGroup", oh."lineOfBusinessGroup",
+			v."version",
+			coalesce(r."totalRevenue", h."totalRevenue", l."totalRevenue", t."totalRevenue") as "totalRevenue",
+--??	 sum("grossProfitActual") AS "grossProfit",
+--??	 sum("costOfOperationsActual") AS "costOfOperations",
+--??	 sum("operatingIncomeActual") AS "operatingIncome",
+--??	 sum("netIncomeBeforeTaxActual") AS "netIncomeBeforeTax",
+--??	 sum("netIncomeActual") AS "netIncome",
+--??	 sum("EBITDAActual") AS "EBITDA",
+			coalesce(r."EBITDATarget", h."EBITDATarget", l."EBITDATarget", t."EBITDATarget") as "EBITDATarget",
+--??	 sum("inventoryAdjustmentActual") AS "inventoryAdjustment",
+			r."recyclingMaterialSales",
+--??	 sum("recoveryRateActual") AS "recoveryRate",
+--??	 sum("percentOfGrossRevenueActual") AS "percentOfGrossRevenue",
+--	 sum("maintCostPerProcTonActual") AS "maintCostPerProcTonActual",
+--	 sum("directLaborCostPerProcTonActual") AS "directLaborCostPerProcTonActual",
+			r."soldTons",
+--	 sum("processedTonsManHrActual") AS "processedTonsManHrActual",
+--	 sum("averageSellingPricePerTonActual") AS "averageSellingPricePerTonActual",
+--	 sum("maintenanceCostPerTonActual") AS "maintenanceCostPerTonActual",
+--??	 sum("EBITDATonActual") AS "EBITDATon",
+			r."disposalTons",
+			r."processedTons",
+			coalesce(r."totalBenefits", h."totalBenefits") as "totalBenefits",
+			coalesce(r."totalWages", h."totalWages") as "totalWages",
+--	 sum("directLaborCostPerHrActual") AS "directLaborCostPerHrActual",
+			r."nonEmployeeLaborHoursRecy",
+			r."nonEmployeeLaborCostDirectRecy",
+			r."maintenanceCostLabor",
+			r."totalEmployeeLaborHourDirect",
+			r."directLaborHours",
+			r."totalEmployeeLaborCostDirect",
+			r."maintenanceCostOther",
+			r."benefitRate",
+			r."maintenanceCostLaborWithBenefits",
+			coalesce(r."totalMaintenanceCost", h."totalMaintenanceCost") as "totalMaintenanceCost",
+			r."employeeDirectLaborCostwithBenefits",
+			r."totalDirectLaborCost",
+
+			h."totalTruckCost",
+			h."gallons",
+			h."depreciation",
+			h."routeCustomerMiles",
+			h."yards",
+			h."insuranceAndClaims",
+			h."maintenanceParts",
+			h."maintenancePartsNonCapex",
+			h."maintenanceLaborNonCapex",
+			h."maintenanceTires",
+			h."maintenanceWarranty",
+			h."maintenanceWrecker",
+			coalesce(h."fuelCost", l."fuelCost", t."fuelCost") as "fuelCost",
+			coalesce(h."truckHours", l."truckHours") as "truckHours",
+			h."maintenanceLabor",
+			h."driverLaborCost",
+			h."disposalCost",
+			h."laborCostBenefitsDriver",
+			h."laborCostOtherDriver",
+			h."maintCostCapitalizedRepair",
+			h."discounts",
+			h."fuelSurchargeRevenue",
+			h."otherRevenue",
+			h."maintCostLaborOther",
+			h."lifts",
+			h."routeHours",
+			h."stops",
+			coalesce(h."tonnage", l."tonnage", t."tonnage") as "tonnage",
+			h."baseRevenue",
+			h."unitCount",
+			h."units",
+			h."mechanicHours",
+			h."commodityRevenue",
+			coalesce(h."loads", l."loads") as "loads",
+			h."routeHoursWithMechanic",
+			h."caWageEligibleForBenefitsWeighted",
+
+			coalesce(l."allOtherCosts", t."allOtherCosts") as "allOtherCosts",
+			--
+			l."compactorTons", 
+			coalesce(l."costOfOperations", t."costOfOperations") as "costOfOperations", 
+			l."cubicYardsConsumed", 
+			coalesce(l."equipmentRepairCost", t."equipmentRepairCost") as "equipmentRepairCost", 
+			coalesce(l."equipmentHours", t."equipmentHours") as "equipmentHours", 
+			l."excavatorLoaderTons", 
+			l."expenseCubicYards", 
+			coalesce(l."ownershipCost", t."ownershipCost") as "ownershipCost",
+			coalesce(l."payrollHours", t."payrollHours") as "payrollHours", 
+			l."productivityDailyCover", 
+			l."cellAmortization", 
+			coalesce(l."totalNetRevenue", t."totalNetRevenue") as "totalNetRevenue", 
+			coalesce(l."totalNetLaborCost", t."totalNetLaborCost") as "totalNetLaborCost", 
+			coalesce(l."totalNetEquipmentCost", t."totalNetEquipmentCost") as "totalNetEquipmentCost", 
+			l."totalOtherLandfillExpenses", 
+			l."totalLandfillOperatingExpense", 
+			l."landfillOperatingProfit", 
+			coalesce(l."operatingIncome", t."operatingIncome") as "operatingIncome",
+			l."compactorHours", 
+			l."excavatedCubicYards", 
+			l."excavatorLoaderHours", 
+			l."capexCost", 
+			l."capexCubicYards", 
+			l."equipmentCost",
+			
+			t."totalEquipmentCost",
+			t."totalRevenueIntercompany", 
+			t."totalRevenue3rdParty", 
+			t."totalNetRevenue3rdParty", 
+			t."totalOtherRevenue", 
+			t."outboundTons", 
+			t."outboundLoads", 
+			t."inboundTons", 
+			t."inboundLoads", 
+			t."haulingExpense", 
+            t."disposalExpense", 
+            t."otherTransferCost", 
+            t."tonnage3rdParty", 
+            t."tonnageIntercompany",
+            t."otherOperatingCost",
+            null as "otherIncomeInterestandAmortization"
+		from (
+			select distinct
+				TO_INT(td."month") - MONTH(CURRENT_DATE) as "rollingMonthNo",
+				td."year" as "fiscalYear",
+				td."year" || '-Q' || substring(td."quarter", 2, 1) as "yearQuarter",
+				td."month" || '-' || td."year" as "calMonthDisplay",
+				td."calQuarter",
+				td."calMonth",
+				to_int(td."month") as "fiscalPeriod",
+				td."fiscalYearPeriod" as "fiscYearPer",
+				oh."area",
+				oh."areaDescription",
+				oh."region",
+				oh."regionDescription",
+				oh."district",
+				oh."districtDescription",
+				oh."subDistrict",
+				oh."subDistrictDescription",
+				oh."profitCenter",
+				pc."department" as "lineOfBusiness",
+				pc."lineofBusinessDescription",
+				pc."profitCenterGroup",
+				case 
+					when pc."department" in ('FL', 'OH', 'RL', 'RO', 'SS', 'TT') then 'Hauling'
+					when pc."department" = 'LF' then 'Landfill'
+					when pc."department" = 'TR' then 'Transfer'
+					when pc."department" = 'RE' then 'Recycling'
+					when pc."department" = 'IE' then 'Iesc'
+					when pc."department" = 'HY' then 'Hydraulics'
+					when pc."department" = 'CO' then 'Corporate'
+					when pc."department" = 'WT' then 'Wtg'
+					else 'Rental Property'
+				end as "lineOfBusinessGroup"
+				
+			from "rumpke.bi.masterData.reuse::organizationalHierarchy" oh
+			inner join "rumpke.bi.masterData.time::timeDimension" td on td."year" = year(CURRENT_DATE)
+			inner join "rumpke.bi.masterData.base::profitCenter" pc on pc."profitCenter" = oh."profitCenter" and td."dateSQL" >= pc."validFromDate" and td."dateSQL" < pc."validToDate"
+		) oh
+		cross join (
+			select 'Actual' as "version" from "SYS::DUMMY" union all
+			select 'Budget' from "SYS::DUMMY" union all
+			select 'Projection' from "SYS::DUMMY" union all
+			select 'Forecast' from "SYS::DUMMY"
+		) v
+		left join (
+			SELECT
+				 "fiscalYearPeriod",
+				 "profitCenter",
+				 'Actual' as "version",
+				 sum("totalRevenueActual") AS "totalRevenue",
+				 sum("EBITDATargetActual") AS "EBITDATarget",
+				 sum("recyclingMaterialSalesActual") AS "recyclingMaterialSales",
+				 sum("soldTonsActual") AS "soldTons",
+				 sum("disposalTonsActual") AS "disposalTons",
+				 sum("processedTonsActual") AS "processedTons",
+				 sum("totalBenefitsActual") AS "totalBenefits",
+				 sum("totalWagesActual") AS "totalWages",
+				 sum("nonEmployeeLaborHoursRecyActual") AS "nonEmployeeLaborHoursRecy",
+				 sum("nonEmployeeLaborCostDirectRecyActual") AS "nonEmployeeLaborCostDirectRecy",
+				 sum("maintenanceCostLaborActual") AS "maintenanceCostLabor",
+				 sum("totalEmployeeLaborHourDirectActual") AS "totalEmployeeLaborHourDirect",
+				 sum("directLaborHoursActual") AS "directLaborHours",
+				 sum("totalEmployeeLaborCostDirectActual") AS "totalEmployeeLaborCostDirect",
+				 sum("maintenanceCostOtherActual") AS "maintenanceCostOther",
+				 sum("benefitRateActual") AS "benefitRate",
+				 sum("maintenanceCostLaborWithBenefitsActuals") AS "maintenanceCostLaborWithBenefits",
+				 sum("totalMaintenanceCostActual") AS "totalMaintenanceCost",
+				 sum("employeeDirectLaborCostwithBenefitsActual") AS "employeeDirectLaborCostwithBenefits",
+				 sum("totalDirectLaborCostActual") AS "totalDirectLaborCost"
+			FROM "rumpke.bi.reporting.operations::recyclingScorecard" 
+			where "fiscalYear" = year(CURRENT_DATE)
+			group by "fiscalYearPeriod", "profitCenter"
+			union all
+			SELECT
+				 "fiscalYearPeriod",
+				 "profitCenter",
+				 'Budget' as "version",
+				 sum("totalRevenueBudget") AS "totalRevenue",
+				 sum("EBITDATargetBudget") AS "EBITDATarget",
+				 sum("recyclingMaterialSalesBudget") AS "recyclingMaterialSales",
+				 sum("soldTonsBudget") AS "soldTons",
+				 sum("disposalTonsBudget") AS "disposalTons",
+				 sum("processedTonsBudget") AS "processedTons",
+				 sum("totalBenefitsBudget") AS "totalBenefits",
+				 sum("totalWagesBudget") AS "totalWages",
+				 sum("nonEmployeeLaborHoursRecyBudget") AS "nonEmployeeLaborHoursRecy",
+				 sum("nonEmployeeLaborCostDirectRecyBudget") AS "nonEmployeeLaborCostDirectRecy",
+				 sum("maintenanceCostLaborBudget") AS "maintenanceCostLabor",
+				 sum("totalEmployeeLaborHourDirectBudget") AS "totalEmployeeLaborHourDirect",
+				 sum("directLaborHoursBudget") AS "directLaborHours",
+				 sum("totalEmployeeLaborCostDirectBudget") AS "totalEmployeeLaborCostDirect",
+				 sum("maintenanceCostOtherBudget") AS "maintenanceCostOther",
+				 sum("benefitRateBudget") AS "benefitRate",
+				 sum("maintenanceCostLaborWithBenefitsBudget") AS "maintenanceCostLaborWithBenefits",
+				 sum("totalMaintenanceCostBudget") AS "totalMaintenanceCost",
+				 sum("employeeDirectLaborCostwithBenefitsBudget") AS "employeeDirectLaborCostwithBenefits",
+				 sum("totalDirectLaborCostBudget") AS "totalDirectLaborCost"
+			FROM "rumpke.bi.reporting.operations::recyclingScorecard" 
+			where "fiscalYear" = year(CURRENT_DATE)
+			group by "fiscalYearPeriod", "profitCenter"
+            union all
+			SELECT
+				 "fiscalYearPeriod",
+				 "profitCenter",
+				 'Forecast' as "version",
+				 sum("totalRevenueForecast") AS "totalRevenue",
+				 sum("ebitdaTargetForecast") AS "EBITDATarget",
+				 sum("recyclingMaterialSalesForecast") AS "recyclingMaterialSales",
+				 sum("soldTonsForecast") AS "soldTons",
+				 null/*sum("disposalTonsForecast")*/ AS "disposalTons",
+				 sum("processedTonsForecast") AS "processedTons",
+				 sum("totalBenefitsForecast") AS "totalBenefits",
+				 sum("totalWagesForecast") AS "totalWages",
+				 sum("nonEmployeeLaborHoursRecyForecast") AS "nonEmployeeLaborHoursRecy",
+				 sum("nonEmployeeLaborCostDirectRecyForecast") AS "nonEmployeeLaborCostDirectRecy",
+				 sum("maintenanceCostLaborForecast") AS "maintenanceCostLabor",
+				 sum("totalEmployeeLaborHourDirectForecast") AS "totalEmployeeLaborHourDirect",
+				 sum("directLaborHoursForecast") AS "directLaborHours",
+				 sum("totalEmployeeLaborCostDirectForecast") AS "totalEmployeeLaborCostDirect",
+				 sum("maintenanceCostOtherForecast") AS "maintenanceCostOther",
+				 sum("benefitRateForecast") AS "benefitRate",
+				 sum("maintenanceCostLaborWithBenefitsForecast") AS "maintenanceCostLaborWithBenefits",
+				 sum("totalMaintenanceCostForecast") AS "totalMaintenanceCost",
+				 sum("employeeDirectLaborCostwithBenefitsForecast") AS "employeeDirectLaborCostwithBenefits",
+				 sum("totalDirectLaborCostForecast") AS "totalDirectLaborCost"
+			FROM "rumpke.bi.reporting.operations::recyclingScorecard" 
+			where "fiscalYear" = year(CURRENT_DATE)
+			group by "fiscalYearPeriod", "profitCenter"
+			union all
+			SELECT
+				 "fiscalYearPeriod",
+				 "profitCenter",
+				 'Projection' as "version",
+				 sum("totalRevenueProjection") AS "totalRevenue",
+				 sum("ebitdaTargetProjection") AS "EBITDATarget",
+				 sum("recyclingMaterialSalesProjection") AS "recyclingMaterialSales",
+				 sum("soldTonsProjection") AS "soldTons",
+				 null/*sum("disposalTonsProjection")*/ AS "disposalTons",
+				 sum("processedTonsProjection") AS "processedTons",
+				 sum("totalBenefitsProjection") AS "totalBenefits",
+				 sum("totalWagesProjection") AS "totalWages",
+				 sum("nonEmployeeLaborHoursRecyProjection") AS "nonEmployeeLaborHoursRecy",
+				 sum("nonEmployeeLaborCostDirectRecyProjection") AS "nonEmployeeLaborCostDirectRecy",
+				 sum("maintenanceCostLaborProjection") AS "maintenanceCostLabor",
+				 sum("totalEmployeeLaborHourDirectProjection") AS "totalEmployeeLaborHourDirect",
+				 sum("directLaborHoursProjection") AS "directLaborHours",
+				 sum("totalEmployeeLaborCostDirectProjection") AS "totalEmployeeLaborCostDirect",
+				 sum("maintenanceCostOtherProjection") AS "maintenanceCostOther",
+				 sum("benefitRateProjection") AS "benefitRate",
+				 sum("maintenanceCostLaborWithBenefitsProjection") AS "maintenanceCostLaborWithBenefits",
+				 sum("totalMaintenanceCostProjection") AS "totalMaintenanceCost",
+				 sum("employeeDirectLaborCostwithBenefitsProjection") AS "employeeDirectLaborCostwithBenefits",
+				 sum("totalDirectLaborCostProjection") AS "totalDirectLaborCost"
+			FROM "rumpke.bi.reporting.operations::recyclingScorecard" 
+			where "fiscalYear" = year(CURRENT_DATE)
+			group by "fiscalYearPeriod", "profitCenter"
+		) r on r."fiscalYearPeriod" = oh."fiscYearPer" and r."profitCenter" = oh."profitCenter" and r."version" = v."version"
+		left join (
+			SELECT
+				 "fiscalYearPeriod",
+				 "profitCenter",
+--	 "historicalFlag",
+				'Actual' as "version",
+				 sum("totalTruckCostActual") AS "totalTruckCost",
+				 sum("totalMaintenanceCostActual") AS "totalMaintenanceCost",--****************
+				 sum("gallonsActual") AS "gallons",
+				 sum("ebitdaTargetActual") AS "EBITDATarget",--****************
+				 sum("totalRevenueActual") AS "totalRevenue",--****************
+				 sum("depreciationActual") AS "depreciation",
+				 sum("routeCustomerMilesActual") AS "routeCustomerMiles",
+				 sum("yardsActual") AS "yards",
+				 sum("insuranceAndClaimsActual") AS "insuranceAndClaims",
+				 sum("maintenancePartsActual") AS "maintenanceParts",
+				 sum("maintenancePartsNonCapexActual") AS "maintenancePartsNonCapex",
+				 sum("maintenanceLaborNonCapexActual") AS "maintenanceLaborNonCapex",
+				 sum("maintenanceTiresActual") AS "maintenanceTires",
+				 sum("maintenanceWarrantyActual") AS "maintenanceWarranty",
+				 sum("maintenanceWreckerActual") AS "maintenanceWrecker",
+				 sum("fuelCostActual") AS "fuelCost",
+				 sum("truckHoursActual") AS "truckHours",
+				 sum("maintenanceLaborActual") AS "maintenanceLabor",
+				 sum("driverLaborCostActual") AS "driverLaborCost",
+				 sum("totalWagesActual") AS "totalWages",--****************
+				 sum("disposalCostActual") AS "disposalCost",
+				 sum("laborCostBenefitsDriverActual") AS "laborCostBenefitsDriver",
+				 sum("laborCostOtherDriverActual") AS "laborCostOtherDriver",
+				 sum("maintCostCapitalizedRepairActual") AS "maintCostCapitalizedRepair",
+				 sum("discountsActual") AS "discounts",
+				 sum("fuelSurchargeRevenueActual") AS "fuelSurchargeRevenue",
+				 sum("otherRevenueActual") AS "otherRevenue",
+				 sum("maintCostLaborOtherActual") AS "maintCostLaborOther",
+				 sum("totalBenefitsActual") AS "totalBenefits",--****************
+				 sum("liftsActual") AS "lifts",
+				 sum("routeHoursActual") AS "routeHours",
+				 sum("stopsActual") AS "stops",
+				 sum("tonnageActual") AS "tonnage",
+				 sum("baseRevenueActual") AS "baseRevenue",
+				 sum("unitCountActual") AS "unitCount",
+				 sum("unitsActual") AS "units",
+				 sum("mechanicHoursActual") AS "mechanicHours",
+				 sum("commodityRevenueActual") AS "commodityRevenue",
+				 sum("loadsActual") AS "loads",
+				 sum("routeHoursWithMechanicActual") AS "routeHoursWithMechanic",
+				 sum("caWageEligibleForBenefitsWeightedActual") AS "caWageEligibleForBenefitsWeighted"
+			FROM "rumpke.bi.reporting.operations::haulingScorecard" 
+			WHERE "fiscalYear" = year(CURRENT_DATE)
+			GROUP BY "fiscalYearPeriod", "profitCenter"
+			union all
+			SELECT
+				 "fiscalYearPeriod",
+				 "profitCenter",
+--	 "historicalFlag",
+				'Budget' as "version",
+				 sum("totalTruckCostBudget") AS "totalTruckCost",
+				 sum("totalMaintenanceCostBudget") AS "totalMaintenanceCost",
+				 sum("gallonsBudget") AS "gallons",
+				 sum("ebitdaTargetBudget") AS "ebitdaTarget",
+				 sum("totalRevenueBudget") AS "totalRevenue",
+				 sum("depreciationBudget") AS "depreciation",
+				 sum("routeCustomerMilesBudget") AS "routeCustomerMiles",
+				 sum("yardsBudget") AS "yards",
+				 sum("insuranceAndClaimsBudget") AS "insuranceAndClaims",
+				 sum("maintenancePartsBudget") AS "maintenanceParts",
+				 sum("maintenancePartsNonCapexBudget") AS "maintenancePartsNonCapex",
+				 sum("maintenanceLaborNonCapexBudget") AS "maintenanceLaborNonCapex",
+				 sum("maintenanceTiresBudget") AS "maintenanceTires",
+				 sum("maintenanceWarrantyBudget") AS "maintenanceWarranty",
+				 sum("maintenanceWreckerBudget") AS "maintenanceWrecker",
+				 sum("fuelCostBudget") AS "fuelCost",
+				 sum("truckHoursBudget") AS "truckHours",
+				 sum("maintenanceLaborBudget") AS "maintenanceLabor",
+				 sum("driverLaborCostBudget") AS "driverLaborCost",
+				 sum("totalWagesBudget") AS "totalWages",
+				 sum("disposalCostBudget") AS "disposalCost",
+				 sum("laborCostBenefitsDriverBudget") AS "laborCostBenefitsDriver",
+				 sum("laborCostOtherDriverBudget") AS "laborCostOtherDriver",
+				 sum("maintCostCapitalizedRepairBudget") AS "maintCostCapitalizedRepair",
+				 sum("discountsBudget") AS "discounts",
+				 sum("fuelSurchargeRevenueBudget") AS "fuelSurchargeRevenue",
+				 sum("otherRevenueBudget") AS "otherRevenue",
+				 sum("maintCostLaborOtherBudget") AS "maintCostLaborOther",
+				 sum("totalBenefitsBudget") AS "totalBenefits",
+				 sum("liftsBudget") AS "lifts",
+				 sum("routeHoursBudget") AS "routeHours",
+				 sum("stopsBudget") AS "stops",
+				 sum("tonnageBudget") AS "tonnage",
+				 sum("baseRevenueBudget") AS "baseRevenue",
+				 sum("unitCountBudget") AS "unitCount",
+				 sum("unitsBudget") AS "units",
+				 sum("mechanicHoursBudget") AS "mechanicHours",
+				 sum("commodityRevenueBudget") AS "commodityRevenue",
+				 sum("loadsBudget") AS "loads",
+				 sum("routeHoursWithMechanicBudget") AS "routeHoursWithMechanic",
+				 sum("caWageEligibleForBenefitsWeightedBudget") AS "caWageEligibleForBenefitsWeighted"
+			FROM "rumpke.bi.reporting.operations::haulingScorecard" 
+			WHERE "fiscalYear" = year(CURRENT_DATE)
+			GROUP BY "fiscalYearPeriod", "profitCenter"
+			union all
+            SELECT
+            "fiscalYearPeriod",
+            "profitCenter",
+--	 "historicalFlag",
+           'Forecast' as "version",
+            sum("totalTruckCostForecast") AS "totalTruckCost",
+            sum("totalMaintenanceCostForecast") AS "totalMaintenanceCost",
+            null/*sum("gallonsForecast")*/ AS "gallons",
+            sum("ebitdaTargetForecast") AS "ebitdaTarget",
+            sum("totalRevenueForecast") AS "totalRevenue",
+            sum("depreciationForecast") AS "depreciation",
+            TO_DECIMAL(sum("routeCustomerMilesForecast"),18,2) AS "routeCustomerMiles",
+            TO_DECIMAL(sum("yardsForecast"),18,2) AS "yards",
+            sum("insuranceAndClaimsForecast") AS "insuranceAndClaims",
+            null/*sum("maintenancePartsForecast")*/ AS "maintenanceParts",
+            sum("maintenancePartsNonCapexForecast") AS "maintenancePartsNonCapex",
+            sum("maintenanceLaborNonCapexForecast") AS "maintenanceLaborNonCapex",
+            sum("maintenanceTiresForecast") AS "maintenanceTires",
+            sum("maintenanceWarrantyForecast") AS "maintenanceWarranty",
+            sum("maintenanceWreckerForecast") AS "maintenanceWrecker",
+            sum("fuelCostForecast") AS "fuelCost",
+            sum("truckHoursForecast") AS "truckHours",
+            null/*sum("maintenanceLaborForecast")*/ AS "maintenanceLabor",
+            sum("driverLaborCostForecast") AS "driverLaborCost",
+            sum("totalWagesForecast") AS "totalWages",
+            sum("disposalCostForecast") AS "disposalCost",
+            sum("laborCostBenefitsDriverForecast") AS "laborCostBenefitsDriver",
+            sum("laborCostOtherDriverForecast") AS "laborCostOtherDriver",
+            sum("maintCostCapitalizedRepairForecast") AS "maintCostCapitalizedRepair",
+            sum("discountsForecast") AS "discounts",
+            sum("fuelSurchargeRevenueForecast") AS "fuelSurchargeRevenue",
+            sum("otherRevenueForecast") AS "otherRevenue",
+            null/*sum("maintCostLaborOtherForecast")*/ AS "maintCostLaborOther",
+            sum("totalBenefitsForecast") AS "totalBenefits",
+            TO_DECIMAL(sum("liftsForecast"),18,2) AS "lifts",
+            sum("routeHoursForecast") AS "routeHours",
+            TO_DECIMAL(sum("stopsForecast"),18,2) AS "stops",
+            TO_DECIMAL(sum("tonnageForecast"),18,2) AS "tonnage",
+            sum("baseRevenueForecast") AS "baseRevenue",
+            null/*sum("unitCountForecast")*/ AS "unitCount",
+            sum("unitsForecast") AS "units",
+            null/*sum("mechanicHoursForecast")*/ AS "mechanicHours",
+            sum("commodityRevenueForecast") AS "commodityRevenue",
+            sum("loadsForecast") AS "loads",
+            TO_DECIMAL(sum("routeHoursWithMechanicForecast"),18,2) AS "routeHoursWithMechanic",
+            sum("caWageEligibleForBenefitsWeightedForecast") AS "caWageEligibleForBenefitsWeighted"
+       FROM "rumpke.bi.reporting.operations::haulingScorecard" 
+       WHERE "fiscalYear" = year(CURRENT_DATE)
+       GROUP BY "fiscalYearPeriod", "profitCenter"
+			union all
+			SELECT
+				 "fiscalYearPeriod",
+				 "profitCenter",
+--	 "historicalFlag",
+				'Projection' as "version",
+				 sum("totalTruckCostProjection") AS "totalTruckCost",
+				 sum("totalMaintenanceCostProjection") AS "totalMaintenanceCost",
+				 null/*sum("gallonsProjection")*/ AS "gallons",
+				 sum("ebitdaTargetProjection") AS "ebitdaTarget",
+				 sum("totalRevenueProjection") AS "totalRevenue",
+				 sum("depreciationProjection") AS "depreciation",
+				 sum("routeCustomerMilesProjection") AS "routeCustomerMiles",
+				 sum("yardsProjection") AS "yards",
+				 sum("insuranceAndClaimsProjection") AS "insuranceAndClaims",
+				 null/*sum("maintenancePartsProjection")*/ AS "maintenanceParts",
+				 sum("maintenancePartsNonCapexProjection") AS "maintenancePartsNonCapex",
+				 sum("maintenanceLaborNonCapexProjection") AS "maintenanceLaborNonCapex",
+				 sum("maintenanceTiresProjection") AS "maintenanceTires",
+				 sum("maintenanceWarrantyProjection") AS "maintenanceWarranty",
+				 sum("maintenanceWreckerProjection") AS "maintenanceWrecker",
+				 sum("fuelCostProjection") AS "fuelCost",
+				 sum("truckHoursProjection") AS "truckHours",
+				 null/*sum("maintenanceLaborProjection")*/ AS "maintenanceLabor",
+				 sum("driverLaborCostProjection") AS "driverLaborCost",
+				 null/*sum("totalWagesProjection")*/ AS "totalWages",
+				 sum("disposalCostProjection") AS "disposalCost",
+				 null/*sum("laborCostBenefitsDriverProjection")*/ AS "laborCostBenefitsDriver",
+				 null/*sum("laborCostOtherDriverProjection")*/ AS "laborCostOtherDriver",
+				 null/*sum("maintCostCapitalizedRepairProjection")*/ AS "maintCostCapitalizedRepair",
+				 null/*sum("discountsProjection")*/ AS "discounts",
+				 sum("fuelSurchargeRevenueProjection") AS "fuelSurchargeRevenue",
+				 sum("otherRevenueProjection") AS "otherRevenue",
+				 null/*sum("maintCostLaborOtherProjection")*/ AS "maintCostLaborOther",
+				 null/*sum("totalBenefitsProjection")*/ AS "totalBenefits",
+				 sum("liftsProjection") AS "lifts",
+				 sum("routeHoursProjection") AS "routeHours",
+				 sum("stopsProjection") AS "stops",
+				 sum("tonnageProjection") AS "tonnage",
+				 sum("baseRevenueProjection") AS "baseRevenue",
+				 null/*sum("unitCountProjection")*/ AS "unitCount",
+				 sum("unitsProjection") AS "units",
+				 null/*sum("mechanicHoursProjection")*/ AS "mechanicHours",
+				 sum("commodityRevenueProjection") AS "commodityRevenue",
+				 sum("loadsProjection") AS "loads",
+				 sum("routeHoursWithMechanicProjection") AS "routeHoursWithMechanic",
+				 sum("caWageEligibleForBenefitsWeightedProjection") AS "caWageEligibleForBenefitsWeighted"
+			FROM "rumpke.bi.reporting.operations::haulingScorecard" 
+			WHERE "fiscalYear" = year(CURRENT_DATE)
+			GROUP BY "fiscalYearPeriod", "profitCenter"
+		) h on h."fiscalYearPeriod" = oh."fiscYearPer" and h."profitCenter" = oh."profitCenter" and h."version" = v."version"
+		left join (
+			SELECT
+				"profitCenter",
+				"fiscalYearPeriod",
+				'Actual' as "version",
+	
+				sum("allOthercostsActual") AS "allOtherCosts",
+				sum("compactorTonsActual") AS "compactorTons",
+				sum("costOfOperationsActual") AS "costOfOperations",
+				sum("cubicYardsConsumedActual") AS "cubicYardsConsumed",
+				sum("ebitdaTargetActual") AS "EBITDATarget",----
+				sum("equipmentRepairCostActual") AS "equipmentRepairCost",
+				sum("equipmentHoursActual") AS "equipmentHours",
+				sum("excavatorLoaderTonsActual") AS "excavatorLoaderTons",
+				sum("expenseCubicYardsActual") AS "expenseCubicYards",
+				sum("fuelCostActual") AS "fuelCost",----
+				sum("ownershipCostActual") AS "ownershipCost",
+				sum("payrollHoursActual") AS "payrollHours",
+				sum("productivityDailyCoverActual") AS "productivityDailyCover",
+				sum("cellAmortizationActual") AS "cellAmortization",
+				sum("totalRevenueActual") AS "totalRevenue",----
+				sum("totalNetRevenueActual") AS "totalNetRevenue",
+				sum("tonnageActual") AS "tonnage",----
+				sum("totalNetLaborCostActual") AS "totalNetLaborCost",
+				sum("totalNetEquipmentCostActual") AS "totalNetEquipmentCost",
+				sum("totalOtherLandfillExpensesActual") AS "totalOtherLandfillExpenses",
+				sum("totalLandfillOperatingExpenseActual") AS "totalLandfillOperatingExpense",
+				sum("landfillOperatingProfitActual") AS "landfillOperatingProfit",
+				sum("operatingIncomeActual") AS "operatingIncome",
+				sum("compactorHoursActual") AS "compactorHours",
+				sum("excavatedCubicYardsActual") AS "excavatedCubicYards",
+				sum("excavatorLoaderHoursActual") AS "excavatorLoaderHours",
+				sum("capexCostActual") AS "capexCost",
+				sum("capexCubicYardsActual") AS "capexCubicYards",
+				sum("loadsActual") AS "loads",----
+				sum("truckHoursActual") AS "truckHours",----
+				sum("equipmentCostActual") AS "equipmentCost"
+				--	 sum("tonnagePYCMActual") AS "tonnagePYCM"
+			FROM "rumpke.bi.operations.reuse::landfillScorecardReuse"
+			where "fiscalYear" = year(current_date)
+			GROUP BY "profitCenter", "fiscalYearPeriod"
+			union all
+			SELECT
+				"profitCenter",
+				"fiscalYearPeriod",
+				'Budget' as "version",
+				sum("allOthercostsBudget") AS "allOtherCosts",
+				sum("compactorTonsBudget") AS "compactorTons",
+				sum("costOfOperationsBudget") AS "costOfOperations",
+				sum("cubicYardsConsumedBudget") AS "cubicYardsConsumed",
+				sum("ebitdaTargetBudget") AS "ebitdaTarget",----
+				sum("equipmentRepairCostBudget") AS "equipmentRepairCost",
+				sum("equipmentHoursBudget") AS "equipmentHours",
+				sum("excavatorLoaderTonsBudget") AS "excavatorLoaderTons",
+				sum("expenseCubicYardsBudget") AS "expenseCubicYards",
+				sum("fuelCostBudget") AS "fuelCost",----
+				sum("ownershipCostBudget") AS "ownershipCost",
+				sum("payrollHoursBudget") AS "payrollHours",
+				sum("productivityDailyCoverBudget") AS "productivityDailyCover",
+				sum("cellAmortizationBudget") AS "cellAmortization",
+				sum("totalRevenueBudget") AS "totalRevenue",----
+				sum("totalNetRevenueBudget") AS "totalNetRevenue",
+				sum("tonnageBudget") AS "tonnage",----
+				sum("totalNetLaborCostBudget") AS "totalNetLaborCost",
+				sum("totalNetEquipmentCostBudget") AS "totalNetEquipmentCost",
+				sum("totalOtherLandfillExpensesBudget") AS "totalOtherLandfillExpenses",
+				sum("totalLandfillOperatingExpenseBudget") AS "totalLandfillOperatingExpense",
+				sum("landfillOperatingProfitBudget") AS "landfillOperatingProfit",
+				sum("operatingIncomeBudget") AS "operatingIncome",
+				sum("compactorHoursBudget") AS "compactorHours",
+				sum("excavatedCubicYardsBudget") AS "excavatedCubicYards",
+				sum("excavatorLoaderHoursBudget") AS "excavatorLoaderHours",
+				sum("capexCostBudget") AS "capexCost",
+				sum("capexCubicYardsBudget") AS "capexCubicYards",
+				sum("loadsBudget") AS "loads",----
+				sum("truckHoursBudget") AS "truckHours",----
+				sum("equipmentCostBudget") AS "equipmentCost"
+			FROM "rumpke.bi.operations.reuse::landfillScorecardReuse"
+			where "fiscalYear" = year(current_date)
+			GROUP BY "profitCenter", "fiscalYearPeriod"
+			union all
+			SELECT
+				"profitCenter",
+				"fiscalYearPeriod",
+				'Forecast' as "version",
+				--	 sum("percentTonnageYOYForecast") AS "percentTonnageYOY",
+	
+				null/*sum("allOthercostsForecast")*/ AS "allOtherCosts",
+				null/*sum("compactorTonsForecast")*/ AS "compactorTons",
+				sum("costOfOperationsForecast") AS "costOfOperations",
+				sum("cubicYardsConsumedForecast") AS "cubicYardsConsumed",
+				sum("ebitdaTargetForecast") AS "EBITDATarget",----
+				sum("equipmentRepairCostForecast") AS "equipmentRepairCost",
+				sum("equipmentHoursForecast") AS "equipmentHours",
+				null/*sum("excavatorLoaderTonsForecast")*/ AS "excavatorLoaderTons",
+				null/*sum("expenseCubicYardsForecast")*/ AS "expenseCubicYards",
+				sum("fuelCostForecast") AS "fuelCost",----
+				sum("ownershipCostForecast") AS "ownershipCost",
+				sum("payrollHoursForecast") AS "payrollHours",
+				sum("productivityDailyCoverForecast") AS "productivityDailyCover",
+				sum("cellAmortizationForecast") AS "cellAmortization",
+				sum("totalRevenueForecast") AS "totalRevenue",----
+				sum("totalNetRevenueForecast") AS "totalNetRevenue",
+				sum("tonnageForecast") AS "tonnage",----
+				sum("totalNetLaborCostForecast") AS "totalNetLaborCost",
+				sum("totalNetEquipmentCostForecast") AS "totalNetEquipmentCost",
+				sum("totalOtherLandfillExpensesForecast") AS "totalOtherLandfillExpenses",
+				sum("totalLandfillOperatingExpenseForecast") AS "totalLandfillOperatingExpense",
+				sum("landfillOperatingProfitForecast") AS "landfillOperatingProfit",
+				null/*sum("operatingIncomeForecast")*/ AS "operatingIncome",
+				null/*sum("compactorHoursForecast")*/ AS "compactorHours",
+				null/*sum("excavatedCubicYardsForecast")*/ AS "excavatedCubicYards",
+				null/*sum("excavatorLoaderHoursForecast")*/ AS "excavatorLoaderHours",
+				null/*sum("capexCostForecast")*/ AS "capexCost",
+				null/*sum("capexCubicYardsForecast")*/ AS "capexCubicYards",
+				null/*sum("loadsForecast")*/ AS "loads",----
+				null/*sum("truckHoursForecast")*/ AS "truckHours",----
+				sum("equipmentCostForecast") AS "equipmentCost"
+				--	 sum("tonnagePYCMForecast") AS "tonnagePYCM"
+			FROM "rumpke.bi.operations.reuse::landfillScorecardReuse"
+			where "fiscalYear" = year(current_date)
+			GROUP BY "profitCenter", "fiscalYearPeriod"	
+			union all
+			SELECT
+				"profitCenter",
+				"fiscalYearPeriod",
+				'Projection' as "version",
+				--	 sum("percentTonnageYOYProjection") AS "percentTonnageYOY",
+	
+				null/*sum("allOtherCostsProjection")*/ AS "allOtherCosts",
+				null/*sum("compactorTonsProjection")*/ AS "compactorTons",
+				sum("costOfOperationsProjection") AS "costOfOperations",
+				sum("cubicYardsConsumedProjection") AS "cubicYardsConsumed",
+				sum("ebitdaTargetProjection") AS "EBITDATarget",----
+				sum("equipmentRepairCostProjection") AS "equipmentRepairCost",
+				sum("equipmentHoursProjection") AS "equipmentHours",
+				null/*sum("excavatorLoaderTonsProjection")*/ AS "excavatorLoaderTons",
+				null/*sum("expenseCubicYardsProjection")*/ AS "expenseCubicYards",
+				sum("fuelCostProjection") AS "fuelCost",----
+				sum("ownershipCostProjection") AS "ownershipCost",
+				sum("payrollHoursProjection") AS "payrollHours",
+				sum("productivityDailyCoverProjection") AS "productivityDailyCover",
+				sum("cellAmortizationProjection") AS "cellAmortization",
+				sum("totalRevenueProjection") AS "totalRevenue",----
+				sum("totalNetRevenueProjection") AS "totalNetRevenue",
+				sum("tonnageProjection") AS "tonnage",----
+				sum("totalNetLaborCostProjection") AS "totalNetLaborCost",
+				sum("totalNetEquipmentCostProjection") AS "totalNetEquipmentCost",
+				sum("totalOtherLandfillExpensesProjection") AS "totalOtherLandfillExpenses",
+				sum("totalLandfillOperatingExpenseProjection") AS "totalLandfillOperatingExpense",
+				sum("landfillOperatingProfitProjection") AS "landfillOperatingProfit",
+				null/*sum("operatingIncomeProjection")*/ AS "operatingIncome",
+				null/*sum("compactorHoursProjection")*/ AS "compactorHours",
+				null/*sum("excavatedCubicYardsProjection")*/ AS "excavatedCubicYards",
+				null/*sum("excavatorLoaderHoursProjection")*/ AS "excavatorLoaderHours",
+				null/*sum("capexCostProjection")*/ AS "capexCost",
+				null/*sum("capexCubicYardsProjection")*/ AS "capexCubicYards",
+				null/*sum("loadsProjection")*/ AS "loads",----
+				null/*sum("truckHoursProjection")*/ AS "truckHours",----
+				sum("equipmentCostProjection") AS "equipmentCost"
+				--	 sum("tonnagePYCMProjection") AS "tonnagePYCM"
+			FROM "rumpke.bi.operations.reuse::landfillScorecardReuse"
+			where "fiscalYear" = year(current_date)
+			GROUP BY "profitCenter", "fiscalYearPeriod"
+		) l on l."fiscalYearPeriod" = oh."fiscYearPer" and l."profitCenter" = oh."profitCenter" and l."version" = v."version"
+		left join (
+           select
+            	"fiscalYearPeriod",
+            	"profitCenter",
+            	'Actual' as "version",
+            	sum("equipmentRepairCostActual") AS "equipmentRepairCost",
+            	sum("equipmentHoursActual") AS "equipmentHours",
+            	sum("ownershipCostActual") AS "ownershipCost",
+            	sum("payrollHoursActual") AS "payrollHours",
+            	sum("totalRevenueIntercompanyActual") AS "totalRevenueIntercompany",
+            	sum("totalRevenue3rdPartyActual") AS "totalRevenue3rdParty",
+            	sum("totalNetRevenue3rdPartyActual") AS "totalNetRevenue3rdParty",
+            	sum("totalNetRevenueActual") AS "totalNetRevenue",
+            	sum("totalOtherRevActual") AS "totalOtherRevenue",
+            	sum("totalNetLaborCostActual") AS "totalNetLaborCost",
+            	sum("totalNetEquipmentCostActual") AS "totalNetEquipmentCost",
+				sum("totalEquipmentCostActual") AS "totalEquipmentCost",
+            	sum("outboundTonsActual") AS "outboundTons",
+            	sum("outboundLoadsActual") AS "outboundLoads",
+            	sum("inboundTonsActual") AS "inboundTons",
+            	null AS "inboundLoads",
+            	sum("totalRevenueActual") AS "totalRevenue",
+            	sum("ebitdaTargetActual") AS "EBITDATarget",
+            	sum("costOfOperationsActual") AS "costOfOperations",
+            	sum("OtherOperatingCostActual") AS "otherOperatingCost",
+            	sum("haulingExpenseActual") AS "haulingExpense",
+            	sum("disposalExpenseActual") AS "disposalExpense",
+				sum("OperatingIncomeActual") AS "operatingIncome",
+				sum("allOtherCostsActual") AS "allOtherCosts",
+				--sum("OtherIncomeInterestandAmortizationActual") as "otherIncomeInterestandAmortization",
+            	sum("fuelCostActual") AS "fuelCost",
+            	sum("tonnageActual") AS "tonnage",
+            	sum("otherTransferCostActual") AS "otherTransferCost",
+            	sum("tonnage3rdPartyActual") AS "tonnage3rdParty",
+            	sum("tonnageIntercompanyActual") AS "tonnageIntercompany"
+            from "rumpke.bi.reporting.operations::transferScorecard"
+            where "fiscalYear" = year(current_date)
+            group by "fiscalYearPeriod", "profitCenter"
+            union all
+            select
+            	"fiscalYearPeriod",
+            	"profitCenter",
+            	'Budget' as "version",
+            	sum("equipmentRepairCostBudget") AS "equipmentRepairCost",
+            	sum("equipmentHoursBudget") AS "equipmentHours",
+            	sum("ownershipCostBudget") AS "ownershipCost",
+            	sum("payrollHoursBudget") AS "payrollHours",
+            	sum("totalRevenueIntercompanyBudget") AS "totalRevenueIntercompany",
+            	sum("totalRevenue3rdPartyBudget") AS "totalRevenue3rdParty",
+            	sum("totalNetRevenue3rdPartyBudget") AS "totalNetRevenue3rdParty",
+            	sum("totalNetRevenueBudget") AS "totalNetRevenue",
+            	sum("totalOtherRevBudget") AS "totalOtherRevenue",
+            	sum("totalNetLaborCostBudget") AS "totalNetLaborCost",
+            	sum("totalNetEquipmentCostBudget") AS "totalNetEquipmentCost",
+				sum("totalEquipmentCostBudget") AS "totalEquipmentCost",
+            	sum("outboundTonsBudget") AS "outboundTons",
+            	sum("outboundLoadsBudget") AS "outboundLoads",
+            	sum("inboundTonsBudget") AS "inboundTons",
+            	null AS "inboundLoads",
+            	sum("totalRevenueBudget") AS "totalRevenue",
+            	sum("ebitdaTargetBudget") AS "EBITDATarget",
+            	sum("costOfOperationsBudget") AS "costOfOperations",
+            	sum("OtherOperatingCostBudget") AS "otherOperatingCost",
+            	sum("haulingExpenseBudget") AS "haulingExpense",
+            	sum("disposalExpenseBudget") AS "disposalExpense",
+				sum("OperatingIncomeBudget") AS "operatingIncome",
+				sum("allOtherCostsBudget") AS "allOtherCosts",
+				--sum("OtherIncomeInterestandAmortizationBudget") as "otherIncomeInterestandAmortization",
+            	sum("fuelCostBudget") AS "fuelCost",
+            	sum("tonnageBudget") AS "tonnage",
+            	sum("otherTransferCostBudget") AS "otherTransferCost",
+            	sum("tonnage3rdPartyBudget") AS "tonnage3rdParty",
+            	sum("tonnageIntercompanyBudget") AS "tonnageIntercompany"
+            from "rumpke.bi.reporting.operations::transferScorecard"
+            where "fiscalYear" = year(current_date)
+            group by "fiscalYearPeriod", "profitCenter"
+            union all
+            select
+            	"fiscalYearPeriod",
+            	"profitCenter",
+            	'Forecast' as "version",
+            	null AS "equipmentRepairCost",
+            	null AS "equipmentHours",
+            	null AS "ownershipCost",
+            	null AS "payrollHours",
+            	sum("totalRevenueIntercompanyForecast") AS "totalRevenueIntercompany",
+            	sum("totalRevenue3rdPartyForecast") AS "totalRevenue3rdParty",
+            	null AS "totalNetRevenue3rdParty",
+            	null AS "totalNetRevenue",
+            	null AS "totalOtherRevenue",
+            	null AS "totalNetLaborCost",
+            	null AS "totalNetEquipmentCost",
+				null AS "totalEquipmentCost",
+            	null AS "outboundTons",
+            	sum("outboundLoadsForecast") AS "outboundLoads",
+            	null AS "inboundTons",
+            	null AS "inboundLoads",
+            	sum("totalRevenueForecast") AS "totalRevenue",
+            	sum("ebitdaTargetForecast") AS "EBITDATarget",
+            	sum("costOfOperationsForecast") AS "costOfOperations",
+            	sum("OtherOperatingCostForecast") AS "otherOperatingCost",
+            	sum("haulingExpenseForecast") AS "haulingExpense",
+            	sum("disposalExpenseForecast") AS "disposalExpense",
+				sum("OperatingIncomeForecast") AS "operatingIncome",
+				sum("allOtherCostsForecast") AS "allOtherCosts",
+				--sum("OtherIncomeInterestandAmortizationForecast") as "otherIncomeInterestandAmortization",
+            	sum("fuelCostForecast") AS "fuelCost",
+            	sum("tonnageForecast") AS "tonnage",
+            	sum("otherTransferCostForecast") AS "otherTransferCost",
+            	sum("tonnage3rdPartyForecast") AS "tonnage3rdParty",
+            	sum("tonnageIntercompanyForecast") AS "tonnageIntercompany"
+            from "rumpke.bi.reporting.operations::transferScorecard"
+            where "fiscalYear" = year(current_date)
+            group by "fiscalYearPeriod", "profitCenter"
+            union all
+            select
+            	"fiscalYearPeriod",
+            	"profitCenter",
+            	'Projection' as "version",
+            	null AS "equipmentRepairCost",
+            	null AS "equipmentHours",
+            	null AS "ownershipCost",
+            	null AS "payrollHours",
+            	sum("totalRevenueIntercompanyProjection") AS "totalRevenueIntercompany",
+            	null AS "totalRevenue3rdParty",
+            	null AS "totalNetRevenue3rdParty",
+            	null AS "totalNetRevenue",
+            	null AS "totalOtherRevenue",
+            	null AS "totalNetLaborCost",
+            	null AS "totalNetEquipmentCost",
+				null AS "totalEquipmentCost",
+            	null AS "outboundTons",
+            	null AS "outboundLoads",
+            	null AS "inboundTons",
+            	null AS "inboundLoads",
+            	sum("totalRevenueProjection") AS "totalRevenue",
+            	sum("ebitdaTargetProjection") AS "EBITDATarget",
+            	sum("costOfOperationsProjection") AS "costOfOperations",
+            	sum("OtherOperatingCostProjection") AS "otherOperatingCost",
+            	sum("haulingExpenseProjection") AS "haulingExpense",
+            	sum("disposalExpenseProjection") AS "disposalExpense",
+				sum("OperatingIncomeProjection") AS "operatingIncome",
+				sum("allOtherCostsProjection") AS "allOtherCosts",
+				--sum("OtherIncomeInterestandAmortizationProjection") as "otherIncomeInterestandAmortization",
+            	sum("fuelCostProjection") AS "fuelCost",
+            	sum("tonnageProjection") AS "tonnage",
+            	sum("otherTransferCostProjection") AS "otherTransferCost",
+            	sum("tonnage3rdPartyProjection") AS "tonnage3rdParty",
+            	sum("tonnageIntercompanyProjection") AS "tonnageIntercompany"
+            from "rumpke.bi.reporting.operations::transferScorecard"
+            where "fiscalYear" = year(current_date)
+            group by "fiscalYearPeriod", "profitCenter"
+        ) t on t."fiscalYearPeriod" = oh."fiscYearPer" and t."profitCenter" = oh."profitCenter" and t."version" = v."version"
+		where 
+			h."profitCenter" is not null or 
+			r."profitCenter" is not null or
+			l."profitCenter" is not null or
+			t."profitCenter" is not null;
+    	
+    END IF;
+END
+;

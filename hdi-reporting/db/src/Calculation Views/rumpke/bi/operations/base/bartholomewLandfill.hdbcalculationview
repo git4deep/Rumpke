@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::bartholomewLandfill" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Bartholomew Landfill"/>
+  <metadata changedAt="2020-03-10 16:32:47.702"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="32"/>
+  <dataSources>
+    <DataSource id="Bartholomew_Landfill">
+      <resourceUri>rumpke.bi.operations.base.flatfile::Bartholomew_Landfill</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="market"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="landfillDT"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="customerDesc"/>
+        <viewAttribute id="countryNumber"/>
+        <viewAttribute id="countryDesc"/>
+        <viewAttribute id="wasteNumber"/>
+        <viewAttribute id="wasteDesc"/>
+        <viewAttribute id="actualGrossWeight"/>
+        <viewAttribute id="actualTareWeight"/>
+        <viewAttribute id="actualNetWeight"/>
+        <viewAttribute id="actualGenFee"/>
+        <viewAttribute id="actualTownshipFee"/>
+        <viewAttribute id="actualStateFee"/>
+        <viewAttribute id="actualOtherFee"/>
+        <viewAttribute id="actualDispRevenue"/>
+        <viewAttribute id="intercompany"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Bartholomew_Landfill">
+        <mapping xsi:type="Calculation:AttributeMapping" target="market" source="MARKET"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="DISTRICT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillDT" source="LANDFILL_DT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FISCAL_MONTH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="TRUCKNUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerNumber" source="CUSTOMER_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerDesc" source="CUSTOMER_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryNumber" source="COUNTRY_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryDesc" source="COUNTRY_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wasteNumber" source="WASTE_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wasteDesc" source="WASTE_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualGrossWeight" source="ACT_GROSS_WEIGHT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualTareWeight" source="ACT_TARE_WEIGHT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualNetWeight" source="ACT_NET_WEIGHT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualGenFee" source="ACT_GEN_FEE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualTownshipFee" source="ACT_TOWNSHIP_FEE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualStateFee" source="ACT_STATE_FEE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualOtherFee" source="ACT_OTHER_FEE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualDispRevenue" source="ACT_DISP_REV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="intercompany" source="INTERCOMPANY"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="market" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="market"/>
+        <keyMapping columnObjectName="Projection_1" columnName="market"/>
+      </attribute>
+      <attribute id="district" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="district"/>
+        <keyMapping columnObjectName="Projection_1" columnName="district"/>
+      </attribute>
+      <attribute id="landfillDT" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="landfillDT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="landfillDT"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="vehicleID" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="vehicleID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="vehicleID"/>
+      </attribute>
+      <attribute id="customerNumber" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="customerNumber"/>
+        <keyMapping columnObjectName="Projection_1" columnName="customerNumber"/>
+      </attribute>
+      <attribute id="customerDesc" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="customerDesc"/>
+        <keyMapping columnObjectName="Projection_1" columnName="customerDesc"/>
+      </attribute>
+      <attribute id="countryNumber" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="countryNumber"/>
+        <keyMapping columnObjectName="Projection_1" columnName="countryNumber"/>
+      </attribute>
+      <attribute id="countryDesc" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="countryDesc"/>
+        <keyMapping columnObjectName="Projection_1" columnName="countryDesc"/>
+      </attribute>
+      <attribute id="wasteNumber" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="wasteNumber"/>
+        <keyMapping columnObjectName="Projection_1" columnName="wasteNumber"/>
+      </attribute>
+      <attribute id="wasteDesc" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="wasteDesc"/>
+        <keyMapping columnObjectName="Projection_1" columnName="wasteDesc"/>
+      </attribute>
+      <attribute id="intercompany" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="intercompany"/>
+        <keyMapping columnObjectName="Projection_1" columnName="intercompany"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="actualGrossWeight" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualGrossWeight"/>
+        <measureMapping columnObjectName="Projection_1" columnName="actualGrossWeight"/>
+      </measure>
+      <measure id="actualTareWeight" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualTareWeight"/>
+        <measureMapping columnObjectName="Projection_1" columnName="actualTareWeight"/>
+      </measure>
+      <measure id="actualNetWeight" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualNetWeight"/>
+        <measureMapping columnObjectName="Projection_1" columnName="actualNetWeight"/>
+      </measure>
+      <measure id="actualGenFee" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualGenFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="actualGenFee"/>
+      </measure>
+      <measure id="actualTownshipFee" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualTownshipFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="actualTownshipFee"/>
+      </measure>
+      <measure id="actualStateFee" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualStateFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="actualStateFee"/>
+      </measure>
+      <measure id="actualOtherFee" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualOtherFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="actualOtherFee"/>
+      </measure>
+      <measure id="actualDispRevenue" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualDispRevenue"/>
+        <measureMapping columnObjectName="Projection_1" columnName="actualDispRevenue"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

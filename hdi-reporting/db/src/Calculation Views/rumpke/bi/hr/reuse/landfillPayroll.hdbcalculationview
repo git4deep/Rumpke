@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.hr.reuse::landfillPayroll" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Landfill Payroll"/>
+  <metadata changedAt="2020-06-22 15:24:15.526"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.plantMaintainance.reuse::utmEmployeeHours">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::utmEmployeeHours</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeDimension">
+      <resourceUri>rumpke.bi.masterData.time::timeDimension</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="employeeFirstName"/>
+        <viewAttribute id="employeeLastName"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workDate"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.plantMaintainance.reuse::utmEmployeeHours"/>
+    <filter>(in (&quot;jobCode&quot;,'HEQOPRTR','LFFOR','LABORER'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="dateSQL"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeDimension"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="employeeFirstName"/>
+        <viewAttribute id="employeeLastName"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      <viewAttribute hidden="true" id="JOIN$workDate$dateSQL"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullName" source="employeeFullName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFirstName" source="employeeFirstName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLastName" source="employeeLastName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="payCodeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$workDate$dateSQL" source="workDate"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$workDate$dateSQL" source="dateSQL"/>
+      </input>
+    <joinAttribute name="JOIN$workDate$dateSQL"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="employeeID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="employeeID"/>
+      </attribute>
+      <attribute id="employeeFullName" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee Full Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="employeeFullName"/>
+      </attribute>
+      <attribute id="employeeFirstName" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee First Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="employeeFirstName"/>
+      </attribute>
+      <attribute id="employeeLastName" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee Last Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="employeeLastName"/>
+      </attribute>
+      <attribute id="profitCenter" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="costCenter" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="jobCode" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Job Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="jobCode"/>
+      </attribute>
+      <attribute id="payCodeNumber" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Pay Code Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="payCodeNumber"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Join_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="regularHours" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Regular Hours"/>
+        <measureMapping columnObjectName="Join_1" columnName="regularHours"/>
+      </measure>
+      <measure id="overtimeHours" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Overtime Hours"/>
+        <measureMapping columnObjectName="Join_1" columnName="overtimeHours"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="payrollHoursActual" hidden="false" order="11" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Payroll Hours - Actual"/>
+        <formula>&quot;regularHours&quot; + &quot;overtimeHours&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

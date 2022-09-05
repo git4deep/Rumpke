@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.finance.base::haulingProductivitySummary" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Hauling Productivity Summary"/>
+  <metadata changedAt="2019-10-30 16:14:42.26"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="MSSQL::data_HaulingProductivitySummary">
+      <resourceUri>MSSQL::data_HaulingProductivitySummary</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="ProfitCenter"/>
+        <viewAttribute id="LOB_Code"/>
+        <viewAttribute id="Versions"/>
+        <viewAttribute id="Record_Type"/>
+        <viewAttribute id="Stops"/>
+        <viewAttribute id="ExtraStops"/>
+        <viewAttribute id="Lifts"/>
+        <viewAttribute id="ExtraLifts"/>
+        <viewAttribute id="Loads"/>
+        <viewAttribute id="Tons"/>
+        <viewAttribute id="Yards"/>
+        <viewAttribute id="ExtraYards"/>
+        <viewAttribute id="Hours"/>
+        <viewAttribute id="MechHours"/>
+        <viewAttribute id="LandfillFee"/>
+        <viewAttribute id="LaborCost"/>
+        <viewAttribute id="FuelCost"/>
+        <viewAttribute id="VehicleCost"/>
+        <viewAttribute id="MechCost"/>
+        <viewAttribute id="GrossRevenue"/>
+        <viewAttribute id="ExtraRevenue"/>
+        <viewAttribute id="RouteCustomerMiles"/>
+        <viewAttribute id="DownMiles"/>
+        <viewAttribute id="FiscalMonthID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="MSSQL::data_HaulingProductivitySummary"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="ProfitCenter" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProfitCenter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ProfitCenter"/>
+      </attribute>
+      <attribute id="LOB_Code" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LOB_Code"/>
+        <keyMapping columnObjectName="Projection_1" columnName="LOB_Code"/>
+      </attribute>
+      <attribute id="Versions" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Versions"/>
+        <keyMapping columnObjectName="Projection_1" columnName="Versions"/>
+      </attribute>
+      <attribute id="Record_Type" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Record_Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="Record_Type"/>
+      </attribute>
+      <attribute id="FiscalMonthID" order="24" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FiscalMonthID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="FiscalMonthID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Stops" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Stops"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Stops"/>
+      </measure>
+      <measure id="ExtraStops" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="ExtraStops"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ExtraStops"/>
+      </measure>
+      <measure id="Lifts" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Lifts"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Lifts"/>
+      </measure>
+      <measure id="ExtraLifts" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="ExtraLifts"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ExtraLifts"/>
+      </measure>
+      <measure id="Loads" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Loads"/>
+      </measure>
+      <measure id="Tons" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Tons"/>
+      </measure>
+      <measure id="Yards" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Yards"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Yards"/>
+      </measure>
+      <measure id="ExtraYards" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="ExtraYards"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ExtraYards"/>
+      </measure>
+      <measure id="Hours" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="Hours"/>
+      </measure>
+      <measure id="MechHours" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="MechHours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="MechHours"/>
+      </measure>
+      <measure id="LandfillFee" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="LandfillFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="LandfillFee"/>
+      </measure>
+      <measure id="LaborCost" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="LaborCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="LaborCost"/>
+      </measure>
+      <measure id="FuelCost" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="FuelCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="FuelCost"/>
+      </measure>
+      <measure id="VehicleCost" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="VehicleCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="VehicleCost"/>
+      </measure>
+      <measure id="MechCost" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="MechCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="MechCost"/>
+      </measure>
+      <measure id="GrossRevenue" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="GrossRevenue"/>
+        <measureMapping columnObjectName="Projection_1" columnName="GrossRevenue"/>
+      </measure>
+      <measure id="ExtraRevenue" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="ExtraRevenue"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ExtraRevenue"/>
+      </measure>
+      <measure id="RouteCustomerMiles" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="RouteCustomerMiles"/>
+        <measureMapping columnObjectName="Projection_1" columnName="RouteCustomerMiles"/>
+      </measure>
+      <measure id="DownMiles" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="DownMiles"/>
+        <measureMapping columnObjectName="Projection_1" columnName="DownMiles"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="70" y="150"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="80" y="270"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

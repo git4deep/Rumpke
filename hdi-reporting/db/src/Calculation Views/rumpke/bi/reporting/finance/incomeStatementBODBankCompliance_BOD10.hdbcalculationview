@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.finance::incomeStatementBODBankCompliance_BOD10" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="incomeStatementBODBankCompliance"/>
+  <metadata changedAt="2021-04-14 13:55:29.433"/>
+  <localVariables>
+    <variable id="ip_calMonth" parameter="true">
+      <descriptions defaultDescription="ip_calMonth"/>
+      <variableProperties datatype="VARCHAR" length="7" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.data.proc::timeAttributesFiscalPeriodInput">
+      <targetVariable name="IP_CALMONTH" resourceUri="rumpke.bi.data.proc::timeAttributesFiscalPeriodInput"/>
+      <localVariable>ip_calMonth</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="42"/>
+  <dataSources>
+    <DataSource id="incomeStatementBODBase">
+      <resourceUri>rumpke.bi.reporting.finance::incomeStatementBODBase</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.data.proc::timeAttributesFiscalPeriodInput" type="TABLE_FUNCTION">
+      <resourceUri>rumpke.bi.data.proc::timeAttributesFiscalPeriodInput</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="year"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="bankSummaryCategory" length="60" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and &quot;lineOfBusinessGroup&quot;='Transfer', 'TRANSFER',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and IN(&quot;revenueCategory&quot;,'DISPOSAL  ', 'DISPOSAL MUNICIPAL MSW', 'DISPOSAL MUNICIPAL SPECIALWASTE', 'DISPOSAL SUBSCRIPTION ', 'DISPOSAL SUBSCRIPTION MSW', 'DISPOSAL SUBSCRIPTION RECYCLING', 'DISPOSAL SUBSCRIPTION SPECIALWASTE', 'DISPOSAL SUBSCRIPTION TIRES', 'DISPOSAL SUBSCRIPTION YARDWASTE', 'DISPOSALSITEMGT SUBSCRIPTION '), 'DISPOSAL',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and IN(&quot;revenueCategory&quot;,'HAULING  ', 'HAULING MUNICIPAL MSW', 'HAULING MUNICIPAL RECYCLING', 'HAULING SUBSCRIPTION ', 'HAULING SUBSCRIPTION MSW', 'HAULING SUBSCRIPTION RECYCLING', 'HAULING SUBSCRIPTION SPECIALWASTE', 'HAULING TRANSACTIONAL MSW', 'HAULING TRANSACTIONAL RECYCLING', 'HAULING TRANSACTIONAL TIRES'), 'HAULING',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and IN(&quot;revenueCategory&quot;,'RECYCLINGMATERIAL MUNICIPAL RECYCLING', 'RECYCLINGMATERIAL SUBSCRIPTION RECYCLING', 'RECYCLINGMATERIAL TRANSACTIONAL RECYCLING', 'RECYCLINGREBATES SUBSCRIPTION RECYCLING'), 'RECYCLING',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and ISNULL(&quot;revenueCategory&quot;), 'OTHER',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and IN(&quot;revenueCategory&quot;, 'BROKERAGE  ', 'BROKERAGE SUBSCRIPTION ', 'BROKERAGE SUBSCRIPTION MSW', 'CONTAINERSALES SUBSCRIPTION ', 'CONTAINERSALES SUBSCRIPTION ', 'CONTAINERSALES TRANSACTIONAL ', 'EQUIPMENTSERVICES  ', 'EQUIPMENTSERVICES SUBSCRIPTION ', 'EQUIPMENTSERVICES SUBSCRIPTION ', 'EQUIPMENTSERVICES TRANSACTIONAL ', 'EQUIPMENTSERVICES TRANSACTIONAL LABOR', 'EQUIPMENTSERVICES TRANSACTIONAL PARTS', 'EQUIPMENTSERVICES TRANSACTIONAL PARTS', 'EQUIPMENTSERVICES TRANSACTIONAL YARDWASTE', 'LEASE SUBSCRIPTION ', 'LEASE SUBSCRIPTION MSW', 'MATERIALSALES SUBSCRIPTION ', 'MATERIALSALES SUBSCRIPTION GASEXTRACTION', 'OTHER  ', 'OTHER SUBSCRIPTION ', 'OTHER SUBSCRIPTION LIQUID', 'OTHER SUBSCRIPTION RECYCLING', 'OTHER TRANSACTIONAL ', 'OTHER TRANSACTIONAL FREIGHT', 'OTHER TRANSACTIONAL LABOR', 'OTHER TRANSACTIONAL MSW', 'OTHER TRANSACTIONAL PARTS', 'OTHER TRANSACTIONAL RECYCLING', 'PROCESSING  ', 'PROCESSING MUNICIPAL MSW', 'PROCESSING SUBSCRIPTION ', 'PROCESSING SUBSCRIPTION RECYCLING', 'PROCESSING SUBSCRIPTION RECYCLING', 'PROCESSING TRANSACTIONAL ', 'PROCESSING TRANSACTIONAL RECYCLING'), 'OTHER',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue'  and &quot;lineOfBusinessGroup&quot;='Transfer' ,'TOTAL REVENUE',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Cell Amortization', 'Depreciation', 'Amortization'), 'DEPRECIATION AND AMORTIZATION',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'EBITDA'), 'EBITDA',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Income Tax'), 'INCOME TAX',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Interest'), 'INTEREST EXPENSE',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Other Income'), 'MISCELLANEOUS INCOME-NET',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Net Income'), 'NET INCOME',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Net Income Before Tax'), 'NET INCOME BEFORE TAX',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Cost of Goods Sold', 'Maintenance', 'Operations', 'Operations Allocation', 'Taxes', 'Other Operations', 'Corporate Allocation'), 'OPERATING EXPENSES',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'SG&amp;A'), 'SELLING, GENERAL AND ADMINISTRATIVE EXPENSES',''))))))))))))))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="bankSummaryCategoryGroup" length="60" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and &quot;lineOfBusinessGroup&quot;='Transfer', 'REVENUES',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and IN(&quot;revenueCategory&quot;,'DISPOSAL  ', 'DISPOSAL MUNICIPAL MSW', 'DISPOSAL MUNICIPAL SPECIALWASTE', 'DISPOSAL SUBSCRIPTION ', 'DISPOSAL SUBSCRIPTION MSW', 'DISPOSAL SUBSCRIPTION RECYCLING', 'DISPOSAL SUBSCRIPTION SPECIALWASTE', 'DISPOSAL SUBSCRIPTION TIRES', 'DISPOSAL SUBSCRIPTION YARDWASTE', 'DISPOSALSITEMGT SUBSCRIPTION '), 'REVENUES',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and IN(&quot;revenueCategory&quot;,'HAULING  ', 'HAULING MUNICIPAL MSW', 'HAULING MUNICIPAL RECYCLING', 'HAULING SUBSCRIPTION ', 'HAULING SUBSCRIPTION MSW', 'HAULING SUBSCRIPTION RECYCLING', 'HAULING SUBSCRIPTION SPECIALWASTE', 'HAULING TRANSACTIONAL MSW', 'HAULING TRANSACTIONAL RECYCLING', 'HAULING TRANSACTIONAL TIRES'), 'REVENUES',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and IN(&quot;revenueCategory&quot;,'RECYCLINGMATERIAL MUNICIPAL RECYCLING', 'RECYCLINGMATERIAL SUBSCRIPTION RECYCLING', 'RECYCLINGMATERIAL TRANSACTIONAL RECYCLING', 'RECYCLINGREBATES SUBSCRIPTION RECYCLING'), 'REVENUES',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and ISNULL(&quot;revenueCategory&quot;), 'REVENUES',
+if(&quot;functionalAreaGroupDescription&quot;='Total Revenue' and IN(&quot;revenueCategory&quot;, 'BROKERAGE  ', 'BROKERAGE SUBSCRIPTION ', 'BROKERAGE SUBSCRIPTION MSW', 'CONTAINERSALES SUBSCRIPTION ', 'CONTAINERSALES SUBSCRIPTION ', 'CONTAINERSALES TRANSACTIONAL ', 'EQUIPMENTSERVICES  ', 'EQUIPMENTSERVICES SUBSCRIPTION ', 'EQUIPMENTSERVICES SUBSCRIPTION ', 'EQUIPMENTSERVICES TRANSACTIONAL ', 'EQUIPMENTSERVICES TRANSACTIONAL LABOR', 'EQUIPMENTSERVICES TRANSACTIONAL PARTS', 'EQUIPMENTSERVICES TRANSACTIONAL PARTS', 'EQUIPMENTSERVICES TRANSACTIONAL YARDWASTE', 'LEASE SUBSCRIPTION ', 'LEASE SUBSCRIPTION MSW', 'MATERIALSALES SUBSCRIPTION ', 'MATERIALSALES SUBSCRIPTION GASEXTRACTION', 'OTHER  ', 'OTHER SUBSCRIPTION ', 'OTHER SUBSCRIPTION LIQUID', 'OTHER SUBSCRIPTION RECYCLING', 'OTHER TRANSACTIONAL ', 'OTHER TRANSACTIONAL FREIGHT', 'OTHER TRANSACTIONAL LABOR', 'OTHER TRANSACTIONAL MSW', 'OTHER TRANSACTIONAL PARTS', 'OTHER TRANSACTIONAL RECYCLING', 'PROCESSING  ', 'PROCESSING MUNICIPAL MSW', 'PROCESSING SUBSCRIPTION ', 'PROCESSING SUBSCRIPTION RECYCLING', 'PROCESSING SUBSCRIPTION RECYCLING', 'PROCESSING TRANSACTIONAL ', 'PROCESSING TRANSACTIONAL RECYCLING'), 'REVENUES',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Cell Amortization', 'Depreciation', 'Amortization'), 'OPERATING EXPENSES',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'EBITDA'), '',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Income Tax'), '',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Interest'), 'OTHER',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Other Income'), 'OTHER',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Net Income'), '',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Net Income Before Tax'), '',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'Cost of Goods Sold', 'Maintenance', 'Operations', 'Operations Allocation', 'Taxes', 'Other Operations', 'Corporate Allocation'), 'OPERATING EXPENSES',
+if(IN(&quot;functionalAreaGroupDescription&quot;, 'SG&amp;A'), 'OPERATING EXPENSES','')))))))))))))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="bankSummaryCategorySort" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;bankSummaryCategory&quot;='HAULING', '01',
+if(&quot;bankSummaryCategory&quot;='DISPOSAL', '02',
+if(&quot;bankSummaryCategory&quot;='RECYCLING', '03',
+if(&quot;bankSummaryCategory&quot;='TRANSFER', '04',
+if(&quot;bankSummaryCategory&quot;='OTHER', '05',
+if(&quot;bankSummaryCategory&quot;='TOTAL REVENUE', '06',
+if(&quot;bankSummaryCategory&quot;='OPERATING EXPENSES', '07',
+if(&quot;bankSummaryCategory&quot;='SELLING, GENERAL AND ADMINISTRATIVE EXPENSES', '08',
+if(&quot;bankSummaryCategory&quot;='DEPRECIATION AND AMORTIZATION', '09',
+if(&quot;bankSummaryCategory&quot;='INTEREST EXPENSE', '10',
+if(&quot;bankSummaryCategory&quot;='MISCELLANEOUS INCOME-NET', '11',
+if(&quot;bankSummaryCategory&quot;='NET INCOME BEFORE TAX','12',
+if(&quot;bankSummaryCategory&quot;='INCOME TAX', '13',
+if(&quot;bankSummaryCategory&quot;='NET INCOME', '14',
+if(&quot;bankSummaryCategory&quot;='EBITDA', '15',
+'')))))))))))))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="bankSummaryCategoryGroupSort" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;bankSummaryCategoryGroup&quot;='REVENUES', '01',
+if(&quot;bankSummaryCategoryGroup&quot;='OTHER', '03',
+if(&quot;bankSummaryCategoryGroup&quot;='OPERATING EXPENSES', '02','05')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="bankSummaryCatNew" length="60" expressionLanguage="COLUMN_ENGINE">
+          <formula>
+if(IN(&quot;bankSummaryCategory&quot;,'HAULING','DISPOSAL','RECYCLING'),'TOTAL REVENUE',if(&quot;bankSummaryCategory&quot;='HAULING','HAULING',''))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="incomeStatementBODBase"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.data.proc::timeAttributesFiscalPeriodInput"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="bankSummaryCategory"/>
+        <viewAttribute id="bankSummaryCategoryGroup"/>
+        <viewAttribute id="bankSummaryCategorySort"/>
+        <viewAttribute id="bankSummaryCategoryGroupSort"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="revenueCategory" source="revenueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategory" source="bankSummaryCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategoryGroup" source="bankSummaryCategoryGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategorySort" source="bankSummaryCategorySort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategoryGroupSort" source="bankSummaryCategoryGroupSort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="fiscalYearPeriod"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="CM">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="bankSummaryCategoryGroupSort"/>
+        <viewAttribute id="bankSummaryCategorySort"/>
+        <viewAttribute id="bankSummaryCategoryGroup"/>
+        <viewAttribute id="bankSummaryCategory"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'$$ip_calMonth$$'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1"/>
+    <filter>(&quot;rollingYearNo&quot; ='0') AND (&quot;rollingMonthNo&quot; ='0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="qtrData">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="bankSummaryCategoryGroupSort"/>
+        <viewAttribute id="bankSummaryCategorySort"/>
+        <viewAttribute id="bankSummaryCategoryGroup"/>
+        <viewAttribute id="bankSummaryCategory"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'QTD'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1"/>
+    <filter>(&quot;QTD&quot; ='Y') AND (&quot;rollingYearNo&quot; ='0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ytdData">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="bankSummaryCategoryGroupSort"/>
+        <viewAttribute id="bankSummaryCategorySort"/>
+        <viewAttribute id="bankSummaryCategoryGroup"/>
+        <viewAttribute id="bankSummaryCategory"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'YTD'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1"/>
+    <filter>(&quot;ytd&quot; ='Y') AND (&quot;rollingYearNo&quot; ='0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="bankSummaryCategoryGroupSort"/>
+        <viewAttribute id="bankSummaryCategorySort"/>
+        <viewAttribute id="bankSummaryCategoryGroup"/>
+        <viewAttribute id="bankSummaryCategory"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="source"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="CM">
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategoryGroupSort" source="bankSummaryCategoryGroupSort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategorySort" source="bankSummaryCategorySort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategoryGroup" source="bankSummaryCategoryGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategory" source="bankSummaryCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="revenueCategory" source="revenueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="qtrData">
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategoryGroupSort" source="bankSummaryCategoryGroupSort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategorySort" source="bankSummaryCategorySort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategoryGroup" source="bankSummaryCategoryGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategory" source="bankSummaryCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="revenueCategory" source="revenueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="ytdData">
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategoryGroupSort" source="bankSummaryCategoryGroupSort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategorySort" source="bankSummaryCategorySort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategoryGroup" source="bankSummaryCategoryGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="bankSummaryCategory" source="bankSummaryCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="revenueCategory" source="revenueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="bankSummaryCategoryGroupSort" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="bankSummaryCategoryGroupSort"/>
+        <keyMapping columnObjectName="Union_1" columnName="bankSummaryCategoryGroupSort"/>
+      </attribute>
+      <attribute id="bankSummaryCategorySort" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="bankSummaryCategorySort"/>
+        <keyMapping columnObjectName="Union_1" columnName="bankSummaryCategorySort"/>
+      </attribute>
+      <attribute id="bankSummaryCategoryGroup" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="bankSummaryCategoryGroup"/>
+        <keyMapping columnObjectName="Union_1" columnName="bankSummaryCategoryGroup"/>
+      </attribute>
+      <attribute id="bankSummaryCategory" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="bankSummaryCategory"/>
+        <keyMapping columnObjectName="Union_1" columnName="bankSummaryCategory"/>
+      </attribute>
+      <attribute id="year" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="Union_1" columnName="year"/>
+      </attribute>
+      <attribute id="calQuarter" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter"/>
+        <keyMapping columnObjectName="Union_1" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="yearQuarter" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year-Quarter"/>
+        <keyMapping columnObjectName="Union_1" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="fiscalYear" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="fiscYearPer" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscYearPer"/>
+      </attribute>
+      <attribute id="lineOfBusinessGroup" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Group"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusinessGroup"/>
+      </attribute>
+      <attribute id="revenueCategory" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Revenue Category"/>
+        <keyMapping columnObjectName="Union_1" columnName="revenueCategory"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="districtDescription" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="regionDescription" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="areaDescription" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="functionalAreaGroupDescription" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="functionalAreaGroupDescription"/>
+      </attribute>
+      <attribute id="QTD" order="20" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QTD"/>
+        <keyMapping columnObjectName="Union_1" columnName="QTD"/>
+      </attribute>
+      <attribute id="ytd" order="21" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ytd"/>
+        <keyMapping columnObjectName="Union_1" columnName="ytd"/>
+      </attribute>
+      <attribute id="source" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="source"/>
+        <keyMapping columnObjectName="Union_1" columnName="source"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="budget" order="1" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="budget"/>
+      </measure>
+      <measure id="actual" order="2" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="actual"/>
+      </measure>
+      <measure id="variance" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Variance"/>
+        <measureMapping columnObjectName="Union_1" columnName="variance"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions>
+      <localDimension id="bankSummary">
+        <attributeRef xsi:type="DataFoundation:Attribute">bankSummaryCategoryGroup</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">bankSummaryCategory</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="bankSummary" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED">
+            <descriptions defaultDescription="bankSummary"/>
+            <levels>
+              <level levelAttribute="bankSummaryCategoryGroup" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="bankSummaryCategoryGroup"/>
+              <level levelAttribute="bankSummaryCategory" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="bankSummaryCategory"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="377"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="CM" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="299"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="qtrData" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="299"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ytdData" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="299"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

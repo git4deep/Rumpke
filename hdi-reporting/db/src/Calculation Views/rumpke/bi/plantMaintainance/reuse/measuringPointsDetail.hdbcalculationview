@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.reuse::measuringPointsDetail" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" xscCompatibilityMode="true" defaultClient="$$client$$">
+<origin/>
+  <descriptions defaultDescription="Measuring Point Detail Information"/>
+  <metadata changedAt="2020-11-12 16:43:57.304"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="35"/>
+  <dataSources>
+    <DataSource id="measurementPointsMaterialized">
+      <resourceUri>rumpke.bi.plantMaintainance.base::measurementPointsMaterialized</resourceUri>
+    </DataSource>
+    <DataSource id="measuringPoints">
+      <resourceUri>rumpke.bi.plantMaintainance.base::measuringPoints</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::equipmentMaster">
+      <resourceUri>rumpke.bi.masterData.reuse::equipmentMaster</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::costCenter">
+      <resourceUri>rumpke.bi.masterData.base::costCenter</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeDimension">
+      <resourceUri>rumpke.bi.masterData.time::timeDimension</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="vehicleHoursTruckHours">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="documentTime"/>
+        <viewAttribute id="vehicleMiles"/>
+        <viewAttribute id="currentTruckLag"/>
+        <viewAttribute id="currentVehicleLag"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="measuringPointDesc"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDescription"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="priorDocumentDate"/>
+        <viewAttribute id="activityCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="measurementPointsMaterialized"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="milesHours">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="vehicleMilesOrginal"/>
+        <viewAttribute id="currentVehicleLag"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="measuringPointDesc"/>
+        <viewAttribute id="truckHoursOriginal"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDescription"/>
+        <viewAttribute id="currentTruckLag"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="priorDocumentDate"/>
+        <viewAttribute id="activityCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="BIGINT" id="vehicleMiles" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;measuringType&quot; = 'MILES', &quot;vehicleMilesOrginal&quot; - &quot;currentVehicleLag&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="BIGINT" id="truckHours" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;measuringType&quot; = 'HOURS', &quot;truckHoursOriginal&quot; - &quot;currentTruckLag&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="errorFlag" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF((&quot;truckHours&quot;/&quot;daysBetweenMeasuringPoints&quot;) &lt; 0 OR (&quot;truckHours&quot;/&quot;daysBetweenMeasuringPoints&quot;) &gt; 24 OR (&quot;vehicleMiles&quot;/&quot;daysBetweenMeasuringPoints&quot;) &lt; 0 OR (&quot;vehicleMiles&quot;/&quot;daysBetweenMeasuringPoints&quot;) &gt; 1000, 'X','')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="daysBetweenMeasuringPoints" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF((&quot;documentDate&quot; - &quot;priorDocumentDate&quot;) = 0, 1, (&quot;documentDate&quot; - &quot;priorDocumentDate&quot;) + 1)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="vehicleHoursTruckHours">
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleMilesOrginal" source="vehicleMiles"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursOriginal" source="truckHours"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="fuel">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="documentTime"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringPointDesc"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="mdText"/>
+        <viewAttribute id="measuringPointQuantity"/>
+        <viewAttribute id="fuelGallons"/>
+        <viewAttribute id="numberOfHours"/>
+        <viewAttribute id="fuelCostByGallon"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="fuelLocationSpeedway"/>
+        <viewAttribute id="source"/>
+        <viewAttribute id="fuelAmount"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="measuringPoints"/>
+    <filter>(&quot;measuringType&quot; ='FUEL')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringPointDesc"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="mdText"/>
+        <viewAttribute id="measuringPointQuantity"/>
+        <viewAttribute id="fuelGallons"/>
+        <viewAttribute id="numberOfHours"/>
+        <viewAttribute id="fuelCostByGallon"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="fuelAmount"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="fuel"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="mdText"/>
+        <viewAttribute id="measuringPointDesc"/>
+        <viewAttribute id="measuringPointQuantity"/>
+        <viewAttribute id="fuelGallons"/>
+        <viewAttribute id="numberOfHours"/>
+        <viewAttribute id="fuelCostByGallon"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="fuelAmount"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_2"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="activityCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::equipmentMaster"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="fuelCost" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringPointDesc"/>
+        <viewAttribute datatype="DECIMAL" id="fuelGallons" length="13" scale="5"/>
+        <viewAttribute datatype="DECIMAL" id="fuelCostByGallon" length="13" scale="5"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="fuelAmount"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="activityCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringDocumentNumber" source="measuringDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentDate" source="documentDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringType" source="measuringType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPoint" source="measuringPoint"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointDesc" source="measuringPointDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelGallons" source="fuelGallons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostByGallon" source="fuelCostByGallon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointUOM" source="measuringPointUOM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelAmount" source="fuelAmount"/>
+      </input>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+    <joinAttribute name="equipmentNumber"/>
+    <joinAttribute name="client"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute datatype="NVARCHAR" id="measuringDocumentNumber" length="20"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute datatype="BIGINT" id="currentVehicleLag" length="19"/>
+        <viewAttribute datatype="DECIMAL" id="fuelGallons" length="13" scale="5"/>
+        <viewAttribute datatype="DECIMAL" id="fuelCostByGallon" length="13" scale="5"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute datatype="VARCHAR" id="source" length="6"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="measuringPointDesc"/>
+        <viewAttribute datatype="DECIMAL" id="fuelAmount" length="13" scale="2"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute datatype="BIGINT" id="vehicleMiles"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="errorFlag"/>
+        <viewAttribute datatype="INTEGER" id="daysBetweenMeasuringPoints"/>
+        <viewAttribute id="activityCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="milesHours">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentDate" source="documentDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringDocumentNumber" source="measuringDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringType" source="measuringType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPoint" source="measuringPoint"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointUOM" source="measuringPointUOM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentVehicleLag" source="currentVehicleLag"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelGallons" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostByGallon" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="source" null="false" value="SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointDesc" source="measuringPointDesc"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelAmount" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleMiles" source="vehicleMiles"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="errorFlag" source="errorFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="daysBetweenMeasuringPoints" source="daysBetweenMeasuringPoints"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="fuelCost">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentDate" source="documentDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringDocumentNumber" source="measuringDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringType" source="measuringType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPoint" source="measuringPoint"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointUOM" source="measuringPointUOM"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="currentVehicleLag" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelGallons" source="fuelGallons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostByGallon" source="fuelCostByGallon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="source" null="false" value="SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointDesc" source="measuringPointDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelAmount" source="fuelAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vehicleMiles" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHours" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="errorFlag" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="daysBetweenMeasuringPoints" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::costCenter"/>
+    <filter>(&quot;validToDate&quot; ='9999-12-31')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="currentS4Data">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="fuelGallons"/>
+        <viewAttribute id="fuelCostByGallon"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="source"/>
+        <viewAttribute id="fuelAmount"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="vehicleMiles"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="errorFlag"/>
+        <viewAttribute id="daysBetweenMeasuringPoints"/>
+        <viewAttribute id="activityCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringDocumentNumber" source="measuringDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentDate" source="documentDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringType" source="measuringType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPoint" source="measuringPoint"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointUOM" source="measuringPointUOM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelGallons" source="fuelGallons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostByGallon" source="fuelCostByGallon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelAmount" source="fuelAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleMiles" source="vehicleMiles"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="errorFlag" source="errorFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="daysBetweenMeasuringPoints" source="daysBetweenMeasuringPoints"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+      </input>
+      <input node="Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+    <joinAttribute name="costCenter"/>
+    <joinAttribute name="controllingArea"/>
+    <joinAttribute name="client"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="source"/>
+        <viewAttribute id="fuelAmount"/>
+        <viewAttribute id="fuelCostByGallon"/>
+        <viewAttribute id="fuelGallons"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="vehicleMiles"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="errorFlag"/>
+        <viewAttribute id="daysBetweenMeasuringPoints"/>
+        <viewAttribute id="activityCode"/>
+      
+      <viewAttribute id="quarter"/>
+      <viewAttribute id="month"/>
+      <viewAttribute id="year"/>
+      <viewAttribute id="calMonth"/>
+      <viewAttribute id="fiscalYearPeriod"/>
+      <viewAttribute id="calQuarter"/>
+      <viewAttribute id="dateSAP"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="currentS4Data">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentDate" source="documentDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringDocumentNumber" source="measuringDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringType" source="measuringType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPoint" source="measuringPoint"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointUOM" source="measuringPointUOM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelAmount" source="fuelAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostByGallon" source="fuelCostByGallon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelGallons" source="fuelGallons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleMiles" source="vehicleMiles"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="errorFlag" source="errorFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="daysBetweenMeasuringPoints" source="daysBetweenMeasuringPoints"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+      </input>
+    <input node="Projection_6">
+      <mapping xsi:type="Calculation:AttributeMapping" target="quarter" source="quarter"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="month" source="month"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="dateSAP" source="dateSAP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="documentDate" source="dateSQL"/>
+    </input>
+    <joinAttribute name="documentDate"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+    <viewAttributes>
+      <viewAttribute id="quarter"/>
+      <viewAttribute id="month"/>
+      <viewAttribute id="year"/>
+      <viewAttribute id="calMonth"/>
+      <viewAttribute id="fiscalYearPeriod"/>
+      <viewAttribute id="dateSQL"/>
+      <viewAttribute id="calQuarter"/>
+      <viewAttribute id="dateSAP"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="rumpke.bi.masterData.time::timeDimension"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="costCenter" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="costCenter"/>
+      </attribute>
+      <attribute id="controllingArea" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area"/>
+        <keyMapping columnObjectName="Join_2" columnName="controllingArea"/>
+      </attribute>
+      <attribute id="documentDate" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Date"/>
+        <keyMapping columnObjectName="Join_2" columnName="documentDate"/>
+      </attribute>
+      <attribute id="equipmentCategory" order="4" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment category"/>
+        <keyMapping columnObjectName="Join_2" columnName="equipmentCategory"/>
+      </attribute>
+      <attribute id="equipmentNumber" order="5" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="equipmentNumber"/>
+        <keyMapping columnObjectName="Join_2" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="equipmentDescription" order="6" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Description in Capital Letters"/>
+        <keyMapping columnObjectName="Join_2" columnName="equipmentDescription"/>
+      </attribute>
+      <attribute id="functionalArea" order="7" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="Join_2" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="functionalAreaDesc" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Desc"/>
+        <keyMapping columnObjectName="Join_2" columnName="functionalAreaDesc"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Join_2" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="measuringDocumentNumber" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Document Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="measuringDocumentNumber"/>
+      </attribute>
+      <attribute id="measuringType" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Type"/>
+        <keyMapping columnObjectName="Join_2" columnName="measuringType"/>
+      </attribute>
+      <attribute id="measuringPoint" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Point"/>
+        <keyMapping columnObjectName="Join_2" columnName="measuringPoint"/>
+      </attribute>
+      <attribute id="measuringPointUOM" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Meauring Point UOM"/>
+        <keyMapping columnObjectName="Join_2" columnName="measuringPointUOM"/>
+      </attribute>
+      <attribute id="profitCenter" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="plant" order="15" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="Join_2" columnName="plant"/>
+      </attribute>
+      <attribute id="source" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Data Source"/>
+        <keyMapping columnObjectName="Join_2" columnName="source"/>
+      </attribute>
+      <attribute id="vehicleID" order="17" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Vehicle ID (VIN)"/>
+        <keyMapping columnObjectName="Join_2" columnName="vehicleID"/>
+      </attribute>
+      <attribute id="activityCode" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Activity Code"/>
+        <keyMapping columnObjectName="Join_2" columnName="activityCode"/>
+      </attribute>
+      <attribute id="fleetObjectType" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fleet Object Type"/>
+        <keyMapping columnObjectName="Join_2" columnName="fleetObjectType"/>
+      </attribute>
+      <attribute id="errorFlag" order="29" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="errorFlag"/>
+        <keyMapping columnObjectName="Join_2" columnName="errorFlag"/>
+      </attribute>
+      <attribute id="quarter" order="31" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="Quarter"/>
+        <keyMapping columnObjectName="Join_2" columnName="quarter"/>
+      </attribute>
+      <attribute id="month" order="32" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="Month"/>
+        <keyMapping columnObjectName="Join_2" columnName="month"/>
+      </attribute>
+      <attribute id="year" order="33" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="Join_2" columnName="year"/>
+      </attribute>
+      <attribute id="calMonth" order="34" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="Calendar Month (YYYYMM)"/>
+        <keyMapping columnObjectName="Join_2" columnName="calMonth"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="35" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Join_2" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="calQuarter" order="36" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="Calendar Quarter (YYYYQQ)"/>
+        <keyMapping columnObjectName="Join_2" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="dateSAP" order="37" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="Date (SAP Format)"/>
+        <keyMapping columnObjectName="Join_2" columnName="dateSAP"/>
+      </attribute>
+      <attribute id="equipmentNumber$local">
+        <keyMapping columnObjectName="Join_2" columnName="equipmentNumber"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="fuelAmount" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Amount"/>
+        <measureMapping columnObjectName="Join_2" columnName="fuelAmount"/>
+      </measure>
+      <measure id="fuelCostByGallon" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Cost By Gallons"/>
+        <measureMapping columnObjectName="Join_2" columnName="fuelCostByGallon"/>
+      </measure>
+      <measure id="fuelGallons" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel in Gallons"/>
+        <measureMapping columnObjectName="Join_2" columnName="fuelGallons"/>
+      </measure>
+      <measure id="vehicleMiles" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vehicle Miles"/>
+        <measureMapping columnObjectName="Join_2" columnName="vehicleMiles"/>
+      </measure>
+      <measure id="truckHours" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Join_2" columnName="truckHours"/>
+      </measure>
+      <measure id="daysBetweenMeasuringPoints" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="daysBetweenMeasuringPoints"/>
+        <measureMapping columnObjectName="Join_2" columnName="daysBetweenMeasuringPoints"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="unitCount" hidden="false" order="20" aggregationType="sum" measureType="simple" aggregatable="true" calculatedMeasureType="counter" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Unit Count"/>
+        <exceptionAggregation exceptionAggregationType="countDistinct">
+          <attribute attributeName="equipmentNumber"/>
+        </exceptionAggregation>
+        <formula>1</formula>
+      
+        
+        
+        
+        </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="truckPanHoursActual" hidden="false" order="26" baseMeasure="truckHours" datatype="BIGINT">
+        <descriptions defaultDescription="Truck Pan Hours - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fleetObjectType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="4026"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="4044"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="4009"/>
+          </filter>
+          <attributeName>fleetObjectType</attributeName>
+        </restriction>
+        </measure>
+      <measure id="compactorHoursActual" hidden="false" order="27" baseMeasure="truckHours" datatype="BIGINT">
+        <descriptions defaultDescription="Compactor Hours - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fleetObjectType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="4023"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="4049"/>
+          </filter>
+          <attributeName>fleetObjectType</attributeName>
+        </restriction>
+        </measure>
+      <measure id="excavatorLoaderHoursActual" hidden="false" order="28" baseMeasure="truckHours" datatype="BIGINT">
+        <descriptions defaultDescription="Excavator Loader Hours - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fleetObjectType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="4025"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="4028"/>
+          </filter>
+          <attributeName>fleetObjectType</attributeName>
+        </restriction>
+        </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+    <localDimensions/>
+    <sharedDimensions>
+      <logicalJoin associatedObjectUri="rumpke.bi.masterData.reuse::equipmentMasterTimeDependent">
+        <attributes>
+          <attributeRef>equipmentNumber$local</attributeRef>
+        </attributes>
+        <associatedAttributeNames>
+          <attributeName>equipmentNumber</attributeName>
+        </associatedAttributeNames>
+        <properties cardinality="CN_N" joinType="inner" joinOperator="Equal"/>
+        <temporalJoinProperties temporalElementName="documentDate" fromElementName="validFrom" toElementName="validToDate" temporalCondition="EXCLUDE_TO_INCLUDE_FROM"/>
+        <associatedAttributeFeatures>
+          <attributeReference alias="mdAbcIndicator" attributeName="abcIndicator">
+            <descriptions defaultDescription="mdAbcIndicator"/>
+          </attributeReference>
+          <attributeReference alias="mdCompanyCode" attributeName="companyCode">
+            <descriptions defaultDescription="mdCompanyCode"/>
+          </attributeReference>
+          <attributeReference alias="mdCostCenter" attributeName="costCenter">
+            <descriptions defaultDescription="mdCostCenter"/>
+          </attributeReference>
+          <attributeReference alias="mdFunctionalArea" attributeName="functionalArea">
+            <descriptions defaultDescription="mdFunctionalArea"/>
+          </attributeReference>
+          <attributeReference alias="mdFucntionalLocation" attributeName="functionalLocation">
+            <descriptions defaultDescription="mdFucntionalLocation"/>
+          </attributeReference>
+          <attributeReference alias="mdLineOfBusiness" attributeName="lineOfBusiness">
+            <descriptions defaultDescription="mdLineOfBusiness"/>
+          </attributeReference>
+          <attributeReference alias="mdProfitCenter" attributeName="profitCenter">
+            <descriptions defaultDescription="mdProfitCenter"/>
+          </attributeReference>
+          <attributeReference alias="mdControllingArea" attributeName="controllingArea">
+            <descriptions defaultDescription="mdControllingArea"/>
+          </attributeReference>
+          <attributeReference alias="mdEquipmentNumber" attributeName="equipmentNumber" hidden="true">
+            <descriptions defaultDescription="mdEquipmentNumber"/>
+          </attributeReference>
+          <attributeReference alias="mdFunctionalAreaDesc" attributeName="functionalAreaDesc">
+            <descriptions defaultDescription="mdFunctionalAreaDesc"/>
+          </attributeReference>
+          <attributeReference alias="mdVehicleId" attributeName="vehicleID">
+            <descriptions defaultDescription="mdVehicleId"/>
+          </attributeReference>
+        </associatedAttributeFeatures>
+      </logicalJoin>
+    </sharedDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="506" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="vehicleHoursTruckHours" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="511" y="836"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="milesHours" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="511" y="694"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="fuel" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="168" y="1066"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="168" y="961"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="836"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="301" y="836"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="fuelCost" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="235" y="676"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="fuelCost" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="fuelCost" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="262" y="535"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="472" y="531"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="currentS4Data" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="289" y="391"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Union_1" modelObjectNameSpace="currentS4Data" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_5" modelObjectNameSpace="currentS4Data" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="506" y="232"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="currentS4Data" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_6" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="566" y="391"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+      <shape modelObjectName="Join_2" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+        <upperLeftCorner x="70" y="30"/>
+      </shape>
+    <shape modelObjectName="rumpke.bi.masterData.reuse::equipmentMasterTimeDependent" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="370" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

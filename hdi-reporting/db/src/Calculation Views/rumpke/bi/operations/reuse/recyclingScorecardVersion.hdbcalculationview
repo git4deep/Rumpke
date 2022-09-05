@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::recyclingScorecardVersion" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Recycling Scorecard Version"/>
+  <metadata changedAt="2020-09-08 16:13:03.951"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="53"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.reporting.operations::recyclingScorecard">
+      <resourceUri>rumpke.bi.reporting.operations::recyclingScorecard</resourceUri>
+    </DataSource>
+    <DataSource id="Budget$$$$rumpke.bi.reporting.operations::recyclingScorecard$$">
+      <resourceUri>rumpke.bi.reporting.operations::recyclingScorecard</resourceUri>
+    </DataSource>
+    <DataSource id="Forecast$$$$rumpke.bi.reporting.operations::recyclingScorecard$$">
+      <resourceUri>rumpke.bi.reporting.operations::recyclingScorecard</resourceUri>
+    </DataSource>
+    <DataSource id="Projection$$$$rumpke.bi.reporting.operations::recyclingScorecard$$">
+      <resourceUri>rumpke.bi.reporting.operations::recyclingScorecard</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Actual">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="areaDescriptionCal"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="regionDescriptionCal"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="districtDescriptionCal"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="subDistrictDescriptionCal"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="EBITDATargetActual"/>
+        <viewAttribute id="processedTonsActual"/>
+        <viewAttribute id="recyclingMaterialSalesActual"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectRecyActual"/>
+        <viewAttribute id="employeeDirectLaborCostwithBenefitsActual"/>
+        <viewAttribute id="totalDirectLaborCostActual"/>
+        <viewAttribute id="directLaborHoursActual"/>
+        <viewAttribute id="totalEmployeeLaborHourDirectActual"/>
+        <viewAttribute id="nonEmployeeLaborHoursRecyActual"/>
+        <viewAttribute id="totalMaintenanceCostActual"/>
+        <viewAttribute id="maintenanceCostLaborWithBenefitsActuals"/>
+        <viewAttribute id="maintenanceCostOtherActual"/>
+        <viewAttribute id="soldTonsActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Actual'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.reporting.operations::recyclingScorecard"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Budget">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="areaDescriptionCal"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="regionDescriptionCal"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="districtDescriptionCal"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="subDistrictDescriptionCal"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="EBITDATargetBudget"/>
+        <viewAttribute id="recyclingMaterialSalesBudget"/>
+        <viewAttribute id="processedTonsBudget"/>
+        <viewAttribute id="nonEmployeeLaborHoursRecyBudget"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectRecyBudget"/>
+        <viewAttribute id="totalEmployeeLaborHourDirectBudget"/>
+        <viewAttribute id="directLaborHoursBudget"/>
+        <viewAttribute id="maintenanceCostOtherBudget"/>
+        <viewAttribute id="maintenanceCostLaborWithBenefitsBudget"/>
+        <viewAttribute id="employeeDirectLaborCostwithBenefitsBudget"/>
+        <viewAttribute id="totalDirectLaborCostBudget"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalMaintenanceCostBudget"/>
+        <viewAttribute id="soldTonsBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Budget'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Budget$$$$rumpke.bi.reporting.operations::recyclingScorecard$$"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Forecast">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="areaDescriptionCal"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="regionDescriptionCal"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="districtDescriptionCal"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="subDistrictDescriptionCal"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectRecyBudget"/>
+        <viewAttribute id="totalDirectLaborCostBudget"/>
+        <viewAttribute id="totalRevenueForecast"/>
+        <viewAttribute id="ebitdaTargetForecast"/>
+        <viewAttribute id="recyclingMaterialSalesForecast"/>
+        <viewAttribute id="processedTonsForecast"/>
+        <viewAttribute id="nonEmployeeLaborHoursRecyForecast"/>
+        <viewAttribute id="totalEmployeeLaborHourDirectForecast"/>
+        <viewAttribute id="directLaborHoursForecast"/>
+        <viewAttribute id="maintenanceCostOtherForecast"/>
+        <viewAttribute id="maintenanceCostLaborWithBenefitsForecast"/>
+        <viewAttribute id="employeeDirectLaborCostwithBenefitsForecast"/>
+        <viewAttribute id="totalDirectLaborCostForecast"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectRecyForecast"/>
+        <viewAttribute id="totalWagesForecast"/>
+        <viewAttribute id="soldTonsForecast"/>
+        <viewAttribute id="totalMaintenanceCostForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Forecast'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Forecast$$$$rumpke.bi.reporting.operations::recyclingScorecard$$"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="areaDescriptionCal"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="regionDescriptionCal"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="districtDescriptionCal"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="subDistrictDescriptionCal"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectRecyBudget"/>
+        <viewAttribute id="totalDirectLaborCostBudget"/>
+        <viewAttribute id="employeeDirectLaborCostwithBenefitsForecast"/>
+        <viewAttribute id="totalRevenueProjection"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="recyclingMaterialSalesProjection"/>
+        <viewAttribute id="processedTonsProjection"/>
+        <viewAttribute id="soldTonsProjection"/>
+        <viewAttribute id="nonEmployeeLaborHoursRecyProjection"/>
+        <viewAttribute id="totalEmployeeLaborHourDirectProjection"/>
+        <viewAttribute id="directLaborHoursProjection"/>
+        <viewAttribute id="maintenanceCostOtherProjection"/>
+        <viewAttribute id="maintenanceCostLaborWithBenefitsProjection"/>
+        <viewAttribute id="employeeDirectLaborCostwithBenefitsProjection"/>
+        <viewAttribute id="totalDirectLaborCostProjection"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectProjection"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectRecyProjection"/>
+        <viewAttribute id="totalEmployeeLaborCostDirectProjection"/>
+        <viewAttribute id="totalMaintenanceCostProjection"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Projection'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection$$$$rumpke.bi.reporting.operations::recyclingScorecard$$"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute datatype="VARCHAR" id="fiscalYear" length="4"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="EBITDATarget"/>
+        <viewAttribute id="processedTons"/>
+        <viewAttribute id="recyclingMaterialSales"/>
+        <viewAttribute id="soldTons"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectRecy"/>
+        <viewAttribute id="employeeDirectLaborCostwithBenefits"/>
+        <viewAttribute id="totalDirectLaborCost"/>
+        <viewAttribute id="totalEmployeeLaborHourDirect"/>
+        <viewAttribute id="nonEmployeeLaborHourRecy"/>
+        <viewAttribute id="totalMaintenanceCost"/>
+        <viewAttribute id="maintainanceCostLaborWithBenefits"/>
+        <viewAttribute id="maintenanceCostOther"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="directLaborHours"/>
+        <viewAttribute datatype="NVARCHAR" id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Actual">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalPeriod" source="fiscalPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBITDATarget" source="EBITDATargetActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTons" source="processedTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingMaterialSales" source="recyclingMaterialSalesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="soldTons" source="soldTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectRecy" source="nonEmployeeLaborCostDirectRecyActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeDirectLaborCostwithBenefits" source="employeeDirectLaborCostwithBenefitsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalDirectLaborCost" source="totalDirectLaborCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEmployeeLaborHourDirect" source="totalEmployeeLaborHourDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHourRecy" source="nonEmployeeLaborHoursRecyActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCost" source="totalMaintenanceCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintainanceCostLaborWithBenefits" source="maintenanceCostLaborWithBenefitsActuals"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostOther" source="maintenanceCostOtherActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="directLaborHours" source="directLaborHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Budget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalPeriod" source="fiscalPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBITDATarget" source="EBITDATargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTons" source="processedTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingMaterialSales" source="recyclingMaterialSalesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="soldTons" source="soldTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectRecy" source="nonEmployeeLaborCostDirectRecyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeDirectLaborCostwithBenefits" source="employeeDirectLaborCostwithBenefitsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalDirectLaborCost" source="totalDirectLaborCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEmployeeLaborHourDirect" source="totalEmployeeLaborHourDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHourRecy" source="nonEmployeeLaborHoursRecyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCost" source="totalMaintenanceCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintainanceCostLaborWithBenefits" source="maintenanceCostLaborWithBenefitsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostOther" source="maintenanceCostOtherBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="directLaborHours" source="directLaborHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Forecast">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalPeriod" source="fiscalPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBITDATarget" source="ebitdaTargetForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTons" source="processedTonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingMaterialSales" source="recyclingMaterialSalesForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="soldTons" source="soldTonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectRecy" source="nonEmployeeLaborCostDirectRecyForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeDirectLaborCostwithBenefits" source="employeeDirectLaborCostwithBenefitsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalDirectLaborCost" source="totalDirectLaborCostForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEmployeeLaborHourDirect" source="totalEmployeeLaborHourDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHourRecy" source="nonEmployeeLaborHoursRecyForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCost" source="totalMaintenanceCostForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintainanceCostLaborWithBenefits" source="maintenanceCostLaborWithBenefitsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostOther" source="maintenanceCostOtherForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="directLaborHours" source="directLaborHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalPeriod" source="fiscalPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBITDATarget" source="ebitdaTargetProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTons" source="processedTonsProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingMaterialSales" source="recyclingMaterialSalesProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="soldTons" source="soldTonsProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectRecy" source="nonEmployeeLaborCostDirectRecyProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeDirectLaborCostwithBenefits" source="employeeDirectLaborCostwithBenefitsProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalDirectLaborCost" source="totalDirectLaborCostProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEmployeeLaborHourDirect" source="totalEmployeeLaborHourDirectProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHourRecy" source="nonEmployeeLaborHoursRecyProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCost" source="totalMaintenanceCostProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintainanceCostLaborWithBenefits" source="maintenanceCostLaborWithBenefitsProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostOther" source="maintenanceCostOtherProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="directLaborHours" source="directLaborHoursProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYear" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYear"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="calMonth" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calMonth"/>
+        <keyMapping columnObjectName="Union_1" columnName="calMonth"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calMonthDisplay"/>
+        <keyMapping columnObjectName="Union_1" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="fiscalPeriod" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalPeriod"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalPeriod"/>
+      </attribute>
+      <attribute id="area" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="area"/>
+        <keyMapping columnObjectName="Union_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="areaDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="region"/>
+        <keyMapping columnObjectName="Union_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="regionDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="district"/>
+        <keyMapping columnObjectName="Union_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="districtDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrict"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrictDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenterDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineofBusinessDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="version" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="version"/>
+        <keyMapping columnObjectName="Union_1" columnName="version"/>
+      </attribute>
+      <attribute id="priorMonth" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="priorMonth"/>
+        <keyMapping columnObjectName="Union_1" columnName="priorMonth"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="totalRevenue" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalRevenue"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalRevenue"/>
+      </measure>
+      <measure id="EBITDATarget" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDATarget"/>
+        <measureMapping columnObjectName="Union_1" columnName="EBITDATarget"/>
+      </measure>
+      <measure id="processedTons" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="processedTons"/>
+        <measureMapping columnObjectName="Union_1" columnName="processedTons"/>
+      </measure>
+      <measure id="recyclingMaterialSales" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="recyclingMaterialSales"/>
+        <measureMapping columnObjectName="Union_1" columnName="recyclingMaterialSales"/>
+      </measure>
+      <measure id="soldTons" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="soldTons"/>
+        <measureMapping columnObjectName="Union_1" columnName="soldTons"/>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectRecy" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="nonEmployeeLaborCostDirectRecy"/>
+        <measureMapping columnObjectName="Union_1" columnName="nonEmployeeLaborCostDirectRecy"/>
+      </measure>
+      <measure id="employeeDirectLaborCostwithBenefits" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="employeeDirectLaborCostwithBenefits"/>
+        <measureMapping columnObjectName="Union_1" columnName="employeeDirectLaborCostwithBenefits"/>
+      </measure>
+      <measure id="totalDirectLaborCost" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalDirectLaborCost"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalDirectLaborCost"/>
+      </measure>
+      <measure id="totalEmployeeLaborHourDirect" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalEmployeeLaborHourDirect"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalEmployeeLaborHourDirect"/>
+      </measure>
+      <measure id="nonEmployeeLaborHourRecy" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="nonEmployeeLaborHourRecy"/>
+        <measureMapping columnObjectName="Union_1" columnName="nonEmployeeLaborHourRecy"/>
+      </measure>
+      <measure id="totalMaintenanceCost" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalMaintenanceCost"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalMaintenanceCost"/>
+      </measure>
+      <measure id="maintainanceCostLaborWithBenefits" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintainanceCostLaborWithBenefits"/>
+        <measureMapping columnObjectName="Union_1" columnName="maintainanceCostLaborWithBenefits"/>
+      </measure>
+      <measure id="maintenanceCostOther" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceCostOther"/>
+        <measureMapping columnObjectName="Union_1" columnName="maintenanceCostOther"/>
+      </measure>
+      <measure id="directLaborHours" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Direct Labor Hours"/>
+        <measureMapping columnObjectName="Union_1" columnName="directLaborHours"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="253" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Actual" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="317"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Budget" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="317"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Forecast" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="317"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="317"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

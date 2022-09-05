@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.operations::MORInventoryAccuracyReport" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+  <descriptions defaultDescription="MORInventoryAccuracyReport"/>
+  <localVariables>
+    <variable id="ipDateFrom" parameter="true">
+      <descriptions defaultDescription="ipDateFrom"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate('20210101')</defaultExpression>
+      </variableProperties>
+    </variable>
+    <variable id="ipDateTo" parameter="true">
+      <descriptions defaultDescription="ipDateTo"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate(now())</defaultExpression>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.operations.base::MORInventoryAccuracy">
+      <targetVariable name="ipDateFrom" resourceUri="rumpke.bi.operations.base::MORInventoryAccuracy"/>
+      <localVariable>ipDateFrom</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.operations.base::MORInventoryAccuracy">
+      <targetVariable name="ipDateTo" resourceUri="rumpke.bi.operations.base::MORInventoryAccuracy"/>
+      <localVariable>ipDateTo</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="32"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.base::MORInventoryAccuracy">
+      <resourceUri>rumpke.bi.operations.base::MORInventoryAccuracy</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="totalMaterialCount"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute aggregationType="sum" id="positiveError"/>
+        <viewAttribute id="negativeError"/>
+        <viewAttribute id="totalErrors"/>
+        <viewAttribute id="totalAdjustments"/>
+        <viewAttribute id="POsOver30"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="totalStockValue_cm"/>
+        <viewAttribute id="totalStockValue_pm"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.operations.base::MORInventoryAccuracy">
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="LGORT"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="plantDerivedFromProfitCenter" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;profitCenter&quot;,4)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="plantDerivedFromProfitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Aggregation_2"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="totalMaterialCount"/>
+        <viewAttribute id="positiveError"/>
+        <viewAttribute id="negativeError"/>
+        <viewAttribute id="totalErrors"/>
+        <viewAttribute id="totalAdjustments"/>
+        <viewAttribute id="POsOver30"/>
+        <viewAttribute id="totalStockValue_cm"/>
+        <viewAttribute id="totalStockValue_pm"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="storageLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaterialCount" source="totalMaterialCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="positiveError" source="positiveError"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="negativeError" source="negativeError"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalErrors" source="totalErrors"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalAdjustments" source="totalAdjustments"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POsOver30" source="POsOver30"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalStockValue_cm" source="totalStockValue_cm"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalStockValue_pm" source="totalStockValue_pm"/>
+      </input>
+      <input node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="plantDerivedFromProfitCenter"/>
+      </input>
+    <joinAttribute name="WERKS"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MATNR" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MATNR"/>
+        <keyMapping columnObjectName="Join_1" columnName="MATNR"/>
+      </attribute>
+      <attribute id="WERKS" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WERKS"/>
+        <keyMapping columnObjectName="Join_1" columnName="WERKS"/>
+      </attribute>
+      <attribute id="storageLocation" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="storageLocation"/>
+        <keyMapping columnObjectName="Join_1" columnName="storageLocation"/>
+      </attribute>
+      <attribute id="area" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Join_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="subDistrictDescription"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="totalMaterialCount" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalMaterialCount"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalMaterialCount"/>
+      </measure>
+      <measure id="positiveError" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="positiveError"/>
+        <measureMapping columnObjectName="Join_1" columnName="positiveError"/>
+      </measure>
+      <measure id="negativeError" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="negativeError"/>
+        <measureMapping columnObjectName="Join_1" columnName="negativeError"/>
+      </measure>
+      <measure id="totalErrors" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalErrors"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalErrors"/>
+      </measure>
+      <measure id="totalAdjustments" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalAdjustments"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalAdjustments"/>
+      </measure>
+      <measure id="POsOver30" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="POsOver30"/>
+        <measureMapping columnObjectName="Join_1" columnName="POsOver30"/>
+      </measure>
+      <measure id="totalStockValue_cm" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalStockValue_cm"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalStockValue_cm"/>
+      </measure>
+      <measure id="totalStockValue_pm" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalStockValue_pm"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalStockValue_pm"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="inventoryTurns" hidden="false" order="1" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="3" scale="2">
+        <descriptions defaultDescription="Inventory Turns"/>
+        <formula>(&quot;totalStockValue_cm&quot;-&quot;totalStockValue_pm&quot;)/100</formula>
+      </measure>
+      <measure id="accuracyPercentage" hidden="false" order="21" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="3" scale="2">
+        <descriptions defaultDescription="accuracyPercentage"/>
+        <formula>(1 - (&quot;totalErrors&quot;/&quot;totalMaterialCount&quot;))*100</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions>
+      <localDimension id="orgHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">areaDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">regionDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">districtDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">subDistrictDescription</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="orgHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED">
+            <descriptions defaultDescription="orgHierarchy"/>
+            <levels>
+              <level levelAttribute="areaDescription" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="areaDescription"/>
+              <level levelAttribute="regionDescription" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="regionDescription"/>
+              <level levelAttribute="districtDescription" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="districtDescription"/>
+              <level levelAttribute="subDistrictDescription" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="subDistrictDescription"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="339"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_3" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

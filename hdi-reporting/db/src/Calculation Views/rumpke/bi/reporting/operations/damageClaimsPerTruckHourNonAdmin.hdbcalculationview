@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.operations::damageClaimsPerTruckHourNonAdmin" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="damageClaimsPerTruckNonAdmin"/>
+  <metadata changedAt="2022-05-16 14:59:35.301"/>
+  <localVariables>
+    <variable id="inputGoalYear" parameter="true">
+      <descriptions defaultDescription="Goal Year"/>
+      <variableProperties datatype="NVARCHAR" length="7" mandatory="true" defaultValue="2021012" defaultExpressionLanguage="SQL">
+        <valueDomain type="StaticList">
+          <listEntry id="2021012">
+            <descriptions defaultDescription="2022 Goal"/>
+          </listEntry>
+          <listEntry id="2020012">
+            <descriptions defaultDescription="2021 Goal"/>
+          </listEntry>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="inputStartFiscalPeriod" parameter="true">
+      <descriptions defaultDescription="Fiscal Period Start"/>
+      <variableProperties datatype="NVARCHAR" length="7" mandatory="true" scale="0" defaultValue="2021001" defaultExpressionLanguage="SQL">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeDimension</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalYearPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="inputEndFiscalPeriod" parameter="true">
+      <descriptions defaultDescription="Fiscal Period End"/>
+      <variableProperties datatype="NVARCHAR" length="7" mandatory="true" scale="0" defaultValue="2021001" defaultExpressionLanguage="SQL">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeDimension</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalYearPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="damageClaimsPerTruckHour_1">
+      <targetVariable name="varFiscalPeriodMeasurementEnd" resourceUri="rumpke.bi.reporting.operations::damageClaimsPerTruckHour"/>
+      <localVariable>inputGoalYear</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="damageClaimsPerTruckHour_1">
+      <targetVariable name="inputStartFiscalPeriod" resourceUri="rumpke.bi.reporting.operations::damageClaimsPerTruckHour"/>
+      <localVariable>inputStartFiscalPeriod</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="damageClaimsPerTruckHour_1">
+      <targetVariable name="inputEndFiscalPeriod" resourceUri="rumpke.bi.reporting.operations::damageClaimsPerTruckHour"/>
+      <localVariable>inputEndFiscalPeriod</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="damageClaimsPerTruckHour_1">
+      <resourceUri>rumpke.bi.reporting.operations::damageClaimsPerTruckHour</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="truckHoursYear1"/>
+        <viewAttribute id="damageClaimsYear3"/>
+        <viewAttribute id="damageClaimsYear2"/>
+        <viewAttribute id="damageClaimsYear1"/>
+        <viewAttribute id="truckHoursYear2"/>
+        <viewAttribute id="truckHoursYear3"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="truckHoursActual"/>
+        <viewAttribute id="damageClaimsActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="damageClaimsPerTruckHour_1"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="lineofBusinessDescription" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Projection_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="districtDescription" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Projection_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="regionDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Projection_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="areaDescription" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Projection_1" columnName="areaDescription"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="truckHoursYear1" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours - Year 1"/>
+        <measureMapping columnObjectName="Projection_1" columnName="truckHoursYear1"/>
+      </measure>
+      <measure id="truckHoursYear2" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours - Year 2"/>
+        <measureMapping columnObjectName="Projection_1" columnName="truckHoursYear2"/>
+      </measure>
+      <measure id="truckHoursYear3" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours - Year 3"/>
+        <measureMapping columnObjectName="Projection_1" columnName="truckHoursYear3"/>
+      </measure>
+      <measure id="truckHoursActual" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="truckHoursActual"/>
+      </measure>
+      <measure id="damageClaimsYear1" order="10" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Damage Claims - Year 1"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="Projection_1" columnName="damageClaimsYear1"/>
+      </measure>
+      <measure id="damageClaimsYear2" order="11" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Damage Claims - Year 2"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="Projection_1" columnName="damageClaimsYear2"/>
+      </measure>
+      <measure id="damageClaimsYear3" order="12" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Damage Claims - Year 3"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="Projection_1" columnName="damageClaimsYear3"/>
+      </measure>
+      <measure id="damageClaimsActual" order="13" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Damage Claims"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="Projection_1" columnName="damageClaimsActual"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="totalDamageClaims" hidden="false" order="14" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="34">
+        <descriptions defaultDescription="3-Year Damage Claims"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <formula>&quot;damageClaimsYear1&quot;+&quot;damageClaimsYear2&quot;+&quot;damageClaimsYear3&quot;</formula>
+      </measure>
+      <measure id="totalTruckHours" hidden="false" order="15" aggregationType="sum" measureType="simple" datatype="BIGINT" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Total Truck Hours"/>
+        <formula>&quot;truckHoursYear1&quot;+&quot;truckHoursYear2&quot;+&quot;truckHoursYear3&quot;</formula>
+      </measure>
+      <measure id="damageClaimsPerTruckHour" hidden="false" order="16" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="10" scale="3">
+        <descriptions defaultDescription="3-Year Damage Claims Per Truck Hour"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <formula> if(&quot;totalTruckHours&quot; != 0, &quot;totalDamageClaims&quot;/&quot;totalTruckHours&quot; , 0)</formula>
+      </measure>
+      <measure id="damageClaimsPerTruckHourGoal" hidden="false" order="17" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="10" scale="3">
+        <descriptions defaultDescription="Damage Claims per Truck Hour Goal"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <formula>&quot;damageClaimsPerTruckHour&quot; * 0.97</formula>
+      </measure>
+      <measure id="damageClaimsPerTruckHourActual" hidden="false" order="18" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="10" scale="3">
+        <descriptions defaultDescription="Damage Claim per Truck Hour - Actual"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <formula>&quot;damageClaimsActual&quot;/if(&quot;truckHoursActual&quot; = 0, 1, &quot;truckHoursActual&quot;)</formula>
+      </measure>
+      <measure id="goalVariance" hidden="false" order="19" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="10" scale="3">
+        <descriptions defaultDescription="Variance"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <formula>&quot;damageClaimsPerTruckHourActual&quot; - &quot;damageClaimsPerTruckHourGoal&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions>
+      <localDimension id="OrganizationHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">areaDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">regionDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">districtDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">subDistrictDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">lineofBusinessDescription</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="OrganizationHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED">
+            <descriptions defaultDescription="Organization Hierarchy"/>
+            <levels>
+              <level levelAttribute="areaDescription" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="areaDescription"/>
+              <level levelAttribute="regionDescription" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="regionDescription"/>
+              <level levelAttribute="districtDescription" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="districtDescription"/>
+              <level levelAttribute="subDistrictDescription" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="subDistrictDescription"/>
+              <level levelAttribute="lineofBusinessDescription" levelType="MDLEVEL_TYPE_REGULAR" order="5" orderAttribute="lineofBusinessDescription"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="30" y="100"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="30" y="180"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

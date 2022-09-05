@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.hr.reuse::payrollFinancials" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Payroll Information from ACDOCA / ACDOCP"/>
+  <metadata changedAt="2020-08-17 01:03:04.616"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="37"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated">
+      <resourceUri>rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::accountGroup">
+      <resourceUri>rumpke.bi.masterData.reuse::accountGroup</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="accrualActuals"/>
+        <viewAttribute id="employeeCostActuals"/>
+        <viewAttribute id="forecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscYearPer"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="subordinatesetID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::accountGroup">
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="fromValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroupDescription" source="shortDescriptionofaSet"/></input>
+    <filter>(in (&quot;accountGroup&quot;,'INCOME_STMT','OTHER_GROUPS'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="accrualActuals"/>
+        <viewAttribute id="employeeCostActuals"/>
+        <viewAttribute id="forecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="quantity" source="quantity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualActuals" source="accrualActuals"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeCostActuals" source="employeeCostActuals"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="accountGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroupDescription" source="accountGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+      </input>
+    <joinAttribute name="accountNumber"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="accountGroup" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Group"/>
+        <keyMapping columnObjectName="Join_1" columnName="accountGroup"/>
+      </attribute>
+      <attribute id="accountGroupDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Group Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="accountGroupDescription"/>
+      </attribute>
+      <attribute id="accountNumber" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="costCenter" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="functionalArea" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="Join_1" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Join_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="functionalAreaGroup" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group"/>
+        <keyMapping columnObjectName="Join_1" columnName="functionalAreaGroup"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="profitCenter" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="subordinatesetID" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subordinate ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="subordinatesetID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="quantity" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Quantity"/>
+        <measureMapping columnObjectName="Join_1" columnName="quantity"/>
+      </measure>
+      <measure id="actual" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="actual"/>
+      </measure>
+      <measure id="budget" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="budget"/>
+      </measure>
+      <measure id="forecast" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="forecast"/>
+      </measure>
+      <measure id="accrualActuals" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual - Actuals (For Payroll)"/>
+        <measureMapping columnObjectName="Join_1" columnName="accrualActuals"/>
+      </measure>
+      <measure id="employeeCostActuals" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee $ - Actuals (For Payroll)"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeCostActuals"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures>
+      <measure id="nonEmployeeLaborHoursActual" hidden="false" order="15" engineAggregation="sum" baseMeasure="quantity" datatype="DECIMAL" length="23" scale="3">
+        <descriptions defaultDescription="Non Employee Labor Hours - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="SUBCONTRACTING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="accrualLaborHoursDirectActual" hidden="false" order="16" engineAggregation="sum" baseMeasure="quantity" datatype="DECIMAL" length="23" scale="3">
+        <descriptions defaultDescription="Accrual Labor Hours Direct - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="accrualLaborHoursIndirectActual" hidden="false" order="17" engineAggregation="sum" baseMeasure="quantity" datatype="DECIMAL" length="23" scale="3">
+        <descriptions defaultDescription="Accrual Labor Hours Indirect - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectActual" hidden="false" order="18" engineAggregation="sum" baseMeasure="actual" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Non Employee Labor Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="SUBCONTRACTING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectBudget" hidden="false" order="19" engineAggregation="sum" baseMeasure="budget" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Non Employee Labor Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="SUBCONTRACTING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectForecast" hidden="false" order="20" engineAggregation="sum" baseMeasure="forecast" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Non Employee Labor Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="SUBCONTRACTING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="accrualLaborCostDirectActual" hidden="false" order="21" engineAggregation="sum" baseMeasure="accrualActuals" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Accrual Labor Cost Direct - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="accrualLaborCostIndirectActual" hidden="false" order="22" engineAggregation="sum" baseMeasure="accrualActuals" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Accrual Labor Cost Indirect - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeLaborCostDirectActual" hidden="false" order="25" engineAggregation="sum" baseMeasure="employeeCostActuals" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Accrual Labor Cost Direct - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeLaborCostDirectBudget" hidden="false" order="26" engineAggregation="sum" baseMeasure="budget" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Employee Labor Cost Direct - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeLaborCostDirectForecast" hidden="false" order="27" engineAggregation="sum" baseMeasure="forecast" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Emploee Labor Cost Direct - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeLaborCostIndirectActual" hidden="false" order="28" engineAggregation="sum" baseMeasure="employeeCostActuals" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Accrual Labor Cost Indirect - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeLaborCostIndirectBudget" hidden="false" order="29" engineAggregation="sum" baseMeasure="forecast" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Employee Labor Cost Indirect - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeLaborCostIndirectForecast" hidden="false" order="30" engineAggregation="sum" baseMeasure="forecast" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Employee Labor Cost Indirect - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

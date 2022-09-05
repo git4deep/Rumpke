@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::operationalDataFreeze" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Operational Data Freeze"/>
+  <metadata changedAt="2021-07-12 21:06:43.687"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="32"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.data.ddl::freezeData.operationalDataFreeze">
+      <resourceUri>rumpke.bi.data.ddl::freezeData.operationalDataFreeze</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributes">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributes</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="freezeDateOrig"/>
+        <viewAttribute id="lineNumberOrig"/>
+        <viewAttribute id="isCurrentOrig"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calFiscalPeriod"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="EBITDATarget"/>
+        <viewAttribute id="recyclingMaterialSales"/>
+        <viewAttribute id="soldTons"/>
+        <viewAttribute id="disposalTons"/>
+        <viewAttribute id="processedTons"/>
+        <viewAttribute id="totalBenefits"/>
+        <viewAttribute id="totalWages"/>
+        <viewAttribute id="nonEmployeeLaborHoursRecy"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectRecy"/>
+        <viewAttribute id="maintenanceCostLabor"/>
+        <viewAttribute id="totalEmployeeLaborHourDirect"/>
+        <viewAttribute id="directLaborHours"/>
+        <viewAttribute id="totalEmployeeLaborCostDirect"/>
+        <viewAttribute id="maintenanceCostOther"/>
+        <viewAttribute id="benefitRate"/>
+        <viewAttribute id="maintenanceCostLaborWithBenefits"/>
+        <viewAttribute id="totalMaintenanceCost"/>
+        <viewAttribute id="employeeDirectLaborCostwithBenefits"/>
+        <viewAttribute id="totalDirectLaborCost"/>
+        <viewAttribute id="totalTruckCost"/>
+        <viewAttribute id="gallons"/>
+        <viewAttribute id="depreciation"/>
+        <viewAttribute id="routeCustomerMiles"/>
+        <viewAttribute id="yards"/>
+        <viewAttribute id="insuranceAndClaims"/>
+        <viewAttribute id="maintenanceParts"/>
+        <viewAttribute id="maintenancePartsNonCapex"/>
+        <viewAttribute id="maintenanceLaborNonCapex"/>
+        <viewAttribute id="maintenanceTires"/>
+        <viewAttribute id="maintenanceWarranty"/>
+        <viewAttribute id="maintenanceWrecker"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="maintenanceLabor"/>
+        <viewAttribute id="driverLaborCost"/>
+        <viewAttribute id="disposalCost"/>
+        <viewAttribute id="laborCostBenefitsDriver"/>
+        <viewAttribute id="laborCostOtherDriver"/>
+        <viewAttribute id="maintCostCapitalizedRepair"/>
+        <viewAttribute id="discounts"/>
+        <viewAttribute id="fuelSurchargeRevenue"/>
+        <viewAttribute id="otherRevenue"/>
+        <viewAttribute id="maintCostLaborOther"/>
+        <viewAttribute id="lifts"/>
+        <viewAttribute id="routeHours"/>
+        <viewAttribute id="stops"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="baseRevenue"/>
+        <viewAttribute id="unitCount"/>
+        <viewAttribute id="units"/>
+        <viewAttribute id="mechanicHours"/>
+        <viewAttribute id="commodityRevenue"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="routeHoursWithMechanic"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeighted"/>
+        <viewAttribute id="allOthercosts"/>
+        <viewAttribute id="compactorTons"/>
+        <viewAttribute id="costOfOperations"/>
+        <viewAttribute id="cubicYardsConsumed"/>
+        <viewAttribute id="equipmentRepairCost"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="excavatorLoaderTons"/>
+        <viewAttribute id="expenseCubicYards"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="payrollHours"/>
+        <viewAttribute id="productivityDailyCover"/>
+        <viewAttribute id="cellAmortization"/>
+        <viewAttribute id="totalNetRevenue"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="landfillOperatingProfit"/>
+        <viewAttribute id="operatingIncome"/>
+        <viewAttribute id="compactorHours"/>
+        <viewAttribute id="excavatedCubicYards"/>
+        <viewAttribute id="excavatorLoaderHours"/>
+        <viewAttribute id="capexCost"/>
+        <viewAttribute id="capexCubicYards"/>
+        <viewAttribute id="equipmentCost"/>
+        <viewAttribute id="totalEquipmentCost"/>
+        <viewAttribute id="totalRevenueIntercompany"/>
+        <viewAttribute id="totalRevenue3rdParty"/>
+        <viewAttribute id="totalNetRevenue3rdParty"/>
+        <viewAttribute id="totalOtherRevenue"/>
+        <viewAttribute id="outboundTons"/>
+        <viewAttribute id="outboundLoads"/>
+        <viewAttribute id="inboundTons"/>
+        <viewAttribute id="inboundLoads"/>
+        <viewAttribute id="totalOtherTransferExpense"/>
+        <viewAttribute id="haulingExpense"/>
+        <viewAttribute id="disposalExpense"/>
+        <viewAttribute id="otherTransferCost"/>
+        <viewAttribute id="tonnage3rdParty"/>
+        <viewAttribute id="tonnageIntercompany"/>
+        <viewAttribute id="rollingMonthFreeze"/>
+        <viewAttribute id="freezeMonth"/>
+        <viewAttribute id="otherOperatingCost"/>
+        <viewAttribute id="otherIncomeInterestandAmortization"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="freezeDate" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;freezeDateOrig&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="lineNumber" length="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;lineNumberOrig&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="isCurrent" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;isCurrentOrig&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="freezeMonthNum" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>rightstr(leftstr(string(&quot;freezeDateOrig&quot;),6),2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="CalMonthNum" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>rightstr(&quot;calMonth&quot;,2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="rollMonthNum" expressionLanguage="COLUMN_ENGINE">
+          <formula>int(&quot;CalMonthNum&quot;) - int(&quot;freezeMonthNum&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.data.ddl::freezeData.operationalDataFreeze">
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDateOrig" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineNumberOrig" source="lineNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isCurrentOrig" source="isCurrent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthFreeze" source="rollingMonthNo"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="year"/>
+        <viewAttribute id="yearInt"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="monthInt"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calendarMonth"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonthDisplay"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="Test" length="15" expressionLanguage="COLUMN_ENGINE">
+          <formula>0</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributes"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="lineNumber"/>
+        <viewAttribute id="isCurrent"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calFiscalPeriod"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="EBITDATarget"/>
+        <viewAttribute id="recyclingMaterialSales"/>
+        <viewAttribute id="soldTons"/>
+        <viewAttribute id="disposalTons"/>
+        <viewAttribute id="processedTons"/>
+        <viewAttribute id="totalBenefits"/>
+        <viewAttribute id="totalWages"/>
+        <viewAttribute id="nonEmployeeLaborHoursRecy"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectRecy"/>
+        <viewAttribute id="maintenanceCostLabor"/>
+        <viewAttribute id="totalEmployeeLaborHourDirect"/>
+        <viewAttribute id="directLaborHours"/>
+        <viewAttribute id="totalEmployeeLaborCostDirect"/>
+        <viewAttribute id="maintenanceCostOther"/>
+        <viewAttribute id="benefitRate"/>
+        <viewAttribute id="maintenanceCostLaborWithBenefits"/>
+        <viewAttribute id="totalMaintenanceCost"/>
+        <viewAttribute id="employeeDirectLaborCostwithBenefits"/>
+        <viewAttribute id="totalDirectLaborCost"/>
+        <viewAttribute id="totalTruckCost"/>
+        <viewAttribute id="gallons"/>
+        <viewAttribute id="depreciation"/>
+        <viewAttribute id="routeCustomerMiles"/>
+        <viewAttribute id="yards"/>
+        <viewAttribute id="insuranceAndClaims"/>
+        <viewAttribute id="maintenanceParts"/>
+        <viewAttribute id="maintenancePartsNonCapex"/>
+        <viewAttribute id="maintenanceLaborNonCapex"/>
+        <viewAttribute id="maintenanceTires"/>
+        <viewAttribute id="maintenanceWarranty"/>
+        <viewAttribute id="maintenanceWrecker"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="maintenanceLabor"/>
+        <viewAttribute id="driverLaborCost"/>
+        <viewAttribute id="disposalCost"/>
+        <viewAttribute id="laborCostBenefitsDriver"/>
+        <viewAttribute id="laborCostOtherDriver"/>
+        <viewAttribute id="maintCostCapitalizedRepair"/>
+        <viewAttribute id="discounts"/>
+        <viewAttribute id="fuelSurchargeRevenue"/>
+        <viewAttribute id="otherRevenue"/>
+        <viewAttribute id="maintCostLaborOther"/>
+        <viewAttribute id="lifts"/>
+        <viewAttribute id="routeHours"/>
+        <viewAttribute id="stops"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="baseRevenue"/>
+        <viewAttribute id="unitCount"/>
+        <viewAttribute id="units"/>
+        <viewAttribute id="mechanicHours"/>
+        <viewAttribute id="commodityRevenue"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="routeHoursWithMechanic"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeighted"/>
+        <viewAttribute id="allOthercosts"/>
+        <viewAttribute id="compactorTons"/>
+        <viewAttribute id="costOfOperations"/>
+        <viewAttribute id="cubicYardsConsumed"/>
+        <viewAttribute id="equipmentRepairCost"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="excavatorLoaderTons"/>
+        <viewAttribute id="expenseCubicYards"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="payrollHours"/>
+        <viewAttribute id="productivityDailyCover"/>
+        <viewAttribute id="cellAmortization"/>
+        <viewAttribute id="totalNetRevenue"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="landfillOperatingProfit"/>
+        <viewAttribute id="operatingIncome"/>
+        <viewAttribute id="compactorHours"/>
+        <viewAttribute id="excavatedCubicYards"/>
+        <viewAttribute id="excavatorLoaderHours"/>
+        <viewAttribute id="capexCost"/>
+        <viewAttribute id="capexCubicYards"/>
+        <viewAttribute id="equipmentCost"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="yearInt"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="monthInt"/>
+        <viewAttribute id="calendarMonth"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="freezeMonthNum"/>
+        <viewAttribute id="CalMonthNum"/>
+        <viewAttribute id="rollMonthNum"/>
+        <viewAttribute id="totalEquipmentCost"/>
+        <viewAttribute id="totalRevenueIntercompany"/>
+        <viewAttribute id="totalRevenue3rdParty"/>
+        <viewAttribute id="totalNetRevenue3rdParty"/>
+        <viewAttribute id="totalOtherRevenue"/>
+        <viewAttribute id="outboundTons"/>
+        <viewAttribute id="outboundLoads"/>
+        <viewAttribute id="inboundTons"/>
+        <viewAttribute id="inboundLoads"/>
+        <viewAttribute id="totalOtherTransferExpense"/>
+        <viewAttribute id="haulingExpense"/>
+        <viewAttribute id="disposalExpense"/>
+        <viewAttribute id="otherTransferCost"/>
+        <viewAttribute id="tonnage3rdParty"/>
+        <viewAttribute id="tonnageIntercompany"/>
+        <viewAttribute id="rollingMonthNo_1"/>
+        <viewAttribute id="otherOperatingCost"/>
+        <viewAttribute id="otherIncomeInterestandAmortization"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineNumber" source="lineNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isCurrent" source="isCurrent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calFiscalPeriod" source="calFiscalPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBITDATarget" source="EBITDATarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingMaterialSales" source="recyclingMaterialSales"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="soldTons" source="soldTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalTons" source="disposalTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTons" source="processedTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalBenefits" source="totalBenefits"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWages" source="totalWages"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursRecy" source="nonEmployeeLaborHoursRecy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectRecy" source="nonEmployeeLaborCostDirectRecy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostLabor" source="maintenanceCostLabor"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEmployeeLaborHourDirect" source="totalEmployeeLaborHourDirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="directLaborHours" source="directLaborHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEmployeeLaborCostDirect" source="totalEmployeeLaborCostDirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostOther" source="maintenanceCostOther"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="benefitRate" source="benefitRate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostLaborWithBenefits" source="maintenanceCostLaborWithBenefits"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCost" source="totalMaintenanceCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeDirectLaborCostwithBenefits" source="employeeDirectLaborCostwithBenefits"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalDirectLaborCost" source="totalDirectLaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTruckCost" source="totalTruckCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="gallons" source="gallons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="depreciation" source="depreciation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMiles" source="routeCustomerMiles"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yards" source="yards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="insuranceAndClaims" source="insuranceAndClaims"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceParts" source="maintenanceParts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePartsNonCapex" source="maintenancePartsNonCapex"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceLaborNonCapex" source="maintenanceLaborNonCapex"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceTires" source="maintenanceTires"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceWarranty" source="maintenanceWarranty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceWrecker" source="maintenanceWrecker"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceLabor" source="maintenanceLabor"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="driverLaborCost" source="driverLaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalCost" source="disposalCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborCostBenefitsDriver" source="laborCostBenefitsDriver"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborCostOtherDriver" source="laborCostOtherDriver"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintCostCapitalizedRepair" source="maintCostCapitalizedRepair"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="discounts" source="discounts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelSurchargeRevenue" source="fuelSurchargeRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherRevenue" source="otherRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintCostLaborOther" source="maintCostLaborOther"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifts" source="lifts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHours" source="routeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stops" source="stops"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseRevenue" source="baseRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitCount" source="unitCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="units" source="units"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicHours" source="mechanicHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="commodityRevenue" source="commodityRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loads"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanic" source="routeHoursWithMechanic"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="caWageEligibleForBenefitsWeighted" source="caWageEligibleForBenefitsWeighted"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOthercosts" source="allOthercosts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTons" source="compactorTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="costOfOperations"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsConsumed" source="cubicYardsConsumed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCost" source="equipmentRepairCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderTons" source="excavatorLoaderTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCubicYards" source="expenseCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payrollHours" source="payrollHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityDailyCover" source="productivityDailyCover"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cellAmortization" source="cellAmortization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpenses"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillOperatingProfit" source="landfillOperatingProfit"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncome"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHours" source="compactorHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatedCubicYards" source="excavatedCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHours" source="excavatorLoaderHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCost" source="capexCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCubicYards" source="capexCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCost" source="equipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeMonthNum" source="freezeMonthNum"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CalMonthNum" source="CalMonthNum"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollMonthNum" source="rollMonthNum"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEquipmentCost" source="totalEquipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueIntercompany" source="totalRevenueIntercompany"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue3rdParty" source="totalRevenue3rdParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue3rdParty" source="totalNetRevenue3rdParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherRevenue" source="totalOtherRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundTons" source="outboundTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundLoads" source="outboundLoads"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inboundTons" source="inboundTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inboundLoads" source="inboundLoads"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherTransferExpense" source="totalOtherTransferExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="haulingExpense" source="haulingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalExpense" source="disposalExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherTransferCost" source="otherTransferCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3rdParty" source="tonnage3rdParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageIntercompany" source="tonnageIntercompany"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo_1" source="rollingMonthFreeze"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherOperatingCost" source="otherOperatingCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherIncomeInterestandAmortization" source="otherIncomeInterestandAmortization"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearInt" source="yearInt"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="month" source="month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthInt" source="monthInt"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calendarMonth" source="calendarMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calendarMonthDesc" source="calendarMonthDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalPeriod" source="fiscalPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="fiscalYearPeriod"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="freezeDate" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_1" columnName="freezeDate"/>
+      </attribute>
+      <attribute id="lineNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_1" columnName="lineNumber"/>
+      </attribute>
+      <attribute id="isCurrent" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_1" columnName="isCurrent"/>
+      </attribute>
+      <attribute id="fiscalYear" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYear"/>
+        <keyMapping columnObjectName="Join_1" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="yearQuarter" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="yearQuarter"/>
+        <keyMapping columnObjectName="Join_1" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calMonthDisplay"/>
+        <keyMapping columnObjectName="Join_1" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="calQuarter" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calQuarter"/>
+        <keyMapping columnObjectName="Join_1" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="calMonth" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calMonth"/>
+        <keyMapping columnObjectName="Join_1" columnName="calMonth"/>
+      </attribute>
+      <attribute id="calFiscalPeriod" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calFiscalPeriod"/>
+        <keyMapping columnObjectName="Join_1" columnName="calFiscalPeriod"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Join_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="area" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="area"/>
+        <keyMapping columnObjectName="Join_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="areaDescription"/>
+        <keyMapping columnObjectName="Join_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="region"/>
+        <keyMapping columnObjectName="Join_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="regionDescription"/>
+        <keyMapping columnObjectName="Join_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="district"/>
+        <keyMapping columnObjectName="Join_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="districtDescription"/>
+        <keyMapping columnObjectName="Join_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrict"/>
+        <keyMapping columnObjectName="Join_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrictDescription"/>
+        <keyMapping columnObjectName="Join_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineofBusinessDescription"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="profitCenterGroup" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenterGroup"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenterGroup"/>
+      </attribute>
+      <attribute id="lineOfBusinessGroup" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusinessGroup"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineOfBusinessGroup"/>
+      </attribute>
+      <attribute id="version" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="version"/>
+        <keyMapping columnObjectName="Join_1" columnName="version"/>
+      </attribute>
+      <attribute id="year" order="106" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="Join_1" columnName="year"/>
+      </attribute>
+      <attribute id="yearInt" order="107" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year (Integer)"/>
+        <keyMapping columnObjectName="Join_1" columnName="yearInt"/>
+      </attribute>
+      <attribute id="month" order="108" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month"/>
+        <keyMapping columnObjectName="Join_1" columnName="month"/>
+      </attribute>
+      <attribute id="monthInt" order="109" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month (Integer)"/>
+        <keyMapping columnObjectName="Join_1" columnName="monthInt"/>
+      </attribute>
+      <attribute id="calendarMonth" order="110" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (YYYY-MM)"/>
+        <keyMapping columnObjectName="Join_1" columnName="calendarMonth"/>
+      </attribute>
+      <attribute id="calendarMonthDesc" order="111" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month Desc"/>
+        <keyMapping columnObjectName="Join_1" columnName="calendarMonthDesc"/>
+      </attribute>
+      <attribute id="monthName" order="112" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="monthName"/>
+      </attribute>
+      <attribute id="rollingYearNo" order="113" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Year Number (Current Year = 0)"/>
+        <keyMapping columnObjectName="Join_1" columnName="rollingYearNo"/>
+      </attribute>
+      <attribute id="rollingMonthNo" order="114" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Month Number (Current Month = 0)"/>
+        <keyMapping columnObjectName="Join_1" columnName="rollingMonthNo"/>
+      </attribute>
+      <attribute id="ytd" order="115" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Yera to Date"/>
+        <keyMapping columnObjectName="Join_1" columnName="ytd"/>
+      </attribute>
+      <attribute id="fiscalPeriod" order="116" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Period"/>
+        <keyMapping columnObjectName="Join_1" columnName="fiscalPeriod"/>
+      </attribute>
+      <attribute id="freezeMonthNum" order="118" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_1" columnName="freezeMonthNum"/>
+      </attribute>
+      <attribute id="CalMonthNum" order="119" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_1" columnName="CalMonthNum"/>
+      </attribute>
+      <attribute id="rollMonthNum" order="120" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_1" columnName="rollMonthNum"/>
+      </attribute>
+      <attribute id="totalEquipmentCost" order="121" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="totalEquipmentCost"/>
+        <keyMapping columnObjectName="Join_1" columnName="totalEquipmentCost"/>
+      </attribute>
+      <attribute id="totalRevenueIntercompany" order="122" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="totalRevenueIntercompany"/>
+        <keyMapping columnObjectName="Join_1" columnName="totalRevenueIntercompany"/>
+      </attribute>
+      <attribute id="totalRevenue3rdParty" order="123" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="totalRevenue3rdParty"/>
+        <keyMapping columnObjectName="Join_1" columnName="totalRevenue3rdParty"/>
+      </attribute>
+      <attribute id="totalNetRevenue3rdParty" order="124" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="totalNetRevenue3rdParty"/>
+        <keyMapping columnObjectName="Join_1" columnName="totalNetRevenue3rdParty"/>
+      </attribute>
+      <attribute id="totalOtherRevenue" order="125" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="totalOtherRevenue"/>
+        <keyMapping columnObjectName="Join_1" columnName="totalOtherRevenue"/>
+      </attribute>
+      <attribute id="outboundTons" order="126" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="outboundTons"/>
+        <keyMapping columnObjectName="Join_1" columnName="outboundTons"/>
+      </attribute>
+      <attribute id="outboundLoads" order="127" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="outboundLoads"/>
+        <keyMapping columnObjectName="Join_1" columnName="outboundLoads"/>
+      </attribute>
+      <attribute id="inboundTons" order="128" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="inboundTons"/>
+        <keyMapping columnObjectName="Join_1" columnName="inboundTons"/>
+      </attribute>
+      <attribute id="inboundLoads" order="129" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="inboundLoads"/>
+        <keyMapping columnObjectName="Join_1" columnName="inboundLoads"/>
+      </attribute>
+      <attribute id="totalOtherTransferExpense" order="130" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="totalOtherTransferExpense"/>
+        <keyMapping columnObjectName="Join_1" columnName="totalOtherTransferExpense"/>
+      </attribute>
+      <attribute id="haulingExpense" order="131" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="haulingExpense"/>
+        <keyMapping columnObjectName="Join_1" columnName="haulingExpense"/>
+      </attribute>
+      <attribute id="disposalExpense" order="132" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="disposalExpense"/>
+        <keyMapping columnObjectName="Join_1" columnName="disposalExpense"/>
+      </attribute>
+      <attribute id="otherTransferCost" order="133" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="otherTransferCost"/>
+        <keyMapping columnObjectName="Join_1" columnName="otherTransferCost"/>
+      </attribute>
+      <attribute id="tonnage3rdParty" order="134" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="tonnage3rdParty"/>
+        <keyMapping columnObjectName="Join_1" columnName="tonnage3rdParty"/>
+      </attribute>
+      <attribute id="tonnageIntercompany" order="135" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="tonnageIntercompany"/>
+        <keyMapping columnObjectName="Join_1" columnName="tonnageIntercompany"/>
+      </attribute>
+      <attribute id="rollingMonthFreeze" order="136" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="rollingMonthFreeze"/>
+        <keyMapping columnObjectName="Join_1" columnName="rollingMonthNo_1"/>
+      </attribute>
+      <attribute id="otherOperatingCost" order="137" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="otherOperatingCost"/>
+        <keyMapping columnObjectName="Join_1" columnName="otherOperatingCost"/>
+      </attribute>
+      <attribute id="otherIncomeInterestandAmortization" order="138" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="otherIncomeInterestandAmortization"/>
+        <keyMapping columnObjectName="Join_1" columnName="otherIncomeInterestandAmortization"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="FreezeDate" hidden="false" order="117" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Freeze Date"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="10">
+          <formula>leftstr(string(&quot;freezeDate&quot;),8)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="totalRevenue" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalRevenue"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalRevenue"/>
+      </measure>
+      <measure id="EBITDATarget" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDATarget"/>
+        <measureMapping columnObjectName="Join_1" columnName="EBITDATarget"/>
+      </measure>
+      <measure id="recyclingMaterialSales" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="recyclingMaterialSales"/>
+        <measureMapping columnObjectName="Join_1" columnName="recyclingMaterialSales"/>
+      </measure>
+      <measure id="soldTons" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="soldTons"/>
+        <measureMapping columnObjectName="Join_1" columnName="soldTons"/>
+      </measure>
+      <measure id="disposalTons" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="disposalTons"/>
+        <measureMapping columnObjectName="Join_1" columnName="disposalTons"/>
+      </measure>
+      <measure id="processedTons" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="processedTons"/>
+        <measureMapping columnObjectName="Join_1" columnName="processedTons"/>
+      </measure>
+      <measure id="totalBenefits" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalBenefits"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalBenefits"/>
+      </measure>
+      <measure id="totalWages" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalWages"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalWages"/>
+      </measure>
+      <measure id="nonEmployeeLaborHoursRecy" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="nonEmployeeLaborHoursRecy"/>
+        <measureMapping columnObjectName="Join_1" columnName="nonEmployeeLaborHoursRecy"/>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectRecy" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="nonEmployeeLaborCostDirectRecy"/>
+        <measureMapping columnObjectName="Join_1" columnName="nonEmployeeLaborCostDirectRecy"/>
+      </measure>
+      <measure id="maintenanceCostLabor" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceCostLabor"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceCostLabor"/>
+      </measure>
+      <measure id="totalEmployeeLaborHourDirect" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalEmployeeLaborHourDirect"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalEmployeeLaborHourDirect"/>
+      </measure>
+      <measure id="directLaborHours" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="directLaborHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="directLaborHours"/>
+      </measure>
+      <measure id="totalEmployeeLaborCostDirect" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalEmployeeLaborCostDirect"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalEmployeeLaborCostDirect"/>
+      </measure>
+      <measure id="maintenanceCostOther" order="39" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceCostOther"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceCostOther"/>
+      </measure>
+      <measure id="benefitRate" order="40" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="benefitRate"/>
+        <measureMapping columnObjectName="Join_1" columnName="benefitRate"/>
+      </measure>
+      <measure id="maintenanceCostLaborWithBenefits" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceCostLaborWithBenefits"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceCostLaborWithBenefits"/>
+      </measure>
+      <measure id="totalMaintenanceCost" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalMaintenanceCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalMaintenanceCost"/>
+      </measure>
+      <measure id="employeeDirectLaborCostwithBenefits" order="43" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="employeeDirectLaborCostwithBenefits"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeDirectLaborCostwithBenefits"/>
+      </measure>
+      <measure id="totalDirectLaborCost" order="44" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalDirectLaborCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalDirectLaborCost"/>
+      </measure>
+      <measure id="totalTruckCost" order="45" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalTruckCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalTruckCost"/>
+      </measure>
+      <measure id="gallons" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="gallons"/>
+        <measureMapping columnObjectName="Join_1" columnName="gallons"/>
+      </measure>
+      <measure id="depreciation" order="47" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="depreciation"/>
+        <measureMapping columnObjectName="Join_1" columnName="depreciation"/>
+      </measure>
+      <measure id="routeCustomerMiles" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeCustomerMiles"/>
+        <measureMapping columnObjectName="Join_1" columnName="routeCustomerMiles"/>
+      </measure>
+      <measure id="yards" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="yards"/>
+        <measureMapping columnObjectName="Join_1" columnName="yards"/>
+      </measure>
+      <measure id="insuranceAndClaims" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="insuranceAndClaims"/>
+        <measureMapping columnObjectName="Join_1" columnName="insuranceAndClaims"/>
+      </measure>
+      <measure id="maintenanceParts" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceParts"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceParts"/>
+      </measure>
+      <measure id="maintenancePartsNonCapex" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenancePartsNonCapex"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenancePartsNonCapex"/>
+      </measure>
+      <measure id="maintenanceLaborNonCapex" order="53" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceLaborNonCapex"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceLaborNonCapex"/>
+      </measure>
+      <measure id="maintenanceTires" order="54" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceTires"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceTires"/>
+      </measure>
+      <measure id="maintenanceWarranty" order="55" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceWarranty"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceWarranty"/>
+      </measure>
+      <measure id="maintenanceWrecker" order="56" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceWrecker"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceWrecker"/>
+      </measure>
+      <measure id="fuelCost" order="57" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="fuelCost"/>
+      </measure>
+      <measure id="truckHours" order="58" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="truckHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="truckHours"/>
+      </measure>
+      <measure id="maintenanceLabor" order="59" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceLabor"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceLabor"/>
+      </measure>
+      <measure id="driverLaborCost" order="60" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="driverLaborCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="driverLaborCost"/>
+      </measure>
+      <measure id="disposalCost" order="61" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="disposalCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="disposalCost"/>
+      </measure>
+      <measure id="laborCostBenefitsDriver" order="62" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="laborCostBenefitsDriver"/>
+        <measureMapping columnObjectName="Join_1" columnName="laborCostBenefitsDriver"/>
+      </measure>
+      <measure id="laborCostOtherDriver" order="63" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="laborCostOtherDriver"/>
+        <measureMapping columnObjectName="Join_1" columnName="laborCostOtherDriver"/>
+      </measure>
+      <measure id="maintCostCapitalizedRepair" order="64" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintCostCapitalizedRepair"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintCostCapitalizedRepair"/>
+      </measure>
+      <measure id="discounts" order="65" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="discounts"/>
+        <measureMapping columnObjectName="Join_1" columnName="discounts"/>
+      </measure>
+      <measure id="fuelSurchargeRevenue" order="66" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelSurchargeRevenue"/>
+        <measureMapping columnObjectName="Join_1" columnName="fuelSurchargeRevenue"/>
+      </measure>
+      <measure id="otherRevenue" order="67" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="otherRevenue"/>
+        <measureMapping columnObjectName="Join_1" columnName="otherRevenue"/>
+      </measure>
+      <measure id="maintCostLaborOther" order="68" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintCostLaborOther"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintCostLaborOther"/>
+      </measure>
+      <measure id="lifts" order="69" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="lifts"/>
+        <measureMapping columnObjectName="Join_1" columnName="lifts"/>
+      </measure>
+      <measure id="routeHours" order="70" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="routeHours"/>
+      </measure>
+      <measure id="stops" order="71" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="stops"/>
+        <measureMapping columnObjectName="Join_1" columnName="stops"/>
+      </measure>
+      <measure id="tonnage" order="72" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tonnage"/>
+        <measureMapping columnObjectName="Join_1" columnName="tonnage"/>
+      </measure>
+      <measure id="baseRevenue" order="73" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="baseRevenue"/>
+        <measureMapping columnObjectName="Join_1" columnName="baseRevenue"/>
+      </measure>
+      <measure id="unitCount" order="74" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="unitCount"/>
+        <measureMapping columnObjectName="Join_1" columnName="unitCount"/>
+      </measure>
+      <measure id="units" order="75" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="units"/>
+        <measureMapping columnObjectName="Join_1" columnName="units"/>
+      </measure>
+      <measure id="mechanicHours" order="76" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="mechanicHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="mechanicHours"/>
+      </measure>
+      <measure id="commodityRevenue" order="77" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="commodityRevenue"/>
+        <measureMapping columnObjectName="Join_1" columnName="commodityRevenue"/>
+      </measure>
+      <measure id="loads" order="78" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="loads"/>
+        <measureMapping columnObjectName="Join_1" columnName="loads"/>
+      </measure>
+      <measure id="routeHoursWithMechanic" order="79" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeHoursWithMechanic"/>
+        <measureMapping columnObjectName="Join_1" columnName="routeHoursWithMechanic"/>
+      </measure>
+      <measure id="caWageEligibleForBenefitsWeighted" order="80" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="caWageEligibleForBenefitsWeighted"/>
+        <measureMapping columnObjectName="Join_1" columnName="caWageEligibleForBenefitsWeighted"/>
+      </measure>
+      <measure id="allOthercosts" order="81" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="allOthercosts"/>
+        <measureMapping columnObjectName="Join_1" columnName="allOthercosts"/>
+      </measure>
+      <measure id="compactorTons" order="82" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="compactorTons"/>
+        <measureMapping columnObjectName="Join_1" columnName="compactorTons"/>
+      </measure>
+      <measure id="costOfOperations" order="83" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="costOfOperations"/>
+        <measureMapping columnObjectName="Join_1" columnName="costOfOperations"/>
+      </measure>
+      <measure id="cubicYardsConsumed" order="84" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="cubicYardsConsumed"/>
+        <measureMapping columnObjectName="Join_1" columnName="cubicYardsConsumed"/>
+      </measure>
+      <measure id="equipmentRepairCost" order="85" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="equipmentRepairCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="equipmentRepairCost"/>
+      </measure>
+      <measure id="equipmentHours" order="86" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="equipmentHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="equipmentHours"/>
+      </measure>
+      <measure id="excavatorLoaderTons" order="87" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="excavatorLoaderTons"/>
+        <measureMapping columnObjectName="Join_1" columnName="excavatorLoaderTons"/>
+      </measure>
+      <measure id="expenseCubicYards" order="88" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="expenseCubicYards"/>
+        <measureMapping columnObjectName="Join_1" columnName="expenseCubicYards"/>
+      </measure>
+      <measure id="ownershipCost" order="89" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="ownershipCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="ownershipCost"/>
+      </measure>
+      <measure id="payrollHours" order="90" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="payrollHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="payrollHours"/>
+      </measure>
+      <measure id="productivityDailyCover" order="91" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="productivityDailyCover"/>
+        <measureMapping columnObjectName="Join_1" columnName="productivityDailyCover"/>
+      </measure>
+      <measure id="cellAmortization" order="92" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="cellAmortization"/>
+        <measureMapping columnObjectName="Join_1" columnName="cellAmortization"/>
+      </measure>
+      <measure id="totalNetRevenue" order="93" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalNetRevenue"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalNetRevenue"/>
+      </measure>
+      <measure id="totalNetLaborCost" order="94" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalNetLaborCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalNetLaborCost"/>
+      </measure>
+      <measure id="totalNetEquipmentCost" order="95" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalNetEquipmentCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalNetEquipmentCost"/>
+      </measure>
+      <measure id="totalOtherLandfillExpenses" order="96" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalOtherLandfillExpenses"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalOtherLandfillExpenses"/>
+      </measure>
+      <measure id="totalLandfillOperatingExpense" order="97" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalLandfillOperatingExpense"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalLandfillOperatingExpense"/>
+      </measure>
+      <measure id="landfillOperatingProfit" order="98" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="landfillOperatingProfit"/>
+        <measureMapping columnObjectName="Join_1" columnName="landfillOperatingProfit"/>
+      </measure>
+      <measure id="operatingIncome" order="99" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="operatingIncome"/>
+        <measureMapping columnObjectName="Join_1" columnName="operatingIncome"/>
+      </measure>
+      <measure id="compactorHours" order="100" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="compactorHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="compactorHours"/>
+      </measure>
+      <measure id="excavatedCubicYards" order="101" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="excavatedCubicYards"/>
+        <measureMapping columnObjectName="Join_1" columnName="excavatedCubicYards"/>
+      </measure>
+      <measure id="excavatorLoaderHours" order="102" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="excavatorLoaderHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="excavatorLoaderHours"/>
+      </measure>
+      <measure id="capexCost" order="103" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="capexCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="capexCost"/>
+      </measure>
+      <measure id="capexCubicYards" order="104" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="capexCubicYards"/>
+        <measureMapping columnObjectName="Join_1" columnName="capexCubicYards"/>
+      </measure>
+      <measure id="equipmentCost" order="105" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="equipmentCost"/>
+        <measureMapping columnObjectName="Join_1" columnName="equipmentCost"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="221" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

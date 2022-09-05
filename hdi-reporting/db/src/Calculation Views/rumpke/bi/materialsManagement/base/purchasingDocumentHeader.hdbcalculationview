@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.materialsManagement.base::purchasingDocumentHeader" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="purchasingDocumentHeader"/>
+  <metadata changedAt="2020-11-09 13:12:41.831"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="S4HANA::EKKO">
+      <resourceUri>S4HANA::EKKO</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="S4HANA::EKKO">
+    <descriptions/>
+    <attributes>
+      <attribute id="purchasingDocumentNumber" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Document Number"/>
+        <keyMapping columnObjectName="EKKO" columnName="EBELN"/>
+      </attribute>
+      <attribute id="vendorsAccountNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Vendor&apos;s account number"/>
+        <keyMapping columnObjectName="EKKO" columnName="LIFNR"/>
+      </attribute>
+      <attribute id="purchasingDocumentType" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Document Type"/>
+        <keyMapping columnObjectName="EKKO" columnName="BSART"/>
+      </attribute>
+      <attribute id="dateOnWhichRecordWasCreated" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date on which the record was created"/>
+        <keyMapping columnObjectName="EKKO" columnName="AEDAT"/>
+      </attribute>
+      <attribute id="purchasingGroup" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Group"/>
+        <keyMapping columnObjectName="EKKO" columnName="EKGRP"/>
+      </attribute>
+      <attribute id="ourReference" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Our Reference"/>
+        <keyMapping columnObjectName="EKKO" columnName="UNSEZ"/>
+      </attribute>
+      <attribute id="cancelledBy" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cancelled by"/>
+        <keyMapping columnObjectName="EKKO" columnName="ZZ_CANC_BY"/>
+      </attribute>
+      <attribute id="cancelledDate" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cancelled Date"/>
+        <keyMapping columnObjectName="EKKO" columnName="ZZ_CANC_ON"/>
+      </attribute>
+      <attribute id="cancelledReason" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cancelled Reason"/>
+        <keyMapping columnObjectName="EKKO" columnName="ZZ_CANC_REASON"/>
+      </attribute>
+      <attribute id="cancellationNote" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cancellation Note"/>
+        <keyMapping columnObjectName="EKKO" columnName="ZZ_CANC_NOTE"/>
+      </attribute>
+      <attribute id="numberOfDocumentCondition" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of the Document Condition"/>
+        <keyMapping columnObjectName="EKKO" columnName="KNUMV"/>
+      </attribute>
+      <attribute id="purchasingDocumentDate" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Document Date"/>
+        <keyMapping columnObjectName="EKKO" columnName="BEDAT"/>
+      </attribute>
+      <attribute id="deletionIndicator" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchase Doc Deletion Indicator"/>
+        <keyMapping columnObjectName="EKKO" columnName="LOEKZ"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="140"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,117 @@
+FUNCTION "rumpke.bi.data.proc::timeAttributesFiscalPeriodInput" (ip_calMonth VARCHAR(7)) 
+	RETURNS TABLE (
+		"date" DATE
+		,"dateSAP" VARCHAR(8)
+		,"year" VARCHAR(4)
+		,"yearInt" INT
+		,"quarter" VARCHAR(2)
+		,"quarterInt" TINYINT
+		,"calQuarter" VARCHAR(5)
+		,"month" VARCHAR(2)
+		,"monthInt" TINYINT
+		,"calMonth" VARCHAR(6)
+		,"calendarMonth" VARCHAR(7)
+		,"calendarMonthDesc" VARCHAR(10)
+		,"monthName" VARCHAR(10)
+		,"rollingYearNo" INT
+		,"ytd" VARCHAR(1)
+		,"ytdClosedPeriod" VARCHAR(1)
+		,"ytdClosedPeriodAdjustedForJan" VARCHAR(1)
+		,"rollingMonthNo" INT
+		,"fiscalPeriod" VARCHAR(3)
+		,"fiscalYear" VARCHAR(4)
+		,"fiscalYearPeriod" VARCHAR(7)	
+		,"calMonthDisplay" VARCHAR(7)
+		,"yearQuarter" VARCHAR(7)
+		,"QTD" VARCHAR(1)			
+		) LANGUAGE SQLSCRIPT SQL SECURITY INVOKER AS
+
+BEGIN
+	/***************************** 
+	Write your function logic
+ *****************************/
+ 	DECLARE v_month nvarchar(2);
+ 	DECLARE v_year nvarchar(4);
+ 	DECLARE v_calmonth nvarchar(7);
+ 	
+ 	select left(:ip_calMonth,4) into v_year from "SYS::DUMMY";
+ 	select right(:ip_calMonth,2) into v_month from "SYS::DUMMY";
+ 	select :v_year||'-'||:v_month into v_calmonth from "SYS::DUMMY";
+ 
+	VAR_OUT =
+
+	SELECT "DATE_SQL" AS "date"
+		,"DATE_SAP" AS "dateSAP"
+		,"YEAR" AS "year"
+		,"YEAR_INT" AS "yearInt"
+		,"QUARTER" AS "quarter"
+		,"QUARTER_INT" AS "quarterInt"
+		,"CALQUARTER" AS "calQuarter"
+		,"MONTH" AS "month"
+		,"MONTH_INT" AS "monthInt"
+		,"CALMONTH" AS "calMonth"
+		,LEFT("CALMONTH", 4) || '/' || RIGHT("CALMONTH", 2) AS "calendarMonth"
+		,"YEAR" || '/' || LEFT(MONTHNAME("DATE_SQL"), 3) AS "calendarMonthDesc"
+		,MONTHNAME("DATE_SQL") AS "monthName"
+		,YEAR("DATE_SQL") - YEAR(LAST_DAY(TO_DATE(:v_calmonth || '-01'))) AS "rollingYearNo"
+		,CASE 
+			WHEN TO_INT(SUBSTRING(TO_VARCHAR(LAST_DAY(TO_DATE(:v_calmonth || '-01'))), 6, 2) || SUBSTRING(TO_VARCHAR(LAST_DAY(TO_DATE(:v_calmonth || '-01'))), 9, 2)) >= TO_INT(SUBSTRING(TO_VARCHAR("DATE_SQL"), 6, 2) || SUBSTRING(TO_VARCHAR("DATE_SQL"), 9, 2))
+				THEN 'Y'
+			ELSE 'N'
+			END AS "ytd"
+		,CASE 
+			WHEN SUBSTRING(:v_calmonth,6,2) != '01'
+				THEN (
+						CASE 
+							WHEN TO_INT(SUBSTRING(TO_VARCHAR(LAST_DAY(ADD_MONTHS(TO_DATE(:v_calmonth || '-01'), - 1))), 6, 2) || SUBSTRING(TO_VARCHAR(LAST_DAY(ADD_MONTHS(TO_DATE(:v_calmonth || '-01'), - 1))), 9, 2)) >= TO_INT(SUBSTRING(TO_VARCHAR("DATE_SQL"), 6, 2) || SUBSTRING(TO_VARCHAR("DATE_SQL"), 9, 2))
+								THEN 'Y'
+							ELSE 'N'
+							END
+						)
+			ELSE 'N'
+			END AS "ytdClosedPeriod"
+		,CASE 
+			WHEN SUBSTRING(TO_VARCHAR(LAST_DAY(TO_DATE(:v_calmonth || '-01'))), 6, 2) = '01'
+				THEN (
+						CASE 
+							WHEN YEAR(LAST_DAY(TO_DATE(:v_calmonth || '-01'))) - 1 = YEAR("DATE_SQL")
+								THEN 'Y'
+							ELSE 'N'
+							END
+						)
+			WHEN TO_INT(SUBSTRING(TO_VARCHAR(LAST_DAY(ADD_MONTHS(LAST_DAY(TO_DATE(:v_calmonth || '-01')), - 1))), 6, 2) || SUBSTRING(TO_VARCHAR(LAST_DAY(ADD_MONTHS(LAST_DAY(TO_DATE(:v_calmonth || '-01')), - 1))), 9, 2)) >= TO_INT(SUBSTRING(TO_VARCHAR("DATE_SQL"), 6, 2) || SUBSTRING(TO_VARCHAR("DATE_SQL"), 9, 2))
+				THEN 'Y'
+			ELSE 'N'
+			END AS "ytdClosedPeriodAdjustedForJan"
+		,CASE 
+			WHEN "DATE_SQL" <= LAST_DAY(LAST_DAY(TO_DATE(:v_calmonth || '-01')))
+				THEN (
+						CASE 
+							WHEN "DAY" = '01'
+								THEN MONTHS_BETWEEN(NEXT_DAY(LAST_DAY(LAST_DAY(TO_DATE(:v_calmonth || '-01')))), "DATE_SQL") + 1
+							ELSE MONTHS_BETWEEN(NEXT_DAY(LAST_DAY(LAST_DAY(TO_DATE(:v_calmonth || '-01')))), "DATE_SQL")
+							END
+						)
+			WHEN "DATE_SQL" >= NEXT_DAY(LAST_DAY(LAST_DAY(TO_DATE(:v_calmonth || '-01'))))
+				THEN MONTHS_BETWEEN(ADD_MONTHS(NEXT_DAY(LAST_DAY(LAST_DAY(TO_DATE(:v_calmonth || '-01')))), - 1), "DATE_SQL")
+			ELSE NULL
+			END AS "rollingMonthNo"
+		,CONCAT(0,RIGHT("CALMONTH", 2)) AS "fiscalPeriod"
+		,LEFT("CALMONTH", 4) AS "fiscalYear"
+		,CONCAT((LEFT("CALMONTH", 4)), CONCAT(0,RIGHT("CALMONTH", 2))) AS "fiscalYearPeriod"	
+		,CONCAT(CONCAT("MONTH", '-'),"YEAR") AS "calMonthDisplay"	
+		,QUARTER("DATE_SQL") AS "yearQuarter"	
+		,CASE 
+			WHEN TO_INT(SUBSTRING(TO_VARCHAR(LAST_DAY(TO_DATE(:v_calmonth || '-01'))), 6, 2) || SUBSTRING(TO_VARCHAR(LAST_DAY(TO_DATE(:v_calmonth || '-01'))), 9, 2)) >= TO_INT(SUBSTRING(TO_VARCHAR("DATE_SQL"), 6, 2) || SUBSTRING(TO_VARCHAR("DATE_SQL"), 9, 2))
+				AND "QUARTER" = (
+					SELECT "QUARTER"
+					FROM "M_TIME_DIMENSION"
+					WHERE "DATE_SQL" = LAST_DAY(TO_DATE(:v_calmonth || '-01'))
+					)
+				THEN 'Y'
+			ELSE 'N'
+			END AS "QTD"					
+	FROM "M_TIME_DIMENSION";
+
+RETURN :VAR_OUT;
+END;

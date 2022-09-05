@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.finance.budgetReview::incomeStatementBudget" applyPrivilegeType="SQL_ANALYTIC_PRIVILEGE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="true" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Income Statement Budget Reporting View"/>
+  <metadata changedAt="2020-10-08 12:23:45.492"/>
+  <localVariables>
+    <variable id="varFiscalYearPeriod">
+      <descriptions defaultDescription="Fiscal Year/Period"/>
+      <variableProperties datatype="VARCHAR" mandatory="true">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeDimension</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalYearPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="true" type="Range"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="incomeStatement">
+      <resourceUri>rumpke.bi.reporting.finance::incomeStatement</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.data.ddl::freezeData.incomeStatementFreeze">
+      <resourceUri>rumpke.bi.data.ddl::freezeData.incomeStatementFreeze</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Live_Budget" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaDescription"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeDescription"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="contractTypeDescription"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="sortOrderforExpense"/>
+        <viewAttribute id="sortOrderforRevenue"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="budgetYear"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="gLAccountLongDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="projectionYear" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(int(&quot;fiscalYear&quot;)-1)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="incomeStatement">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetYear" source="year"/></input>
+    <filter>&quot;rollingYearNo&quot;='1'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Frozen_Actual_Forecast" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaDescription"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeDescription"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="contractTypeDescription"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="sortOrderforExpense"/>
+        <viewAttribute id="sortOrderforRevenue"/>
+        <viewAttribute id="isCurrent"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="gLAccountLongDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="budgetYear" length="4" expressionLanguage="SQL">
+          <formula>TO_NVARCHAR(TO_INT(&quot;fiscalYear&quot;)+1)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="projectionYear" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;fiscalYear&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.data.ddl::freezeData.incomeStatementFreeze">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscYearPer"/></input>
+    <filter>&quot;rollingYearNo&quot;='0' and &quot;isCurrent&quot;='1'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaDescription"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeDescription"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="contractTypeDescription"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="gLAccountLongDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="sortOrderforExpense"/>
+        <viewAttribute id="sortOrderforRevenue"/>
+        <viewAttribute id="isCurrent"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="budgetYear"/>
+        <viewAttribute id="projectionYear"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Live_Budget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofTheFunctionalArea" source="nameofTheFunctionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPa" source="distributionChannelPa"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPaDescription" source="distributionChannelPaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDescription" source="orderTypeDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractType" source="contractType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractTypeDescription" source="contractTypeDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="accountGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroupDescription" source="accountGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="gLAccountLongDescription" source="gLAccountLongDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterName" source="costCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortOrderforExpense" source="sortOrderforExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortOrderforRevenue" source="sortOrderforRevenue"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="isCurrent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="actual" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="forecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="projection" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetYear" source="budgetYear"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="freezeDate" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projectionYear" source="projectionYear"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Frozen_Actual_Forecast">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofTheFunctionalArea" source="nameofTheFunctionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPa" source="distributionChannelPa"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPaDescription" source="distributionChannelPaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDescription" source="orderTypeDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractType" source="contractType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractTypeDescription" source="contractTypeDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="accountGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroupDescription" source="accountGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="gLAccountLongDescription" source="gLAccountLongDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterName" source="costCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortOrderforExpense" source="sortOrderforExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortOrderforRevenue" source="sortOrderforRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isCurrent" source="isCurrent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="budget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetYear" source="budgetYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projectionYear" source="projectionYear"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="functionalAreaGroup" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group"/>
+        <keyMapping columnObjectName="Union_1" columnName="functionalAreaGroup"/>
+      </attribute>
+      <attribute id="functionalAreaGroupDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="functionalAreaGroupDescription"/>
+      </attribute>
+      <attribute id="functionalArea" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="Union_1" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="nameofTheFunctionalArea" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="nameofTheFunctionalArea"/>
+      </attribute>
+      <attribute id="distributionChannelPa" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel PA"/>
+        <keyMapping columnObjectName="Union_1" columnName="distributionChannelPa"/>
+      </attribute>
+      <attribute id="distributionChannelPaDescription" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel PA Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="distributionChannelPaDescription"/>
+      </attribute>
+      <attribute id="orderType" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Type"/>
+        <keyMapping columnObjectName="Union_1" columnName="orderType"/>
+      </attribute>
+      <attribute id="orderTypeDescription" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Type Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="orderTypeDescription"/>
+      </attribute>
+      <attribute id="contractType" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Contract Type"/>
+        <keyMapping columnObjectName="Union_1" columnName="contractType"/>
+      </attribute>
+      <attribute id="contractTypeDescription" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Contract Type Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="contractTypeDescription"/>
+      </attribute>
+      <attribute id="accountGroup" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Group"/>
+        <keyMapping columnObjectName="Union_1" columnName="accountGroup"/>
+      </attribute>
+      <attribute id="accountGroupDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Group Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="accountGroupDescription"/>
+      </attribute>
+      <attribute id="accountNumber" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Number"/>
+        <keyMapping columnObjectName="Union_1" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="gLAccountLongDescription" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GL Account Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="gLAccountLongDescription"/>
+      </attribute>
+      <attribute id="lineOfBusinessGroup" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Group"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusinessGroup"/>
+      </attribute>
+      <attribute id="area" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Union_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Union_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Union_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="costCenter" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Union_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="costCenterName" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="costCenterName"/>
+      </attribute>
+      <attribute id="calMonth" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month"/>
+        <keyMapping columnObjectName="Union_1" columnName="calMonth"/>
+      </attribute>
+      <attribute id="postingPeriod" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting Period"/>
+        <keyMapping columnObjectName="Union_1" columnName="postingPeriod"/>
+      </attribute>
+      <attribute id="monthName1" hidden="true" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month Name"/>
+        <keyMapping columnObjectName="Union_1" columnName="monthName"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <localVariable>varFiscalYearPeriod</localVariable>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="fiscalYear" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="budgetYear" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Budget Year"/>
+        <keyMapping columnObjectName="Union_1" columnName="budgetYear"/>
+      </attribute>
+      <attribute id="projectionYear" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Projection Year"/>
+        <keyMapping columnObjectName="Union_1" columnName="projectionYear"/>
+      </attribute>
+      <attribute id="sortOrderforExpense" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sort Order For Expense"/>
+        <keyMapping columnObjectName="Union_1" columnName="sortOrderforExpense"/>
+      </attribute>
+      <attribute id="sortOrderforRevenue" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sort Order for Revenue"/>
+        <keyMapping columnObjectName="Union_1" columnName="sortOrderforRevenue"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="monthName" hidden="false" order="31" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month Name"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="3">
+          <formula>leftstr(&quot;monthName1&quot;,3)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="freezeMonth" hidden="false" key="true" order="44" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Freeze Month"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="8">
+          <formula>if(isnull(&quot;freezeDate&quot;),int(leftstr(string(&quot;freezeDate&quot;),6)),int(leftstr(string(&quot;freezeDate&quot;),6)))</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="actual" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="actual"/>
+      </measure>
+      <measure id="budget" order="39" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="budget"/>
+      </measure>
+      <measure id="forecast" order="40" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="forecast"/>
+      </measure>
+      <measure id="projection" order="43" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Projection"/>
+        <measureMapping columnObjectName="Union_1" columnName="projection"/>
+      </measure>
+      <measure id="freezeDate" order="45" aggregationType="max" measureType="simple">
+        <descriptions defaultDescription="freezeDate"/>
+        <measureMapping columnObjectName="Union_1" columnName="freezeDate"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="varianceBudgetProjection" hidden="false" order="41" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Variance (Budget - Projection)"/>
+        <formula>&quot;budget&quot;-&quot;projection&quot;</formula>
+      </measure>
+      <measure id="percentChangeBudgetProjection" hidden="false" order="42" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="% Change Budget to Projection"/>
+        <formula>round(if(&quot;budget&quot; &gt; 0, &quot;varianceBudgetProjection&quot;/&quot;budget&quot;,0),2)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="221" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Live_Budget" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="356"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Frozen_Actual_Forecast" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="356"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

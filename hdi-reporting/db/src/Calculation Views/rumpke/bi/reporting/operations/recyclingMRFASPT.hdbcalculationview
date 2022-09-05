@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.operations::recyclingMRFASPT" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="recyclingMRFASPT"/>
+  <metadata changedAt="2021-12-23 10:13:54.083"/>
+  <localVariables>
+    <variable id="ip_From" parameter="true">
+      <descriptions defaultDescription="Date From"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="2021001" length="7" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ip_To" parameter="true">
+      <descriptions defaultDescription="Date To"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="2021012" length="7" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="30"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.reuse::recyclingSalesSummary">
+      <resourceUri>rumpke.bi.operations.reuse::recyclingSalesSummary</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="materialType"/>
+        <viewAttribute id="recyclingSalesActual"/>
+        <viewAttribute id="recyclingSalesBudget"/>
+        <viewAttribute id="recyclingTonsActual"/>
+        <viewAttribute id="recyclingTonsBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.operations.reuse::recyclingSalesSummary"/>
+    <filter>&quot;fiscalYearPeriod&quot; &gt;='$$ip_From$$' AND &quot;fiscalYearPeriod&quot; &lt;='$$ip_To$$'</filter>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Aggregation_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYear" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="calQuarter" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cal Quarter"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="yearQuarter" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year Quarter"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="calMonth" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cal Month"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="calMonth"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CalMonth Display"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="fiscalPeriod" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Period"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="fiscalPeriod"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FiscalYear Period"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="area" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Desc"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Desc"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Desc"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SubDistrict"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SubDistrict Description"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center "/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LineOfBusiness"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="profitCenterGroup" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Group"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="profitCenterGroup"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineofBusinessDescription"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="processingType" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Processing Type"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="processingType"/>
+      </attribute>
+      <attribute id="materialType" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Type"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="materialType"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="recyclingSalesActual" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="recyclingSalesActual"/>
+        <measureMapping columnObjectName="Aggregation_1" columnName="recyclingSalesActual"/>
+      </measure>
+      <measure id="recyclingSalesBudget" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="recyclingSalesBudget"/>
+        <measureMapping columnObjectName="Aggregation_1" columnName="recyclingSalesBudget"/>
+      </measure>
+      <measure id="recyclingTonsActual" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="recyclingTonsActual"/>
+        <measureMapping columnObjectName="Aggregation_1" columnName="recyclingTonsActual"/>
+      </measure>
+      <measure id="recyclingTonsBudget" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="recyclingTonsBudget"/>
+        <measureMapping columnObjectName="Aggregation_1" columnName="recyclingTonsBudget"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="varianceTons" hidden="false" order="1" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="varianceTons"/>
+        <formula>&quot;recyclingTonsActual&quot;-&quot;recyclingTonsBudget&quot;</formula>
+      </measure>
+      <measure id="varianceSales" hidden="false" order="2" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="varianceSales"/>
+        <formula>&quot;recyclingSalesActual&quot;-&quot;recyclingSalesBudget&quot;</formula>
+      </measure>
+      <measure id="actualPricePerTon" hidden="false" order="29" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="actualPricePerTon"/>
+        <formula>if(&quot;recyclingTonsActual&quot;=0,0,&quot;recyclingSalesActual&quot;/&quot;recyclingTonsActual&quot;)</formula>
+      </measure>
+      <measure id="budgetPricePerTon" hidden="false" order="30" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="actualPricePerTon"/>
+        <formula>if(&quot;recyclingTonsBudget&quot;=0,0,&quot;recyclingSalesBudget&quot;/&quot;recyclingTonsBudget&quot;)</formula>
+      </measure>
+      <measure id="variancePricePerTon" hidden="false" order="31" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="actualPricePerTon"/>
+        <formula>&quot;actualPricePerTon&quot;-&quot;budgetPricePerTon&quot;</formula>
+      </measure>
+      <measure id="volume" hidden="false" order="32" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Volume"/>
+        <formula>&quot;varianceTons&quot;*&quot;budgetPricePerTon&quot;</formula>
+      </measure>
+      <measure id="price" hidden="false" order="33" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Price"/>
+        <formula>&quot;variancePricePerTon&quot;*&quot;recyclingTonsActual&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="92" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

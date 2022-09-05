@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.finance.reuse::fuelSurcharge" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="IncomeStatementFuelSurcharge"/>
+  <metadata changedAt="2021-03-31 10:52:16.9"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="33"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.reporting.finance::incomeStatement">
+      <resourceUri>rumpke.bi.reporting.finance::incomeStatement</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="level2FunctionalArea"/>
+        <viewAttribute id="level2FunctionalAreaDescription"/>
+        <viewAttribute id="level3AccountGroup"/>
+        <viewAttribute id="level3AccountGroupDescription"/>
+        <viewAttribute id="level4AccountNumber"/>
+        <viewAttribute id="level4AccountNumberDescription"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeDescription"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="contractTypeDescription"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="gLAccountLongDescription"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaDescription"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="nameCompanyCode"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="name"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="rumpkeMaterialGrpDescription"/>
+        <viewAttribute id="sortOrder"/>
+        <viewAttribute id="sortOrderforExpense"/>
+        <viewAttribute id="sortOrderforRevenue"/>
+        <viewAttribute id="tradingPartnerCompanyID"/>
+        <viewAttribute id="partnerProfitCenter"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="variance"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.reporting.finance::incomeStatement"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="region" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Projection_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (MM-YYYY)"/>
+        <keyMapping columnObjectName="Projection_1" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="monthName" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month Name"/>
+        <keyMapping columnObjectName="Projection_1" columnName="monthName"/>
+      </attribute>
+      <attribute id="rollingMonthNo" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Month Number (Current Month = 0)"/>
+        <keyMapping columnObjectName="Projection_1" columnName="rollingMonthNo"/>
+      </attribute>
+      <attribute id="year" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="Projection_1" columnName="year"/>
+      </attribute>
+      <attribute id="yearQuarter" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year-Quarter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="fiscYearPer" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscYearPer"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="calQuarter" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="rollingYearNo" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Year Number (Current Year = 0)"/>
+        <keyMapping columnObjectName="Projection_1" columnName="rollingYearNo"/>
+      </attribute>
+      <attribute id="calMonth" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cal Month"/>
+        <keyMapping columnObjectName="Projection_1" columnName="calMonth"/>
+      </attribute>
+      <attribute id="priorMonth" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month"/>
+        <keyMapping columnObjectName="Projection_1" columnName="priorMonth"/>
+      </attribute>
+      <attribute id="postingPeriod" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="postingPeriod"/>
+      </attribute>
+      <attribute id="fiscalYear" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="district" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Projection_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="lineOfBusinessGroup" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Group"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusinessGroup"/>
+      </attribute>
+      <attribute id="area" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Projection_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Projection_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="accountNumber" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="functionalAreaGroup" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="functionalAreaGroup"/>
+        <keyMapping columnObjectName="Projection_1" columnName="functionalAreaGroup"/>
+      </attribute>
+      <attribute id="functionalAreaGroupDescription" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="functionalAreaGroupDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="functionalAreaGroupDescription"/>
+      </attribute>
+      <attribute id="functionalArea" order="40" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="functionalArea"/>
+        <keyMapping columnObjectName="Projection_1" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="nameofTheFunctionalArea" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="nameofTheFunctionalArea"/>
+        <keyMapping columnObjectName="Projection_1" columnName="nameofTheFunctionalArea"/>
+      </attribute>
+      <attribute id="level2FunctionalArea" order="42" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="level2FunctionalArea"/>
+        <keyMapping columnObjectName="Projection_1" columnName="level2FunctionalArea"/>
+      </attribute>
+      <attribute id="level2FunctionalAreaDescription" order="43" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="level2FunctionalAreaDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="level2FunctionalAreaDescription"/>
+      </attribute>
+      <attribute id="level3AccountGroup" order="44" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="level3AccountGroup"/>
+        <keyMapping columnObjectName="Projection_1" columnName="level3AccountGroup"/>
+      </attribute>
+      <attribute id="level3AccountGroupDescription" order="45" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="level3AccountGroupDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="level3AccountGroupDescription"/>
+      </attribute>
+      <attribute id="level4AccountNumber" order="46" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="level4AccountNumber"/>
+        <keyMapping columnObjectName="Projection_1" columnName="level4AccountNumber"/>
+      </attribute>
+      <attribute id="level4AccountNumberDescription" order="47" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="level4AccountNumberDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="level4AccountNumberDescription"/>
+      </attribute>
+      <attribute id="orderType" order="48" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="orderType"/>
+        <keyMapping columnObjectName="Projection_1" columnName="orderType"/>
+      </attribute>
+      <attribute id="orderTypeDescription" order="49" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="orderTypeDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="orderTypeDescription"/>
+      </attribute>
+      <attribute id="contractType" order="50" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="contractType"/>
+        <keyMapping columnObjectName="Projection_1" columnName="contractType"/>
+      </attribute>
+      <attribute id="contractTypeDescription" order="51" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="contractTypeDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="contractTypeDescription"/>
+      </attribute>
+      <attribute id="gLAccountLongDescription" order="52" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="gLAccountLongDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="gLAccountLongDescription"/>
+      </attribute>
+      <attribute id="distributionChannelPa" order="53" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="distributionChannelPa"/>
+        <keyMapping columnObjectName="Projection_1" columnName="distributionChannelPa"/>
+      </attribute>
+      <attribute id="distributionChannelPaDescription" order="54" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="distributionChannelPaDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="distributionChannelPaDescription"/>
+      </attribute>
+      <attribute id="accountGroup" order="55" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="accountGroup"/>
+        <keyMapping columnObjectName="Projection_1" columnName="accountGroup"/>
+      </attribute>
+      <attribute id="accountGroupDescription" order="56" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="accountGroupDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="accountGroupDescription"/>
+      </attribute>
+      <attribute id="revenueCategory" order="57" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="revenueCategory"/>
+        <keyMapping columnObjectName="Projection_1" columnName="revenueCategory"/>
+      </attribute>
+      <attribute id="profitCenter" order="58" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="59" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenterDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="costCenter" order="60" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="costCenter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="costCenterName" order="61" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="costCenterName"/>
+        <keyMapping columnObjectName="Projection_1" columnName="costCenterName"/>
+      </attribute>
+      <attribute id="companyCode" order="62" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="companyCode"/>
+        <keyMapping columnObjectName="Projection_1" columnName="companyCode"/>
+      </attribute>
+      <attribute id="nameCompanyCode" order="63" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="nameCompanyCode"/>
+        <keyMapping columnObjectName="Projection_1" columnName="nameCompanyCode"/>
+      </attribute>
+      <attribute id="plant" order="64" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="plant"/>
+        <keyMapping columnObjectName="Projection_1" columnName="plant"/>
+      </attribute>
+      <attribute id="name" order="65" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="name"/>
+        <keyMapping columnObjectName="Projection_1" columnName="name"/>
+      </attribute>
+      <attribute id="rumpkeMaterialGrp" order="66" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="rumpkeMaterialGrp"/>
+        <keyMapping columnObjectName="Projection_1" columnName="rumpkeMaterialGrp"/>
+      </attribute>
+      <attribute id="rumpkeMaterialGrpDescription" order="67" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="rumpkeMaterialGrpDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="rumpkeMaterialGrpDescription"/>
+      </attribute>
+      <attribute id="sortOrder" order="68" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sortOrder"/>
+        <keyMapping columnObjectName="Projection_1" columnName="sortOrder"/>
+      </attribute>
+      <attribute id="sortOrderforExpense" order="69" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sortOrderforExpense"/>
+        <keyMapping columnObjectName="Projection_1" columnName="sortOrderforExpense"/>
+      </attribute>
+      <attribute id="sortOrderforRevenue" order="70" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sortOrderforRevenue"/>
+        <keyMapping columnObjectName="Projection_1" columnName="sortOrderforRevenue"/>
+      </attribute>
+      <attribute id="tradingPartnerCompanyID" order="71" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="tradingPartnerCompanyID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="tradingPartnerCompanyID"/>
+      </attribute>
+      <attribute id="partnerProfitCenter" order="72" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="partnerProfitCenter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="partnerProfitCenter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="forecast" key="true" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Forecast"/>
+        <measureMapping columnObjectName="Projection_1" columnName="forecast"/>
+      </measure>
+      <measure id="projection" key="true" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Projection"/>
+        <measureMapping columnObjectName="Projection_1" columnName="projection"/>
+      </measure>
+      <measure id="variance" key="true" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Variance"/>
+        <measureMapping columnObjectName="Projection_1" columnName="variance"/>
+      </measure>
+      <measure id="actual" order="73" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actual"/>
+        <measureMapping columnObjectName="Projection_1" columnName="actual"/>
+      </measure>
+      <measure id="budget" order="74" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="budget"/>
+        <measureMapping columnObjectName="Projection_1" columnName="budget"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="fscVariance" hidden="false" order="33" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="34" scale="2">
+        <descriptions defaultDescription="FSC Variance"/>
+        <formula>&quot;fscActual&quot;-&quot;fscBudget&quot;</formula>
+      </measure>
+      <measure id="fuelExpVariance" hidden="false" order="34" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="34" scale="2">
+        <descriptions defaultDescription="Fuel Expense Variance"/>
+        <formula>&quot;fuelExpBudget&quot;-&quot;fuelExpActual&quot;</formula>
+      </measure>
+      <measure id="fuelOverageShortage" hidden="false" order="35" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="34" scale="2">
+        <descriptions defaultDescription="Fuel Overage Shortage"/>
+        <formula>&quot;fscVariance&quot;+&quot;fuelExpVariance&quot;</formula>
+      </measure>
+      <measure id="netFuelImpact" hidden="false" order="37" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="34" scale="2">
+        <descriptions defaultDescription="Net Fuel Impact"/>
+        <formula>&quot;fuelOverageShortage&quot;+&quot;hedgeImpact&quot;</formula>
+      </measure>
+      <measure id="hedgeImpact" hidden="false" order="75" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="34" scale="2">
+        <descriptions defaultDescription="Hedge Impact"/>
+        <formula>-1 * &quot;hedgeImpact_RC&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="fscActual" hidden="false" order="29" baseMeasure="actual" restrictionExpressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="FSC Actual"/>
+        <restrictionExpression>(&quot;accountNumber&quot; = '0041091000')</restrictionExpression>
+      </measure>
+      <measure id="fscBudget" hidden="false" order="30" baseMeasure="budget">
+        <descriptions defaultDescription="FSC Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041091000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelExpActual" hidden="false" order="31" baseMeasure="actual">
+        <descriptions defaultDescription="Fuel Expense Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0063020000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelExpBudget" hidden="false" order="32" baseMeasure="budget">
+        <descriptions defaultDescription="Fuel Expense Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0063020000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+      </measure>
+      <measure id="hedgeImpact_RC" hidden="false" order="36" baseMeasure="actual" restrictionExpressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Hedge Impact"/>
+        <restrictionExpression>(&quot;accountNumber&quot; = '0063021000')</restrictionExpression>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.hr::sapToUTMScorecard" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="SAP To UTM Scorecard"/>
+  <localVariables>
+    <variable id="ipWorkStartDateFrom" parameter="true">
+      <descriptions defaultDescription="Work Start Date From"/>
+      <variableProperties datatype="DATE" defaultValue="2020-06-01" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipWorkStartDateTo" parameter="true">
+      <descriptions defaultDescription="Work Start Date To"/>
+      <variableProperties datatype="DATE" defaultValue="2020-06-30" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.hr.base::employeeCalendarDaysCartesian">
+      <targetVariable name="ipDateFrom" resourceUri="rumpke.bi.hr.base::employeeCalendarDaysCartesian"/>
+      <localVariable>ipWorkStartDateFrom</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.hr.base::employeeCalendarDaysCartesian">
+      <targetVariable name="ipDateTo" resourceUri="rumpke.bi.hr.base::employeeCalendarDaysCartesian"/>
+      <localVariable>ipWorkStartDateTo</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="54"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.plantMaintainance.reuse::utmEmployeeHours">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::utmEmployeeHours</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.hr.base::employee">
+      <resourceUri>rumpke.bi.hr.base::employee</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.plantMaintainance.reuse::orderEmployeeHours">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::orderEmployeeHours</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.hr.base::employeeCalendarDaysCartesian">
+      <resourceUri>rumpke.bi.hr.base::employeeCalendarDaysCartesian</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID_UTM"/>
+        <viewAttribute id="employeeFullNameUTM"/>
+        <viewAttribute id="employeeFirstName"/>
+        <viewAttribute id="employeeLastName"/>
+        <viewAttribute id="workStartDateUTM"/>
+        <viewAttribute aggregationType="sum" id="overtimeHours"/>
+        <viewAttribute aggregationType="sum" id="regularHours"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute aggregationType="sum" id="workedHoursCalc"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="payCodeNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="utmcounter" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.plantMaintainance.reuse::utmEmployeeHours">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID_UTM" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullNameUTM" source="employeeFullName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateUTM" source="workDate"/></input>
+    <filter>(&quot;workStartDateUTM&quot; &gt;='$$ipWorkStartDateFrom$$') AND (&quot;workStartDateUTM&quot; &lt;='$$ipWorkStartDateTo$$') AND (&quot;payCodeNumber&quot;='00'OR &quot;payCodeNumber&quot;='23')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="dateHireAdjusted"/>
+        <viewAttribute id="dateTermination"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.hr.base::employee"/>
+    <filter>&quot;dateHireAdjusted&quot;&lt;='$$ipWorkStartDateFrom$$' AND
+(&quot;dateTermination&quot;='1900-01-01' OR isNull(&quot;dateTermination&quot;) OR &quot;dateTermination&quot;&gt;='$$ipWorkStartDateTo$$')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="plantDescription"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="workCenterDescription"/>
+        <viewAttribute id="workStartDateSAP"/>
+        <viewAttribute id="objectIDresource"/>
+        <viewAttribute id="actualHr"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="maintenancePlantNumber"/>
+        <viewAttribute id="maintenancePlantText"/>
+        <viewAttribute id="sapHoursIndirect"/>
+        <viewAttribute id="sapHoursDirect"/>
+        <viewAttribute id="employeeNameSAP"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="count" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.plantMaintainance.reuse::orderEmployeeHours">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP" source="workStartDate"/></input>
+    <filter>(&quot;workStartDateSAP&quot; &gt;='$$ipWorkStartDateFrom$$') AND (&quot;workStartDateSAP&quot; &lt;='$$ipWorkStartDateTo$$')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+      <viewAttribute id="employeeID"/>
+      <viewAttribute id="workStartDateUTM_Master"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.hr.base::employeeCalendarDaysCartesian">
+																								  
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateUTM_Master" source="DATE_SQL"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID_SAP"/>
+        <viewAttribute aggregationType="sum" id="sapHoursDirect"/>
+        <viewAttribute aggregationType="sum" id="sapHoursIndirect"/>
+        <viewAttribute id="maintenancePlantText"/>
+        <viewAttribute id="maintenancePlantNumber"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="objectIDresource"/>
+        <viewAttribute id="workCenterDescription"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="plantDescription"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute aggregationType="sum" id="actualHr"/>
+        <viewAttribute id="workStartDateSAP"/>
+        <viewAttribute aggregationType="sum" id="count"/>
+        <viewAttribute id="workStartDateSAP_Master"/>
+        <viewAttribute id="employeeIDSAP_Master"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Join_2"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+      <viewAttribute id="employeeID_SAP"/>
+      <viewAttribute id="sapHoursDirect"/>
+      <viewAttribute id="sapHoursIndirect"/>
+      <viewAttribute id="maintenancePlantText"/>
+      <viewAttribute id="maintenancePlantNumber"/>
+      <viewAttribute id="maintenanceActivityType"/>
+      <viewAttribute id="objectIDresource"/>
+      <viewAttribute id="workCenterDescription"/>
+      <viewAttribute id="workCenter"/>
+      <viewAttribute id="plantDescription"/>
+      <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+      <viewAttribute id="actualHr"/>
+      <viewAttribute id="workStartDateSAP"/>
+      <viewAttribute id="count"/>
+      <viewAttribute id="workStartDateSAP_Master"/>
+      <viewAttribute id="employeeIDSAP_Master"/></viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_4">
+	  <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP_Master" source="workStartDateUTM_Master"/>
+	  <mapping xsi:type="Calculation:AttributeMapping" target="employeeIDSAP_Master" source="employeeID"/></input>
+    <input node="Projection_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="employeeID_SAP" source="employeeID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursDirect" source="sapHoursDirect"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursIndirect" source="sapHoursIndirect"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantText" source="maintenancePlantText"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantNumber" source="maintenancePlantNumber"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="objectIDresource" source="objectIDresource"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="workCenterDescription" source="workCenterDescription"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="plantDescription" source="plantDescription"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="plantAssociatedWithMainWorkCenter" source="plantAssociatedWithMainWorkCenter"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="actualHr" source="actualHr"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP" source="workStartDateSAP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="count" source="count"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="employeeIDSAP_Master" source="employeeID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP_Master" source="workStartDateSAP"/>
+    </input>
+    <joinAttribute name="employeeIDSAP_Master"/>
+    <joinAttribute name="workStartDateSAP_Master"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="sap" cardinality="C1_1" dynamic="false" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="employeeID_SAP"/>
+        <viewAttribute id="sapHoursDirect"/>
+        <viewAttribute id="sapHoursIndirect"/>
+        <viewAttribute id="maintenancePlantText"/>
+        <viewAttribute id="maintenancePlantNumber"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="objectIDresource"/>
+        <viewAttribute id="workCenterDescription"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="plantDescription"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="actualHr"/>
+        <viewAttribute id="workStartDateSAP"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="employeeIDSAP_Master"/>
+        <viewAttribute id="workStartDateSAP_Master"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID_SAP" source="employeeID_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursDirect" source="sapHoursDirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursIndirect" source="sapHoursIndirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantText" source="maintenancePlantText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantNumber" source="maintenancePlantNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDresource" source="objectIDresource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterDescription" source="workCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantDescription" source="plantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantAssociatedWithMainWorkCenter" source="plantAssociatedWithMainWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualHr" source="actualHr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP" source="workStartDateSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeIDSAP_Master" source="employeeIDSAP_Master"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP_Master" source="workStartDateSAP_Master"/>
+      </input>
+      <input node="Aggregation_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeNameSAP" source="employeeFullName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentJobCode" source="currentJobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeIDSAP_Master" source="employeeID"/>
+      </input>
+    <joinAttribute name="employeeIDSAP_Master"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="fullOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="workStartDateSAP"/>
+        <viewAttribute id="actualHr"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="plantDescription"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="workCenterDescription"/>
+        <viewAttribute id="objectIDresource"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="maintenancePlantNumber"/>
+        <viewAttribute id="maintenancePlantText"/>
+        <viewAttribute id="sapHoursIndirect"/>
+        <viewAttribute id="sapHoursDirect"/>
+        <viewAttribute id="employeeID_SAP"/>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="employeeFullNameUTM"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="utmcounter"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute id="employeeID_Master"/>
+        <viewAttribute id="workStartDateUTM_Master"/>
+        <viewAttribute id="workStartDateUTM"/>
+        <viewAttribute id="employeeIDSAP_Master"/>
+        <viewAttribute id="workStartDateSAP_Master"/>
+        <viewAttribute id="workCenterUTM"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="employeeFullName" length="5000" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(&quot;employeeFullNameUTM&quot;) or &quot;employeeFullNameUTM&quot;='',&quot;employeeNameSAP&quot;,&quot;employeeFullNameUTM&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="employeeID1" length="8" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(&quot;employeeID_Master&quot;) OR &quot;employeeID_Master&quot;='',&quot;employeeIDSAP_Master&quot;,&quot;employeeID_Master&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="costCenterDerivationForOrgHierarchyJoin" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(rightstr(&quot;maintenancePlantNumber&quot;,8)='FLEET_01' OR rightstr(&quot;maintenancePlantNumber&quot;,8)='WELD_01',&quot;plantAssociatedWithMainWorkCenter&quot;+'FL',
+if(rightstr(&quot;maintenancePlantNumber&quot;,8)='LANDFL01',&quot;plantAssociatedWithMainWorkCenter&quot;+'LF',
+if(rightstr(&quot;maintenancePlantNumber&quot;,8)='RECY__01' OR rightstr(&quot;maintenancePlantNumber&quot;,8)='GLASS_01',&quot;plantAssociatedWithMainWorkCenter&quot;+'RE',
+if(rightstr(&quot;maintenancePlantNumber&quot;,8)='FACIL_01',&quot;plantAssociatedWithMainWorkCenter&quot;+'CO',
+if(rightstr(&quot;maintenancePlantNumber&quot;,8)='TRAN_01',&quot;plantAssociatedWithMainWorkCenter&quot;+'TR',
+if(rightstr(&quot;maintenancePlantNumber&quot;,8)='IESC01',&quot;plantAssociatedWithMainWorkCenter&quot;+'IE',''
+)
+)
+)
+)
+))
+
+
+
+</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="utm">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullNameUTM" source="employeeFullNameUTM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utmcounter" source="utmcounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID_Master" source="employeeID_Master"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateUTM_Master" source="workStartDateUTM_Master"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateUTM" source="workStartDateUTM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterUTM" source="workCenter"/>
+      </input>
+      <input node="sap">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP" source="workStartDateSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualHr" source="actualHr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantAssociatedWithMainWorkCenter" source="plantAssociatedWithMainWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantDescription" source="plantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterDescription" source="workCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDresource" source="objectIDresource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantNumber" source="maintenancePlantNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantText" source="maintenancePlantText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursIndirect" source="sapHoursIndirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursDirect" source="sapHoursDirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID_SAP" source="employeeID_SAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeNameSAP" source="employeeNameSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentJobCode" source="currentJobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeIDSAP_Master" source="employeeIDSAP_Master"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP_Master" source="workStartDateSAP_Master"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID_Master" source="employeeIDSAP_Master"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateUTM_Master" source="workStartDateSAP_Master"/>
+      </input>
+    <joinAttribute name="employeeID_Master"/>
+    <joinAttribute name="workStartDateUTM_Master"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="utm" cardinality="CN_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+      <viewAttribute id="employeeFullNameUTM"/>
+      <viewAttribute id="overtimeHours"/>
+      <viewAttribute id="regularHours"/>
+      <viewAttribute id="utmcounter"/>
+      <viewAttribute id="workedHoursCalc"/>
+      <viewAttribute id="employeeID_Master"/>
+      <viewAttribute id="workStartDateUTM_Master"/>
+      <viewAttribute id="workStartDateUTM"/>
+      <viewAttribute id="workCenter"/></viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_4">
+      <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateUTM_Master" source="workStartDateUTM_Master"/>
+	  <mapping xsi:type="Calculation:AttributeMapping" target="employeeID_Master" source="employeeID"/></input>
+    <input node="Aggregation_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullNameUTM" source="employeeFullNameUTM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="utmcounter" source="utmcounter"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateUTM" source="workStartDateUTM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="employeeID_Master" source="employeeID_UTM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateUTM_Master" source="workStartDateUTM"/>
+    </input>
+    <joinAttribute name="employeeID_Master"/>
+    <joinAttribute name="workStartDateUTM_Master"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="costCenterCalc" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;costCenter&quot;,6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="costCenterCalc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Projection_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" dynamic="false" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="workDate_1"/>
+        <viewAttribute id="overtimeHours1"/>
+        <viewAttribute id="regularHours1"/>
+        <viewAttribute id="workStartDateSAP"/>
+        <viewAttribute id="actualHr1"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="plantDescription"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="workCenterDescription"/>
+        <viewAttribute id="objectIDresource"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="maintenancePlantNumber"/>
+        <viewAttribute id="maintenancePlantText"/>
+        <viewAttribute id="sapHoursIndirect"/>
+        <viewAttribute id="sapHoursDirect"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="utmcounter"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute id="workStartDateUTM_Master"/>
+        <viewAttribute id="employeeIDSAP_Master"/>
+        <viewAttribute id="workStartDateSAP_Master"/>
+        <viewAttribute id="workCenterUTM"/>
+      <viewAttribute hidden="true" id="JOIN$costCenterDerivationForOrgHierarchyJoin$costCenterCalc"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="maintainancePlant" length="12" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(&quot;plantAssociatedWithMainWorkCenter&quot;),&quot;workCenterUTM&quot;,
+&quot;plantAssociatedWithMainWorkCenter&quot;+&quot;workCenter&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="plantAndDescription" length="34" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;plantAssociatedWithMainWorkCenter&quot;+ ' - '+&quot;plantDescription&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="employee" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;employeeID&quot;+ ' - ' + &quot;employeeFullName&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="totalSAPHours" length="7" scale="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;sapHoursIndirect&quot;+&quot;sapHoursDirect&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="percentIndirectHours" length="3" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;totalSAPHours&quot;=0,0,&quot;sapHoursIndirect&quot;/&quot;totalSAPHours&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="percentDirectHours" length="3" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;totalSAPHours&quot;=0,0,&quot;sapHoursDirect&quot;/&quot;totalSAPHours&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="overtimeHours" length="38" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;overtimeHours1&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="regularHours" length="38" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;regularHours1&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullName" source="employeeFullName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate_1" source="workStartDateUTM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours1" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours1" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP" source="workStartDateSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualHr1" source="actualHr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantAssociatedWithMainWorkCenter" source="plantAssociatedWithMainWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantDescription" source="plantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterDescription" source="workCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDresource" source="objectIDresource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantNumber" source="maintenancePlantNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantText" source="maintenancePlantText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursIndirect" source="sapHoursIndirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursDirect" source="sapHoursDirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utmcounter" source="utmcounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentJobCode" source="currentJobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateUTM_Master" source="workStartDateUTM_Master"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeIDSAP_Master" source="employeeIDSAP_Master"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP_Master" source="workStartDateSAP_Master"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterUTM" source="workCenterUTM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$costCenterDerivationForOrgHierarchyJoin$costCenterCalc" source="costCenterDerivationForOrgHierarchyJoin"/>
+      </input>
+      <input node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$costCenterDerivationForOrgHierarchyJoin$costCenterCalc" source="costCenterCalc"/>
+      </input>
+    <joinAttribute name="JOIN$costCenterDerivationForOrgHierarchyJoin$costCenterCalc"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="workStartDateSAP"/>
+        <viewAttribute id="workDate_1"/>
+        <viewAttribute id="workStartDateUTM_Master"/>
+        <viewAttribute id="workStartDateSAP_Master"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1"/>
+    <windowFunction dynamicPartitionAttributes="false">
+      <partitionViewAttributeName>employeeID</partitionViewAttributeName>
+      <partitionViewAttributeName>workStartDateSAP_Master</partitionViewAttributeName>
+      <partitionViewAttributeName>workStartDateUTM_Master</partitionViewAttributeName>
+      <order byViewAttributeName="plantAssociatedWithMainWorkCenter" direction="DESC"/>
+      <rankThreshold>
+        <value>10</value>
+      </rankThreshold>
+      <rankViewAttributeName>Rank_Column</rankViewAttributeName>
+    </windowFunction>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute aggregationType="max" id="Rank_Column"/>
+        <viewAttribute id="workStartDateSAP"/>
+        <viewAttribute id="workDate_1"/>
+        <viewAttribute id="workStartDateUTM_Master"/>
+        <viewAttribute id="workStartDateSAP_Master"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Rank_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" cardinality="CN_1" joinType="fullOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="maintainancePlant"/>
+        <viewAttribute id="plantDescription"/>
+        <viewAttribute id="plantAndDescription"/>
+        <viewAttribute id="employee"/>
+        <viewAttribute id="workStartdate"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="workCenterDescription"/>
+        <viewAttribute id="maintenancePlantNumber"/>
+        <viewAttribute id="maintenancePlantText"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="actualHours"/>
+        <viewAttribute id="sapHoursIndirect"/>
+        <viewAttribute id="sapHoursDirect"/>
+        <viewAttribute id="overtimeHours_raw"/>
+        <viewAttribute id="regularHours_raw"/>
+        <viewAttribute id="utmcounter"/>
+        <viewAttribute id="Rank_Column"/>
+        <viewAttribute id="workStartDateSAP"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute id="totalSAPHours"/>
+        <viewAttribute id="workStartDateUTM_Master"/>
+        <viewAttribute id="workStartDateSAP_Master"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="workStartDateCalc" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(string(&quot;workStartDateSAP_Master&quot;)),&quot;workStartDateUTM_Master&quot;,&quot;workStartDateSAP_Master&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullName" source="employeeFullName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantAssociatedWithMainWorkCenter" source="plantAssociatedWithMainWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintainancePlant" source="maintainancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantDescription" source="plantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantAndDescription" source="plantAndDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employee" source="employee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartdate" source="workDate_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterDescription" source="workCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantNumber" source="maintenancePlantNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantText" source="maintenancePlantText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualHours" source="actualHr1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursIndirect" source="sapHoursIndirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursDirect" source="sapHoursDirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours_raw" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours_raw" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utmcounter" source="utmcounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP" source="workStartDateSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentJobCode" source="currentJobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalSAPHours" source="totalSAPHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateUTM_Master" source="workStartDateUTM_Master"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDateSAP_Master" source="workStartDateSAP_Master"/>
+      </input>
+      <input node="Aggregation_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Rank_Column" source="Rank_Column"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartdate" source="workDate_1"/>
+      </input>
+    <joinAttribute name="employeeID"/>
+    <joinAttribute name="workStartdate"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="maintainancePlant"/>
+        <viewAttribute id="plantDescription"/>
+        <viewAttribute id="plantAndDescription"/>
+        <viewAttribute id="employee"/>
+        <viewAttribute id="workStartdate"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="workCenterDescription"/>
+        <viewAttribute id="maintenancePlantNumber"/>
+        <viewAttribute id="maintenancePlantText"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="actualHours"/>
+        <viewAttribute id="sapHoursIndirect"/>
+        <viewAttribute id="sapHoursDirect"/>
+        <viewAttribute id="overtimeHours_raw"/>
+        <viewAttribute id="regularHours_raw"/>
+        <viewAttribute id="utmcounter"/>
+        <viewAttribute id="Rank_Column"/>
+        <viewAttribute id="workStartDateSAP"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute id="totalSAPHours"/>
+        <viewAttribute id="workStartDateCalc"/>
+        <viewAttribute id="workStartDateUTM_Master"/>
+        <viewAttribute id="workStartDateSAP_Master"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="regularnorm" length="38" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;regularHours_raw&quot;/&quot;Rank_Column&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="overtimenorm" length="38" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;overtimeHours_raw&quot;/&quot;Rank_Column&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="workedHoursUTMCalc_norm" length="38" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;workedHoursCalc&quot;/&quot;Rank_Column&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_4"/>
+    <filter>(in (&quot;currentJobCode&quot;,'APPSVTCH','ELECFOR','ELEC1','ELEC3','EQPMTSUP','EQPMTMGR','FACMTMGR','FACMTSUP','FACMAINT','FLEETMGR','FLPROSP','FOREMAN','GLASSFOR','GLPLTLD','HEQTRANS','HEQMECH','INSVCTEC','MRFMTFOR','MRFTECH1','MRFTECH2','MRFTECH3','MRFTECH4','MACHNST','MAINTINT','MINSVTEC','MECHANIC','MECHTNRE','PAINTER','PAINTFIN','POWUSPEC','SVCTECH1','SVCTECH2','SVCTECH3','SHOPFOR','SRINDTEC','SRVEHMTC','TIRETECH','VEHMFOR','VEHMSTTC','VEHPMTEC','VEHRPTEC','VEHSRTEC','VEHTECAP','WELDER1','WELDER2','WELDER3','WELDER4'))</filter>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="employeeFullName" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="employeeFullName"/>
+        <keyMapping columnObjectName="Projection_3" columnName="employeeFullName"/>
+      </attribute>
+      <attribute id="area" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Projection_3" columnName="area"/>
+      </attribute>
+      <attribute id="region" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Projection_3" columnName="region"/>
+      </attribute>
+      <attribute id="district" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Projection_3" columnName="district"/>
+      </attribute>
+      <attribute id="subDistrict" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Projection_3" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="plantAssociatedWithMainWorkCenter" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant"/>
+        <keyMapping columnObjectName="Projection_3" columnName="plantAssociatedWithMainWorkCenter"/>
+      </attribute>
+      <attribute id="maintainancePlant" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Center"/>
+        <keyMapping columnObjectName="Projection_3" columnName="maintainancePlant"/>
+      </attribute>
+      <attribute id="plantDescription" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant Description"/>
+        <keyMapping columnObjectName="Projection_3" columnName="plantDescription"/>
+      </attribute>
+      <attribute id="plantAndDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PlantAndDescription"/>
+        <keyMapping columnObjectName="Projection_3" columnName="plantAndDescription"/>
+      </attribute>
+      <attribute id="employee" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee"/>
+        <keyMapping columnObjectName="Projection_3" columnName="employee"/>
+      </attribute>
+      <attribute id="workStartdate" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Start Date UTM"/>
+        <keyMapping columnObjectName="Projection_3" columnName="workStartdate"/>
+      </attribute>
+      <attribute id="workCenter" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Center without Plant"/>
+        <keyMapping columnObjectName="Projection_3" columnName="workCenter"/>
+      </attribute>
+      <attribute id="workCenterDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Center Description"/>
+        <keyMapping columnObjectName="Projection_3" columnName="workCenterDescription"/>
+      </attribute>
+      <attribute id="maintenancePlantNumber" order="14" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant Number"/>
+        <keyMapping columnObjectName="Projection_3" columnName="maintenancePlantNumber"/>
+      </attribute>
+      <attribute id="maintenancePlantText" order="15" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant Name"/>
+        <keyMapping columnObjectName="Projection_3" columnName="maintenancePlantText"/>
+      </attribute>
+      <attribute id="employeeID" order="16" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="employeeID"/>
+        <keyMapping columnObjectName="Projection_3" columnName="employeeID"/>
+      </attribute>
+      <attribute id="workStartDateSAP" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Start Date SAP"/>
+        <keyMapping columnObjectName="Projection_3" columnName="workStartDateSAP"/>
+      </attribute>
+      <attribute id="currentJobCode" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="currentJobCode"/>
+        <keyMapping columnObjectName="Projection_3" columnName="currentJobCode"/>
+      </attribute>
+      <attribute id="workStartDateCalc" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Start Date"/>
+        <keyMapping columnObjectName="Projection_3" columnName="workStartDateCalc"/>
+      </attribute>
+      <attribute id="workStartDateUTM_Master" hidden="true" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Start Date UTM (Master)"/>
+        <keyMapping columnObjectName="Projection_3" columnName="workStartDateUTM_Master"/>
+      </attribute>
+      <attribute id="workStartDateSAP_Master" hidden="true" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Start Date SAP (Master)"/>
+        <keyMapping columnObjectName="Projection_3" columnName="workStartDateSAP_Master"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="actualHours" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual Hours"/>
+        <measureMapping columnObjectName="Projection_3" columnName="actualHours"/>
+      </measure>
+      <measure id="totalSAPHours" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total SAP Hours"/>
+        <measureMapping columnObjectName="Projection_3" columnName="totalSAPHours"/>
+      </measure>
+      <measure id="sapHoursIndirect" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="SAP Indirect Hours"/>
+        <measureMapping columnObjectName="Projection_3" columnName="sapHoursIndirect"/>
+      </measure>
+      <measure id="sapHoursDirect" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="SAP Hours Direct"/>
+        <measureMapping columnObjectName="Projection_3" columnName="sapHoursDirect"/>
+      </measure>
+      <measure id="overtimeHours_raw" hidden="true" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="overtimeHours_raw"/>
+        <measureMapping columnObjectName="Projection_3" columnName="overtimeHours_raw"/>
+      </measure>
+      <measure id="regularHours_raw" hidden="true" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="regularHours_raw"/>
+        <measureMapping columnObjectName="Projection_3" columnName="regularHours_raw"/>
+      </measure>
+      <measure id="utmcounter" hidden="true" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="utmcounter"/>
+        <measureMapping columnObjectName="Projection_3" columnName="utmcounter"/>
+      </measure>
+      <measure id="regularHours" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="regularHours"/>
+        <measureMapping columnObjectName="Projection_3" columnName="regularnorm"/>
+      </measure>
+      <measure id="overtimeHours" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="overtimeHours"/>
+        <measureMapping columnObjectName="Projection_3" columnName="overtimenorm"/>
+      </measure>
+      <measure id="workedHoursUTMCalc_norm" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="workedHoursUTMCalc_norm"/>
+        <measureMapping columnObjectName="Projection_3" columnName="workedHoursUTMCalc_norm"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="totalUTMHours" hidden="false" order="27" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="7" scale="2">
+        <descriptions defaultDescription="totalUTMHours"/>
+        <formula>&quot;workedHoursUTMCalc_norm&quot;</formula>
+      
+        </measure>
+      <measure id="variance" hidden="false" order="28" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="7" scale="2">
+        <descriptions defaultDescription="variance"/>
+        <formula>&quot;totalSAPHours&quot;-&quot;totalUTMHours&quot;</formula>
+      
+        </measure>
+      <measure id="percentSAPtoUTMHours" hidden="false" order="29" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="7" scale="2">
+        <descriptions defaultDescription="percentSAPtoUTMHours"/>
+        <formula>if(&quot;totalUTMHours&quot;=0,0,&quot;totalSAPHours&quot;/&quot;totalUTMHours&quot;)</formula>
+      
+        </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions>
+      <localDimension id="orgHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">area</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">region</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">district</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="orgHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" orphanedNodesHandling="STEPPARENT_NODE" cacheEnabled="false" emptyValueIsNull="true">
+            <descriptions defaultDescription="Organizational Hierarchy"/>
+            <levels>
+              <level levelAttribute="area" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="area"/>
+              <level levelAttribute="region" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="region"/>
+              <level levelAttribute="district" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="district"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="418" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="1536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="344" y="1231"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="512" y="1536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="1536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+  
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="554" y="1241"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="450" y="1376"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="596" y="119"/>
+      <rectangleSize width="264"/>
+    </shape>
+      <shape expanded="true" modelObjectName="sap" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="402" y="1071"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="sap" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_5" modelObjectNameSpace="sap" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="376" y="911"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="utm" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="sap" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="utm" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="229" y="1376"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="utm" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="utm" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="110" y="1071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="110" y="929"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="336" y="751"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_3" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_3" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="424" y="626"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="424" y="521"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="397" y="361"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_4" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="397" y="236"/>
+        <rectangleSize height="0" width="160"/>
+      </shape></shapes>
+</layout>
+</Calculation:scenario>

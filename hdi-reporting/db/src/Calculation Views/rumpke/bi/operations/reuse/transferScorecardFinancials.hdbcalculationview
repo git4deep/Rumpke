@@ -1,0 +1,1090 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::transferScorecardFinancials" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="&quot;_SYS_BIC&quot;.&quot;rumpke.bi.operations.reuse/transferScorecardFinancials&quot;"/>
+  <metadata changedAt="2020-09-16 17:12:43.283"/>
+  <localVariables>
+    <variable id="varFiscalYearPeriod">
+      <descriptions defaultDescription="Fiscal Month Period"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeDimension</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalYearPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="Interval"/>
+      </variableProperties>
+    </variable>
+    <variable id="varArea">
+      <descriptions defaultDescription="Area"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>area</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="varRegion">
+      <descriptions defaultDescription="Region"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>region</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="varDistrict">
+      <descriptions defaultDescription="District"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>district</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="38"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated">
+      <resourceUri>rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::accountGroup">
+      <resourceUri>rumpke.bi.masterData.reuse::accountGroup</resourceUri>
+    </DataSource>
+    <DataSource id="accountGroup1$$$$rumpke.bi.masterData.reuse::accountGroup$$">
+      <resourceUri>rumpke.bi.masterData.reuse::accountGroup</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupText"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeText"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="contractTypeText"/>
+        <viewAttribute id="gLAccountLongText"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="profitCenterText"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaText"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="rumpkeMaterialGrpDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="plantName"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaTargetActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA TARGET',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaTargetBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA TARGET',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="costOfOperationsActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Cost of Operations', &quot;actual&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="costOfOperationsBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Cost of Operations', &quot;budget&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="grossProfitActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Gross Profit',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="grossProfitBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Gross Profit',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="operatingIncomeActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Operating Income',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="operatingIncomeBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Operating Income',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeBeforeTaxActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income Before Tax',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeBeforeTaxBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income Before Tax',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated">
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantName" source="name"/>
+      </input>
+    <filter>(&quot;lineOfBusiness&quot; ='TR') AND (&quot;postingPeriod&quot; !='000')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupText"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeText"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="contractTypeText"/>
+        <viewAttribute id="gLAccountLongText"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="profitCenterText"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaText"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="rumpkeMaterialGrpDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute aggregationType="sum" id="ebitdaTargetActual"/>
+        <viewAttribute aggregationType="sum" id="costOfOperationsActual"/>
+        <viewAttribute aggregationType="sum" id="quantity"/>
+        <viewAttribute aggregationType="sum" id="variance"/>
+        <viewAttribute aggregationType="sum" id="forecast"/>
+        <viewAttribute aggregationType="sum" id="actual"/>
+        <viewAttribute aggregationType="sum" id="budget"/>
+        <viewAttribute aggregationType="sum" id="ebitdaTargetBudget"/>
+        <viewAttribute aggregationType="sum" id="costOfOperationsBudget"/>
+        <viewAttribute id="plantName"/>
+        <viewAttribute id="grossProfitActual"/>
+        <viewAttribute id="grossProfitBudget"/>
+        <viewAttribute id="ebitdaActual"/>
+        <viewAttribute id="ebitdaBudget"/>
+        <viewAttribute id="operatingIncomeActual"/>
+        <viewAttribute id="operatingIncomeBudget"/>
+        <viewAttribute id="netIncomeActual"/>
+        <viewAttribute id="netIncomeBudget"/>
+        <viewAttribute id="netIncomeBeforeTaxActual"/>
+        <viewAttribute id="netIncomeBeforeTaxBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Projection_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="fromValue"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+        <viewAttribute id="subordinatesetID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::accountGroup"/>
+    <filter>(in (&quot;subordinatesetID&quot;,'DISPOSALEXPENSE','HAULINGEXP','REVDOMPROD','OTHOPREV','FUEL','DIROPSLABOR','INDOPSLAB','INDSGALAB','SUBCONTRACTING','LANDFILL','DAMAGESCLAIMS','INSURANCE','LEASINGEXP','LFTR-ALLOTHCOSTS'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="accountGroup1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="fromValue"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+        <viewAttribute id="subordinatesetID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="accountGroup1$$$$rumpke.bi.masterData.reuse::accountGroup$$"/>
+    <filter>(in (&quot;subordinatesetID&quot;,'PAYROLL-ST','PAYROLL-OT','PAYROLL-OTH','PAYROLL-PTO'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupText"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeText"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="contractTypeText"/>
+        <viewAttribute id="gLAccountLongText"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="profitCenterText"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaText"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="rumpkeMaterialGrpDescription"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="plantName"/>
+        <viewAttribute id="grossProfitActual"/>
+        <viewAttribute id="grossProfitBudget"/>
+        <viewAttribute id="ebitdaActual"/>
+        <viewAttribute id="ebitdaBudget"/>
+        <viewAttribute id="operatingIncomeActual"/>
+        <viewAttribute id="operatingIncomeBudget"/>
+        <viewAttribute id="netIncomeActual"/>
+        <viewAttribute id="netIncomeBudget"/>
+        <viewAttribute id="netIncomeBeforeTaxActual"/>
+        <viewAttribute id="netIncomeBeforeTaxBudget"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="accountGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="accrualLaborHours" length="18" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;accountGroup&quot; = 'PAYROLL-ST' or  &quot;accountGroup&quot; = 'PAYROLL-OT' or &quot;accountGroup&quot; = 'PAYROLL-OTH' or &quot;accountGroup&quot; = 'PAYROLL-PTO',  &quot;quantity&quot; ,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="accrualLaborCost" length="18" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;accountGroup&quot; = 'PAYROLL-ST' or  &quot;accountGroup&quot; = 'PAYROLL-OT' or &quot;accountGroup&quot; = 'PAYROLL-OTH' or &quot;accountGroup&quot; = 'PAYROLL-PTO',  &quot;actual&quot; ,0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofTheFunctionalArea" source="nameofTheFunctionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupText" source="functionalAreaGroupText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeText" source="orderTypeText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractType" source="contractType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractTypeText" source="contractTypeText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="gLAccountLongText" source="gLAccountLongText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterText" source="profitCenterText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterName" source="costCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPa" source="distributionChannelPa"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPaText" source="distributionChannelPaText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeMaterialGrp" source="rumpkeMaterialGrp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeMaterialGrpDescription" source="rumpkeMaterialGrpDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetActual" source="ebitdaTargetActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsActual" source="costOfOperationsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="quantity" source="quantity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsBudget" source="costOfOperationsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantName" source="plantName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitActual" source="grossProfitActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitBudget" source="grossProfitBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaActual" source="ebitdaActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaBudget" source="ebitdaBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncomeActual" source="operatingIncomeActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncomeBudget" source="operatingIncomeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeActual" source="netIncomeActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBudget" source="netIncomeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBeforeTaxActual" source="netIncomeBeforeTaxActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBeforeTaxBudget" source="netIncomeBeforeTaxBudget"/>
+      </input>
+      <input node="accountGroup1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroupDescription" source="shortDescriptionofaSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="fromValue"/>
+      </input>
+    <joinAttribute name="accountNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinType="leftOuter" optimizeJoinColumns="false">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupText"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeText"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="contractTypeText"/>
+        <viewAttribute id="gLAccountLongText"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="profitCenterText"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaText"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="rumpkeMaterialGrpDescription"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="plantName"/>
+        <viewAttribute id="grossProfitActual"/>
+        <viewAttribute id="grossProfitBudget"/>
+        <viewAttribute id="ebitdaActual"/>
+        <viewAttribute id="ebitdaBudget"/>
+        <viewAttribute id="operatingIncomeActual"/>
+        <viewAttribute id="operatingIncomeBudget"/>
+        <viewAttribute id="netIncomeActual"/>
+        <viewAttribute id="netIncomeBudget"/>
+        <viewAttribute id="netIncomeBeforeTaxActual"/>
+        <viewAttribute id="netIncomeBeforeTaxBudget"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accrualLaborHours"/>
+        <viewAttribute id="accrualLaborCost"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofTheFunctionalArea" source="nameofTheFunctionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupText" source="functionalAreaGroupText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeText" source="orderTypeText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractType" source="contractType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractTypeText" source="contractTypeText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="gLAccountLongText" source="gLAccountLongText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterText" source="profitCenterText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterName" source="costCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPa" source="distributionChannelPa"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPaText" source="distributionChannelPaText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeMaterialGrp" source="rumpkeMaterialGrp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeMaterialGrpDescription" source="rumpkeMaterialGrpDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetActual" source="ebitdaTargetActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsActual" source="costOfOperationsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="quantity" source="quantity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsBudget" source="costOfOperationsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantName" source="plantName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitActual" source="grossProfitActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitBudget" source="grossProfitBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaActual" source="ebitdaActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaBudget" source="ebitdaBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncomeActual" source="operatingIncomeActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncomeBudget" source="operatingIncomeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeActual" source="netIncomeActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBudget" source="netIncomeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBeforeTaxActual" source="netIncomeBeforeTaxActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBeforeTaxBudget" source="netIncomeBeforeTaxBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHours" source="accrualLaborHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCost" source="accrualLaborCost"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroupDescription" source="shortDescriptionofaSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="fromValue"/>
+      </input>
+    <joinAttribute name="accountNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="financials">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupText"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeText"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="contractTypeText"/>
+        <viewAttribute id="gLAccountLongText"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="profitCenterText"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaText"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="rumpkeMaterialGrpDescription"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="plantName"/>
+        <viewAttribute id="grossProfitActual"/>
+        <viewAttribute id="grossProfitBudget"/>
+        <viewAttribute id="ebitdaActual"/>
+        <viewAttribute id="ebitdaBudget"/>
+        <viewAttribute id="operatingIncomeActual"/>
+        <viewAttribute id="operatingIncomeBudget"/>
+        <viewAttribute id="netIncomeActual"/>
+        <viewAttribute id="netIncomeBudget"/>
+        <viewAttribute id="netIncomeBeforeTaxActual"/>
+        <viewAttribute id="netIncomeBeforeTaxBudget"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accrualLaborHours"/>
+        <viewAttribute id="accrualLaborCost"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscYearPer"/></input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="financials">
+    <descriptions/>
+    <attributes>
+      <attribute id="area" order="1" attributeHierarchyActive="false" descriptionColumnName="areaDescription" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="financials" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="financials" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="accountGroup" order="3" attributeHierarchyActive="false" descriptionColumnName="accountGroupDescription" displayAttribute="false">
+        <descriptions defaultDescription="Account Group"/>
+        <keyMapping columnObjectName="financials" columnName="accountGroup"/>
+      </attribute>
+      <attribute id="accountGroupDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Group Desc"/>
+        <keyMapping columnObjectName="financials" columnName="accountGroupDescription"/>
+      </attribute>
+      <attribute id="accountNumber" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Number"/>
+        <keyMapping columnObjectName="financials" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="costCenter" order="6" attributeHierarchyActive="false" descriptionColumnName="costCenterName" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="financials" columnName="costCenter"/>
+      </attribute>
+      <attribute id="costCenterName" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center Desc"/>
+        <keyMapping columnObjectName="financials" columnName="costCenterName"/>
+      </attribute>
+      <attribute id="contractType" order="8" attributeHierarchyActive="false" descriptionColumnName="contractTypeText" displayAttribute="false">
+        <descriptions defaultDescription="Contract Type"/>
+        <keyMapping columnObjectName="financials" columnName="contractType"/>
+      </attribute>
+      <attribute id="contractTypeText" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Contract Type Desc"/>
+        <keyMapping columnObjectName="financials" columnName="contractTypeText"/>
+      </attribute>
+      <attribute id="distributionChannelPa" order="10" attributeHierarchyActive="false" descriptionColumnName="distributionChannelPaText" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel Pa"/>
+        <keyMapping columnObjectName="financials" columnName="distributionChannelPa"/>
+      </attribute>
+      <attribute id="distributionChannelPaText" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel Pa Desc"/>
+        <keyMapping columnObjectName="financials" columnName="distributionChannelPaText"/>
+      </attribute>
+      <attribute id="district" order="12" attributeHierarchyActive="false" descriptionColumnName="districtDescription" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="financials" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Desc"/>
+        <keyMapping columnObjectName="financials" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="functionalArea" order="14" attributeHierarchyActive="false" descriptionColumnName="nameofTheFunctionalArea" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="financials" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="nameofTheFunctionalArea" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Desc"/>
+        <keyMapping columnObjectName="financials" columnName="nameofTheFunctionalArea"/>
+      </attribute>
+      <attribute id="functionalAreaGroup" order="16" attributeHierarchyActive="false" descriptionColumnName="functionalAreaGroupText" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group"/>
+        <keyMapping columnObjectName="financials" columnName="functionalAreaGroup"/>
+      </attribute>
+      <attribute id="functionalAreaGroupText" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group Desc"/>
+        <keyMapping columnObjectName="financials" columnName="functionalAreaGroupText"/>
+      </attribute>
+      <attribute id="gLAccountLongText" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GL Account Desc"/>
+        <keyMapping columnObjectName="financials" columnName="gLAccountLongText"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="19" attributeHierarchyActive="false" descriptionColumnName="lineofBusinessDescription" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="financials" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Desc"/>
+        <keyMapping columnObjectName="financials" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="orderType" order="21" attributeHierarchyActive="false" descriptionColumnName="orderTypeText" displayAttribute="false">
+        <descriptions defaultDescription="Order Type"/>
+        <keyMapping columnObjectName="financials" columnName="orderType"/>
+      </attribute>
+      <attribute id="orderTypeText" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Type Desc"/>
+        <keyMapping columnObjectName="financials" columnName="orderTypeText"/>
+      </attribute>
+      <attribute id="plant" order="23" attributeHierarchyActive="false" descriptionColumnName="plantName" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="financials" columnName="plant"/>
+      </attribute>
+      <attribute id="plantName" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant Desc"/>
+        <keyMapping columnObjectName="financials" columnName="plantName"/>
+      </attribute>
+      <attribute id="profitCenter" order="25" attributeHierarchyActive="false" descriptionColumnName="profitCenterText" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="financials" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterText" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Desc"/>
+        <keyMapping columnObjectName="financials" columnName="profitCenterText"/>
+      </attribute>
+      <attribute id="region" order="27" attributeHierarchyActive="false" descriptionColumnName="regionDescription" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="financials" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Desc"/>
+        <keyMapping columnObjectName="financials" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="rumpkeMaterialGrp" order="30" attributeHierarchyActive="false" descriptionColumnName="rumpkeMaterialGrpDescription" displayAttribute="false">
+        <descriptions defaultDescription="Rumpke Material Group"/>
+        <keyMapping columnObjectName="financials" columnName="rumpkeMaterialGrp"/>
+      </attribute>
+      <attribute id="rumpkeMaterialGrpDescription" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rumpke Material Group Desc"/>
+        <keyMapping columnObjectName="financials" columnName="rumpkeMaterialGrpDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="32" attributeHierarchyActive="false" descriptionColumnName="subDistrictDescription" displayAttribute="false">
+        <descriptions defaultDescription="Subdistrict"/>
+        <keyMapping columnObjectName="financials" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subdistrict Desc"/>
+        <keyMapping columnObjectName="financials" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="fiscalYear" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="financials" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="financials" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="postingPeriod" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting Period"/>
+        <keyMapping columnObjectName="financials" columnName="postingPeriod"/>
+      </attribute>
+      <attribute id="calMonth" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Year/Month"/>
+        <keyMapping columnObjectName="financials" columnName="calMonth"/>
+      </attribute>
+      <attribute id="calQuarter" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Year/Quarter (YYYYQ"/>
+        <keyMapping columnObjectName="financials" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="rollingYearNo" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Year No"/>
+        <keyMapping columnObjectName="financials" columnName="rollingYearNo"/>
+      </attribute>
+      <attribute id="yearQuarter" order="40" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Year/Quarter (YYYY-QQ)"/>
+        <keyMapping columnObjectName="financials" columnName="yearQuarter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="revenueCategory" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Revenue Category"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="20">
+          <formula>&quot;orderType&quot;+&quot;contractType&quot;+&quot;rumpkeMaterialGrp&quot;</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="accrualLaborHours" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual Labor Hours"/>
+        <measureMapping columnObjectName="financials" columnName="accrualLaborHours"/>
+      </measure>
+      <measure id="accrualLaborCost" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual Labor Cost"/>
+        <measureMapping columnObjectName="financials" columnName="accrualLaborCost"/>
+      </measure>
+      <measure id="costOfOperationsActual" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cost of Operations - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="costOfOperationsActual"/>
+      </measure>
+      <measure id="costOfOperationsBudget" order="47" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cost of Operations - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="costOfOperationsBudget"/>
+      </measure>
+      <measure id="ebitdaTargetBudget" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaTargetBudget"/>
+      </measure>
+      <measure id="ebitdaTargetActual" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaTargetActual"/>
+      </measure>
+      <measure id="ebitdaActual" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaActual"/>
+      </measure>
+      <measure id="ebitdaBudget" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaBudget"/>
+      </measure>
+      <measure id="grossProfitActual" order="57" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Gross Profit - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="grossProfitActual"/>
+      </measure>
+      <measure id="grossProfitBudget" order="58" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Gross Profit - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="grossProfitBudget"/>
+      </measure>
+      <measure id="netIncomeActual" order="61" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeActual"/>
+      </measure>
+      <measure id="netIncomeBudget" order="62" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeBudget"/>
+      </measure>
+      <measure id="netIncomeBeforeTaxActual" order="63" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income Before Tax - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeBeforeTaxActual"/>
+      </measure>
+      <measure id="netIncomeBeforeTaxBudget" order="64" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income Before Tax - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeBeforeTaxBudget"/>
+      </measure>
+      <measure id="operatingIncomeActual" order="65" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operating Income - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="operatingIncomeActual"/>
+      </measure>
+      <measure id="operatingIncomeBudget" order="66" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operating Income - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="operatingIncomeBudget"/>
+      </measure>
+      <measure id="quantity" order="89" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Quantity"/>
+        <measureMapping columnObjectName="financials" columnName="quantity"/>
+      </measure>
+      <measure id="variance" order="90" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Variance"/>
+        <measureMapping columnObjectName="financials" columnName="variance"/>
+      </measure>
+      <measure id="forecast" order="91" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Forecast"/>
+        <measureMapping columnObjectName="financials" columnName="forecast"/>
+      </measure>
+      <measure id="actual" order="92" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual"/>
+        <measureMapping columnObjectName="financials" columnName="actual"/>
+      </measure>
+      <measure id="budget" order="93" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="financials" columnName="budget"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="allOtherCostsActual" hidden="false" order="43" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="All Other Costs - Actual"/>
+        <formula>round(IF(in(&quot;functionalAreaGroup&quot;,'SG&amp;A','COGS','OPSALLOC','TAXES','CORPALLOC','AMORTZTN','INTEREST','OTHERINC',
+'DEPRECIATN'),&quot;actual&quot;,0)  - (IF(&quot;accountGroup&quot; = 'LFTR-ALLOTHCOSTS', &quot;actual&quot;, 0)),2)</formula>
+      </measure>
+      <measure id="allOtherCostsBudget" hidden="false" order="44" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="All Other Costs - Budget"/>
+        <formula>round(IF(in(&quot;functionalAreaGroup&quot;,'SG&amp;A','COGS','OPSALLOC','TAXES','CORPALLOC','AMORTZTN','INTEREST','OTHERINC',
+'DEPRECIATN'),&quot;budget&quot;,0)  - (IF(&quot;accountGroup&quot; = 'LFTR-ALLOTHCOSTS', &quot;budget&quot;, 0)),2)</formula>
+      </measure>
+      <measure id="disposalExpenseActual" hidden="false" order="45" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Disposal Expense - Actual"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'OPERATIONS' AND  &quot;accountGroup&quot;= 'DISPOSALEXPENSE',&quot;actual&quot;,0),2)</formula>
+      </measure>
+      <measure id="disposalExpenseBudget" hidden="false" order="48" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Disposal Expense - Budget"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'OPERATIONS' AND &quot;accountGroup&quot;= 'DISPOSALEXPENSE',&quot;budget&quot;,0),2)</formula>
+      </measure>
+      <measure id="equipmentRepairCostActual" hidden="false" order="53" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Equipment Repair Cost - Actual"/>
+        <formula>round(if( &quot;functionalAreaGroup&quot; != 'SG&amp;A' and in(&quot;accountNumber&quot;,'65007300', '65007200','63000400', '63000800','63000000','63000100','61043100','61023100','61033100','61103100','65006000', '63000600') OR &quot;accountNumber&quot; = '68888800' and in(&quot;accountGroup&quot;,'Maintenance','Intercompany Labor') AND &quot;functionalAreaGroup&quot; != 'SG&amp;A',&quot;actual&quot;,0),2)
+
+
+
+
+
+</formula>
+      </measure>
+      <measure id="equipmentRepairCostBudget" hidden="false" order="54" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Equipment Repair Cost - Budget"/>
+        <formula>round(if( &quot;functionalAreaGroup&quot; != 'SG&amp;A' and in(&quot;accountNumber&quot;,'65007300', '65007200','63000400', '63000800','63000000','63000100','61043100','61023100','61033100','61103100','65006000', '63000600') OR &quot;accountNumber&quot; = '68888800' and in(&quot;accountGroup&quot;,'Maintenance','Intercompany Labor') AND &quot;functionalAreaGroup&quot; != 'SG&amp;A',&quot;budget&quot;,0),2)
+</formula>
+      </measure>
+      <measure id="fuelCostActual" hidden="false" order="55" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Fuel Cost - Actual"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'OPERATIONS' AND  &quot;accountGroup&quot;= 'FUEL',&quot;actual&quot;,0),2)</formula>
+      </measure>
+      <measure id="fuelCostBudget" hidden="false" order="56" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Fuel Cost - Budget"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'OPERATIONS' AND  &quot;accountGroup&quot;= 'FUEL',&quot;budget&quot;,0),2)</formula>
+      </measure>
+      <measure id="haulingExpenseActual" hidden="false" order="59" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Hauling Expense - Actual"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'OPERATIONS' AND &quot;accountGroup&quot;= 'HAULINGEXP',&quot;actual&quot;,0),2)</formula>
+      </measure>
+      <measure id="haulingExpenseBudget" hidden="false" order="60" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Hauling Expense - Budget"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'OPERATIONS' AND &quot;accountGroup&quot;= 'HAULINGEXP',&quot;budget&quot;,0),2)</formula>
+      </measure>
+      <measure id="ownershipCostActual" hidden="false" order="67" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Ownership Cost - Actual"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'OPERATIONS' AND in(&quot;accountGroup&quot;, 'DAMAGESCLAIMS','INSURANCE','LEASINGEXP','LFTR-ALLOTHCOSTS'),&quot;actual&quot;,0),2)
+
+</formula>
+      </measure>
+      <measure id="ownershipCostBudget" hidden="false" order="68" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Ownership Cost - Budget"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'OPERATIONS' AND in(&quot;accountGroup&quot;, 'DAMAGESCLAIMS','INSURANCE','LEASINGEXP','LFTR-ALLOTHCOSTS'),&quot;budget&quot;,0),2)
+</formula>
+      </measure>
+      <measure id="totalNetRevenueActual" hidden="false" order="71" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Net Revenue - Actual"/>
+        <formula>&quot;totalRevenueIntercompanyActual&quot;+&quot;totalNetRevenue3rdPartyActual&quot;</formula>
+      </measure>
+      <measure id="totalNetRevenueBudget" hidden="false" order="72" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Net Revenue - Budget"/>
+        <formula>&quot;totalRevenueIntercompanyBudget&quot;+&quot;totalNetRevenue3rdPartyBudget&quot;</formula>
+      </measure>
+      <measure id="totalRevenueIntercompanyActual" hidden="false" order="73" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Revenue Intercompany - Actual"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'TOTAL_REV' ,&quot;actual&quot;,0) - 
+IF(in(&quot;accountGroup&quot;,'DISPOSALEXPENSE','HAULINGEXP'),&quot;actual&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalRevenueIntercompanyBudget" hidden="false" order="74" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Revenue Intercompany - Actual"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'TOTAL_REV' ,&quot;budget&quot;,0) - 
+IF(in(&quot;accountGroup&quot;,'DISPOSALEXPENSE','HAULINGEXP'),&quot;budget&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalNetRevenue3rdPartyActual" hidden="false" order="75" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Net Revenue 3rd Party - Actual"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'TOTAL_REV' AND  &quot;accountGroup&quot;= 'REVDOMPROD',&quot;actual&quot;,0) - IF(in(&quot;accountGroup&quot;,'DISPOSALEXPENSE','HAULINGEXP'),&quot;actual&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalNetRevenue3rdPartyBudget" hidden="false" order="76" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Net Revenue 3rd Party - Budget"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'TOTAL_REV' AND  &quot;accountGroup&quot;= 'REVDOMPROD',&quot;actual&quot;,0) - IF(in(&quot;accountGroup&quot;,'DISPOSALEXPENSE','HAULINGEXP'),&quot;budget&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalOtherRevActual" hidden="false" order="77" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Other Revenue - Actual"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'TOTAL_REV' and &quot;orderType&quot;='DISPOSALSITEMGT'and in(&quot;accountGroup&quot;,'REVDOMPROD', 'OTHOPREV'),&quot;actual&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalOtherRevBudget" hidden="false" order="78" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Other Revenue - Budget"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'TOTAL_REV' AND &quot;orderType&quot;='DISPOSALSITEMGT'AND in(&quot;accountGroup&quot;,'REVDOMPROD', 'OTHOPREV'),&quot;budget&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalNetLaborCostActual" hidden="false" order="79" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Net Labor Cost - Actual"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'OPERATIONS' AND in(&quot;accountGroup&quot;,'DIROPSLABOR', 'INDOPSLAB','INDSGALAB','SUBCONTRACTING','LANDFILL') ,&quot;actual&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalNetLaborCostBudget" hidden="false" order="80" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Net Labor Cost - Budget"/>
+        <formula>round(IF(&quot;functionalAreaGroup&quot;= 'OPERATIONS' AND in(&quot;accountGroup&quot;,'DIROPSLABOR', 'INDOPSLAB','INDSGALAB','SUBCONTRACTING','LANDFILL') , &quot;budget&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalOtherTransferExpenseActual" hidden="false" order="81" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Other Transfer Expense - Actual"/>
+        <formula>round((IF(&quot;functionalAreaGroup&quot; = 'OPERATIONS',&quot;actual&quot;,0) + IF(&quot;accountGroup&quot; = 'LFTR-ALLOTHCOSTS', &quot;actual&quot;, 0) -  IF(in(&quot;accountGroup&quot;, 'Disposal Expense','Hauling Expense'),&quot;actual&quot;,0) + IF(&quot;functionalAreaGroup&quot; = 'Other Ops', &quot;actual&quot;,0) - &quot;totalNetLaborCostActual&quot; - &quot;ownershipCostActual&quot; - &quot;fuelCostActual&quot;),2)</formula>
+      </measure>
+      <measure id="totalOtherTransferExpenseBudget" hidden="false" order="82" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Other Transfer Expense - Budget"/>
+        <formula>round((IF(&quot;functionalAreaGroup&quot; = 'OPERATIONS',&quot;budget&quot;,0) + IF(&quot;accountGroup&quot;= 'LFTR-ALLOTHCOSTS', &quot;budget&quot;, 0) -  IF(in(&quot;accountGroup&quot;, 'Disposal Expense','Hauling Expense'),&quot;budget&quot;,0) + IF(&quot;functionalAreaGroup&quot; = 'Other Ops', &quot;budget&quot;,0) - &quot;totalNetLaborCostBudget&quot; - &quot;ownershipCostBudget&quot; - &quot;fuelCostBudget&quot;),2)</formula>
+      </measure>
+      <measure id="totalNetEquipmentCostActual" hidden="false" order="83" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Net Equipment Cost - Actual"/>
+        <formula>&quot;equipmentRepairCostActual&quot; + &quot;ownershipCostActual&quot;+&quot;fuelCostActual&quot;</formula>
+      </measure>
+      <measure id="totalNetEquipmentCostBudget" hidden="false" order="84" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Net Equipment Cost - Budget"/>
+        <formula>&quot;equipmentRepairCostBudget&quot; + &quot;ownershipCostBudget&quot;+&quot;fuelCostBudget&quot;</formula>
+      </measure>
+      <measure id="totalEquipmentCostActual" hidden="false" key="true" order="85" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Equipment Cost - Actual"/>
+        <formula>&quot;equipmentRepairCostActual&quot; + &quot;ownershipCostActual&quot;</formula>
+      </measure>
+      <measure id="totalEquipmentCostBudget" hidden="false" key="true" order="86" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Equipment Cost - Budget"/>
+        <formula>&quot;equipmentRepairCostBudget&quot; + &quot;ownershipCostBudget&quot;</formula>
+      </measure>
+      <measure id="totalTransferOpExpenseActual" hidden="false" order="87" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Transfer Operating Expense - Actual"/>
+        <formula>&quot;totalNetLaborCostActual&quot; + &quot;totalNetEquipmentCostActual&quot; + &quot;fuelCostActual&quot;</formula>
+      </measure>
+      <measure id="totalTransferOpExpenseBudget" hidden="false" order="88" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Transfer Operating Expense - Budget"/>
+        <formula>&quot;totalNetLaborCostBudget&quot; + &quot;totalNetEquipmentCostBudget&quot; + &quot;fuelCostBudget&quot;</formula>
+      </measure>
+      <measure id="transferOpProfitActual" hidden="false" order="94" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Transfer Operating Profit - Actual"/>
+        <formula>&quot;totalRevenueActual&quot; + &quot;totalTransferOpExpenseActual&quot;</formula>
+      </measure>
+      <measure id="transferOpProfitBudget" hidden="false" order="95" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Transfer Operating Profit - Budget"/>
+        <formula>&quot;totalRevenueBudget&quot; - &quot;totalTransferOpExpenseBudget&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="totalRevenueActual" hidden="false" order="69" baseMeasure="actual">
+        <descriptions defaultDescription="Total Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalRevenueBudget" hidden="false" order="70" baseMeasure="budget">
+        <descriptions defaultDescription="Total Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions>
+      <localDimension id="orgHierarchy">
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="orgHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="Organizational Hierarchy"/>
+            <levels/>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+      <localDimension id="dateHierarchy">
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="dateHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="Date Hierarchy"/>
+            <levels/>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+      <localDimension id="lobGroup">
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="lobGroup" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="Lob Group"/>
+            <levels/>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="351" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="786"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="671"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="406" y="501"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="accountGroup1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="661"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118" y="501"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="accountGroup1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="341" y="341"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="financials" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="341" y="236"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

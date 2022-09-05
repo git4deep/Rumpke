@@ -1,0 +1,15 @@
+FUNCTION "rumpke.bi.data.proc::timeDimensionValueHelp" ( ) 
+
+RETURNS TABLE (
+		"fiscalYearPeriod" NVARCHAR(7)
+		) LANGUAGE SQLSCRIPT SQL SECURITY INVOKER AS
+
+BEGIN
+
+	VAR_OUT = SELECT "fiscalYearPeriod" FROM 
+	(SELECT CONCAT(CONCAT("YEAR",'0'),"MONTH") AS "fiscalYearPeriod"
+				FROM "M_TIME_DIMENSION")
+	ORDER BY "fiscalYearPeriod" ASC;
+				
+	RETURN :VAR_OUT;					
+END;

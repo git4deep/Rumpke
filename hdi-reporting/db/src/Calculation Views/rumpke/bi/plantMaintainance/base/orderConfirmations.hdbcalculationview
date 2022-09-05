@@ -1,0 +1,906 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::orderConfirmations" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Order Confirmations"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="46"/>
+  <dataSources>
+    <DataSource id="PA0002">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::PA0002</resourceUri>
+    </DataSource>
+    <DataSource id="AFRU">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::AFRU</resourceUri>
+    </DataSource>
+    <DataSource id="S4HANA::CRHD">
+      <resourceUri>S4HANA::CRHD</resourceUri>
+    </DataSource>
+    <DataSource id="fioriConfirmationsTable">
+      <resourceUri>rumpke.bi.plantMaintainance.base::fioriConfirmationsTable</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="NACHN"/>
+        <viewAttribute id="VORNA"/>
+        <viewAttribute id="PERNR"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="employeeNameSAP" length="5000" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;NACHN&quot;+', '+&quot;VORNA&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="PA0002"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute aggregationType="sum" id="actualWorkHours"/>
+        <viewAttribute id="IDAUE"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="STZHL"/>
+        <viewAttribute id="workStartTime"/>
+        <viewAttribute id="WorkEndDate"/>
+        <viewAttribute id="workEndTime"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="SECONDDATE" id="workStartTimestamp" expressionLanguage="COLUMN_ENGINE">
+          <formula>seconddate(string(&quot;workStartDate&quot;) +' '+
+leftstr(&quot;workStartTime&quot;,2)+':'+midstr(&quot;workStartTime&quot;,3,2)+':'+rightstr(&quot;workStartTime&quot;,2))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="SECONDDATE" id="workEndTimestamp" expressionLanguage="COLUMN_ENGINE">
+          <formula>seconddate(string(&quot;WorkEndDate&quot;) +' '+
+leftstr(&quot;workEndTime&quot;,2)+':'+midstr(&quot;workEndTime&quot;,3,2)+':'+rightstr(&quot;workEndTime&quot;,2))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="cc_ActualWorkHours_unitAdjusted" length="7" scale="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;unitForWork&quot;='MIN',decfloat(&quot;actualWorkHours&quot;/60),
+if(&quot;unitForWork&quot;='H',decfloat(&quot;actualWorkHours&quot;),0))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="AFRU">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectID" source="ARBID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationNumber" source="RUECK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCreationDate" source="ERSDA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCounter" source="RMZHL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="PERNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDate" source="ISDD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="indicatorDocumentWasReversed" source="STOKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationActivityNumber" source="VORNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHours" source="ISMNW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitForWork" source="ISMNE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartTime" source="ISDZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WorkEndDate" source="IEDD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workEndTime" source="IEDZ"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="OBJID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="S4HANA::CRHD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="ARBPL"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="STZHL"/>
+        <viewAttribute id="workStartTimestamp"/>
+        <viewAttribute id="workEndTimestamp"/>
+        <viewAttribute id="cc_ActualWorkHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectID" source="objectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationNumber" source="confirmationNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCreationDate" source="confirmationCreationDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCounter" source="confirmationCounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDate" source="workStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="indicatorDocumentWasReversed" source="indicatorDocumentWasReversed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationActivityNumber" source="operationActivityNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHours" source="actualWorkHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitForWork" source="unitForWork"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STZHL" source="STZHL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartTimestamp" source="workStartTimestamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workEndTimestamp" source="workEndTimestamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cc_ActualWorkHours" source="cc_ActualWorkHours_unitAdjusted"/>
+      </input>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectID" source="OBJID"/>
+      </input>
+    <joinAttribute name="objectID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="STZHL"/>
+        <viewAttribute id="workStartTimestamp"/>
+        <viewAttribute id="workEndTimestamp"/>
+        <viewAttribute id="cc_ActualWorkHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectID" source="objectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationNumber" source="confirmationNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCreationDate" source="confirmationCreationDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCounter" source="confirmationCounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDate" source="workStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="indicatorDocumentWasReversed" source="indicatorDocumentWasReversed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationActivityNumber" source="operationActivityNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHours" source="actualWorkHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitForWork" source="unitForWork"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STZHL" source="STZHL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartTimestamp" source="workStartTimestamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workEndTimestamp" source="workEndTimestamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cc_ActualWorkHours" source="cc_ActualWorkHours"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeNameSAP" source="employeeNameSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="PERNR"/>
+      </input>
+    <joinAttribute name="employeeID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="START_JOB_DATE"/>
+        <viewAttribute id="START_JOB_TIME"/>
+        <viewAttribute id="CONFIRMATION"/>
+        <viewAttribute id="CONFCOUNTER"/>
+        <viewAttribute id="END_JOB_DATE"/>
+        <viewAttribute id="END_JOB_TIME"/>
+        <viewAttribute id="ASSIGNED_PERSON"/>
+        <viewAttribute id="START_JOB_TIMESTAMP"/>
+        <viewAttribute id="END_JOB_TIMESTAMP"/>
+        <viewAttribute id="confirmationAction"/>
+        <viewAttribute id="ACTUALWORK"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="fioriConfirmationsTable">
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationAction" source="ACTION"/></input>
+    <filter>not(&quot;CONFIRMATION&quot;='0000021650' AND &quot;CONFCOUNTER&quot;='00000002') AND &quot;CONFIRMATION&quot;!='0000000000'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="START_JOB_DATE"/>
+        <viewAttribute id="END_JOB_DATE"/>
+        <viewAttribute id="START_JOB_TIMESTAMP"/>
+        <viewAttribute id="END_JOB_TIMESTAMP"/>
+        <viewAttribute id="confirmationAction_1"/>
+        <viewAttribute id="CONFIRMATION"/>
+        <viewAttribute id="CONFCOUNTER"/>
+        <viewAttribute id="ASSIGNED_PERSON"/>
+        <viewAttribute id="ACTUALWORK"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationAction_1" source="confirmationAction"/></input>
+    <filter>(&quot;ACTUALWORK&quot; !='0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" cardinality="C1_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="STZHL"/>
+        <viewAttribute id="START_JOB_DATE"/>
+        <viewAttribute id="END_JOB_DATE"/>
+        <viewAttribute id="START_JOB_TIMESTAMP"/>
+        <viewAttribute id="END_JOB_TIMESTAMP"/>
+        <viewAttribute id="confirmationAction_1"/>
+        <viewAttribute id="workStartTimestamp"/>
+        <viewAttribute id="workEndTimestamp"/>
+        <viewAttribute id="cc_ActualWorkHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="confirmationAction" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(&quot;confirmationAction_1&quot;) AND &quot;STZHL&quot;!='00000000','R',
+if(isNull(&quot;confirmationAction_1&quot;) AND &quot;STZHL&quot;='00000000','M',
+if(&quot;confirmationAction_1&quot;='C','C','')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="actualWorkHoursSignFlip" length="7" scale="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;confirmationAction&quot;='R',-1*&quot;cc_ActualWorkHours&quot;,&quot;cc_ActualWorkHours&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="minutesBetween" length="7" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>(secondsbetween(&quot;START_JOB_TIMESTAMP&quot;,&quot;END_JOB_TIMESTAMP&quot;)/60)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectID" source="objectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationNumber" source="confirmationNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCreationDate" source="confirmationCreationDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCounter" source="confirmationCounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDate" source="workStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="indicatorDocumentWasReversed" source="indicatorDocumentWasReversed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationActivityNumber" source="operationActivityNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeNameSAP" source="employeeNameSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitForWork" source="unitForWork"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHours" source="actualWorkHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STZHL" source="STZHL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartTimestamp" source="workStartTimestamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workEndTimestamp" source="workEndTimestamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cc_ActualWorkHours" source="cc_ActualWorkHours"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="START_JOB_DATE" source="START_JOB_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="END_JOB_DATE" source="END_JOB_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="START_JOB_TIMESTAMP" source="START_JOB_TIMESTAMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="END_JOB_TIMESTAMP" source="END_JOB_TIMESTAMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationAction_1" source="confirmationAction_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationNumber" source="CONFIRMATION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCounter" source="CONFCOUNTER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="ASSIGNED_PERSON"/>
+      </input>
+    <joinAttribute name="confirmationNumber"/>
+    <joinAttribute name="confirmationCounter"/>
+    <joinAttribute name="employeeID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="differentDays" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="START_JOB_DATE"/>
+        <viewAttribute id="END_JOB_DATE"/>
+        <viewAttribute id="START_JOB_TIMESTAMP"/>
+        <viewAttribute id="END_JOB_TIMESTAMP"/>
+        <viewAttribute id="confirmationAction"/>
+        <viewAttribute id="actualWorkHoursSignFlip"/>
+        <viewAttribute id="cc_ActualWorkHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="TIMESTAMP" id="sameDayLastSecond" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(&quot;START_JOB_DATE&quot;),longdate('19900101'+'235959')
+,longdate(format(&quot;START_JOB_DATE&quot;,'YYYYMMDD')+'235959'))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="TIMESTAMP" id="nextDayFirstSecond" expressionLanguage="COLUMN_ENGINE">
+          <formula>addseconds(&quot;sameDayLastSecond&quot;,2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="workedHoursSameDay_Calc" length="15" scale="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>decfloat(decfloat(((secondsbetween(&quot;START_JOB_TIMESTAMP&quot;,&quot;sameDayLastSecond&quot;)+1)/60))/60)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="workedHoursNextDay_Calc" length="15" scale="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>decfloat(decfloat(((secondsbetween(&quot;nextDayFirstSecond&quot;,&quot;END_JOB_TIMESTAMP&quot;)+1)/60))/60)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_3"/>
+    <filter>(&quot;START_JOB_DATE&quot;!=&quot;END_JOB_DATE&quot; AND &quot;confirmationAction&quot;='C' )</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="day1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="START_JOB_DATE"/>
+        <viewAttribute id="END_JOB_DATE"/>
+        <viewAttribute id="sameDayLastSecond"/>
+        <viewAttribute id="nextDayFirstSecond"/>
+        <viewAttribute id="workedHoursSameDay_Calc"/>
+        <viewAttribute id="START_JOB_TIMESTAMP"/>
+        <viewAttribute id="END_JOB_TIMESTAMP"/>
+        <viewAttribute id="confirmationAction"/>
+        <viewAttribute id="actualWorkHoursSignFlip"/>
+        <viewAttribute id="cc_ActualWorkHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="differentDays"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="nextDay">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="START_JOB_DATE"/>
+        <viewAttribute id="END_JOB_DATE"/>
+        <viewAttribute id="sameDayLastSecond"/>
+        <viewAttribute id="nextDayFirstSecond"/>
+        <viewAttribute id="workedHoursNextDay_Calc"/>
+        <viewAttribute id="START_JOB_TIMESTAMP"/>
+        <viewAttribute id="END_JOB_TIMESTAMP"/>
+        <viewAttribute id="confirmationAction"/>
+        <viewAttribute id="actualWorkHoursSignFlip"/>
+        <viewAttribute id="cc_ActualWorkHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="jobStartDate_Calc" expressionLanguage="COLUMN_ENGINE">
+          <formula>adddays(&quot;START_JOB_DATE&quot;,1)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="differentDays"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="workedHoursSameDay_Calc"/>
+        <viewAttribute datatype="DATE" id="workDate"/>
+        <viewAttribute datatype="TIMESTAMP" id="workStartTimestamp"/>
+        <viewAttribute datatype="TIMESTAMP" id="workEndTimestamp" length="27" scale="7"/>
+        <viewAttribute id="confirmationAction"/>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="actualWorkHoursSignFlip"/>
+        <viewAttribute id="cc_ActualWorkHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="day1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectID" source="objectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationNumber" source="confirmationNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCreationDate" source="confirmationCreationDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCounter" source="confirmationCounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="indicatorDocumentWasReversed" source="indicatorDocumentWasReversed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationActivityNumber" source="operationActivityNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeNameSAP" source="employeeNameSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitForWork" source="unitForWork"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursSameDay_Calc" source="workedHoursSameDay_Calc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="START_JOB_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartTimestamp" source="START_JOB_TIMESTAMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workEndTimestamp" source="sameDayLastSecond"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationAction" source="confirmationAction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHours" source="actualWorkHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHoursSignFlip" source="actualWorkHoursSignFlip"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cc_ActualWorkHours" source="cc_ActualWorkHours"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="nextDay">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectID" source="objectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationNumber" source="confirmationNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCreationDate" source="confirmationCreationDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCounter" source="confirmationCounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="indicatorDocumentWasReversed" source="indicatorDocumentWasReversed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationActivityNumber" source="operationActivityNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeNameSAP" source="employeeNameSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitForWork" source="unitForWork"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursSameDay_Calc" source="workedHoursNextDay_Calc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="jobStartDate_Calc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartTimestamp" source="nextDayFirstSecond"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workEndTimestamp" source="END_JOB_TIMESTAMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationAction" source="confirmationAction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHours" source="actualWorkHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHoursSignFlip" source="actualWorkHoursSignFlip"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cc_ActualWorkHours" source="cc_ActualWorkHours"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="sameDayAndReversalAndManual">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter" keepFlag="true"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="actualWorkMins"/>
+        <viewAttribute id="START_JOB_DATE"/>
+        <viewAttribute id="END_JOB_DATE"/>
+        <viewAttribute id="START_JOB_TIMESTAMP"/>
+        <viewAttribute id="END_JOB_TIMESTAMP"/>
+        <viewAttribute id="confirmationAction"/>
+        <viewAttribute id="actualWorkHoursSignFlip"/>
+        <viewAttribute id="workStartTimestamp"/>
+        <viewAttribute id="workEndTimestamp"/>
+        <viewAttribute id="cc_ActualWorkHours"/>
+        <viewAttribute id="minutesBetween"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="workedHoursCalc" length="15" scale="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;confirmationAction&quot;='M' or &quot;confirmationAction&quot;='R',&quot;actualWorkHoursSignFlip&quot;,
+decfloat(&quot;minutesBetween&quot;/60))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="TIMESTAMP" id="endJobTimestampNoNulls" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(&quot;END_JOB_TIMESTAMP&quot;),&quot;workEndTimestamp&quot;,&quot;END_JOB_TIMESTAMP&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="TIMESTAMP" id="startJobTimestampNoNulls" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(&quot;START_JOB_TIMESTAMP&quot;),&quot;workStartTimestamp&quot;,&quot;END_JOB_TIMESTAMP&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkMins" source="actualWorkHours"/></input>
+    <filter>(&quot;START_JOB_DATE&quot;=&quot;END_JOB_DATE&quot;) OR in(&quot;confirmationAction&quot;,'R','M')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute aggregationType="sum" id="workedHoursCalc"/>
+        <viewAttribute id="jobStartDateTime"/>
+        <viewAttribute id="jobEndDateTime"/>
+        <viewAttribute id="confirmationAction"/>
+        <viewAttribute id="actualWorkMins"/>
+        <viewAttribute id="actualWorkHoursSignFlip"/>
+        <viewAttribute id="cc_ActualWorkHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDate" source="workDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursSameDay_Calc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobStartDateTime" source="workStartTimestamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobEndDateTime" source="workEndTimestamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkMins" source="actualWorkHours"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute id="jobStartDateTime"/>
+        <viewAttribute id="jobEndDateTime"/>
+        <viewAttribute id="confirmationAction"/>
+        <viewAttribute datatype="DECIMAL" id="actualWorkTime" length="7" scale="6"/>
+        <viewAttribute id="actualWorkMins"/>
+        <viewAttribute id="START_JOB_TIMESTAMP"/>
+        <viewAttribute id="END_JOB_TIMESTAMP"/>
+        <viewAttribute id="minutesBetween"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="sameDayAndReversalAndManual">
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHours" source="actualWorkHoursSignFlip"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectID" source="objectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationNumber" source="confirmationNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCreationDate" source="confirmationCreationDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCounter" source="confirmationCounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDate" source="workStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="indicatorDocumentWasReversed" source="indicatorDocumentWasReversed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationActivityNumber" source="operationActivityNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeNameSAP" source="employeeNameSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitForWork" source="unitForWork"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobStartDateTime" source="startJobTimestampNoNulls"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobEndDateTime" source="endJobTimestampNoNulls"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationAction" source="confirmationAction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkTime" source="cc_ActualWorkHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkMins" source="actualWorkMins"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="START_JOB_TIMESTAMP" source="START_JOB_TIMESTAMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="END_JOB_TIMESTAMP" source="END_JOB_TIMESTAMP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="minutesBetween" source="minutesBetween"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHours" source="actualWorkHoursSignFlip"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectID" source="objectID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationNumber" source="confirmationNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCreationDate" source="confirmationCreationDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCounter" source="confirmationCounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDate" source="workStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="indicatorDocumentWasReversed" source="indicatorDocumentWasReversed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationActivityNumber" source="operationActivityNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeNameSAP" source="employeeNameSAP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitForWork" source="unitForWork"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobStartDateTime" source="jobStartDateTime"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobEndDateTime" source="jobEndDateTime"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationAction" source="confirmationAction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkTime" source="cc_ActualWorkHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkMins" source="actualWorkMins"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="START_JOB_TIMESTAMP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="END_JOB_TIMESTAMP" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="minutesBetween" null="true" value=""/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="filterfor_testing">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="confirmationCounter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+        <viewAttribute id="operationActivityNumber"/>
+        <viewAttribute id="employeeNameSAP"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="unitForWork"/>
+        <viewAttribute id="jobStartDateTime"/>
+        <viewAttribute id="jobEndDateTime"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="actualWorkTime"/>
+        <viewAttribute id="actualWorkMins"/>
+        <viewAttribute id="START_JOB_TIMESTAMP"/>
+        <viewAttribute id="END_JOB_TIMESTAMP"/>
+        <viewAttribute id="confirmationAction"/>
+        <viewAttribute id="minutesBetween"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Union_2"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="filterfor_testing">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="client"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="client"/>
+      </attribute>
+      <attribute id="objectID" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="objectID"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="objectID"/>
+      </attribute>
+      <attribute id="plant" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="plant"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="plant"/>
+      </attribute>
+      <attribute id="orderNumber" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="orderNumber"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="orderNumber"/>
+      </attribute>
+      <attribute id="confirmationNumber" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="confirmationNumber"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="confirmationNumber"/>
+      </attribute>
+      <attribute id="confirmationCreationDate" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="confirmationCreationDate"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="confirmationCreationDate"/>
+      </attribute>
+      <attribute id="confirmationCounter" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="confirmationCounter"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="confirmationCounter"/>
+      </attribute>
+      <attribute id="employeeID" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="employeeID"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="employeeID"/>
+      </attribute>
+      <attribute id="workStartDate" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="workStartDate"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="workStartDate"/>
+      </attribute>
+      <attribute id="indicatorDocumentWasReversed" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="indicatorDocumentWasReversed"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="indicatorDocumentWasReversed"/>
+      </attribute>
+      <attribute id="operationActivityNumber" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="operationActivityNumber"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="operationActivityNumber"/>
+      </attribute>
+      <attribute id="employeeNameSAP" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="employeeNameSAP"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="employeeNameSAP"/>
+      </attribute>
+      <attribute id="workCenter" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="workCenter"/>
+      </attribute>
+      <attribute id="unitForWork" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="unitForWork"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="unitForWork"/>
+      </attribute>
+      <attribute id="jobEndDateTime" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="jobEndDateTime"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="jobEndDateTime"/>
+      </attribute>
+      <attribute id="jobStartDateTime" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="jobStartDateTime"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="jobStartDateTime"/>
+      </attribute>
+      <attribute id="START_JOB_TIMESTAMP" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="START_JOB_TIMESTAMP"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="START_JOB_TIMESTAMP"/>
+      </attribute>
+      <attribute id="END_JOB_TIMESTAMP" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="END_JOB_TIMESTAMP"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="END_JOB_TIMESTAMP"/>
+      </attribute>
+      <attribute id="confirmationAction" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="confirmationAction"/>
+        <keyMapping columnObjectName="filterfor_testing" columnName="confirmationAction"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="workedHoursCalc" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="workedHoursCalc"/>
+        <measureMapping columnObjectName="filterfor_testing" columnName="workedHoursCalc"/>
+      </measure>
+      <measure id="actualWorkHours" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualWorkHours"/>
+        <measureMapping columnObjectName="filterfor_testing" columnName="actualWorkHours"/>
+      </measure>
+      <measure id="actualWorkTime" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualWorkTime"/>
+        <measureMapping columnObjectName="filterfor_testing" columnName="actualWorkTime"/>
+      </measure>
+      <measure id="actualWorkMins" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualWorkMins"/>
+        <measureMapping columnObjectName="filterfor_testing" columnName="actualWorkMins"/>
+      </measure>
+      <measure id="minutesBetween" order="24" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="filterfor_testing" columnName="minutesBetween"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="430" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="524" y="1316"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="202" y="1476"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="412" y="1476"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="314" y="1316"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="401" y="1156"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="1316"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="1164"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="374" y="996"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="differentDays" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="186" y="851"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="day1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="160" y="726"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="nextDay" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="370" y="726"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="343" y="586"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="sameDayAndReversalAndManual" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="465" y="851"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="343" y="481"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="433" y="341"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="filterfor_testing" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="433" y="236"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

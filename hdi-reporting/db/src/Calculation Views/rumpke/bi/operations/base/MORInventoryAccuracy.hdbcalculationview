@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::MORInventoryAccuracy" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="MORInventoryAccuracy"/>
+  <metadata changedAt="2022-03-17 08:23:40.919"/>
+  <localVariables>
+    <variable id="ipDateFrom" parameter="true">
+      <descriptions defaultDescription="ipDateFrom"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate('20210101')</defaultExpression>
+      </variableProperties>
+    </variable>
+    <variable id="ipDateTo" parameter="true">
+      <descriptions defaultDescription="ipDateTo"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate('20210131')</defaultExpression>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="MORInventory">
+      <targetVariable name="ipDateFrom" resourceUri="rumpke.bi.operations.base::MORInventory"/>
+      <localVariable>ipDateFrom</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="MORInventory">
+      <targetVariable name="ipDateTo" resourceUri="rumpke.bi.operations.base::MORInventory"/>
+      <localVariable>ipDateTo</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="47"/>
+  <dataSources>
+    <DataSource id="ISEG">
+      <resourceUri>rumpke.bi.operations.base.s4hana::ISEG</resourceUri>
+    </DataSource>
+    <DataSource id="MORInventory">
+      <resourceUri>rumpke.bi.operations.base::MORInventory</resourceUri>
+    </DataSource>
+    <DataSource id="MBEWH">
+      <resourceUri>rumpke.bi.operations.base.s4hana::MBEWH</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="agg_ISEG">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute aggregationType="sum" id="MENGE"/>
+        <viewAttribute aggregationType="sum" id="BUCHM"/>
+        <viewAttribute id="WRTZL"/>
+        <viewAttribute id="WRTBM"/>
+        <viewAttribute id="LGORT"/>
+        <viewAttribute id="BUDAT"/>
+        <viewAttribute id="WERKS"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="positiveError" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MENGE&quot;-&quot;BUCHM&quot;&gt;0,1,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="negativeError" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MENGE&quot;-&quot;BUCHM&quot;&lt;0,1,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="totalErrors" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;positiveError&quot;+&quot;negativeError&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="totalAdjustments" length="13" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;WRTZL&quot;-&quot;WRTBM&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="fiscalYearPeriod" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;BUDAT&quot;,6)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="ISEG"/>
+    <filter>(&quot;fiscalYearPeriod&quot;&gt;=leftstr(string('$$ipDateFrom$$'),4)+midstr(string('$$ipDateFrom$$'),6,2) )
+AND
+(&quot;fiscalYearPeriod&quot;&lt;=leftstr(string('$$ipDateTo$$'),4)+midstr(string('$$ipDateTo$$'),6,2) )</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute aggregationType="sum" id="POsOver30"/>
+        <viewAttribute id="EBELN"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="ebelnCount" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="MORInventory">
+        <mapping xsi:type="Calculation:AttributeMapping" target="POsOver30" source="CountEBELN"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_1" dynamic="false" joinType="leftOuter" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="positiveError"/>
+        <viewAttribute id="negativeError"/>
+        <viewAttribute id="totalErrors"/>
+        <viewAttribute id="totalAdjustments"/>
+        <viewAttribute id="POsOver30_inf"/>
+        <viewAttribute id="ebelnCount"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="WERKS_ISEG"/>
+        <viewAttribute id="LGORT"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="agg_ISEG">
+        <mapping xsi:type="Calculation:AttributeMapping" target="positiveError" source="positiveError"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="negativeError" source="negativeError"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalErrors" source="totalErrors"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalAdjustments" source="totalAdjustments"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS_ISEG" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+      </input>
+      <input node="Aggregation_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="POsOver30_inf" source="POsOver30"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebelnCount" source="ebelnCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS_ISEG" source="WERKS"/>
+      </input>
+    <joinAttribute name="WERKS_ISEG"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BWKEY"/>
+        <viewAttribute id="LFGJA"/>
+        <viewAttribute id="LFMON"/>
+        <viewAttribute id="totalStockValue"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="yearMonth" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;LFGJA&quot;+'0'+&quot;LFMON&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="fromMonth" expressionLanguage="COLUMN_ENGINE">
+          <formula>'$$ipDateFrom$$'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="cm" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(string('$$ipDateFrom$$'),4)+'0'+midstr(string('$$ipDateFrom$$'),6,2) </formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="pm" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(string(addmonths(&quot;fromMonth&quot;,-1)),4)+'0'+midstr(string(addMonths(&quot;fromMonth&quot;,-1)),6,2) </formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="MBEWH">
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalStockValue" source="SALK3"/>
+      </input>
+    <filter>in(&quot;yearMonth&quot;,&quot;cm&quot;,&quot;pm&quot;)</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BWKEY"/>
+        <viewAttribute aggregationType="sum" id="totalStockValue_cm"/>
+        <viewAttribute id="yearMonth"/>
+        <viewAttribute id="cm"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalStockValue_cm" source="totalStockValue"/></input>
+    <filter>&quot;yearMonth&quot;=&quot;cm&quot;</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BWKEY"/>
+        <viewAttribute aggregationType="sum" id="totalStockValue_pm"/>
+        <viewAttribute id="yearMonth"/>
+        <viewAttribute id="pm"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalStockValue_pm" source="totalStockValue"/></input>
+    <filter>&quot;yearMonth&quot;=&quot;pm&quot;</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="BWKEY"/>
+        <viewAttribute id="totalStockValue_cm"/>
+        <viewAttribute id="totalStockValue_pm"/>
+        <viewAttribute datatype="INTEGER" id="count"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWKEY" source="BWKEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalStockValue_cm" source="totalStockValue_cm"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalStockValue_pm" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="count" null="false" value="1"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWKEY" source="BWKEY"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalStockValue_cm" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalStockValue_pm" source="totalStockValue_pm"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="count" null="false" value="1"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute aggregationType="sum" id="positiveError"/>
+        <viewAttribute aggregationType="sum" id="negativeError"/>
+        <viewAttribute aggregationType="sum" id="totalErrors"/>
+        <viewAttribute aggregationType="sum" id="totalAdjustments"/>
+        <viewAttribute aggregationType="sum" id="POsOver30_inf"/>
+        <viewAttribute aggregationType="sum" id="ebelnCount"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="WERKS_ISEG"/>
+        <viewAttribute id="LGORT"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Join_2"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_8">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute aggregationType="sum" id="totalStockValue_cm"/>
+        <viewAttribute aggregationType="sum" id="totalStockValue_pm"/>
+        <viewAttribute aggregationType="sum" id="count"/>
+        <viewAttribute id="MATNR_MBEWH"/>
+        <viewAttribute id="BWKEY"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR_MBEWH" source="MATNR"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" cardinality="CN_1" joinType="fullOuter" optimizeJoinColumns="false">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="positiveError"/>
+        <viewAttribute id="negativeError"/>
+        <viewAttribute id="totalErrors"/>
+        <viewAttribute id="totalAdjustments"/>
+        <viewAttribute id="POsOver30_inf"/>
+        <viewAttribute id="ebelnCount"/>
+        <viewAttribute id="totalStockValue_cm"/>
+        <viewAttribute id="totalStockValue_pm"/>
+        <viewAttribute id="count"/>
+        <viewAttribute id="MATNR_MBEWH"/>
+        <viewAttribute id="BWKEY"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="WERKS_ISEG"/>
+        <viewAttribute id="LGORT"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="totalStockValue_cm_adjusted" length="13" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(&quot;count&quot;) or &quot;count&quot;=0,0,&quot;totalStockValue_cm&quot;/&quot;count&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Aggregation_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalStockValue_cm" source="totalStockValue_cm"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalStockValue_pm" source="totalStockValue_pm"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="count" source="count"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR_MBEWH" source="MATNR_MBEWH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWKEY" source="BWKEY"/>
+      </input>
+      <input node="Aggregation_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="positiveError" source="positiveError"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="negativeError" source="negativeError"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalErrors" source="totalErrors"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalAdjustments" source="totalAdjustments"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POsOver30_inf" source="POsOver30_inf"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebelnCount" source="ebelnCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS_ISEG" source="WERKS_ISEG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LGORT" source="LGORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BWKEY" source="WERKS_ISEG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MATNR_MBEWH" source="MATNR"/>
+      </input>
+    <joinAttribute name="BWKEY"/>
+    <joinAttribute name="MATNR_MBEWH"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="ebelnCount"/>
+        <viewAttribute id="POsOver30_inf"/>
+        <viewAttribute id="totalStockValue_pm"/>
+        <viewAttribute id="totalStockValue_cm"/>
+        <viewAttribute id="totalAdjustments"/>
+        <viewAttribute id="totalErrors"/>
+        <viewAttribute id="negativeError"/>
+        <viewAttribute id="positiveError"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="WERKS_ISEG"/>
+        <viewAttribute id="LGORT"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="BWKEY"/></input>
+    <filter>(not isNull(&quot;MATNR&quot;))</filter>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="WERKS_MBEWH" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WERKS_MBEWH"/>
+        <keyMapping columnObjectName="Projection_1" columnName="WERKS"/>
+      </attribute>
+      <attribute id="MATNR" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MATNR"/>
+        <keyMapping columnObjectName="Projection_1" columnName="MATNR"/>
+      </attribute>
+      <attribute id="WERKS" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WERKS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="WERKS_ISEG"/>
+      </attribute>
+      <attribute id="LGORT" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LGORT_ISEG"/>
+        <keyMapping columnObjectName="Projection_1" columnName="LGORT"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="ebelnCount" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="count_1"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ebelnCount"/>
+      </measure>
+      <measure id="POsOver30_inf" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="POsOver30_inf"/>
+        <measureMapping columnObjectName="Projection_1" columnName="POsOver30_inf"/>
+      </measure>
+      <measure id="totalStockValue_pm" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalStockValue_pm"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalStockValue_pm"/>
+      </measure>
+      <measure id="totalStockValue_cm" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalStockValue_cm"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalStockValue_cm"/>
+      </measure>
+      <measure id="totalAdjustments" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalAdjustments"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalAdjustments"/>
+      </measure>
+      <measure id="totalErrors" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalErrors"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalErrors"/>
+      </measure>
+      <measure id="negativeError" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="negativeError"/>
+        <measureMapping columnObjectName="Projection_1" columnName="negativeError"/>
+      </measure>
+      <measure id="positiveError" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="positiveError"/>
+        <measureMapping columnObjectName="Projection_1" columnName="positiveError"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="totalMaterialCount" hidden="false" order="1" aggregationType="sum" measureType="simple" aggregatable="true" calculatedMeasureType="counter" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="totalMaterialCount"/>
+        <exceptionAggregation exceptionAggregationType="countDistinct">
+          <attribute attributeName="MATNR"/>
+        </exceptionAggregation>
+        <formula>1</formula>
+      </measure>
+      <measure id="accuracyPercentage" hidden="false" order="2" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="3" scale="2">
+        <descriptions defaultDescription="accuracyPercentage"/>
+        <formula>(1 - (&quot;totalErrors&quot;/&quot;totalMaterialCount&quot;))*100</formula>
+      </measure>
+      <measure id="POsOver30" hidden="false" order="3" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="POsOver30"/>
+        <formula>if(&quot;ebelnCount&quot;=0,0,&quot;POsOver30_inf&quot;/&quot;ebelnCount&quot;)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="483" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="agg_ISEG" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="722" y="806"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="512" y="806"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="538" y="646"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="agg_ISEG" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_5" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="275" y="951"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="806"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="806"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="275" y="660"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="527" y="521"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="275" y="521"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="459" y="361"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_8" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_4" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="459" y="236"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

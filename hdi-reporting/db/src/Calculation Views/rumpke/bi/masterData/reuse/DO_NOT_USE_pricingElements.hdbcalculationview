@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.reuse::DO_NOT_USE_pricingElements" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Pricing Elements"/>
+  <metadata changedAt="2020-02-24 11:19:35.585"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="S4HANA::PRCD_ELEMENTS">
+      <resourceUri>S4HANA::PRCD_ELEMENTS</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="S4HANA::PRCD_ELEMENTS">
+    <descriptions/>
+    <attributes>
+      <attribute id="numberOfDocumentCondition" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of the Document Condition"/>
+        <keyMapping columnObjectName="PRCD_ELEMENTS" columnName="KNUMV"/>
+      </attribute>
+      <attribute id="conditionType" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Condition type"/>
+        <keyMapping columnObjectName="PRCD_ELEMENTS" columnName="KSCHL"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="rate" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Rate (Amount or Percentage)"/>
+        <measureMapping columnObjectName="PRCD_ELEMENTS" columnName="KBETR"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

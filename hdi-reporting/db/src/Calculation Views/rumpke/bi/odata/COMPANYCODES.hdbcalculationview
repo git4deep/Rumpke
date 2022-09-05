@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.odata::COMPANYCODES" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="CompanyCodes"/>
+  <metadata changedAt="2019-12-04 20:17:58.24"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.base::companyCodes">
+      <resourceUri>rumpke.bi.masterData.base::companyCodes</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="rumpke.bi.masterData.base::companyCodes">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="companyCodes" columnName="client"/>
+      </attribute>
+      <attribute id="companyCode" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="companyCodes" columnName="companyCode"/>
+      </attribute>
+      <attribute id="nameCompanyCode" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name of Company Code "/>
+        <keyMapping columnObjectName="companyCodes" columnName="nameCompanyCode"/>
+      </attribute>
+      <attribute id="city" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="City"/>
+        <keyMapping columnObjectName="companyCodes" columnName="city"/>
+      </attribute>
+      <attribute id="countryKey" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country Key"/>
+        <keyMapping columnObjectName="companyCodes" columnName="countryKey"/>
+      </attribute>
+      <attribute id="currencyKey" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency Key"/>
+        <keyMapping columnObjectName="companyCodes" columnName="currencyKey"/>
+      </attribute>
+      <attribute id="languageKey" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="companyCodes" columnName="languageKey"/>
+      </attribute>
+      <attribute id="chartofAccounts" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Chart of Accounts"/>
+        <keyMapping columnObjectName="companyCodes" columnName="chartofAccounts"/>
+      </attribute>
+      <attribute id="maxExchangeRateDeviationPercent" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Max exchange rate deviation in percent"/>
+        <keyMapping columnObjectName="companyCodes" columnName="maxExchangeRateDeviationPercent"/>
+      </attribute>
+      <attribute id="fiscalYearVariant" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Variant"/>
+        <keyMapping columnObjectName="companyCodes" columnName="fiscalYearVariant"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/></shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

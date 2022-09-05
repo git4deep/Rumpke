@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::plantsBranches" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Plants/Branches"/>
+  <metadata changedAt="2019-09-05 15:52:34.991"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="T001W">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T001W</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="T001W">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="T001W" columnName="MANDT"/>
+      </attribute>
+      <attribute id="plant" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="T001W" columnName="WERKS"/>
+      </attribute>
+      <attribute id="name" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name"/>
+        <keyMapping columnObjectName="T001W" columnName="NAME1"/>
+      </attribute>
+      <attribute id="valuationArea" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valuation Area"/>
+        <keyMapping columnObjectName="T001W" columnName="BWKEY"/>
+      </attribute>
+      <attribute id="customerNumberofPlant" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Customer Number of Plant"/>
+        <keyMapping columnObjectName="T001W" columnName="KUNNR"/>
+      </attribute>
+      <attribute id="supplierNumberofPlant" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Supplier Number of Plant"/>
+        <keyMapping columnObjectName="T001W" columnName="LIFNR"/>
+      </attribute>
+      <attribute id="factoryCalendarKey" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Factory Calendar Key"/>
+        <keyMapping columnObjectName="T001W" columnName="FABKL"/>
+      </attribute>
+      <attribute id="name2" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name2"/>
+        <keyMapping columnObjectName="T001W" columnName="NAME2"/>
+      </attribute>
+      <attribute id="streetAndHouseNumber" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Street and House Number"/>
+        <keyMapping columnObjectName="T001W" columnName="STRAS"/>
+      </attribute>
+      <attribute id="pobox" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PO Box"/>
+        <keyMapping columnObjectName="T001W" columnName="PFACH"/>
+      </attribute>
+      <attribute id="postalCode" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Postal Code"/>
+        <keyMapping columnObjectName="T001W" columnName="PSTLZ"/>
+      </attribute>
+      <attribute id="city" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="City"/>
+        <keyMapping columnObjectName="T001W" columnName="ORT01"/>
+      </attribute>
+      <attribute id="purchasingOrganization" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Organization"/>
+        <keyMapping columnObjectName="T001W" columnName="EKORG"/>
+      </attribute>
+      <attribute id="salesOrganizationforIntercompanyBilling" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Organization for Intercompany Billing"/>
+        <keyMapping columnObjectName="T001W" columnName="VKORG"/>
+      </attribute>
+      <attribute id="indicatorBatchStatusManagementAct" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Indicator: Batch Status Management Active"/>
+        <keyMapping columnObjectName="T001W" columnName="CHAZV"/>
+      </attribute>
+      <attribute id="indicatorConditionsatPlantlevel" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Indicator: Conditions at Plant Level"/>
+        <keyMapping columnObjectName="T001W" columnName="KKOWK"/>
+      </attribute>
+      <attribute id="indicatorSourceListRequirement" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Indicator: Source List Requirement"/>
+        <keyMapping columnObjectName="T001W" columnName="KORDB"/>
+      </attribute>
+      <attribute id="activatingRequirementsPlanning" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Activating Requirements Planning"/>
+        <keyMapping columnObjectName="T001W" columnName="BEDPL"/>
+      </attribute>
+      <attribute id="countryKey" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country Key"/>
+        <keyMapping columnObjectName="T001W" columnName="LAND1"/>
+      </attribute>
+      <attribute id="regionStateProvinceCounty" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region (State, Province, County)"/>
+        <keyMapping columnObjectName="T001W" columnName="REGIO"/>
+      </attribute>
+      <attribute id="countyCode" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="County Code"/>
+        <keyMapping columnObjectName="T001W" columnName="COUNC"/>
+      </attribute>
+      <attribute id="cityCode" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="City Code"/>
+        <keyMapping columnObjectName="T001W" columnName="CITYC"/>
+      </attribute>
+      <attribute id="address" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Address"/>
+        <keyMapping columnObjectName="T001W" columnName="ADRNR"/>
+      </attribute>
+      <attribute id="maintenancePlanningPlant" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Planning Plant"/>
+        <keyMapping columnObjectName="T001W" columnName="IWERK"/>
+      </attribute>
+      <attribute id="taxJurisdiction" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Tax Jurisdiction"/>
+        <keyMapping columnObjectName="T001W" columnName="TXJCD"/>
+      </attribute>
+      <attribute id="distributionChannelforIntercompanyBilling" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel for Intercompany Billing"/>
+        <keyMapping columnObjectName="T001W" columnName="VTWEG"/>
+      </attribute>
+      <attribute id="divisionforIntercompanyBilling" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Division for Intercompany Billing"/>
+        <keyMapping columnObjectName="T001W" columnName="SPART"/>
+      </attribute>
+      <attribute id="languageKey" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="T001W" columnName="SPRAS"/>
+      </attribute>
+      <attribute id="sopPlant" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SOP Plant"/>
+        <keyMapping columnObjectName="T001W" columnName="WKSOP"/>
+      </attribute>
+      <attribute id="varianceKey" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Variance Key"/>
+        <keyMapping columnObjectName="T001W" columnName="AWSLS"/>
+      </attribute>
+      <attribute id="indicatorBatchStatusManagementActive" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Indicator: Batch Status Management Active"/>
+        <keyMapping columnObjectName="T001W" columnName="CHAZV_OLD"/>
+      </attribute>
+      <attribute id="plantCategory" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant Category"/>
+        <keyMapping columnObjectName="T001W" columnName="VLFKZ"/>
+      </attribute>
+      <attribute id="salesDistrict" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales District"/>
+        <keyMapping columnObjectName="T001W" columnName="BZIRK"/>
+      </attribute>
+      <attribute id="supplyRegion" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Supply Region (Region Supplied)"/>
+        <keyMapping columnObjectName="T001W" columnName="ZONE1"/>
+      </attribute>
+      <attribute id="taxIndicatorPlantPurchasing" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Tax Indicator: Plant (Purchasing)"/>
+        <keyMapping columnObjectName="T001W" columnName="TAXIW"/>
+      </attribute>
+      <attribute id="takeRegularSupplierintoAccount" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Take Regular Supplier into Account"/>
+        <keyMapping columnObjectName="T001W" columnName="BZQHL"/>
+      </attribute>
+      <attribute id="numberofDaysforFirstReminderExpediter" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of Days for First Reminder/Expediter"/>
+        <keyMapping columnObjectName="T001W" columnName="LET01"/>
+      </attribute>
+      <attribute id="numberofDaysforSecondReminderExpediter" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of Days for Second Reminder/Expediter"/>
+        <keyMapping columnObjectName="T001W" columnName="LET02"/>
+      </attribute>
+      <attribute id="numberofDaysforThirdReminderExpediter" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of Days for Third Reminder/Expediter"/>
+        <keyMapping columnObjectName="T001W" columnName="LET03"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

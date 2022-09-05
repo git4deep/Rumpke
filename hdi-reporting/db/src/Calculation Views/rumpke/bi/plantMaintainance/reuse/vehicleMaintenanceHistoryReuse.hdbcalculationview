@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.reuse::vehicleMaintenanceHistoryReuse" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Vehicle Maintenance History View"/>
+  <metadata changedAt="2019-11-19 14:25:59.235"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="32"/>
+  <dataSources>
+    <DataSource id="data_VehicleMaintenanceHistory">
+      <resourceUri>rumpke.bi.plantMaintainance.mssql::data_VehicleMaintenanceHistory</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="data_VehicleMaintenanceHistory">
+    <descriptions/>
+    <attributes>
+      <attribute id="FiscalMonthID" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FiscalMonthID"/>
+        <keyMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="FiscalMonthID"/>
+      </attribute>
+      <attribute id="ProfitCenter" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ProfitCenter"/>
+        <keyMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="ProfitCenter"/>
+      </attribute>
+      <attribute id="LOB_Code" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LOB_Code"/>
+        <keyMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="LOB_Code"/>
+      </attribute>
+      <attribute id="Versions" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Versions"/>
+        <keyMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="Versions"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="TruckHours" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="TruckHours"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="TruckHours"/>
+      </measure>
+      <measure id="VehicleMiles" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="VehicleMiles"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="VehicleMiles"/>
+      </measure>
+      <measure id="TotalAmount" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="TotalAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="TotalAmount"/>
+      </measure>
+      <measure id="LaborAmount" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="LaborAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="LaborAmount"/>
+      </measure>
+      <measure id="WreckerAmount" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="WreckerAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="WreckerAmount"/>
+      </measure>
+      <measure id="PartsAmount" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="PartsAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="PartsAmount"/>
+      </measure>
+      <measure id="VendorAmount" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="VendorAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="VendorAmount"/>
+      </measure>
+      <measure id="TiresAmount" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="TiresAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="TiresAmount"/>
+      </measure>
+      <measure id="FuelAmount" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="FuelAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="FuelAmount"/>
+      </measure>
+      <measure id="Cap_TotalAmount" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cap_TotalAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="Cap_TotalAmount"/>
+      </measure>
+      <measure id="Cap_LaborAmount" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cap_LaborAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="Cap_LaborAmount"/>
+      </measure>
+      <measure id="Cap_WreckerAmount" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cap_WreckerAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="Cap_WreckerAmount"/>
+      </measure>
+      <measure id="Cap_PartsAmount" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cap_PartsAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="Cap_PartsAmount"/>
+      </measure>
+      <measure id="Cap_VendorAmount" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cap_VendorAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="Cap_VendorAmount"/>
+      </measure>
+      <measure id="Cap_TiresAmount" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cap_TiresAmount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="Cap_TiresAmount"/>
+      </measure>
+      <measure id="UnitCount" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="UnitCount"/>
+        <measureMapping columnObjectName="data_VehicleMaintenanceHistory" columnName="UnitCount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

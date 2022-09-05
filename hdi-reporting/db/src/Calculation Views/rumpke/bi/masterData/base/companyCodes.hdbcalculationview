@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::companyCodes" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Company Codes"/>
+  <metadata changedAt="2019-09-05 15:35:18.477"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="29"/>
+  <dataSources>
+    <DataSource id="T001">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T001</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="T001">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="T001" columnName="MANDT"/>
+      </attribute>
+      <attribute id="companyCode" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="T001" columnName="BUKRS"/>
+      </attribute>
+      <attribute id="nameCompanyCode" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name of Company Code "/>
+        <keyMapping columnObjectName="T001" columnName="BUTXT"/>
+      </attribute>
+      <attribute id="city" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="City"/>
+        <keyMapping columnObjectName="T001" columnName="ORT01"/>
+      </attribute>
+      <attribute id="countryKey" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country Key"/>
+        <keyMapping columnObjectName="T001" columnName="LAND1"/>
+      </attribute>
+      <attribute id="currencyKey" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency Key"/>
+        <keyMapping columnObjectName="T001" columnName="WAERS"/>
+      </attribute>
+      <attribute id="languageKey" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="T001" columnName="SPRAS"/>
+      </attribute>
+      <attribute id="chartofAccounts" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Chart of Accounts"/>
+        <keyMapping columnObjectName="T001" columnName="KTOPL"/>
+      </attribute>
+      <attribute id="maxExchangeRateDeviationPercent" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Max exchange rate deviation in percent"/>
+        <keyMapping columnObjectName="T001" columnName="WAABW"/>
+      </attribute>
+      <attribute id="fiscalYearVariant" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Variant"/>
+        <keyMapping columnObjectName="T001" columnName="PERIV"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

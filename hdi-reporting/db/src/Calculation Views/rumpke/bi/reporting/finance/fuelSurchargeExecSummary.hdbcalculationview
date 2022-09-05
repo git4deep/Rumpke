@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.finance::fuelSurchargeExecSummary" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Fuel Surcharge Executive Summary"/>
+  <metadata changedAt="2021-03-25 07:57:30.595"/>
+  <localVariables>
+    <variable id="ipYear" parameter="true">
+      <descriptions defaultDescription="Year"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="" length="4" mandatory="true">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipCalMonthFrom" parameter="true">
+      <descriptions defaultDescription="CalMonth From"/>
+      <variableProperties datatype="VARCHAR" defaultValue="*" length="3" mandatory="true" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeAttributes</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipCalMonthTo" parameter="true">
+      <descriptions defaultDescription="CalMonth To"/>
+      <variableProperties datatype="VARCHAR" defaultValue="*" length="3" mandatory="true" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeAttributes</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipArea" parameter="true">
+      <descriptions defaultDescription="Area"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="*" length="24" mandatory="false" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>area</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipRegion" parameter="true">
+      <descriptions defaultDescription="Region"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="*" length="40" mandatory="false" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>region</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="36"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.finance.reuse::fuelSurcharge">
+      <resourceUri>rumpke.bi.finance.reuse::fuelSurcharge</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="fscActual"/>
+        <viewAttribute id="fscBudget"/>
+        <viewAttribute id="fuelExpActual"/>
+        <viewAttribute id="fscVariance"/>
+        <viewAttribute id="fuelOverageShortage"/>
+        <viewAttribute id="fuelExpVariance"/>
+        <viewAttribute id="hedgeImpact"/>
+        <viewAttribute id="netFuelImpact"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="fuelExpBudget"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.finance.reuse::fuelSurcharge"/>
+    <filter>(&quot;year&quot;='$$ipYear$$') AND (&quot;postingPeriod&quot; &gt;='$$ipCalMonthFrom$$' OR '$$ipCalMonthFrom$$'='*') AND (&quot;postingPeriod&quot; &lt;='$$ipCalMonthTo$$' OR '$$ipCalMonthTo$$'='*') AND (&quot;region&quot; = '$$ipRegion$$' OR  '$$ipRegion$$' = '*') AND (&quot;area&quot; = '$$ipArea$$' OR  '$$ipArea$$' = '*')</filter>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="region" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Projection_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="year" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="Projection_1" columnName="year"/>
+      </attribute>
+      <attribute id="fiscYearPer" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscYearPer"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="postingPeriod" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="postingPeriod"/>
+      </attribute>
+      <attribute id="calMonth" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cal Month"/>
+        <keyMapping columnObjectName="Projection_1" columnName="calMonth"/>
+      </attribute>
+      <attribute id="area" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Projection_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="areaDescription"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="fscActual" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="FSC ACTUAL"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fscActual"/>
+      </measure>
+      <measure id="fscBudget" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="FSC BUDGET"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fscBudget"/>
+      </measure>
+      <measure id="fscVariance" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="FSC VARIANCE"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fscVariance"/>
+      </measure>
+      <measure id="fuelExpActual" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="FUEL EXP ACTUAL"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelExpActual"/>
+      </measure>
+      <measure id="fuelExpBudget" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="FUEL EXP BUDGET"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelExpBudget"/>
+      </measure>
+      <measure id="fuelExpVariance" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="FUEL EXP VARIANCE"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelExpVariance"/>
+      </measure>
+      <measure id="fuelOverageShortage" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="FUEL OVERAGE SHORTGAE"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelOverageShortage"/>
+      </measure>
+      <measure id="hedgeImpact" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="HEDGE IMPACT"/>
+        <measureMapping columnObjectName="Projection_1" columnName="hedgeImpact"/>
+      </measure>
+      <measure id="netFuelImpact" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="NET FUEL IMPACT"/>
+        <measureMapping columnObjectName="Projection_1" columnName="netFuelImpact"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="60" y="190"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

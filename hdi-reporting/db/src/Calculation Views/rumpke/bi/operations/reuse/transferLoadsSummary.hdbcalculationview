@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::transferLoadsSummary" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+  <descriptions defaultDescription="transferLoadsSummary"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.base::transferLoads">
+      <resourceUri>rumpke.bi.operations.base::transferLoads</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="sql_transfer_loads">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="version"/>
+        <viewAttribute aggregationType="sum" id="outboundLoads"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.operations.base::transferLoads"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions>
+      <comment text="union added to allow for expandability for future data sources for actual, budget, and forecast"/>
+    </descriptions>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="outboundLoads"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="sql_transfer_loads">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundLoads" source="outboundLoads"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="profitCenter" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line Of Business"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="version" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Union_1" columnName="version"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="outboundLoads" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Outbound Loads"/>
+        <measureMapping columnObjectName="Union_1" columnName="outboundLoads"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures>
+      <measure id="outboundLoadsActual" hidden="false" order="6" baseMeasure="outboundLoads" datatype="INTEGER" length="10" scale="0">
+        <descriptions defaultDescription="Outbound Loads - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="outboundLoadsBudget" hidden="false" order="7" baseMeasure="outboundLoads" datatype="INTEGER" length="10" scale="0">
+        <descriptions defaultDescription="Outbound Loads - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="outboundLoadsForecast" hidden="false" order="8" baseMeasure="outboundLoads" datatype="INTEGER" length="10" scale="0">
+        <descriptions defaultDescription="Outbound Loads - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="sql_transfer_loads" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="110" y="339"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="60" y="200"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

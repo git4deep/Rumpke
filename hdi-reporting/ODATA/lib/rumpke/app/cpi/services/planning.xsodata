@@ -1,0 +1,67 @@
+service {
+   
+   "rumpke.bi.reporting.finance::incomeStatement" as "IncomeStatements" 
+    keys("accountNumber", "functionalArea", "functionalAreaGroup", "fiscYearPer", "profitCenter", "costCenter", "area", "region", "district", "subDistrict", "revenueCategory")
+    
+    create forbidden
+    update forbidden 
+    delete forbidden;
+    
+  
+    "rumpke.bi.reporting.operations::haulingScorecard" as "haulingScorecard" 
+    keys("lineOfBusiness", "area", "region", "district", "subDistrict","profitCenter", "fiscalYearPeriod")
+ 
+    create forbidden
+    update forbidden 
+    delete forbidden;
+
+//This is not in production - July 1
+    "rumpke.bi.reporting.operations::recyclingScorecard" as "recyclingScorecard" 
+    keys("lineOfBusiness", "area", "region", "district", "subDistrict","profitCenter", "fiscYearPer")
+ 
+    create forbidden
+    update forbidden 
+    delete forbidden;
+
+//This is not in production - Sept     
+//    "rumpke.bi.reporting.operations::transferScorecard" as "transferScorecard" 
+//    keys("lineOfBusiness", "area", "region", "district", "subDistrict","profitCenter", "fiscalYearPeriod")
+ 
+//    create forbidden
+//    update forbidden 
+//    delete forbidden;
+
+//This is not in production - July 1
+    "rumpke.bi.reporting.operations::landfillScorecard" as "landfillScorecard" 
+    keys("lineOfBusiness", "area", "region", "district", "subDistrict","profitCenter", "fiscalYearPeriod")
+ 
+    create forbidden
+    update forbidden 
+    delete forbidden;
+
+//This is not in production - July 1
+    "rumpke.bi.reporting.sales::recyclingSalesDetails" as "recyclingSalesDetails"
+    keys("fiscalYearPeriod","profitCenter")
+   
+    create forbidden
+    update forbidden
+    delete forbidden;
+
+    "rumpke.bi.operations.base::yellowIronActualsAll" as "yellowIronActualsAll" key generate local "GenID"
+    
+    create forbidden
+    update forbidden
+    delete forbidden;        
+    
+    "rumpke.bi.masterData.reuse::equipmentMaster" as "equipmentMaster" key generate local "GenID"
+    
+    create forbidden
+    update forbidden
+    delete forbidden;       
+    
+    "rumpke.bi.masterData.reuse::equipmentMasterTimeDependent" as "equipmentMasterTimeDependent" key generate local "GenID"
+    
+    create forbidden
+    update forbidden
+    delete forbidden;    
+}

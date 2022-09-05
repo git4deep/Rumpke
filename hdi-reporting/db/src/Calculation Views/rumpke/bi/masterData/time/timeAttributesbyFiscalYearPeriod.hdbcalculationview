@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="timeAttributesbyFiscalYearPeriod"/>
+  <metadata changedAt="2021-03-08 12:14:36.601"/>
+  <localVariables>
+    <variable id="ip_calMonth" parameter="true">
+      <descriptions defaultDescription="ip_calMonth"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="2020012" length="7" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.data.proc::timeAttributesFiscalPeriodInput" type="TABLE_FUNCTION">
+      <resourceUri>rumpke.bi.data.proc::timeAttributesFiscalPeriodInput</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="rumpke.bi.data.proc::timeAttributesFiscalPeriodInput">
+    <descriptions/>
+    <attributes>
+      <attribute id="date" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="date"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="date"/>
+      </attribute>
+      <attribute id="dateSAP" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="dateSAP"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="dateSAP"/>
+      </attribute>
+      <attribute id="year" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="year"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="year"/>
+      </attribute>
+      <attribute id="quarter" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="quarter"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="quarter"/>
+      </attribute>
+      <attribute id="calQuarter" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calQuarter"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="month" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="month"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="month"/>
+      </attribute>
+      <attribute id="calMonth" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calMonth"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="calMonth"/>
+      </attribute>
+      <attribute id="calendarMonth" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calendarMonth"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="calendarMonth"/>
+      </attribute>
+      <attribute id="calendarMonthDesc" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calendarMonthDesc"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="calendarMonthDesc"/>
+      </attribute>
+      <attribute id="monthName" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="monthName"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="monthName"/>
+      </attribute>
+      <attribute id="ytd" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ytd"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="ytd"/>
+      </attribute>
+      <attribute id="ytdClosedPeriod" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ytdClosedPeriod"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="ytdClosedPeriod"/>
+      </attribute>
+      <attribute id="ytdClosedPeriodAdjustedForJan" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ytdClosedPeriodAdjustedForJan"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="ytdClosedPeriodAdjustedForJan"/>
+      </attribute>
+      <attribute id="fiscalPeriod" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalPeriod"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="fiscalPeriod"/>
+      </attribute>
+      <attribute id="fiscalYear" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYear"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calMonthDisplay"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="yearQuarter" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="yearQuarter"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="QTD" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QTD"/>
+        <keyMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="QTD"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="yearInt" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="yearInt"/>
+        <measureMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="yearInt"/>
+      </measure>
+      <measure id="quarterInt" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="quarterInt"/>
+        <measureMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="quarterInt"/>
+      </measure>
+      <measure id="monthInt" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="monthInt"/>
+        <measureMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="monthInt"/>
+      </measure>
+      <measure id="rollingYearNo" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="rollingYearNo"/>
+        <measureMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="rollingYearNo"/>
+      </measure>
+      <measure id="rollingMonthNo" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="rollingMonthNo"/>
+        <measureMapping columnObjectName="timeAttributesFiscalPeriodInput" columnName="rollingMonthNo"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/></shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

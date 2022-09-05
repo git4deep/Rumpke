@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.materialsManagement.base::pOHistoryDocumentData" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="PO History Document Data"/>
+  <metadata changedAt="2020-12-09 18:47:41.12"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="S4HANA::EKBE">
+      <resourceUri>S4HANA::EKBE</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="S4HANA::EKBE">
+    <descriptions/>
+    <attributes>
+      <attribute id="purchasingDocumentNumber" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Document Number"/>
+        <keyMapping columnObjectName="EKBE" columnName="EBELN"/>
+      </attribute>
+      <attribute id="itemNumberofPurchasingDocument" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Item Number of Purchasing Document"/>
+        <keyMapping columnObjectName="EKBE" columnName="EBELP"/>
+      </attribute>
+      <attribute id="materialDocumentYear" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Document Year"/>
+        <keyMapping columnObjectName="EKBE" columnName="GJAHR"/>
+      </attribute>
+      <attribute id="numberofMaterialDocument" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of Material Document"/>
+        <keyMapping columnObjectName="EKBE" columnName="BELNR"/>
+      </attribute>
+      <attribute id="purchaseOrderHistoryCategory" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchase Order History Category"/>
+        <keyMapping columnObjectName="EKBE" columnName="BEWTP"/>
+      </attribute>
+      <attribute id="documentDateinDocument" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Date in Document"/>
+        <keyMapping columnObjectName="EKBE" columnName="BLDAT"/>
+      </attribute>
+      <attribute id="postingDateintheDocument" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting Date in the Document"/>
+        <keyMapping columnObjectName="EKBE" columnName="BUDAT"/>
+      </attribute>
+      <attribute id="debitcreditIndicator" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="debitcreditIndicator"/>
+        <keyMapping columnObjectName="EKBE" columnName="SHKZG"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="amountinDocumentCurrency" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Amount in Document Currency"/>
+        <measureMapping columnObjectName="EKBE" columnName="WRBTR"/>
+      </measure>
+      <measure id="quantity" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Quantity"/>
+        <measureMapping columnObjectName="EKBE" columnName="MENGE"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="140"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

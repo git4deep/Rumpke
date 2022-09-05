@@ -1,0 +1,839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.operations.BOD::recyclingScorecardBOD" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="recyclingScorecardBOD"/>
+  <metadata changedAt="2021-10-13 09:57:09.071"/>
+  <localVariables>
+    <variable id="ipQuarter" parameter="true">
+      <descriptions defaultDescription="ipQuarter"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="2020Q3" length="7" mandatory="false">
+        <valueDomain type="StaticList">
+          <listEntry id="2020Q1">
+            <descriptions defaultDescription="2020Q1"/>
+          </listEntry>
+          <listEntry id="2020Q2">
+            <descriptions defaultDescription="2020Q2"/>
+          </listEntry>
+          <listEntry id="2020Q3">
+            <descriptions defaultDescription="2020Q3"/>
+          </listEntry>
+          <listEntry id="2020Q4">
+            <descriptions defaultDescription="2020Q4"/>
+          </listEntry>
+          <listEntry id="2021Q1">
+            <descriptions defaultDescription="2021Q1"/>
+          </listEntry>
+          <listEntry id="2021Q2">
+            <descriptions defaultDescription="2021Q2"/>
+          </listEntry>
+          <listEntry id="2021Q3">
+            <descriptions defaultDescription="2021Q3"/>
+          </listEntry>
+          <listEntry id="2021Q4">
+            <descriptions defaultDescription="2021Q4"/>
+          </listEntry>
+          <listEntry id="2022Q1">
+            <descriptions defaultDescription="2022Q1"/>
+          </listEntry>
+          <listEntry id="2022Q2">
+            <descriptions defaultDescription="2022Q2"/>
+          </listEntry>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.masterData.time::timeAttributesQuarterInput">
+      <targetVariable name="ipQuarter" resourceUri="rumpke.bi.masterData.time::timeAttributesQuarterInput"/>
+      <localVariable>ipQuarter</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="63"/>
+  <dataSources>
+    <DataSource id="recyclingScorecard">
+      <resourceUri>rumpke.bi.reporting.operations::recyclingScorecard</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributesQuarterInput">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributesQuarterInput</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueVariance"/>
+        <viewAttribute id="grossProfitActual"/>
+        <viewAttribute id="grossProfitBudget"/>
+        <viewAttribute id="grossProfitVariance"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="costOfOperationsVariance"/>
+        <viewAttribute id="EBITDATargetActual"/>
+        <viewAttribute id="EBITDATargetBudget"/>
+        <viewAttribute id="EBITDATargetVariance"/>
+        <viewAttribute id="averageSellingPricePerTonActual"/>
+        <viewAttribute id="averageSellingPricePerTonBudget"/>
+        <viewAttribute id="averageSellingPricePerTonVariance"/>
+        <viewAttribute id="processedTonsActual"/>
+        <viewAttribute id="processedTonsBudget"/>
+        <viewAttribute id="processedTonsVariance"/>
+        <viewAttribute id="recoveryRateActual"/>
+        <viewAttribute id="recoveryRateBudget"/>
+        <viewAttribute id="recoveryRateVariance"/>
+        <viewAttribute id="processedTonsManHrActual"/>
+        <viewAttribute id="processedTonsManHrBudget"/>
+        <viewAttribute id="processedTonsManHrVariance"/>
+        <viewAttribute id="directLaborCostPerProcTonActual"/>
+        <viewAttribute id="directLaborCostPerProcTonBudget"/>
+        <viewAttribute id="directLaborCostPerProcTonVariance"/>
+        <viewAttribute id="maintenanceCostPerTonActual"/>
+        <viewAttribute id="maintenanceCostPerTonBudget"/>
+        <viewAttribute id="maintenanceCostPerTonVariance"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="soldTonsActual"/>
+        <viewAttribute id="soldTonsBudget"/>
+        <viewAttribute id="soldTonsVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="recyclingScorecard"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="date"/>
+        <viewAttribute id="dateSAP"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="yearInt"/>
+        <viewAttribute id="quarter"/>
+        <viewAttribute id="quarterInt"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="monthInt"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calendarMonth"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="QTD"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributesQuarterInput"/>
+    <filter>(&quot;rollingYearNo&quot; ='0') AND (&quot;QTD&quot; ='Y')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueVariance"/>
+        <viewAttribute id="grossProfitActual"/>
+        <viewAttribute id="grossProfitBudget"/>
+        <viewAttribute id="grossProfitVariance"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="costOfOperationsVariance"/>
+        <viewAttribute id="EBITDATargetActual"/>
+        <viewAttribute id="EBITDATargetBudget"/>
+        <viewAttribute id="EBITDATargetVariance"/>
+        <viewAttribute id="averageSellingPricePerTonActual"/>
+        <viewAttribute id="averageSellingPricePerTonBudget"/>
+        <viewAttribute id="averageSellingPricePerTonVariance"/>
+        <viewAttribute id="processedTonsActual"/>
+        <viewAttribute id="processedTonsBudget"/>
+        <viewAttribute id="processedTonsVariance"/>
+        <viewAttribute id="recoveryRateActual"/>
+        <viewAttribute id="recoveryRateBudget"/>
+        <viewAttribute id="recoveryRateVariance"/>
+        <viewAttribute id="processedTonsManHrActual"/>
+        <viewAttribute id="processedTonsManHrBudget"/>
+        <viewAttribute id="processedTonsManHrVariance"/>
+        <viewAttribute id="directLaborCostPerProcTonActual"/>
+        <viewAttribute id="directLaborCostPerProcTonBudget"/>
+        <viewAttribute id="directLaborCostPerProcTonVariance"/>
+        <viewAttribute id="maintenanceCostPerTonActual"/>
+        <viewAttribute id="maintenanceCostPerTonBudget"/>
+        <viewAttribute id="maintenanceCostPerTonVariance"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="quarter"/>
+        <viewAttribute id="soldTonsActual"/>
+        <viewAttribute id="soldTonsBudget"/>
+        <viewAttribute id="soldTonsVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueActual" source="totalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueVariance" source="totalRevenueVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitActual" source="grossProfitActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitBudget" source="grossProfitBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitVariance" source="grossProfitVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsActual" source="costOfOperationsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsBudget" source="costOfOperationsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsVariance" source="costOfOperationsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBITDATargetActual" source="EBITDATargetActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBITDATargetBudget" source="EBITDATargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBITDATargetVariance" source="EBITDATargetVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="averageSellingPricePerTonActual" source="averageSellingPricePerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="averageSellingPricePerTonBudget" source="averageSellingPricePerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="averageSellingPricePerTonVariance" source="averageSellingPricePerTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTonsActual" source="processedTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTonsBudget" source="processedTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTonsVariance" source="processedTonsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recoveryRateActual" source="recoveryRateActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recoveryRateBudget" source="recoveryRateBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recoveryRateVariance" source="recoveryRateVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTonsManHrActual" source="processedTonsManHrActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTonsManHrBudget" source="processedTonsManHrBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTonsManHrVariance" source="processedTonsManHrVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="directLaborCostPerProcTonActual" source="directLaborCostPerProcTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="directLaborCostPerProcTonBudget" source="directLaborCostPerProcTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="directLaborCostPerProcTonVariance" source="directLaborCostPerProcTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostPerTonActual" source="maintenanceCostPerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostPerTonBudget" source="maintenanceCostPerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostPerTonVariance" source="maintenanceCostPerTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="soldTonsActual" source="soldTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="soldTonsBudget" source="soldTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="soldTonsVariance" source="soldTonsVariance"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="quarter" source="quarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="fiscalYearPeriod"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="QTD">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueVariance"/>
+        <viewAttribute id="grossProfitActual"/>
+        <viewAttribute id="grossProfitBudget"/>
+        <viewAttribute id="grossProfitVariance"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="costOfOperationsVariance"/>
+        <viewAttribute id="EBITDATargetActual"/>
+        <viewAttribute id="EBITDATargetBudget"/>
+        <viewAttribute id="EBITDATargetVariance"/>
+        <viewAttribute id="averageSellingPricePerTonActual"/>
+        <viewAttribute id="averageSellingPricePerTonBudget"/>
+        <viewAttribute id="averageSellingPricePerTonVariance"/>
+        <viewAttribute id="processedTonsActual"/>
+        <viewAttribute id="processedTonsBudget"/>
+        <viewAttribute id="processedTonsVariance"/>
+        <viewAttribute id="recoveryRateActual"/>
+        <viewAttribute id="recoveryRateBudget"/>
+        <viewAttribute id="recoveryRateVariance"/>
+        <viewAttribute id="processedTonsManHrActual"/>
+        <viewAttribute id="processedTonsManHrBudget"/>
+        <viewAttribute id="processedTonsManHrVariance"/>
+        <viewAttribute id="directLaborCostPerProcTonActual"/>
+        <viewAttribute id="directLaborCostPerProcTonBudget"/>
+        <viewAttribute id="directLaborCostPerProcTonVariance"/>
+        <viewAttribute id="maintenanceCostPerTonActual"/>
+        <viewAttribute id="maintenanceCostPerTonBudget"/>
+        <viewAttribute id="maintenanceCostPerTonVariance"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="soldTonsActual"/>
+        <viewAttribute id="soldTonsBudget"/>
+        <viewAttribute id="soldTonsVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Revenue">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="Variance"/>
+        <viewAttribute id="Budget"/>
+        <viewAttribute id="Actual"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Revenue'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="totalRevenueVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="totalRevenueActual"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="GrossProfit">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="Actual"/>
+        <viewAttribute id="Budget"/>
+        <viewAttribute id="Variance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Gross Profit'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="grossProfitActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="grossProfitBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="grossProfitVariance"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="costOfOperations">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="costOfOperationsVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Cost of Operations'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="ebitdaTarget">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="EBITDATargetActual"/>
+        <viewAttribute id="EBITDATargetBudget"/>
+        <viewAttribute id="EBITDATargetVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'EBITDA Target'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="tonnage">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="soldTonsActual"/>
+        <viewAttribute id="soldTonsBudget"/>
+        <viewAttribute id="soldTonsVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Tonnage'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="avgSellingPriceperTon">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="averageSellingPricePerTonActual"/>
+        <viewAttribute id="averageSellingPricePerTonBudget"/>
+        <viewAttribute id="averageSellingPricePerTonVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Avg. Selling Price/Ton'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="processedTons">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="processedTonsActual"/>
+        <viewAttribute id="processedTonsBudget"/>
+        <viewAttribute id="processedTonsVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Processed Tons'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="recoveryRate">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="recoveryRateActual"/>
+        <viewAttribute id="recoveryRateBudget"/>
+        <viewAttribute id="recoveryRateVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Recovery Rate'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="processedTonsPerManHour">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="processedTonsManHrActual"/>
+        <viewAttribute id="processedTonsManHrBudget"/>
+        <viewAttribute id="processedTonsManHrVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Processes Tons/Man Hour'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="directLaborCost">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="directLaborCostPerProcTonActual"/>
+        <viewAttribute id="directLaborCostPerProcTonBudget"/>
+        <viewAttribute id="directLaborCostPerProcTonVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Direct Labor Cost/Ton'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="maintenanceCostPerTon">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="maintenanceCostPerTonActual"/>
+        <viewAttribute id="maintenanceCostPerTonBudget"/>
+        <viewAttribute id="maintenanceCostPerTonVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Maintenance Cost/Ton'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="QTD"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="Variance"/>
+        <viewAttribute id="Budget"/>
+        <viewAttribute id="Actual"/>
+        <viewAttribute id="source"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Revenue">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="Variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="Budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="Actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="GrossProfit">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="Variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="Budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="Actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="costOfOperations">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="costOfOperationsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="costOfOperationsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="costOfOperationsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="ebitdaTarget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="EBITDATargetVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="EBITDATargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="EBITDATargetActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="tonnage">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="soldTonsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="soldTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="soldTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="avgSellingPriceperTon">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="averageSellingPricePerTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="averageSellingPricePerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="averageSellingPricePerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="processedTons">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="processedTonsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="processedTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="processedTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="recoveryRate">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="recoveryRateVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="recoveryRateBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="recoveryRateActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="processedTonsPerManHour">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="processedTonsManHrVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="processedTonsManHrBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="processedTonsManHrActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="directLaborCost">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="directLaborCostPerProcTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="directLaborCostPerProcTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="directLaborCostPerProcTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="maintenanceCostPerTon">
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Variance" source="maintenanceCostPerTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Budget" source="maintenanceCostPerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Actual" source="maintenanceCostPerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="district" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="district"/>
+        <keyMapping columnObjectName="Union_1" columnName="district"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="calQuarter" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calQuarter"/>
+        <keyMapping columnObjectName="Union_1" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="districtDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="districtDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrict"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrictDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="source" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="source"/>
+        <keyMapping columnObjectName="Union_1" columnName="source"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="calQtrDesc" hidden="false" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calQtrDesc"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="10">
+          <formula>if(rightstr(&quot;calQuarter&quot;,1)='1', leftstr(&quot;calQuarter&quot;,4)+' Q1',
+if(rightstr(&quot;calQuarter&quot;,1)='2', leftstr(&quot;calQuarter&quot;,4)+' Q2',
+if(rightstr(&quot;calQuarter&quot;,1)='3', leftstr(&quot;calQuarter&quot;,4)+' Q3',
+if(rightstr(&quot;calQuarter&quot;,1)='4', leftstr(&quot;calQuarter&quot;,4)+' Q4',''))))</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="sourceSort" hidden="false" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sourceSort"/>
+        <keyCalculation datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;source&quot;='Revenue','1',
+if(&quot;source&quot; = 'Gross Profit','2',
+if(&quot;source&quot; = 'Cost of Operations','3',
+if(&quot;source&quot; = 'EBITDA Target','4',
+if(&quot;source&quot; = 'Actual % of Gross Rev','5',
+if(&quot;source&quot; = 'Tonnage','6',
+if(&quot;source&quot; = 'Avg. Selling Price/Ton','7',
+if(&quot;source&quot; = 'Processed Tons','8',
+if(&quot;source&quot; = 'Recovery Rate','9',
+if(&quot;source&quot; = 'Processed Tons/Man Hour','10',
+if(&quot;source&quot; = 'Direct Labor Cost/Ton','11',
+if(&quot;source&quot; = 'Maintenance Cost/Ton','12', '123'))))))))))))
+</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="Budget" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="Budget"/>
+      </measure>
+      <measure id="Actual" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="Actual"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="actualPercOfGrossRevenue" hidden="false" order="12" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="9" scale="2">
+        <descriptions defaultDescription="actualPercOfGrossRevenue"/>
+        <formula>0</formula>
+      </measure>
+      <measure id="Variance" hidden="false" order="13" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Variance"/>
+        <formula>&quot;Budget&quot;-&quot;Actual&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="792" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="715" y="695"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="869" y="695"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="599"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="QTD" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="521"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Revenue" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="GrossProfit" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="costOfOperations" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ebitdaTarget" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="tonnage" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="avgSellingPriceperTon" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="processedTons" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="946" y="443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="recoveryRate" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1100" y="443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="processedTonsPerManHour" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1254" y="443"/>
+        <rectangleSize height="64" width="202"/>
+      </shape>
+      <shape expanded="true" modelObjectName="directLaborCost" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1470" y="443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="maintenanceCostPerTon" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1624" y="443"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

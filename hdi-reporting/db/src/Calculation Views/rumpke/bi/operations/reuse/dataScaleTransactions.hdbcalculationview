@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::dataScaleTransactions" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Data Scale Transactions Reuse"/>
+  <metadata changedAt="2020-01-20 16:58:50.279"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.base::dataScaleTransactions">
+      <resourceUri>rumpke.bi.operations.base::dataScaleTransactions</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="scaleID"/>
+        <viewAttribute id="scaleType"/>
+        <viewAttribute id="transferProfitCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="transactionNumber"/>
+        <viewAttribute id="countyMunicipalType"/>
+        <viewAttribute id="countyMunicipalCode"/>
+        <viewAttribute id="countyMunicipalName"/>
+        <viewAttribute id="wasteID"/>
+        <viewAttribute id="wasteDescription"/>
+        <viewAttribute id="inOutDistrictState"/>
+        <viewAttribute id="districtDisposalFee"/>
+        <viewAttribute id="generationFee"/>
+        <viewAttribute id="townshipFee"/>
+        <viewAttribute id="stateFee"/>
+        <viewAttribute id="otherFee"/>
+        <viewAttribute id="feesCountyCode"/>
+        <viewAttribute id="feesStateCode"/>
+        <viewAttribute id="inDateTime"/>
+        <viewAttribute id="inDate"/>
+        <viewAttribute id="inTime"/>
+        <viewAttribute id="netWeight"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.operations.base::dataScaleTransactions"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="scaleID" key="true" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="scaleID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="scaleID"/>
+      </attribute>
+      <attribute id="scaleType" key="true" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="scaleType"/>
+        <keyMapping columnObjectName="Projection_1" columnName="scaleType"/>
+      </attribute>
+      <attribute id="transferProfitCenter" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="transferProfitCenter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="transferProfitCenter"/>
+      </attribute>
+      <attribute id="profitCenter" key="true" order="4" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="accountNumber" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="accountNumber"/>
+        <keyMapping columnObjectName="Projection_1" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="transactionNumber" key="true" order="6" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="transactionNumber"/>
+        <keyMapping columnObjectName="Projection_1" columnName="transactionNumber"/>
+      </attribute>
+      <attribute id="countyMunicipalType" key="true" order="7" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="countyMunicipalType"/>
+        <keyMapping columnObjectName="Projection_1" columnName="countyMunicipalType"/>
+      </attribute>
+      <attribute id="countyMunicipalCode" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="countyMunicipalCode"/>
+        <keyMapping columnObjectName="Projection_1" columnName="countyMunicipalCode"/>
+      </attribute>
+      <attribute id="countyMunicipalName" key="true" order="9" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="countyMunicipalName"/>
+        <keyMapping columnObjectName="Projection_1" columnName="countyMunicipalName"/>
+      </attribute>
+      <attribute id="wasteID" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="wasteID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="wasteID"/>
+      </attribute>
+      <attribute id="wasteDescription" key="true" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="wasteDescription"/>
+        <keyMapping columnObjectName="Projection_1" columnName="wasteDescription"/>
+      </attribute>
+      <attribute id="inOutDistrictState" key="true" order="12" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="inOutDistrictState"/>
+        <keyMapping columnObjectName="Projection_1" columnName="inOutDistrictState"/>
+      </attribute>
+      <attribute id="feesCountyCode" order="13" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="feesCountyCode"/>
+        <keyMapping columnObjectName="Projection_1" columnName="feesCountyCode"/>
+      </attribute>
+      <attribute id="feesStateCode" order="14" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="feesStateCode"/>
+        <keyMapping columnObjectName="Projection_1" columnName="feesStateCode"/>
+      </attribute>
+      <attribute id="inDateTime" order="15" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="inDateTime"/>
+        <keyMapping columnObjectName="Projection_1" columnName="inDateTime"/>
+      </attribute>
+      <attribute id="inDate" order="16" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="inDate"/>
+        <keyMapping columnObjectName="Projection_1" columnName="inDate"/>
+      </attribute>
+      <attribute id="inTime" order="17" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="inTime"/>
+        <keyMapping columnObjectName="Projection_1" columnName="inTime"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="netWeight" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="netWeight"/>
+        <measureMapping columnObjectName="Projection_1" columnName="netWeight"/>
+      </measure>
+      <measure id="districtDisposalFee" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="districtDisposalFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="districtDisposalFee"/>
+      </measure>
+      <measure id="generationFee" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="generationFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="generationFee"/>
+      </measure>
+      <measure id="townshipFee" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="townshipFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="townshipFee"/>
+      </measure>
+      <measure id="stateFee" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="stateFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="stateFee"/>
+      </measure>
+      <measure id="otherFee" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="otherFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="otherFee"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="productivityTonsActual" hidden="false" order="26" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="productivityTonsActual"/>
+        <formula>IF(not(in(&quot;wasteDescription&quot;,'Shredded Tires Ohio Only','Wood-Pallet - Ex RSL','Yard Waste','Tires')),&quot;netWeight&quot;,0)</formula>
+      </measure>
+      <measure id="productivityCubicYardsConsumedActual" hidden="false" order="27" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Productivity - Cubic Yards Consumed Actual"/>
+        <formula>&quot;productivityTonsActual&quot; / 0.8</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

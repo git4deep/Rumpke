@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.materialsManagement.base::purchaseRequisition" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Purchase Requisition"/>
+  <metadata changedAt="2020-01-10 10:54:33.919"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="EBKN">
+      <resourceUri>rumpke.bi.materialsManagement.base.s4hana::EBKN</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="EBKN">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="EBKN" columnName="MANDT"/>
+      </attribute>
+      <attribute id="purchaseRequisitionNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchase Requisition Number"/>
+        <keyMapping columnObjectName="EBKN" columnName="BANFN"/>
+      </attribute>
+      <attribute id="purchaseRequisitionLineItem" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchase Requisition Line Item"/>
+        <keyMapping columnObjectName="EBKN" columnName="BNFPO"/>
+      </attribute>
+      <attribute id="orderNumber" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Number"/>
+        <keyMapping columnObjectName="EBKN" columnName="AUFNR"/>
+      </attribute>
+      <attribute id="routingNumber" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Routing Number"/>
+        <keyMapping columnObjectName="EBKN" columnName="AUFPL_ORD"/>
+      </attribute>
+      <attribute id="counter" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Counter"/>
+        <keyMapping columnObjectName="EBKN" columnName="APLZL_ORD"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

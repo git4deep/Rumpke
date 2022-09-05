@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.hr.reuse::orderEmployeeHours" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="orderEmployeeHour"/>
+  <metadata changedAt="2019-12-05 08:14:25.327" createdAt="2019-12-05 08:14:24.564"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="41"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.base::workCenter">
+      <resourceUri>rumpke.bi.masterData.base::workCenter</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::plantsBranches">
+      <resourceUri>rumpke.bi.masterData.base::plantsBranches</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.plantMaintainance.base::orderHeader">
+      <resourceUri>rumpke.bi.plantMaintainance.base::orderHeader</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.plantMaintainance.base::orderConfirmations">
+      <resourceUri>rumpke.bi.plantMaintainance.base::orderConfirmations</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="objectTypesCIMresource"/>
+        <viewAttribute id="objectIDresource"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="workCenterText"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::workCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterText" source="shortDescription"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="name"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::plantsBranches"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="objectTypesCIMresource"/>
+        <viewAttribute id="objectIDresource"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="workCenterText"/>
+        <viewAttribute id="name"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectTypesCIMresource" source="objectTypesCIMresource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDresource" source="objectIDresource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterText" source="workCenterText"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="name" source="name"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="plant"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectTypeOfCIMResourcesForWorkCenter"/>
+        <viewAttribute id="objectIDOfTheWorkCenter"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="maintenanceActivityType"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.plantMaintainance.base::orderHeader"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="plantName"/>
+        <viewAttribute id="objectTypesCIMresource"/>
+        <viewAttribute id="objectIDresource"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="workCenterText"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="maintenanceActivityType"/>
+      <viewAttribute hidden="true" id="JOIN$client$client"/>
+      <viewAttribute hidden="true" id="JOIN$objectTypeOfCIMResourcesForWorkCenter$objectTypesCIMresource"/>
+      <viewAttribute hidden="true" id="JOIN$objectIDOfTheWorkCenter$objectIDresource"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$client$client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$objectTypeOfCIMResourcesForWorkCenter$objectTypesCIMresource" source="objectTypeOfCIMResourcesForWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$objectIDOfTheWorkCenter$objectIDresource" source="objectIDOfTheWorkCenter"/>
+      </input>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantName" source="name"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectTypesCIMresource" source="objectTypesCIMresource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDresource" source="objectIDresource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterText" source="workCenterText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$client$client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$objectTypeOfCIMResourcesForWorkCenter$objectTypesCIMresource" source="objectTypesCIMresource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$objectIDOfTheWorkCenter$objectIDresource" source="objectIDresource"/>
+      </input>
+    <joinAttribute name="JOIN$client$client"/>
+    <joinAttribute name="JOIN$objectTypeOfCIMResourcesForWorkCenter$objectTypesCIMresource"/>
+    <joinAttribute name="JOIN$objectIDOfTheWorkCenter$objectIDresource"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.plantMaintainance.base::orderConfirmations"/>
+    <filter>(&quot;indicatorDocumentWasReversed&quot; ='')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="plantName"/>
+        <viewAttribute id="objectTypesCIMresource"/>
+        <viewAttribute id="objectIDresource"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="workCenterText"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="confirmationNumber"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="actualWorkHours"/>
+        <viewAttribute id="indicatorDocumentWasReversed"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantName" source="plantName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectTypesCIMresource" source="objectTypesCIMresource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDresource" source="objectIDresource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterText" source="workCenterText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationNumber" source="confirmationNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="confirmationCreationDate" source="confirmationCreationDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDate" source="workStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualWorkHours" source="actualWorkHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="indicatorDocumentWasReversed" source="indicatorDocumentWasReversed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="orderNumber"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="client"/>
+        <keyMapping columnObjectName="Join_3" columnName="client"/>
+      </attribute>
+      <attribute id="plant" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="plant"/>
+        <keyMapping columnObjectName="Join_3" columnName="plant"/>
+      </attribute>
+      <attribute id="workCenter" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="workCenter"/>
+        <keyMapping columnObjectName="Join_3" columnName="workCenter"/>
+      </attribute>
+      <attribute id="orderNumber" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Number"/>
+        <keyMapping columnObjectName="Join_3" columnName="orderNumber"/>
+      </attribute>
+      <attribute id="plantName" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="plantName"/>
+        <keyMapping columnObjectName="Join_3" columnName="plantName"/>
+      </attribute>
+      <attribute id="workCenterText" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Center Text"/>
+        <keyMapping columnObjectName="Join_3" columnName="workCenterText"/>
+      </attribute>
+      <attribute id="confirmationCreationDate" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Confirmation Creation Date"/>
+        <keyMapping columnObjectName="Join_3" columnName="confirmationCreationDate"/>
+      </attribute>
+      <attribute id="employeeID" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee ID"/>
+        <keyMapping columnObjectName="Join_3" columnName="employeeID"/>
+      </attribute>
+      <attribute id="workStartDate" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Start Date"/>
+        <keyMapping columnObjectName="Join_3" columnName="workStartDate"/>
+      </attribute>
+      <attribute id="confirmationNumber" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Confirmation Number"/>
+        <keyMapping columnObjectName="Join_3" columnName="confirmationNumber"/>
+      </attribute>
+      <attribute id="maintenanceActivityType" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="maintenanceActivityType"/>
+        <keyMapping columnObjectName="Join_3" columnName="maintenanceActivityType"/>
+      </attribute>
+      <attribute id="indicatorDocumentWasReversed" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Indicator Document Was Reversed"/>
+        <keyMapping columnObjectName="Join_3" columnName="indicatorDocumentWasReversed"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="actualWorkHours" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual Work Hours"/>
+        <measureMapping columnObjectName="Join_3" columnName="actualWorkHours"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="422" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="696"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="696"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118" y="536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="384" y="536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="145" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="489" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="422" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,115 @@
+FUNCTION "rumpke.bi.data.proc::populatePMCOCosts" () 
+RETURNS TABLE (
+		"MANDT" NVARCHAR(3),
+		"OBJNR" NVARCHAR(22),
+		"COCUR" NVARCHAR(5),
+		"BELTP" NVARCHAR(1),
+		"WRTTP" NVARCHAR(2),
+		"GJAHR" NVARCHAR(4),
+		"ACPOS" NVARCHAR(14),
+		"VERSN" NVARCHAR(3),
+		"PERBL" NVARCHAR(3),
+		"VORGA" NVARCHAR(4),
+		"BEMOT" NVARCHAR(2),
+		"ABKAT" NVARCHAR(2),
+		"RPT_PERIOD" NVARCHAR(3),
+		"FISCYEARPER" NVARCHAR(7),
+		"WRT_VALUE" DECIMAL(15,2)
+		) LANGUAGE SQLSCRIPT SQL SECURITY INVOKER AS
+BEGIN
+	VAR_OUT =
+/*	select
+		A."MANDT",
+		A."OBJNR",
+		A."COCUR",
+		A."BELTP",
+		A."WRTTP",
+		A."GJAHR",
+		A."ACPOS",
+		A."VERSN",
+		A."PERBL",
+		A."VORGA",
+		A."BEMOT",
+		A."ABKAT",
+		right(B."period",2) as "RPT_PERIOD",
+		(A."WRT00" * B."INDIC_WRT00" + A."WRT01" * B."INDIC_WRT01" + A."WRT02" * B."INDIC_WRT02" + A."WRT03" * B."INDIC_WRT03" + A."WRT04" * B."INDIC_WRT04" + A."WRT05" * B."INDIC_WRT05" + A."WRT06" * B."INDIC_WRT06" + A."WRT07" * B."INDIC_WRT07" + A."WRT08" * B."INDIC_WRT08" + A."WRT09" * B."INDIC_WRT09" + A."WRT10" * B."INDIC_WRT10" + A."WRT11" * B."INDIC_WRT11" + A."WRT12" * B."INDIC_WRT12") as "WRT_VALUE"
+		FROM (
+		select 
+		"MANDT",
+		"OBJNR",
+		"COCUR",
+		"BELTP",
+		"WRTTP",
+		"GJAHR",
+		"ACPOS",
+		"VERSN",
+		"PERBL",
+		"VORGA",
+		"BEMOT",
+		"ABKAT",
+		"WRT00",
+		"WRT01",
+		"WRT02",
+		"WRT03",
+		"WRT04",
+		"WRT05",
+		"WRT06",
+		"WRT07",
+		"WRT08",
+		"WRT09",
+		"WRT10",
+		"WRT11",
+		"WRT12"+"WRT13"+"WRT14"+"WRT15"+"WRT16" AS "WRT12"
+		 from "S4HANA"."PMCO_OP") AS A CROSS JOIN "RUMPKEADM"."rumpke.bi.data.ddl::masterData.costsMatrix" B
+		 ORDER BY A."OBJNR", B."period";
+*/    select
+		A."MANDT",A."OBJNR",A."COCUR",A."BELTP",A."WRTTP",A."GJAHR",A."ACPOS",A."VERSN",A."PERBL",A."VORGA",A."BEMOT",A."ABKAT",
+		"periodMonth" as "RPT_PERIOD",
+		A."GJAHR" || '0' || "periodMonth" as "FISCYEARPER",
+		(
+			--A."WRT00" * B."INDIC_WRT00" + 
+			A."WRT01" * B."INDIC_WRT01" + 
+			A."WRT02" * B."INDIC_WRT02" + 
+			A."WRT03" * B."INDIC_WRT03" + 
+			A."WRT04" * B."INDIC_WRT04" + 
+			A."WRT05" * B."INDIC_WRT05" + 
+			A."WRT06" * B."INDIC_WRT06" + 
+			A."WRT07" * B."INDIC_WRT07" + 
+			A."WRT08" * B."INDIC_WRT08" + 
+			A."WRT09" * B."INDIC_WRT09" + 
+			A."WRT10" * B."INDIC_WRT10" + 
+			A."WRT11" * B."INDIC_WRT11" + 
+			A."WRT12" * B."INDIC_WRT12"
+		) as "WRT_VALUE"
+	from (
+		select 
+			"MANDT","OBJNR","COCUR","BELTP","WRTTP","GJAHR","ACPOS","VERSN","PERBL","VORGA","BEMOT","ABKAT",
+			"WRT00","WRT01","WRT02","WRT03","WRT04","WRT05","WRT06","WRT07","WRT08","WRT09","WRT10","WRT11",
+			"WRT12"+"WRT13"+"WRT14"+"WRT15"+"WRT16" AS "WRT12"
+		from "S4HANA::PMCO_OP"
+		where "GJAHR" >= year(add_months(current_date, -1))
+	) as A 
+	cross join (
+		select *, right("period", 2) as "periodMonth"
+		from "rumpke.bi.data.ddl::masterData.costsMatrix"
+		where "period" <> 'WRT00'
+	) B
+	where 
+		cast("GJAHR" || "periodMonth" as integer) >= year(add_months(current_date, -1)) * 100 + month(add_months(current_date, -1)) and (
+			--A."WRT00" * B."INDIC_WRT00" + 
+			A."WRT01" * B."INDIC_WRT01" + 
+			A."WRT02" * B."INDIC_WRT02" + 
+			A."WRT03" * B."INDIC_WRT03" + 
+			A."WRT04" * B."INDIC_WRT04" + 
+			A."WRT05" * B."INDIC_WRT05" + 
+			A."WRT06" * B."INDIC_WRT06" + 
+			A."WRT07" * B."INDIC_WRT07" + 
+			A."WRT08" * B."INDIC_WRT08" + 
+			A."WRT09" * B."INDIC_WRT09" + 
+			A."WRT10" * B."INDIC_WRT10" + 
+			A."WRT11" * B."INDIC_WRT11" + 
+			A."WRT12" * B."INDIC_WRT12"
+		) <> 0;
+	
+	RETURN :VAR_OUT;		 
+END;

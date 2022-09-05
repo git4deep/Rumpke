@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::profitCenter" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Profit Center"/>
+  <metadata changedAt="2020-06-19 13:50:18.164"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="35"/>
+  <dataSources>
+    <DataSource id="CEPC">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::CEPC</resourceUri>
+    </DataSource>
+    <DataSource id="CEPCT">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::CEPCT</resourceUri>
+    </DataSource>
+    <DataSource id="lineofBusinessText">
+      <resourceUri>rumpke.bi.masterData.base::lineofBusinessText</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="profitCenterMasterData">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="validFromDate"/>
+        <viewAttribute id="enteredOn"/>
+        <viewAttribute id="enteredBy"/>
+        <viewAttribute id="nameCOPACharacteristic"/>
+        <viewAttribute id="department"/>
+        <viewAttribute id="personResponsibleProfitCenter"/>
+        <viewAttribute id="userResponsibleProfitCenter"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="successorProfitCenter"/>
+        <viewAttribute id="countryKey"/>
+        <viewAttribute id="title"/>
+        <viewAttribute id="name1"/>
+        <viewAttribute id="name2"/>
+        <viewAttribute id="name3"/>
+        <viewAttribute id="name4"/>
+        <viewAttribute id="profitCenterGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="CEPC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="KOKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFromDate" source="DATAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="enteredOn" source="ERSDA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="enteredBy" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameCOPACharacteristic" source="MERKMAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="department" source="ABTEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="personResponsibleProfitCenter" source="VERAK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="userResponsibleProfitCenter" source="VERAK_USER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="successorProfitCenter" source="NPRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryKey" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="title" source="ANRED"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="name1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="name2" source="NAME2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="name3" source="NAME3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="name4" source="NAME4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="KHINR"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="profitCenterText">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="generalName"/>
+        <viewAttribute id="longText"/>
+        <viewAttribute id="matchcodesearch"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="CEPCT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="KOKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="generalName" source="KTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="longText" source="LTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="matchcodesearch" source="MCTXT"/>
+      </input>
+    <filter>(&quot;languageKey&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="referential" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="PRCTR"/>
+        <viewAttribute id="DATBI"/>
+        <viewAttribute id="KOKRS"/>
+        <viewAttribute id="DATAB"/>
+        <viewAttribute id="ERSDA"/>
+        <viewAttribute id="USNAM"/>
+        <viewAttribute id="MERKMAL"/>
+        <viewAttribute id="ABTEI"/>
+        <viewAttribute id="VERAK"/>
+        <viewAttribute id="VERAK_USER"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="NPRCTR"/>
+        <viewAttribute id="LAND1"/>
+        <viewAttribute id="ANRED"/>
+        <viewAttribute id="NAME1"/>
+        <viewAttribute id="NAME2"/>
+        <viewAttribute id="NAME3"/>
+        <viewAttribute id="NAME4"/>
+        <viewAttribute id="SPRAS"/>
+        <viewAttribute id="KTEXT"/>
+        <viewAttribute id="LTEXT"/>
+        <viewAttribute id="MCTXT"/>
+        <viewAttribute id="profitCenterGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="profitCenterMasterData">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOKRS" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATAB" source="validFromDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ERSDA" source="enteredOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="USNAM" source="enteredBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MERKMAL" source="nameCOPACharacteristic"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ABTEI" source="department"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERAK" source="personResponsibleProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VERAK_USER" source="userResponsibleProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="currencyKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NPRCTR" source="successorProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAND1" source="countryKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ANRED" source="title"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME1" source="name1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME2" source="name2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME3" source="name3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME4" source="name4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+      </input>
+      <input node="profitCenterText">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KTEXT" source="generalName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LTEXT" source="longText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MCTXT" source="matchcodesearch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DATBI" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOKRS" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRCTR" source="profitCenter"/>
+      </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="DATBI"/>
+    <joinAttribute name="KOKRS"/>
+    <joinAttribute name="PRCTR"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="lineofBusinessText">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineofBusinessCode"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="validFromDate"/>
+        <viewAttribute id="enteredOn"/>
+        <viewAttribute id="enteredBy"/>
+        <viewAttribute id="nameCOPACharacteristic"/>
+        <viewAttribute id="department"/>
+        <viewAttribute id="personResponsibleProfitCenter"/>
+        <viewAttribute id="userResponsibleProfitCenter"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="successorProfitCenter"/>
+        <viewAttribute id="countryKey"/>
+        <viewAttribute id="title"/>
+        <viewAttribute id="name1"/>
+        <viewAttribute id="name2"/>
+        <viewAttribute id="name3"/>
+        <viewAttribute id="name4"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="generalName"/>
+        <viewAttribute id="longText"/>
+        <viewAttribute id="matchcodesearch"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="DATBI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="KOKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFromDate" source="DATAB"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="enteredOn" source="ERSDA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="enteredBy" source="USNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameCOPACharacteristic" source="MERKMAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="department" source="ABTEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="personResponsibleProfitCenter" source="VERAK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="userResponsibleProfitCenter" source="VERAK_USER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="successorProfitCenter" source="NPRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryKey" source="LAND1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="title" source="ANRED"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="name1" source="NAME1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="name2" source="NAME2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="name3" source="NAME3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="name4" source="NAME4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="generalName" source="KTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="longText" source="LTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="matchcodesearch" source="MCTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+      </input>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="department" source="lineOfBusiness"/>
+      </input>
+    <joinAttribute name="department"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_2" columnName="client"/>
+      </attribute>
+      <attribute id="profitCenter" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="validToDate" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valid To Date"/>
+        <keyMapping columnObjectName="Join_2" columnName="validToDate"/>
+      </attribute>
+      <attribute id="controllingArea" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area"/>
+        <keyMapping columnObjectName="Join_2" columnName="controllingArea"/>
+      </attribute>
+      <attribute id="validFromDate" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valid-From Date"/>
+        <keyMapping columnObjectName="Join_2" columnName="validFromDate"/>
+      </attribute>
+      <attribute id="enteredOn" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Entered On"/>
+        <keyMapping columnObjectName="Join_2" columnName="enteredOn"/>
+      </attribute>
+      <attribute id="enteredBy" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Entered By"/>
+        <keyMapping columnObjectName="Join_2" columnName="enteredBy"/>
+      </attribute>
+      <attribute id="nameCOPACharacteristic" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Field name of CO-PA characteristic"/>
+        <keyMapping columnObjectName="Join_2" columnName="nameCOPACharacteristic"/>
+      </attribute>
+      <attribute id="department" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_2" columnName="department"/>
+      </attribute>
+      <attribute id="personResponsibleProfitCenter" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Person Responsible for Profit Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="personResponsibleProfitCenter"/>
+      </attribute>
+      <attribute id="userResponsibleProfitCenter" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="User Responsible for the Profit Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="userResponsibleProfitCenter"/>
+      </attribute>
+      <attribute id="currencyKey" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency Key"/>
+        <keyMapping columnObjectName="Join_2" columnName="currencyKey"/>
+      </attribute>
+      <attribute id="successorProfitCenter" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Successor profit center"/>
+        <keyMapping columnObjectName="Join_2" columnName="successorProfitCenter"/>
+      </attribute>
+      <attribute id="countryKey" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country Key"/>
+        <keyMapping columnObjectName="Join_2" columnName="countryKey"/>
+      </attribute>
+      <attribute id="title" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Title"/>
+        <keyMapping columnObjectName="Join_2" columnName="title"/>
+      </attribute>
+      <attribute id="name1" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name 1"/>
+        <keyMapping columnObjectName="Join_2" columnName="name1"/>
+      </attribute>
+      <attribute id="name2" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name2"/>
+        <keyMapping columnObjectName="Join_2" columnName="name2"/>
+      </attribute>
+      <attribute id="name3" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name3"/>
+        <keyMapping columnObjectName="Join_2" columnName="name3"/>
+      </attribute>
+      <attribute id="name4" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name4"/>
+        <keyMapping columnObjectName="Join_2" columnName="name4"/>
+      </attribute>
+      <attribute id="languageKey" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="Join_2" columnName="languageKey"/>
+      </attribute>
+      <attribute id="generalName" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Desc"/>
+        <keyMapping columnObjectName="Join_2" columnName="generalName"/>
+      </attribute>
+      <attribute id="longText" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center LDesc"/>
+        <keyMapping columnObjectName="Join_2" columnName="longText"/>
+      </attribute>
+      <attribute id="matchcodesearch" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Search term for matchcode search"/>
+        <keyMapping columnObjectName="Join_2" columnName="matchcodesearch"/>
+      </attribute>
+      <attribute id="profitCenterGroup" order="24" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Froup"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenterGroup"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="lineofBusinessDescription"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="profitCenterMasterData" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="profitCenterText" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="263"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="profitCenterMasterData" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="profitCenterText" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="260" y="271"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

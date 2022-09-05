@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.odata::EQUIPMENT" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Equipment"/>
+  <metadata changedAt="2019-12-11 11:07:16.614"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="45"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.reuse::equipmentMaster">
+      <resourceUri>rumpke.bi.masterData.reuse::equipmentMaster</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::profitCenter">
+      <resourceUri>rumpke.bi.masterData.base::profitCenter</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="equipment">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="fleetObjectTypeDesc"/>
+        <viewAttribute id="fleetObjectType"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::equipmentMaster"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="profitCenter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="department"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::profitCenter"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="equipment_profitCenter" cardinality="CN_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="department"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="fleetObjectTypeDesc"/>
+        <viewAttribute id="fleetObjectType"/>
+      <viewAttribute hidden="true" id="JOIN$client$client"/>
+      <viewAttribute hidden="true" id="JOIN$profitCenter$profitCenter"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="equipment">
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="licensePlateNumber" source="licensePlateNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectTypeDesc" source="fleetObjectTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$client$client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$profitCenter$profitCenter" source="profitCenter"/>
+      </input>
+      <input node="profitCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="department" source="department"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$client$client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$profitCenter$profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="JOIN$client$client"/>
+    <joinAttribute name="JOIN$profitCenter$profitCenter"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="equipment_profitCenter">
+    <descriptions/>
+    <attributes>
+      <attribute id="equipmentNumber" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Number"/>
+        <keyMapping columnObjectName="equipment_profitCenter" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="vehicleID" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Vehicle ID (VIN)"/>
+        <keyMapping columnObjectName="equipment_profitCenter" columnName="vehicleID"/>
+      </attribute>
+      <attribute id="licensePlateNumber" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="License Plate Number"/>
+        <keyMapping columnObjectName="equipment_profitCenter" columnName="licensePlateNumber"/>
+      </attribute>
+      <attribute id="profitCenter" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="equipment_profitCenter" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="department" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="equipment_profitCenter" columnName="department"/>
+      </attribute>
+      <attribute id="costCenter" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="equipment_profitCenter" columnName="costCenter"/>
+      </attribute>
+      <attribute id="fleetObjectTypeDesc" order="7" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fleet Object Type Desc"/>
+        <keyMapping columnObjectName="equipment_profitCenter" columnName="fleetObjectTypeDesc"/>
+      </attribute>
+      <attribute id="fleetObjectType" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fleet Object Type"/>
+        <keyMapping columnObjectName="equipment_profitCenter" columnName="fleetObjectType"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="equipment" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="profitCenter" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="equipment_profitCenter" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+    <shape modelObjectName="equipment" modelObjectNameSpace="equipment_profitCenter" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="profitCenter" modelObjectNameSpace="equipment_profitCenter" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

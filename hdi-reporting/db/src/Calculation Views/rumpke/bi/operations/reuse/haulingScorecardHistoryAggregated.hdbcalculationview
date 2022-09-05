@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::haulingScorecardHistoryAggregated" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Hauling Scorecard History Aggregated"/>
+  <metadata changedAt="2020-01-17 14:12:28.365"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="43"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.base::haulingScorecardHistory">
+      <resourceUri>rumpke.bi.operations.base::haulingScorecardHistory</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="eBITDATarget"/>
+        <viewAttribute id="units"/>
+        <viewAttribute id="hoursWithMech"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="maintCostCapitalizedRepairs"/>
+        <viewAttribute id="maintCostWrecker"/>
+        <viewAttribute id="maintCostParts"/>
+        <viewAttribute id="maintCostTires"/>
+        <viewAttribute id="maintCostWarranty"/>
+        <viewAttribute id="maintCostLabor"/>
+        <viewAttribute id="totalMaintCost"/>
+        <viewAttribute id="partsCostExclCap"/>
+        <viewAttribute id="maintLaborExclCap"/>
+        <viewAttribute id="depreciation"/>
+        <viewAttribute id="accident"/>
+        <viewAttribute id="fuel"/>
+        <viewAttribute id="driverLaborCost"/>
+        <viewAttribute id="miles"/>
+        <viewAttribute id="tons"/>
+        <viewAttribute id="lifts"/>
+        <viewAttribute id="stops"/>
+        <viewAttribute id="yards"/>
+        <viewAttribute id="loads"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.operations.base::haulingScorecardHistory"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="profitCenter" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="version" order="4" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Projection_1" columnName="version"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="totalRevenue" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Revenue"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalRevenue"/>
+      </measure>
+      <measure id="eBITDATarget" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target"/>
+        <measureMapping columnObjectName="Projection_1" columnName="eBITDATarget"/>
+      </measure>
+      <measure id="units" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Units"/>
+        <measureMapping columnObjectName="Projection_1" columnName="units"/>
+      </measure>
+      <measure id="hoursWithMech" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Hours With Mech"/>
+        <measureMapping columnObjectName="Projection_1" columnName="hoursWithMech"/>
+      </measure>
+      <measure id="truckHours" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="truckHours"/>
+      </measure>
+      <measure id="maintCostCapitalizedRepairs" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maint Cost Capitalized Repairs"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintCostCapitalizedRepairs"/>
+      </measure>
+      <measure id="maintCostWrecker" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maint Cost Wrecker"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintCostWrecker"/>
+      </measure>
+      <measure id="maintCostParts" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maint Cost Parts"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintCostParts"/>
+      </measure>
+      <measure id="maintCostTires" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="MaintCostTires"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintCostTires"/>
+      </measure>
+      <measure id="maintCostWarranty" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maint Cost Warranty"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintCostWarranty"/>
+      </measure>
+      <measure id="maintCostLabor" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maint Cost Labor"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintCostLabor"/>
+      </measure>
+      <measure id="totalMaintCost" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Maint Cost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalMaintCost"/>
+      </measure>
+      <measure id="partsCostExclCap" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Parts Cost ExclCap"/>
+        <measureMapping columnObjectName="Projection_1" columnName="partsCostExclCap"/>
+      </measure>
+      <measure id="maintLaborExclCap" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maint Labor ExclCap"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintLaborExclCap"/>
+      </measure>
+      <measure id="depreciation" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Depreciation"/>
+        <measureMapping columnObjectName="Projection_1" columnName="depreciation"/>
+      </measure>
+      <measure id="accident" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accident"/>
+        <measureMapping columnObjectName="Projection_1" columnName="accident"/>
+      </measure>
+      <measure id="fuel" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuel"/>
+      </measure>
+      <measure id="driverLaborCost" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Driver Labor Cost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="driverLaborCost"/>
+      </measure>
+      <measure id="miles" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Miles"/>
+        <measureMapping columnObjectName="Projection_1" columnName="miles"/>
+      </measure>
+      <measure id="tons" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="tons"/>
+      </measure>
+      <measure id="lifts" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Lifts"/>
+        <measureMapping columnObjectName="Projection_1" columnName="lifts"/>
+      </measure>
+      <measure id="stops" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Stops"/>
+        <measureMapping columnObjectName="Projection_1" columnName="stops"/>
+      </measure>
+      <measure id="yards" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Yards"/>
+        <measureMapping columnObjectName="Projection_1" columnName="yards"/>
+      </measure>
+      <measure id="loads" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads"/>
+        <measureMapping columnObjectName="Projection_1" columnName="loads"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures>
+      <measure id="rmMechHoursActual" hidden="false" order="29" baseMeasure="hoursWithMech" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Mechanical Hours - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMechHoursBudget" hidden="false" order="30" baseMeasure="hoursWithMech" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Mechanical Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostCapitalizedRepairsActual" hidden="false" order="31" baseMeasure="maintCostCapitalizedRepairs" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Capitalized Repairs - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostCapitalizedRepairsBudget" hidden="false" order="32" baseMeasure="maintCostCapitalizedRepairs" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Capitalized Repairs - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostWreckerActual" hidden="false" order="33" baseMeasure="maintCostWrecker" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Wrecker - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostWreckerBudget" hidden="false" order="34" baseMeasure="maintCostWrecker" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Wrecker - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostPartsActual" hidden="false" order="35" baseMeasure="maintCostParts" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Parts Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostPartsBudget" hidden="false" order="36" baseMeasure="maintCostParts" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Parts Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostTiresActual" hidden="false" order="37" baseMeasure="maintCostTires" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Tires Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostTiresBudget" hidden="false" order="38" baseMeasure="maintCostTires" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Tires Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostWarrantyActual" hidden="false" order="39" baseMeasure="maintCostWarranty" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Warranty Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostWarrantyBudget" hidden="false" order="40" baseMeasure="maintCostWarranty" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Warranty Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostLaborActual" hidden="false" order="41" baseMeasure="maintCostLabor" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Labor Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintCostLaborBudget" hidden="false" order="42" baseMeasure="maintCostLabor" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Cost Labor Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmTotalMaintCostA" hidden="false" order="43" baseMeasure="totalMaintCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Maintenance Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmTotalMaintCostB" hidden="false" order="44" baseMeasure="totalMaintCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Maintenance Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmPartsCostExclCapActual" hidden="false" order="45" baseMeasure="partsCostExclCap" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Parts Cost (Excluding CAPEX) - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmPartsCostExclCapBudget" hidden="false" order="46" baseMeasure="partsCostExclCap" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Parts Cost (Excluding CAPEX) - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintLaborExclCapActual" hidden="false" order="47" baseMeasure="maintLaborExclCap" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Maintenance Labor (Excluding CAPEX) - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMaintLaborExclCapBudget" hidden="false" order="48" baseMeasure="maintLaborExclCap" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Parts Cost (Excluding CAPEX) - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmDepreciationActual" hidden="false" order="49" baseMeasure="depreciation" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Depreciation - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmDepreciationBudget" hidden="false" order="50" baseMeasure="depreciation" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Depreciation - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmAccidentsActual" hidden="false" order="51" baseMeasure="accident" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Accidents - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmAccidentsBudget" hidden="false" order="52" baseMeasure="accident" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Accidents - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmFuelActual" hidden="false" order="53" baseMeasure="fuel" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Fule - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmFuelBudget" hidden="false" order="54" baseMeasure="fuel" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Fule - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmDriverLaborCostActual" hidden="false" order="55" baseMeasure="driverLaborCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Driver Labor Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmDriverLaborCostBudget" hidden="false" order="56" baseMeasure="driverLaborCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Driver Labor Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMilesActual" hidden="false" order="57" baseMeasure="miles" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Miles - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmMilesBudget" hidden="false" order="58" baseMeasure="miles" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Miles - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmTonsActual" hidden="false" order="59" baseMeasure="tons" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmTonsBudget" hidden="false" order="60" baseMeasure="tons" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmLiftsActual" hidden="false" order="61" baseMeasure="lifts" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Lifst - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmLiftsBudget" hidden="false" order="62" baseMeasure="lifts" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Lifst - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmStopsActual" hidden="false" order="63" baseMeasure="stops" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Stops - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmStopsBudget" hidden="false" order="64" baseMeasure="stops" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Stops - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmYardsActual" hidden="false" order="65" baseMeasure="yards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Yards - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmYardsBudget" hidden="false" order="66" baseMeasure="yards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Yards - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmLoadsActual" hidden="false" order="67" baseMeasure="loads" datatype="INTEGER" length="10" scale="0">
+        <descriptions defaultDescription="Loads - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmLoadsBudget" hidden="false" order="68" baseMeasure="loads" datatype="INTEGER" length="10" scale="0">
+        <descriptions defaultDescription="Loads - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmTotalRevenueActual" hidden="false" order="69" baseMeasure="totalRevenue" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmTotalRevenueBudget" hidden="false" order="70" baseMeasure="totalRevenue" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

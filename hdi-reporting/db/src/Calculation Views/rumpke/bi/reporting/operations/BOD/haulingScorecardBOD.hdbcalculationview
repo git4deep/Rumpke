@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.operations.BOD::haulingScorecardBOD" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="haulingScorecardVersions"/>
+  <metadata changedAt="2021-10-13 09:50:36.126"/>
+  <localVariables>
+    <variable id="ipQuarter" parameter="true">
+      <descriptions defaultDescription="ipQuarter"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="2020Q3" length="7" mandatory="false">
+        <valueDomain type="StaticList">
+          <listEntry id="2020Q1">
+            <descriptions defaultDescription="2020Q1"/>
+          </listEntry>
+          <listEntry id="2020Q2">
+            <descriptions defaultDescription="2020Q2"/>
+          </listEntry>
+          <listEntry id="2020Q3">
+            <descriptions defaultDescription="2020Q3"/>
+          </listEntry>
+          <listEntry id="2020Q4">
+            <descriptions defaultDescription="2020Q4"/>
+          </listEntry>
+          <listEntry id="2021Q1">
+            <descriptions defaultDescription="2021Q1"/>
+          </listEntry>
+          <listEntry id="2021Q2">
+            <descriptions defaultDescription="2021Q2"/>
+          </listEntry>
+          <listEntry id="2021Q3">
+            <descriptions defaultDescription="2021Q3"/>
+          </listEntry>
+          <listEntry id="2021Q4">
+            <descriptions defaultDescription="2021Q4"/>
+          </listEntry>
+          <listEntry id="2022Q1">
+            <descriptions defaultDescription="2022Q1"/>
+          </listEntry>
+          <listEntry id="2022Q2">
+            <descriptions defaultDescription="2022Q2"/>
+          </listEntry>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.masterData.time::timeAttributesQuarterInput">
+      <targetVariable name="ipQuarter" resourceUri="rumpke.bi.masterData.time::timeAttributesQuarterInput"/>
+      <localVariable>ipQuarter</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="42"/>
+  <dataSources>
+    <DataSource id="haulingScorecard">
+      <resourceUri>rumpke.bi.reporting.operations::haulingScorecard</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributesQuarterInput">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributesQuarterInput</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueVariance"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetVariance"/>
+        <viewAttribute id="ebitdaTargetPercentageTotalRevenueActual"/>
+        <viewAttribute id="ebitdaTargetPercentageTotalRevenueBudget"/>
+        <viewAttribute id="ebitdaTargetPercentageTotalRevenueVariance"/>
+        <viewAttribute id="unitsActual"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="unitsVariance"/>
+        <viewAttribute id="totalRevenuePerUnitActual"/>
+        <viewAttribute id="totalRevenuePerUnitBudget"/>
+        <viewAttribute id="totalRevenuePerUnitVariance"/>
+        <viewAttribute id="yardsperRouteHoursActual"/>
+        <viewAttribute id="yardsperRouteHourBudget"/>
+        <viewAttribute id="yardsPerRouteHoursVariance"/>
+        <viewAttribute id="totalMaintenanceCostActual"/>
+        <viewAttribute id="totalMaintenanceCostBudget"/>
+        <viewAttribute id="maintenanceTotalCostVariance"/>
+        <viewAttribute id="maintenanceCostperTruckHrActual"/>
+        <viewAttribute id="maintenanceCostperTruckHrBudget"/>
+        <viewAttribute id="maintenanceCostPerTruckHrVariance"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="truckHoursActual"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="truckHoursVariance"/>
+        <viewAttribute id="routeHoursActual"/>
+        <viewAttribute id="routeHoursBudget"/>
+        <viewAttribute id="yardsActual"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="yardsVariance"/>
+        <viewAttribute id="routeHoursWithMechanicActual"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="routeHoursWithMechanicVariance"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="loadsVariance1"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="truckHoursVar" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;truckHoursActual&quot;-&quot;truckHoursBudget&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="routeHoursVariance" length="18" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;routeHoursActual&quot;-&quot;routeHoursBudget&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="loadsVariance" expressionLanguage="COLUMN_ENGINE">
+          <formula>int(&quot;loadsVariance1&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="haulingScorecard">
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsVariance1" source="loadsVariance"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="quarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributesQuarterInput"/>
+    <filter>(&quot;QTD&quot; ='Y') AND (&quot;rollingYearNo&quot; ='0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueVariance"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetVariance"/>
+        <viewAttribute id="ebitdaTargetPercentageTotalRevenueActual"/>
+        <viewAttribute id="ebitdaTargetPercentageTotalRevenueBudget"/>
+        <viewAttribute id="ebitdaTargetPercentageTotalRevenueVariance"/>
+        <viewAttribute id="unitsActual"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="unitsVariance"/>
+        <viewAttribute id="totalRevenuePerUnitActual"/>
+        <viewAttribute id="totalRevenuePerUnitBudget"/>
+        <viewAttribute id="totalRevenuePerUnitVariance"/>
+        <viewAttribute id="yardsperRouteHoursActual"/>
+        <viewAttribute id="yardsperRouteHourBudget"/>
+        <viewAttribute id="yardsPerRouteHoursVariance"/>
+        <viewAttribute id="totalMaintenanceCostActual"/>
+        <viewAttribute id="totalMaintenanceCostBudget"/>
+        <viewAttribute id="maintenanceTotalCostVariance"/>
+        <viewAttribute id="maintenanceCostperTruckHrActual"/>
+        <viewAttribute id="maintenanceCostperTruckHrBudget"/>
+        <viewAttribute id="maintenanceCostPerTruckHrVariance"/>
+        <viewAttribute id="quarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="truckHoursActual"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="truckHoursVar"/>
+        <viewAttribute id="routeHoursActual"/>
+        <viewAttribute id="routeHoursBudget"/>
+        <viewAttribute id="routeHoursVariance"/>
+        <viewAttribute id="yardsActual"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="yardsVariance"/>
+        <viewAttribute id="routeHoursWithMechanicActual"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="routeHoursWithMechanicVariance"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="loadsVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueActual" source="totalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueVariance" source="totalRevenueVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetActual" source="ebitdaTargetActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetVariance" source="ebitdaTargetVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageTotalRevenueActual" source="ebitdaTargetPercentageTotalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageTotalRevenueBudget" source="ebitdaTargetPercentageTotalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageTotalRevenueVariance" source="ebitdaTargetPercentageTotalRevenueVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsActual" source="unitsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsBudget" source="unitsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsVariance" source="unitsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenuePerUnitActual" source="totalRevenuePerUnitActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenuePerUnitBudget" source="totalRevenuePerUnitBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenuePerUnitVariance" source="totalRevenuePerUnitVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsperRouteHoursActual" source="yardsperRouteHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsperRouteHourBudget" source="yardsperRouteHourBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsPerRouteHoursVariance" source="yardsPerRouteHoursVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCostActual" source="totalMaintenanceCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCostBudget" source="totalMaintenanceCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceTotalCostVariance" source="maintenanceTotalCostVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostperTruckHrActual" source="maintenanceCostperTruckHrActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostperTruckHrBudget" source="maintenanceCostperTruckHrBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostPerTruckHrVariance" source="maintenanceCostPerTruckHrVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual" source="truckHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursBudget" source="truckHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursVar" source="truckHoursVar"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursActual" source="routeHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursBudget" source="routeHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursVariance" source="routeHoursVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsActual" source="yardsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsBudget" source="yardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsVariance" source="yardsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicActual" source="routeHoursWithMechanicActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicBudget" source="routeHoursWithMechanicBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicVariance" source="routeHoursWithMechanicVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsActual" source="loadsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsBudget" source="loadsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsVariance" source="loadsVariance"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="quarter" source="quarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+      </input>
+    <joinAttribute name="calQuarter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Agg_Act">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute aggregationType="sum" id="totalRevenueActual"/>
+        <viewAttribute aggregationType="sum" id="ebitdaTargetActual"/>
+        <viewAttribute aggregationType="sum" id="ebitdaTargetPercentageTotalRevenueActual"/>
+        <viewAttribute aggregationType="sum" id="unitsActual"/>
+        <viewAttribute aggregationType="sum" id="totalRevenuePerUnitActual"/>
+        <viewAttribute aggregationType="sum" id="yardsperRouteHoursActual"/>
+        <viewAttribute aggregationType="sum" id="totalMaintenanceCostActual"/>
+        <viewAttribute aggregationType="sum" id="maintenanceCostperTruckHrActual"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="truckHoursActual"/>
+        <viewAttribute id="routeHoursActual"/>
+        <viewAttribute id="yardsActual"/>
+        <viewAttribute id="routeHoursWithMechanicActual"/>
+        <viewAttribute id="loadsActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Versions" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Actual'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="Join_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Agg_Budget">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute aggregationType="sum" id="totalRevenueBudget"/>
+        <viewAttribute aggregationType="sum" id="ebitdaTargetBudget"/>
+        <viewAttribute aggregationType="sum" id="ebitdaTargetPercentageTotalRevenueBudget"/>
+        <viewAttribute aggregationType="sum" id="unitsBudget"/>
+        <viewAttribute aggregationType="sum" id="totalRevenuePerUnitBudget"/>
+        <viewAttribute aggregationType="sum" id="yardsperRouteHourBudget"/>
+        <viewAttribute aggregationType="sum" id="totalMaintenanceCostBudget"/>
+        <viewAttribute aggregationType="sum" id="maintenanceCostperTruckHrBudget"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="routeHoursBudget"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="loadsBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Versions" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Budget'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="Join_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Agg_Variance">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="totalRevenueVariance"/>
+        <viewAttribute id="ebitdaTargetVariance"/>
+        <viewAttribute id="ebitdaTargetPercentageTotalRevenueVariance"/>
+        <viewAttribute id="unitsVariance"/>
+        <viewAttribute id="totalRevenuePerUnitVariance"/>
+        <viewAttribute id="yardsPerRouteHoursVariance"/>
+        <viewAttribute id="maintenanceTotalCostVariance"/>
+        <viewAttribute id="maintenanceCostPerTruckHrVariance"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="truckHoursVar"/>
+        <viewAttribute id="routeHoursVariance"/>
+        <viewAttribute id="yardsVariance"/>
+        <viewAttribute id="routeHoursWithMechanicVariance"/>
+        <viewAttribute id="loadsVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Versions" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Variance'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="Join_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="ebitdaTargetPercentageTotalRevenueActual"/>
+        <viewAttribute id="unitsActual"/>
+        <viewAttribute id="totalRevenuePerUnitActual"/>
+        <viewAttribute id="yardsperRouteHoursActual"/>
+        <viewAttribute id="totalMaintenanceCostActual"/>
+        <viewAttribute id="maintenanceCostperTruckHrActual"/>
+        <viewAttribute id="Versions"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="truckHoursActual"/>
+        <viewAttribute id="routeHoursBudget"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="routeHoursWithMechanicActual"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="totalMaintenanceCostActual_1"/>
+        <viewAttribute id="totalMaintenanceCostBudget"/>
+        <viewAttribute id="truckHoursActual_1"/>
+        <viewAttribute id="truckHoursBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Agg_Act">
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueActual" source="totalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetActual" source="ebitdaTargetActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageTotalRevenueActual" source="ebitdaTargetPercentageTotalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsActual" source="unitsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenuePerUnitActual" source="totalRevenuePerUnitActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsperRouteHoursActual" source="yardsperRouteHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCostActual" source="totalMaintenanceCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostperTruckHrActual" source="maintenanceCostperTruckHrActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Versions" source="Versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual" source="truckHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursBudget" source="routeHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsBudget" source="yardsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicActual" source="routeHoursWithMechanicActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsActual" source="loadsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCostActual_1" source="totalMaintenanceCostActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMaintenanceCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual_1" source="truckHoursActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHoursBudget" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Agg_Budget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueActual" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetActual" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageTotalRevenueActual" source="ebitdaTargetPercentageTotalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsActual" source="unitsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenuePerUnitActual" source="totalRevenuePerUnitBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsperRouteHoursActual" source="yardsperRouteHourBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCostActual" source="totalMaintenanceCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostperTruckHrActual" source="maintenanceCostperTruckHrBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Versions" source="Versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual" source="truckHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursBudget" source="routeHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsBudget" source="yardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicActual" source="routeHoursWithMechanicBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsActual" source="loadsBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMaintenanceCostActual_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCostBudget" source="totalMaintenanceCostBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHoursActual_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursBudget" source="truckHoursBudget"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Agg_Variance">
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueActual" source="totalRevenueVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetActual" source="ebitdaTargetVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageTotalRevenueActual" source="ebitdaTargetPercentageTotalRevenueVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsActual" source="unitsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenuePerUnitActual" source="totalRevenuePerUnitVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsperRouteHoursActual" source="yardsPerRouteHoursVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCostActual" source="maintenanceTotalCostVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostperTruckHrActual" source="maintenanceCostPerTruckHrVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Versions" source="Versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual" source="truckHoursVar"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursBudget" source="routeHoursVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsBudget" source="yardsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicActual" source="routeHoursWithMechanicVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsActual" source="loadsVariance"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMaintenanceCostActual_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMaintenanceCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHoursActual_1" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHoursBudget" null="true" value=""/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="yearQuarter" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="yearQuarter"/>
+        <keyMapping columnObjectName="Union_1" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="rollingYearNo" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="rollingYearNo"/>
+        <keyMapping columnObjectName="Union_1" columnName="rollingYearNo"/>
+      </attribute>
+      <attribute id="ytd" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ytd"/>
+        <keyMapping columnObjectName="Union_1" columnName="ytd"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="area" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="area"/>
+        <keyMapping columnObjectName="Union_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription_1" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Union_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LOB"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="QTD" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QTD"/>
+        <keyMapping columnObjectName="Union_1" columnName="QTD"/>
+      </attribute>
+      <attribute id="calQuarter" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calQuarter"/>
+        <keyMapping columnObjectName="Union_1" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="Versions" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Versions"/>
+        <keyMapping columnObjectName="Union_1" columnName="Versions"/>
+      </attribute>
+      <attribute id="region" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="region"/>
+        <keyMapping columnObjectName="Union_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription_1" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Union_1" columnName="regionDescription"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="areaDescription" hidden="false" order="37" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="40">
+          <formula>replace(&quot;areaDescription_1&quot;,' Area','')</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="regionDescription" hidden="false" order="38" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="40">
+          <formula>replace(&quot;regionDescription_1&quot;,' Region','')</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="totalRevenue" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Revenue"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalRevenueActual"/>
+      </measure>
+      <measure id="ebitdaTarget" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target"/>
+        <measureMapping columnObjectName="Union_1" columnName="ebitdaTargetActual"/>
+      </measure>
+      <measure id="ebitdaTargetPercentageTotalRevenue1" hidden="true" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA % Rev"/>
+        <measureMapping columnObjectName="Union_1" columnName="ebitdaTargetPercentageTotalRevenueActual"/>
+      </measure>
+      <measure id="units" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Units"/>
+        <measureMapping columnObjectName="Union_1" columnName="unitsActual"/>
+      </measure>
+      <measure id="totalRevenuePerUnit1" hidden="true" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Rev per Unit"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalRevenuePerUnitActual"/>
+      </measure>
+      <measure id="yardsperRouteHours1" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Yards/Hr"/>
+        <measureMapping columnObjectName="Union_1" columnName="yardsperRouteHoursActual"/>
+      </measure>
+      <measure id="totalMaintenanceCost" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Maintenance Cost"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalMaintenanceCostActual"/>
+      </measure>
+      <measure id="maintenanceCostperTruckHr1" hidden="true" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maint Cost/Hr"/>
+        <measureMapping columnObjectName="Union_1" columnName="maintenanceCostperTruckHrActual"/>
+      </measure>
+      <measure id="truckHours" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Union_1" columnName="truckHoursActual"/>
+      </measure>
+      <measure id="routeHours" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Route Hours - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeHoursBudget"/>
+      </measure>
+      <measure id="yards" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Yards"/>
+        <measureMapping columnObjectName="Union_1" columnName="yardsBudget"/>
+      </measure>
+      <measure id="routeHoursWithMechanic" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Hours with Mechanic"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeHoursWithMechanicActual"/>
+      </measure>
+      <measure id="loads" hidden="true" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads"/>
+        <measureMapping columnObjectName="Union_1" columnName="loadsActual"/>
+      </measure>
+      <measure id="totalMaintenanceCostActual_1" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalMaintenanceCostActual_1"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalMaintenanceCostActual_1"/>
+      </measure>
+      <measure id="totalMaintenanceCostBudget_1" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalMaintenanceCostBudget_1"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalMaintenanceCostBudget"/>
+      </measure>
+      <measure id="truckHoursActual_1" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="truckHoursActual_1"/>
+        <measureMapping columnObjectName="Union_1" columnName="truckHoursActual_1"/>
+      </measure>
+      <measure id="truckHoursBudget_1" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="truckHoursBudget_1"/>
+        <measureMapping columnObjectName="Union_1" columnName="truckHoursBudget"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="totalRevenuePerUnit" hidden="false" order="22" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Rev Per Unt"/>
+        <formula>if(&quot;units&quot;=0,0,&quot;totalRevenue&quot;/&quot;units&quot;)</formula>
+      </measure>
+      <measure id="maintenanceCostperTruckHr" hidden="false" order="23" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Maint Cost/Hr"/>
+        <formula>if(&quot;truckHours&quot;=0,0,&quot;totalMaintenanceCost&quot;/&quot;truckHours&quot;)</formula>
+      </measure>
+      <measure id="yardsperRouteHours" hidden="false" order="25" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Yards/Hr"/>
+        <formula>if(&quot;routeHours&quot;=0,0,&quot;yards&quot;/&quot;routeHoursWithMechanic&quot;)</formula>
+      </measure>
+      <measure id="ebitdaTargetPercentageRevenue" hidden="false" order="28" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="4">
+        <descriptions defaultDescription="EBITDA % Rev"/>
+        <formula>if(&quot;totalRevenue&quot;=0,0,round(&quot;ebitdaTarget&quot;/&quot;totalRevenue&quot;,4))</formula>
+      </measure>
+      <measure id="routeHoursPerLoad" hidden="false" order="30" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Route Hours per Load"/>
+        <formula>if(&quot;loads&quot;=0,0,&quot;routeHoursWithMechanic&quot;/&quot;loads&quot;)</formula>
+      </measure>
+      <measure id="totalMaintCostVar" hidden="false" order="36" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="totalMaintCostVar"/>
+        <formula>if(&quot;truckHoursBudget_1&quot;=0,0,
+(&quot;totalMaintenanceCostBudget_1&quot;/&quot;truckHoursBudget_1&quot;))-
+if(&quot;truckHoursActual_1&quot;=0,0,(&quot;totalMaintenanceCostActual_1&quot;/&quot;truckHoursActual_1&quot;))</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions>
+      <localDimension id="orgHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">areaDescription_1</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="orgHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED">
+            <descriptions defaultDescription="orgHierarchy"/>
+            <levels>
+              <level levelAttribute="areaDescription_1" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="areaDescription_1"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Agg_Act" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Agg_Budget" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Agg_Variance" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

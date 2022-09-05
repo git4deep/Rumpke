@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.odata::PRODUCTIVITY_SUMMARY" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Productivity data"/>
+  <metadata changedAt="2021-03-17 11:47:09.829"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="54"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributesByFiscalMonth">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributesByFiscalMonth</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.reporting.operations::landfillScorecard">
+      <resourceUri>rumpke.bi.reporting.operations::landfillScorecard</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.reporting.operations::recyclingScorecard">
+      <resourceUri>rumpke.bi.reporting.operations::recyclingScorecard</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.reporting.operations::haulingScorecard">
+      <resourceUri>rumpke.bi.reporting.operations::haulingScorecard</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.reporting.operations::transferScorecard">
+      <resourceUri>rumpke.bi.reporting.operations::transferScorecard</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="AGG_timeByMonth">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute aggregationType="min" id="weekInt"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributesByFiscalMonth"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="PRJ_landfillProductivityData" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.reporting.operations::landfillScorecard"/>
+    <filter>&quot;fiscalYearPeriod&quot; &gt; 2021000</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="PRJ_recyclingProductivityData" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="processedTonsActual"/>
+        <viewAttribute id="processedTonsBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.reporting.operations::recyclingScorecard"/>
+    <filter>&quot;fiscalYearPeriod&quot; &gt; 2021000</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="PRJ_haulingProductivityData" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.reporting.operations::haulingScorecard"/>
+    <filter>&quot;fiscalYearPeriod&quot; &gt; 2021000</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="PRJ_transferProductivityData" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="tonnageBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.reporting.operations::transferScorecard"/>
+    <filter>&quot;fiscalYearPeriod&quot; &gt; 2021000</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="UNI_productivitySource">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="PRJ_landfillProductivityData">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsBudget" source="loadsBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="unitsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursWithMechanicBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="yardsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageBudget" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageActual" source="tonnageActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="PRJ_recyclingProductivityData">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="unitsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursWithMechanicBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="yardsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageActual" source="processedTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageBudget" source="processedTonsBudget"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="PRJ_haulingProductivityData">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsBudget" source="loadsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsBudget" source="unitsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicBudget" source="routeHoursWithMechanicBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsBudget" source="yardsBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="PRJ_transferProductivityData">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="unitsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursWithMechanicBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="yardsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageBudget" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageActual" source="tonnageActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="JN_productivityByTime" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="year"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="weekInt"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="UNI_productivitySource">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsBudget" source="loadsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsBudget" source="unitsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicBudget" source="routeHoursWithMechanicBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsBudget" source="yardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageBudget" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageActual" source="tonnageActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+      </input>
+      <input node="AGG_timeByMonth">
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="month" source="month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weekInt" source="weekInt"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="fiscalYearPeriod"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="JN_productivityByTime">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="region" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="scaleType" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="scaleType"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="year" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="year"/>
+      </attribute>
+      <attribute id="month" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="month"/>
+      </attribute>
+      <attribute id="weekInt" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Week (Integer)"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="weekInt"/>
+      </attribute>
+      <attribute id="rollingMonthNo" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Month Number (Current Month = 0)"/>
+        <keyMapping columnObjectName="JN_productivityByTime" columnName="rollingMonthNo"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="netWeight" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="netWeight"/>
+        <measureMapping columnObjectName="JN_productivityByTime" columnName="tonnageActual"/>
+      </measure>
+      <measure id="loadsBudget" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads - Budget"/>
+        <measureMapping columnObjectName="JN_productivityByTime" columnName="loadsBudget"/>
+      </measure>
+      <measure id="unitsBudget" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Units - Budget"/>
+        <measureMapping columnObjectName="JN_productivityByTime" columnName="unitsBudget"/>
+      </measure>
+      <measure id="routeHoursWithMechanicBudget" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Route Hours with Mechanic - Budget"/>
+        <measureMapping columnObjectName="JN_productivityByTime" columnName="routeHoursWithMechanicBudget"/>
+      </measure>
+      <measure id="yardsBudget" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Yards - Budget"/>
+        <measureMapping columnObjectName="JN_productivityByTime" columnName="yardsBudget"/>
+      </measure>
+      <measure id="tonnageBudget" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage - Budget"/>
+        <measureMapping columnObjectName="JN_productivityByTime" columnName="tonnageBudget"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="653" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="AGG_timeByMonth" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="730" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="PRJ_landfillProductivityData" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="413"/>
+        <rectangleSize height="64" width="292"/>
+      </shape>
+      <shape expanded="true" modelObjectName="PRJ_recyclingProductivityData" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="328" y="413"/>
+        <rectangleSize height="64" width="310"/>
+      </shape>
+      <shape expanded="true" modelObjectName="PRJ_haulingProductivityData" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="652" y="413"/>
+        <rectangleSize height="64" width="311"/>
+      </shape>
+      <shape expanded="true" modelObjectName="PRJ_transferProductivityData" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="977" y="413"/>
+        <rectangleSize height="64" width="301"/>
+      </shape>
+      <shape expanded="true" modelObjectName="UNI_productivitySource" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="576" y="261"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="JN_productivityByTime" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="653" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+    <shape modelObjectName="UNI_productivitySource" modelObjectNameSpace="JN_productivityByTime" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="AGG_timeByMonth" modelObjectNameSpace="JN_productivityByTime" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

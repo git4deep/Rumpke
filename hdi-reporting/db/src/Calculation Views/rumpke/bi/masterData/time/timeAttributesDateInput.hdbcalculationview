@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.time::timeAttributesDateInput" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Time Dimensions Date Input - Rolling Months"/>
+  <metadata changedAt="2019-12-03 07:12:41.487"/>
+  <localVariables>
+    <variable id="ip_keyDate" parameter="true">
+      <descriptions defaultDescription="Date "/>
+      <variableProperties datatype="DATE" mandatory="false" defaultValue="undefined">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.data.proc::timeAttributesDateInput" type="TABLE_FUNCTION">
+      <resourceUri>rumpke.bi.data.proc::timeAttributesDateInput</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="rumpke.bi.data.proc::timeAttributesDateInput">
+    <descriptions/>
+    <attributes>
+      <attribute id="date" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="date"/>
+      </attribute>
+      <attribute id="dateSAP" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date (SAP Format)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="dateSAP"/>
+      </attribute>
+      <attribute id="year" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="year"/>
+      </attribute>
+      <attribute id="yearInt" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year (Integer)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="yearInt"/>
+      </attribute>
+      <attribute id="quarter" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Quarter"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="quarter"/>
+      </attribute>
+      <attribute id="quarterInt" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Quarter (Integer)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="quarterInt"/>
+      </attribute>
+      <attribute id="calQuarter" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="month" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="month"/>
+      </attribute>
+      <attribute id="monthInt" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month (Integer)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="monthInt"/>
+      </attribute>
+      <attribute id="calMonth" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (YYYYMM)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="calMonth"/>
+      </attribute>
+      <attribute id="calendarMonth" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (YYYY-MM)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="calendarMonth"/>
+      </attribute>
+      <attribute id="calendarMonthDesc" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month Desc"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="calendarMonthDesc"/>
+      </attribute>
+      <attribute id="monthName" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month Name"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="monthName"/>
+      </attribute>
+      <attribute id="lastDayOfMonthIndic" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Last Day of Month (Boolean)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="lastDayOfMonthIndic"/>
+      </attribute>
+      <attribute id="week" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Week"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="week"/>
+      </attribute>
+      <attribute id="weekInt" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Week (Integer)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="weekInt"/>
+      </attribute>
+      <attribute id="calWeek" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Week"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="calWeek"/>
+      </attribute>
+      <attribute id="yearOfWeek" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year of Week"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="yearOfWeek"/>
+      </attribute>
+      <attribute id="yearOfWeekInt" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year of Week (Integer)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="yearOfWeekInt"/>
+      </attribute>
+      <attribute id="dayOfWeek" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Day of Week"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="dayOfWeek"/>
+      </attribute>
+      <attribute id="dayOfWeekInt" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Day of Week (Integer)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="dayOfWeekInt"/>
+      </attribute>
+      <attribute id="dayName" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Day Name"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="dayName"/>
+      </attribute>
+      <attribute id="day" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Day"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="day"/>
+      </attribute>
+      <attribute id="dayInt" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Day (Integer)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="dayInt"/>
+      </attribute>
+      <attribute id="dayOfYear" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Day of Year"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="dayOfYear"/>
+      </attribute>
+      <attribute id="rollingYearNo" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Year Number (Current Year = 0)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="rollingYearNo"/>
+      </attribute>
+      <attribute id="ytd" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year to Date"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="ytd"/>
+      </attribute>
+      <attribute id="rollingMonthNo" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Month Number (Current Month = 0)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="rollingMonthNo"/>
+      </attribute>
+      <attribute id="mtd" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month to Date"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="mtd"/>
+      </attribute>
+      <attribute id="rollingDayNo" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Day Number (Current Day = 0)"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="rollingDayNo"/>
+      </attribute>
+      <attribute id="fiscalPeriod" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Period"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="fiscalPeriod"/>
+      </attribute>
+      <attribute id="fiscalYear" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="timeAttributesDateInput" columnName="fiscalYearPeriod"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

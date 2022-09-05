@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::recyclingSalesReuse" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Recycling Sales"/>
+  <metadata changedAt="2021-04-08 19:18:17.892"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="46"/>
+  <dataSources>
+    <DataSource id="MSSQL::data_RecyclingMaterialSales">
+      <resourceUri>MSSQL::data_RecyclingMaterialSales</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::node">
+      <resourceUri>rumpke.bi.masterData.base::node</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributes">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributes</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::lineofBusinessText">
+      <resourceUri>rumpke.bi.masterData.base::lineofBusinessText</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="material"/>
+        <viewAttribute id="materialCategory"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="recyclingSales"/>
+        <viewAttribute id="recyclingTons"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="recyclingSalesActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;version&quot; = 'Actual', &quot;recyclingSales&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="recyclingSalesBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;version&quot; = 'Budget', &quot;recyclingSales&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="recyclingSalesForecast" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;version&quot; = 'Forecast', &quot;recyclingSales&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="recyclingTonsActual" length="38" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;version&quot; = 'Actual', &quot;recyclingTons&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="recyclingTonsBudget" length="38" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;version&quot; = 'Budget', &quot;recyclingTons&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="recyclingTonsForecast" length="38" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;version&quot; = 'Forecast', &quot;recyclingTons&quot;, 0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="MSSQL::data_RecyclingMaterialSales">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="ProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FiscalMonthID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="material" source="Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialCategory" source="MaterialCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialClass" source="MaterialClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processingType" source="ProcessingType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="LOB_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="Versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSales" source="RecyclingSales"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTons" source="RecyclingTons"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="setName"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="isNSSTDRECY" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;setName&quot;= 'NSRECY_SC' or &quot;setName&quot;= 'STDRECY_SC', 1, 0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.masterData.base::node"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute aggregationType="max" id="profitCenterGroup"/>
+        <viewAttribute aggregationType="max" id="isNSSTDRECY"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="setName"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="material"/>
+        <viewAttribute id="materialCategory"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="recyclingSales"/>
+        <viewAttribute id="recyclingTons"/>
+        <viewAttribute id="recyclingSalesActual"/>
+        <viewAttribute id="recyclingSalesBudget"/>
+        <viewAttribute id="recyclingTonsActual"/>
+        <viewAttribute id="recyclingTonsBudget"/>
+        <viewAttribute id="recyclingSalesForecast"/>
+        <viewAttribute id="recyclingTonsForecast"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="isNSSTDRECY"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="material" source="material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialCategory" source="materialCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialClass" source="materialClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processingType" source="processingType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSales" source="recyclingSales"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTons" source="recyclingTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesActual" source="recyclingSalesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesBudget" source="recyclingSalesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsActual" source="recyclingTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsBudget" source="recyclingTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesForecast" source="recyclingSalesForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsForecast" source="recyclingTonsForecast"/>
+      </input>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isNSSTDRECY" source="isNSSTDRECY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="client"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="recyclingTons"/>
+        <viewAttribute id="recyclingSales"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="materialCategory"/>
+        <viewAttribute id="material"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="recyclingSalesActual"/>
+        <viewAttribute id="recyclingSalesBudget"/>
+        <viewAttribute id="recyclingTonsActual"/>
+        <viewAttribute id="recyclingTonsBudget"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="recyclingSalesForecast"/>
+        <viewAttribute id="recyclingTonsForecast"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="isNSSTDRECY"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTons" source="recyclingTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSales" source="recyclingSales"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processingType" source="processingType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialClass" source="materialClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialCategory" source="materialCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="material" source="material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesActual" source="recyclingSalesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesBudget" source="recyclingSalesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsActual" source="recyclingTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsBudget" source="recyclingTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesForecast" source="recyclingSalesForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsForecast" source="recyclingTonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isNSSTDRECY" source="isNSSTDRECY"/>
+      </input>
+      <input node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonthDisplay"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributes"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="lineofBusinessCode"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::lineofBusinessText"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="materialCategory"/>
+        <viewAttribute id="material"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="recyclingTons"/>
+        <viewAttribute id="recyclingSales"/>
+        <viewAttribute id="recyclingSalesActual"/>
+        <viewAttribute id="recyclingSalesBudget"/>
+        <viewAttribute id="recyclingTonsActual"/>
+        <viewAttribute id="recyclingTonsBudget"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="recyclingSalesForecast"/>
+        <viewAttribute id="recyclingTonsForecast"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="isNSSTDRECY"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialClass" source="materialClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialCategory" source="materialCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="material" source="material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processingType" source="processingType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTons" source="recyclingTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSales" source="recyclingSales"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesActual" source="recyclingSalesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesBudget" source="recyclingSalesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsActual" source="recyclingTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsBudget" source="recyclingTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesForecast" source="recyclingSalesForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsForecast" source="recyclingTonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isNSSTDRECY" source="isNSSTDRECY"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineofBusinessCode"/>
+      </input>
+    <joinAttribute name="lineOfBusiness"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="materialCategory"/>
+        <viewAttribute id="material"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="recyclingTons"/>
+        <viewAttribute id="recyclingSales"/>
+        <viewAttribute id="recyclingSalesActual"/>
+        <viewAttribute id="recyclingSalesBudget"/>
+        <viewAttribute id="recyclingTonsActual"/>
+        <viewAttribute id="recyclingTonsBudget"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="recyclingSalesForecast"/>
+        <viewAttribute id="recyclingTonsForecast"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="isNSSTDRECY"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialClass" source="materialClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialCategory" source="materialCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="material" source="material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processingType" source="processingType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTons" source="recyclingTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSales" source="recyclingSales"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesActual" source="recyclingSalesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesBudget" source="recyclingSalesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsActual" source="recyclingTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsBudget" source="recyclingTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSalesForecast" source="recyclingSalesForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsForecast" source="recyclingTonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isNSSTDRECY" source="isNSSTDRECY"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalPeriod" source="fiscalPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="fiscalYearPeriod"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYear" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year T"/>
+        <keyMapping columnObjectName="Join_3" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="calQuarter" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter"/>
+        <keyMapping columnObjectName="Join_3" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="yearQuarter" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year-Quarter"/>
+        <keyMapping columnObjectName="Join_3" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="calMonth" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (YYYYMM)"/>
+        <keyMapping columnObjectName="Join_3" columnName="calMonth"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (MM-YYYY)"/>
+        <keyMapping columnObjectName="Join_3" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="fiscalPeriod" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Period"/>
+        <keyMapping columnObjectName="Join_3" columnName="fiscalPeriod"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Join_3" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="area" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_3" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_3" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_3" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_3" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Join_3" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_3" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_3" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_3" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_3" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="17" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenterDescription"/>
+        <keyMapping columnObjectName="Join_3" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_3" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="materialClass" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Class"/>
+        <keyMapping columnObjectName="Join_3" columnName="materialClass"/>
+      </attribute>
+      <attribute id="materialCategory" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Category"/>
+        <keyMapping columnObjectName="Join_3" columnName="materialCategory"/>
+      </attribute>
+      <attribute id="material" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material"/>
+        <keyMapping columnObjectName="Join_3" columnName="material"/>
+      </attribute>
+      <attribute id="processingType" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Processing Type"/>
+        <keyMapping columnObjectName="Join_3" columnName="processingType"/>
+      </attribute>
+      <attribute id="version" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Join_3" columnName="version"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Join_3" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="profitCenterGroup" order="54" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Name"/>
+        <keyMapping columnObjectName="Join_3" columnName="profitCenterGroup"/>
+      </attribute>
+      <attribute id="isNSSTDRECY" order="55" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="isNSSTDRECY"/>
+        <keyMapping columnObjectName="Join_3" columnName="isNSSTDRECY"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="priorMonth" hidden="false" order="53" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month - For Live Projections ONLY"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="7">
+          <formula>leftstr(string(addmonths(now(), -1)),4) + '0' + rightstr(leftstr(string(addmonths(now(), -1)),7),2)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="recyclingTons" order="44" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Tons"/>
+        <measureMapping columnObjectName="Join_3" columnName="recyclingTons"/>
+      </measure>
+      <measure id="recyclingSales" order="45" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Sales"/>
+        <measureMapping columnObjectName="Join_3" columnName="recyclingSales"/>
+      </measure>
+      <measure id="recyclingSalesActual" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Sales - Actual"/>
+        <measureMapping columnObjectName="Join_3" columnName="recyclingSalesActual"/>
+      </measure>
+      <measure id="recyclingSalesBudget" order="47" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Sales - Budget"/>
+        <measureMapping columnObjectName="Join_3" columnName="recyclingSalesBudget"/>
+      </measure>
+      <measure id="recyclingSalesForecast" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Sales - Forecast"/>
+        <measureMapping columnObjectName="Join_3" columnName="recyclingSalesForecast"/>
+      </measure>
+      <measure id="recyclingTonsActual" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Tons - Actual"/>
+        <measureMapping columnObjectName="Join_3" columnName="recyclingTonsActual"/>
+      </measure>
+      <measure id="recyclingTonsBudget" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Tons - Budget"/>
+        <measureMapping columnObjectName="Join_3" columnName="recyclingTonsBudget"/>
+      </measure>
+      <measure id="recyclingTonsForecast" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Tons - Forecast"/>
+        <measureMapping columnObjectName="Join_3" columnName="recyclingTonsForecast"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="soldTonsActual" hidden="false" order="25" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Sold Tons - Actual"/>
+        <formula>if(&quot;lineOfBusiness&quot;= 'RE' and &quot;isNSSTDRECY&quot; = 1 and (&quot;processingType&quot; = 'BROKERAGE' OR &quot;processingType&quot; = 'PROCESSED') ,&quot;recyclingTonsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="soldTonsBudget" hidden="false" order="26" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Sold Tons - Budget "/>
+        <formula>if(&quot;lineOfBusiness&quot;= 'RE' and &quot;isNSSTDRECY&quot; = 1 and (&quot;processingType&quot; = 'BROKERAGE' OR &quot;processingType&quot; = 'PROCESSED') ,&quot;recyclingTonsBudget&quot;, 0)</formula>
+      </measure>
+      <measure id="soldTonsForecast" hidden="false" order="27" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Sold Tons - Forecast "/>
+        <formula>if(&quot;lineOfBusiness&quot;= 'RE' and &quot;isNSSTDRECY&quot; = 1 and (&quot;processingType&quot; = 'BROKERAGE' OR &quot;processingType&quot; = 'PROCESSED') ,&quot;recyclingTonsForecast&quot;, 0)</formula>
+      </measure>
+      <measure id="soldTonsProjection" hidden="false" order="28" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Sold Tons - Projection  "/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;soldTonsForecast&quot;, &quot;soldTonsActual&quot;)</formula>
+      </measure>
+      <measure id="disposalTonsActual" hidden="false" order="29" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Disposal Tons - Actual"/>
+        <formula>if(&quot;isNSSTDRECY&quot; = 1 and &quot;processingType&quot; = 'DISPOSAL',&quot;recyclingTonsActual&quot;,0)</formula>
+      </measure>
+      <measure id="disposalTonsBudget" hidden="false" order="30" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Disposal Tons - Budget"/>
+        <formula>if(&quot;isNSSTDRECY&quot; = 1 and &quot;processingType&quot; = 'DISPOSAL',&quot;recyclingTonsBudget&quot;,0)</formula>
+      </measure>
+      <measure id="disposalTonsForecast" hidden="false" order="31" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Disposal Tons - Budget"/>
+        <formula>if(&quot;isNSSTDRECY&quot; = 1 and &quot;processingType&quot; = 'DISPOSAL',&quot;recyclingTonsForecast&quot;,0)</formula>
+      </measure>
+      <measure id="disposalTonsProjection" hidden="false" order="32" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Disposal Tons - Budget"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;disposalTonsForecast&quot;, &quot;disposalTonsActual&quot;)</formula>
+      </measure>
+      <measure id="inventoryAdjustmentActual" hidden="false" order="33" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Inventory Adjustment - Actual"/>
+        <formula>if(&quot;processingType&quot; = 'INVENTORY ADJ' ,&quot;recyclingTonsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="inventoryAdjustmentBudget" hidden="false" order="34" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Inventory Adjustment - Budget"/>
+        <formula>if(&quot;processingType&quot; = 'INVENTORY ADJ' ,&quot;recyclingTonsBudget&quot;, 0)</formula>
+      </measure>
+      <measure id="inventoryAdjustmentForecast" hidden="false" order="35" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Inventory Adjustment - Forecast"/>
+        <formula>if(&quot;processingType&quot; = 'INVENTORY ADJ' ,&quot;recyclingTonsForecast&quot;, 0)</formula>
+      </measure>
+      <measure id="inventoryAdjustmentProjection" hidden="false" order="36" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Inventory Adjustment - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;inventoryAdjustmentForecast&quot;, &quot;inventoryAdjustmentActual&quot;)</formula>
+      </measure>
+      <measure id="processedTonsActual" hidden="false" order="37" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Processed Tons - Actual"/>
+        <formula>if(&quot;lineOfBusiness&quot;= 'RE' and &quot;isNSSTDRECY&quot; = 1 and IN(&quot;processingType&quot;,'PROCESSED' ,'PROCESSING' ,'COMMINGLED' ,'DISPOSAL','INTERCO' ,'INVENTORY ADJ'),&quot;recyclingTonsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="processedTonsBudget" hidden="false" order="38" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Processed Tons - Budget"/>
+        <formula>if(&quot;lineOfBusiness&quot;= 'RE' and &quot;isNSSTDRECY&quot; = 1 and IN(&quot;processingType&quot;,'PROCESSED' ,'PROCESSING' ,'COMMINGLED' ,'DISPOSAL','INTERCO' ,'INVENTORY ADJ'),&quot;recyclingTonsBudget&quot;, 0)</formula>
+      </measure>
+      <measure id="processedTonsForecast" hidden="false" order="39" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Processed Tons - Forecast"/>
+        <formula>if(&quot;lineOfBusiness&quot;= 'RE' and &quot;isNSSTDRECY&quot; = 1 and IN(&quot;processingType&quot;,'PROCESSED' ,'PROCESSING' ,'COMMINGLED' ,'DISPOSAL','INTERCO' ,'INVENTORY ADJ'),&quot;recyclingTonsForecast&quot;, 0)</formula>
+      </measure>
+      <measure id="processedTonsProjection" hidden="false" order="40" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Processed Tons - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;processedTonsForecast&quot;, &quot;processedTonsActual&quot;)</formula>
+      </measure>
+      <measure id="recyclingMaterialSalesActual" hidden="false" order="41" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Recycling Material Sales - Actual"/>
+        <formula>if(&quot;lineOfBusiness&quot;= 'RE' and &quot;isNSSTDRECY&quot; = 1 and (&quot;processingType&quot; = 'BROKERAGE' or &quot;processingType&quot; = 'PROCESSED') ,&quot;recyclingSalesActual&quot;, 0)</formula>
+      </measure>
+      <measure id="recyclingMaterialSalesBudget" hidden="false" order="42" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Recycling Material Sales - Budget"/>
+        <formula>if(&quot;lineOfBusiness&quot;= 'RE' and &quot;isNSSTDRECY&quot; = 1 and (&quot;processingType&quot; = 'BROKERAGE' or &quot;processingType&quot; = 'PROCESSED') ,&quot;recyclingSalesBudget&quot;, 0)</formula>
+      </measure>
+      <measure id="recyclingMaterialSalesForecast" hidden="false" order="43" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Recycling Material Sales - Forecast"/>
+        <formula>if(&quot;lineOfBusiness&quot;= 'RE' and &quot;isNSSTDRECY&quot; = 1 and (&quot;processingType&quot; = 'BROKERAGE' or &quot;processingType&quot; = 'PROCESSED') ,&quot;recyclingSalesForecast&quot;, 0)</formula>
+      </measure>
+      <measure id="recyclingMaterialSalesProjection" hidden="false" order="52" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Recycling Material Sales - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;recyclingMaterialSalesForecast&quot;, &quot;recyclingMaterialSalesActual&quot;)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="620" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="301" y="856"/>
+        <rectangleSize height="64" width="261"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="961"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="856"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118" y="696"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="427" y="696"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="145" y="536"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="667" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="541" y="536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="171" y="376"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="620" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_4" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

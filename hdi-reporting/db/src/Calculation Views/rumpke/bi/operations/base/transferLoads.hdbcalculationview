@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::transferLoads" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="transferLoads"/>
+  <metadata changedAt="2020-11-10 11:14:28.8"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="data_TransferLoads">
+      <resourceUri>rumpke.bi.operations.base.mssql::data_TransferLoads</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="data_TransferLoads">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="data_TransferLoads" columnName="FiscalMonthID"/>
+      </attribute>
+      <attribute id="profitCenter" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="data_TransferLoads" columnName="ProfitCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line Of Business"/>
+        <keyMapping columnObjectName="data_TransferLoads" columnName="LOBCode"/>
+      </attribute>
+      <attribute id="version" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="data_TransferLoads" columnName="Version"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="outboundLoads" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Outbound Loads"/>
+        <measureMapping columnObjectName="data_TransferLoads" columnName="OutboundLoads"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

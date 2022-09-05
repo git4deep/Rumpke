@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::fioriConfirmationsTable" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="fioriConfirmationsTable"/>
+  <metadata changedAt="2021-08-26 10:05:20.066"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="31"/>
+  <dataSources>
+    <DataSource id="ZPM_FIORI_CONF">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::ZPM_FIORI_CONF</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MAINTENANCEORDER"/>
+        <viewAttribute id="MAINTENANCEORDEROPERATION"/>
+        <viewAttribute id="ASSIGNED_PERSON"/>
+        <viewAttribute id="COUNTER"/>
+        <viewAttribute id="ACTION"/>
+        <viewAttribute id="START_JOB_DATE"/>
+        <viewAttribute id="START_JOB_TIME"/>
+        <viewAttribute id="END_JOB_DATE"/>
+        <viewAttribute id="END_JOB_TIME"/>
+        <viewAttribute id="ACTUALWORK"/>
+        <viewAttribute id="UNIT"/>
+        <viewAttribute id="CONFIRMATION"/>
+        <viewAttribute id="CONFCOUNTER"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="END_JOB_DATE_STR" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(&quot;END_JOB_DATE&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="ZPM_FIORI_CONF">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ACTUALWORK" source="DURATION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONFIRMATION" source="RUECK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CONFCOUNTER" source="RMZHL"/>
+      </input>
+    <filter>(&quot;START_JOB_DATE&quot; !='00000000')</filter>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="MAINTENANCEORDER" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MAINTENANCEORDER"/>
+        <keyMapping columnObjectName="Projection_1" columnName="MAINTENANCEORDER"/>
+      </attribute>
+      <attribute id="MAINTENANCEORDEROPERATION" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MAINTENANCEORDEROPERATION"/>
+        <keyMapping columnObjectName="Projection_1" columnName="MAINTENANCEORDEROPERATION"/>
+      </attribute>
+      <attribute id="ASSIGNED_PERSON" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ASSIGNED_PERSON"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ASSIGNED_PERSON"/>
+      </attribute>
+      <attribute id="COUNTER" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COUNTER"/>
+        <keyMapping columnObjectName="Projection_1" columnName="COUNTER"/>
+      </attribute>
+      <attribute id="ACTION" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ACTION"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ACTION"/>
+      </attribute>
+      <attribute id="START_JOB_DATE" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="START_JOB_DATE"/>
+        <keyMapping columnObjectName="Projection_1" columnName="START_JOB_DATE"/>
+      </attribute>
+      <attribute id="START_JOB_TIME" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="START_JOB_TIME"/>
+        <keyMapping columnObjectName="Projection_1" columnName="START_JOB_TIME"/>
+      </attribute>
+      <attribute id="END_JOB_DATE" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="END_JOB_DATE"/>
+        <keyMapping columnObjectName="Projection_1" columnName="END_JOB_DATE"/>
+      </attribute>
+      <attribute id="END_JOB_TIME" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="END_JOB_TIME"/>
+        <keyMapping columnObjectName="Projection_1" columnName="END_JOB_TIME"/>
+      </attribute>
+      <attribute id="ACTUALWORK" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ACTUALWORK"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ACTUALWORK"/>
+      </attribute>
+      <attribute id="UNIT" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UNIT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="UNIT"/>
+      </attribute>
+      <attribute id="CONFIRMATION" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CONFIRMATION"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CONFIRMATION"/>
+      </attribute>
+      <attribute id="CONFCOUNTER" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CONFCOUNTER"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CONFCOUNTER"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="START_JOB_TIMESTAMP" hidden="false" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="START_JOB_TIMESTAMP"/>
+        <keyCalculation datatype="TIMESTAMP" expressionLanguage="COLUMN_ENGINE">
+          <formula>seconddate(string(&quot;START_JOB_DATE&quot;) +' '+
+leftstr(&quot;workStartTime&quot;,2)+':'+midstr(&quot;workStartTime&quot;,3,2)+':'+rightstr(&quot;workStartTime&quot;,2))</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="workStartTime" hidden="false" order="16" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="workStartTime"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="6">
+          <formula>leftstr(replace(string(&quot;START_JOB_TIME&quot;),':',''),6)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="workEndTime" hidden="false" order="17" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="workStartTime"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="6">
+          <formula>leftstr(replace(string(&quot;END_JOB_TIME&quot;),':',''),6)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="END_JOB_TIMESTAMP" hidden="false" order="18" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="START_JOB_TIMESTAMP"/>
+        <keyCalculation datatype="TIMESTAMP" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(&quot;END_JOB_DATE&quot;) AND string(&quot;END_JOB_TIME&quot;)='00:00:00.000',seconddate('1990-01-01 00:00:01'),seconddate(string(&quot;END_JOB_DATE&quot;) +' '+
+leftstr(&quot;workEndTime&quot;,2)+':'+midstr(&quot;workEndTime&quot;,3,2)+':'+rightstr(&quot;workEndTime&quot;,2)))</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="52" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="64" width="201"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

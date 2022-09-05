@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.reuse::maintenanceOrderCost" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Maintenance order costs from multiple sources"/>
+  <metadata changedAt="2020-12-01 09:59:06.884"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="34"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.data.proc::populatePMCOCosts" type="TABLE_FUNCTION">
+      <resourceUri>rumpke.bi.data.proc::populatePMCOCosts</resourceUri>
+    </DataSource>
+    <DataSource id="maintenanceOrderCostTable">
+      <resourceUri>rumpke.bi.plantMaintainance.base::maintenanceOrderCostTable</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="prj_currentPeriods">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.data.proc::populatePMCOCosts">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="COCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="BELTP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="WRTTP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="ACPOS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="VERSN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="PERBL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="VORGA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="BEMOT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="ABKAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="RPT_PERIOD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="WRT_VALUE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FISCYEARPER"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="prj_staticPeriods">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="maintenanceOrderCostTable">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="COCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="BELTP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="WRTTP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="ACPOS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="VERSN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="PERBL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="VORGA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="BEMOT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="ABKAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="RPT_PERIOD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="WRT_VALUE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FISCYEARPER"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="uni_allCosts">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="prj_currentPeriods">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="prj_staticPeriods">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="uni_allCosts">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="client"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="client"/>
+      </attribute>
+      <attribute id="objectNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="objectNumber"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="currency" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="currency"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="currency"/>
+      </attribute>
+      <attribute id="debitType" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="debitType"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="debitType"/>
+      </attribute>
+      <attribute id="valueType" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="valueType"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="valueType"/>
+      </attribute>
+      <attribute id="fiscalYear" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYear"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="valueCategory" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="valueCategory"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="valueCategory"/>
+      </attribute>
+      <attribute id="planningBudgetingVersion" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="planningBudgetingVersion"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="planningBudgetingVersion"/>
+      </attribute>
+      <attribute id="periodBlock" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="periodBlock"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="periodBlock"/>
+      </attribute>
+      <attribute id="budgetType" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="budgetType"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="budgetType"/>
+      </attribute>
+      <attribute id="accountingIndicator" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="accountingIndicator"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="accountingIndicator"/>
+      </attribute>
+      <attribute id="varianceCategory" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="varianceCategory"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="varianceCategory"/>
+      </attribute>
+      <attribute id="reportingPeriod" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="reportingPeriod"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="reportingPeriod"/>
+      </attribute>
+      <attribute id="costsValue" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="costsValue"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="costsValue"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="uni_allCosts" columnName="fiscalYearPeriod"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="206" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="prj_currentPeriods" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="281"/>
+        <rectangleSize height="66" width="250"/>
+      </shape>
+      <shape expanded="true" modelObjectName="prj_staticPeriods" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="286" y="281"/>
+        <rectangleSize height="64" width="241"/>
+      </shape>
+      <shape expanded="true" modelObjectName="uni_allCosts" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="181" y="165"/>
+        <rectangleSize height="102" width="190"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

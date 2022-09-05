@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.reuse::DO_NOT_USE_utmEmployeeHours" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="UTM EmployeeHours"/>
+  <metadata changedAt="2020-02-05 21:12:49.441"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="39"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.hr.base::employee">
+      <resourceUri>rumpke.bi.hr.base::employee</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.hr.base::employeeHours">
+      <resourceUri>rumpke.bi.hr.base::employeeHours</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="employeeFirstName"/>
+        <viewAttribute id="employeeLastName"/>
+        <viewAttribute id="residenceLocationZipCode"/>
+        <viewAttribute id="dateHire"/>
+        <viewAttribute id="dateHireAdjusted"/>
+        <viewAttribute id="dateStart"/>
+        <viewAttribute id="dateStartAdjusted"/>
+        <viewAttribute id="dateTermination"/>
+        <viewAttribute id="terminationCode"/>
+        <viewAttribute id="terminationDescription"/>
+        <viewAttribute id="currentLocation"/>
+        <viewAttribute id="currentLocationCode"/>
+        <viewAttribute id="currentWageCode"/>
+        <viewAttribute id="orgCode1"/>
+        <viewAttribute id="orgCode2"/>
+        <viewAttribute id="orgCode3"/>
+        <viewAttribute id="orgCode4"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="currentPositionTitle"/>
+        <viewAttribute id="currentManagerID"/>
+        <viewAttribute id="currentManagerName"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="company"/>
+        <viewAttribute id="eepDateTimeCreated"/>
+        <viewAttribute id="eepDateTimeChanged"/>
+        <viewAttribute id="employmentBuilding"/>
+        <viewAttribute id="employmentDrugTestRequired"/>
+        <viewAttribute id="employmentOperateCompanyVehicle"/>
+        <viewAttribute id="employmentTypeOfVehicleUsed"/>
+        <viewAttribute id="employeeID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.hr.base::employee"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workedHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.hr.base::employeeHours"/>
+    <filter>(&quot;payCodeNumber&quot; ='0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="employeeFirstName"/>
+        <viewAttribute id="employeeLastName"/>
+        <viewAttribute id="residenceLocationZipCode"/>
+        <viewAttribute id="dateHire"/>
+        <viewAttribute id="dateHireAdjusted"/>
+        <viewAttribute id="dateStart"/>
+        <viewAttribute id="dateStartAdjusted"/>
+        <viewAttribute id="dateTermination"/>
+        <viewAttribute id="terminationCode"/>
+        <viewAttribute id="terminationDescription"/>
+        <viewAttribute id="currentLocation"/>
+        <viewAttribute id="currentLocationCode"/>
+        <viewAttribute id="currentWageCode"/>
+        <viewAttribute id="orgCode1"/>
+        <viewAttribute id="orgCode2"/>
+        <viewAttribute id="orgCode3"/>
+        <viewAttribute id="orgCode4"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="currentPositionTitle"/>
+        <viewAttribute id="currentManagerID"/>
+        <viewAttribute id="currentManagerName"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="company"/>
+        <viewAttribute id="eepDateTimeCreated"/>
+        <viewAttribute id="eepDateTimeChanged"/>
+        <viewAttribute id="employmentBuilding"/>
+        <viewAttribute id="employmentDrugTestRequired"/>
+        <viewAttribute id="employmentOperateCompanyVehicle"/>
+        <viewAttribute id="employmentTypeOfVehicleUsed"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="workDate"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="costCenter" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;orgCode2&quot;+&quot;orgCode4&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullName" source="employeeFullName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFirstName" source="employeeFirstName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLastName" source="employeeLastName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="residenceLocationZipCode" source="residenceLocationZipCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateHire" source="dateHire"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateHireAdjusted" source="dateHireAdjusted"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateStart" source="dateStart"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateStartAdjusted" source="dateStartAdjusted"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateTermination" source="dateTermination"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="terminationCode" source="terminationCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="terminationDescription" source="terminationDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentLocation" source="currentLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentLocationCode" source="currentLocationCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentWageCode" source="currentWageCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orgCode1" source="orgCode1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orgCode2" source="orgCode2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orgCode3" source="orgCode3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orgCode4" source="orgCode4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentJobCode" source="currentJobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentPositionTitle" source="currentPositionTitle"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentManagerID" source="currentManagerID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentManagerName" source="currentManagerName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="company" source="company"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="eepDateTimeCreated" source="eepDateTimeCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="eepDateTimeChanged" source="eepDateTimeChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employmentBuilding" source="employmentBuilding"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employmentDrugTestRequired" source="employmentDrugTestRequired"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employmentOperateCompanyVehicle" source="employmentOperateCompanyVehicle"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employmentTypeOfVehicleUsed" source="employmentTypeOfVehicleUsed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="inPunch" source="inPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outPunch" source="outPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="payCodeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scheduledHours" source="scheduledHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHours" source="workedHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="workDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+      </input>
+    <joinAttribute name="employeeID"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="employeeID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="employeeID"/>
+      </attribute>
+      <attribute id="employeeFullName" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee Full Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="employeeFullName"/>
+      </attribute>
+      <attribute id="employeeFirstName" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee First Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="employeeFirstName"/>
+      </attribute>
+      <attribute id="employeeLastName" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee Last Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="employeeLastName"/>
+      </attribute>
+      <attribute id="residenceLocationZipCode" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Residence Location Zip Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="residenceLocationZipCode"/>
+      </attribute>
+      <attribute id="dateHire" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Hire"/>
+        <keyMapping columnObjectName="Join_1" columnName="dateHire"/>
+      </attribute>
+      <attribute id="dateHireAdjusted" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Hire Adjusted"/>
+        <keyMapping columnObjectName="Join_1" columnName="dateHireAdjusted"/>
+      </attribute>
+      <attribute id="dateStart" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Start"/>
+        <keyMapping columnObjectName="Join_1" columnName="dateStart"/>
+      </attribute>
+      <attribute id="dateStartAdjusted" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Start Adjusted"/>
+        <keyMapping columnObjectName="Join_1" columnName="dateStartAdjusted"/>
+      </attribute>
+      <attribute id="dateTermination" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Termination"/>
+        <keyMapping columnObjectName="Join_1" columnName="dateTermination"/>
+      </attribute>
+      <attribute id="terminationCode" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Termination Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="terminationCode"/>
+      </attribute>
+      <attribute id="terminationDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Termination Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="terminationDescription"/>
+      </attribute>
+      <attribute id="currentLocation" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Location"/>
+        <keyMapping columnObjectName="Join_1" columnName="currentLocation"/>
+      </attribute>
+      <attribute id="currentLocationCode" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CurrentLocationCode"/>
+        <keyMapping columnObjectName="Join_1" columnName="currentLocationCode"/>
+      </attribute>
+      <attribute id="currentWageCode" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Wage Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="currentWageCode"/>
+      </attribute>
+      <attribute id="orgCode1" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Org Code1"/>
+        <keyMapping columnObjectName="Join_1" columnName="orgCode1"/>
+      </attribute>
+      <attribute id="orgCode2" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Org Code2"/>
+        <keyMapping columnObjectName="Join_1" columnName="orgCode2"/>
+      </attribute>
+      <attribute id="orgCode3" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Org Code3"/>
+        <keyMapping columnObjectName="Join_1" columnName="orgCode3"/>
+      </attribute>
+      <attribute id="orgCode4" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Org Code4"/>
+        <keyMapping columnObjectName="Join_1" columnName="orgCode4"/>
+      </attribute>
+      <attribute id="currentJobCode" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Job Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="currentJobCode"/>
+      </attribute>
+      <attribute id="currentPositionTitle" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Position Title"/>
+        <keyMapping columnObjectName="Join_1" columnName="currentPositionTitle"/>
+      </attribute>
+      <attribute id="currentManagerID" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Manager ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="currentManagerID"/>
+      </attribute>
+      <attribute id="currentManagerName" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Manager Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="currentManagerName"/>
+      </attribute>
+      <attribute id="companyCode" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="companyCode"/>
+      </attribute>
+      <attribute id="company" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company"/>
+        <keyMapping columnObjectName="Join_1" columnName="company"/>
+      </attribute>
+      <attribute id="eepDateTimeCreated" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EEP Date Time Created"/>
+        <keyMapping columnObjectName="Join_1" columnName="eepDateTimeCreated"/>
+      </attribute>
+      <attribute id="eepDateTimeChanged" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EEP Date Time Changed"/>
+        <keyMapping columnObjectName="Join_1" columnName="eepDateTimeChanged"/>
+      </attribute>
+      <attribute id="employmentBuilding" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employment Building"/>
+        <keyMapping columnObjectName="Join_1" columnName="employmentBuilding"/>
+      </attribute>
+      <attribute id="employmentDrugTestRequired" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employment Drug Test Required"/>
+        <keyMapping columnObjectName="Join_1" columnName="employmentDrugTestRequired"/>
+      </attribute>
+      <attribute id="employmentOperateCompanyVehicle" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employment Operate Company Vehicle"/>
+        <keyMapping columnObjectName="Join_1" columnName="employmentOperateCompanyVehicle"/>
+      </attribute>
+      <attribute id="employmentTypeOfVehicleUsed" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employment Type Of Vehicle Used"/>
+        <keyMapping columnObjectName="Join_1" columnName="employmentTypeOfVehicleUsed"/>
+      </attribute>
+      <attribute id="costCenter" order="32" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="inPunch" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="In Punch"/>
+        <keyMapping columnObjectName="Join_1" columnName="inPunch"/>
+      </attribute>
+      <attribute id="outPunch" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Out Punch"/>
+        <keyMapping columnObjectName="Join_1" columnName="outPunch"/>
+      </attribute>
+      <attribute id="workDate" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Date"/>
+        <keyMapping columnObjectName="Join_1" columnName="workDate"/>
+      </attribute>
+      <attribute id="payCodeNumber" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Pay Code Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="payCodeNumber"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="scheduledHours" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Scheduled Hours"/>
+        <measureMapping columnObjectName="Join_1" columnName="scheduledHours"/>
+      </measure>
+      <measure id="regularHours" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Regular Hours"/>
+        <measureMapping columnObjectName="Join_1" columnName="regularHours"/>
+      </measure>
+      <measure id="overtimeHours" order="39" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Overtime Hours"/>
+        <measureMapping columnObjectName="Join_1" columnName="overtimeHours"/>
+      </measure>
+      <measure id="workedHours" order="40" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Worked Hours"/>
+        <measureMapping columnObjectName="Join_1" columnName="workedHours"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="20" y="280"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="190" y="280"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

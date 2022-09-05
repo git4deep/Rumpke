@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::yellowIronScorecardHistory" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Yellow Iron Scorecard History"/>
+  <metadata changedAt="2020-08-23 19:31:16.12"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="33"/>
+  <dataSources>
+    <DataSource id="data_YellowIronScorecardHistory">
+      <resourceUri>rumpke.bi.operations.base.mssql::data_YellowIronScorecardHistory</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeDimension">
+      <resourceUri>rumpke.bi.masterData.time::timeDimension</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="technicalObjectType"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="location"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="rtaMonthlyHours"/>
+        <viewAttribute id="eqiupmentHours"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="cubicYards"/>
+        <viewAttribute id="dailyCoverCY"/>
+        <viewAttribute id="totalExcavationCY"/>
+        <viewAttribute id="expenseCY"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="data_YellowIronScorecardHistory">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="ProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FiscalMonthID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="LOB_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="technicalObjectType" source="TechnicalObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="VehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="location" source="Location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="Version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rtaMonthlyHours" source="RTAMonthlyHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="eqiupmentHours" source="DetailEquipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="Loads"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYards" source="CubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dailyCoverCY" source="DailyCoverCY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalExcavationCY" source="TotalExcavationCY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCY" source="ExpenseCY"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="lastDayOfMonth"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="date"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeDimension">
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="dateSQL"/>
+      </input>
+    <filter>(&quot;lastDayOfMonth&quot; ='1')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="technicalObjectType"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="location"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="rtaMonthlyHours"/>
+        <viewAttribute id="eqiupmentHours"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="cubicYards"/>
+        <viewAttribute id="dailyCoverCY"/>
+        <viewAttribute id="totalExcavationCY"/>
+        <viewAttribute id="expenseCY"/>
+        <viewAttribute id="date"/>
+      <viewAttribute hidden="true" id="JOIN$fiscalYearPeriod$fiscalYearPeriod"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$fiscalYearPeriod$fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="technicalObjectType" source="technicalObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="location" source="location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rtaMonthlyHours" source="rtaMonthlyHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="eqiupmentHours" source="eqiupmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loads"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYards" source="cubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dailyCoverCY" source="dailyCoverCY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalExcavationCY" source="totalExcavationCY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCY" source="expenseCY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$fiscalYearPeriod$fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="JOIN$fiscalYearPeriod$fiscalYearPeriod"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Join_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="technicalObjectType" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Technical Object Type"/>
+        <keyMapping columnObjectName="Join_1" columnName="technicalObjectType"/>
+      </attribute>
+      <attribute id="location" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Location"/>
+        <keyMapping columnObjectName="Join_1" columnName="location"/>
+      </attribute>
+      <attribute id="version" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Join_1" columnName="version"/>
+      </attribute>
+      <attribute id="profitCenter" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="vehicleID" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="vehicleID"/>
+        <keyMapping columnObjectName="Join_1" columnName="vehicleID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="eqiupmentHours" hidden="true" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Hours"/>
+        <measureMapping columnObjectName="Join_1" columnName="rtaMonthlyHours"/>
+      </measure>
+      <measure id="detailedEqiupmentHours" hidden="true" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="detailedEqiupmentHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="eqiupmentHours"/>
+      </measure>
+      <measure id="loads" hidden="true" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads"/>
+        <measureMapping columnObjectName="Join_1" columnName="loads"/>
+      </measure>
+      <measure id="cubicYards" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cubic Yards"/>
+        <measureMapping columnObjectName="Join_1" columnName="cubicYards"/>
+      </measure>
+      <measure id="dailyCoverCY" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Daily Cover CY"/>
+        <measureMapping columnObjectName="Join_1" columnName="dailyCoverCY"/>
+      </measure>
+      <measure id="totalExcavationCY" hidden="true" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalExcavationCY"/>
+        <measureMapping columnObjectName="Join_1" columnName="totalExcavationCY"/>
+      </measure>
+      <measure id="expenseCY" hidden="true" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="expenseCY"/>
+        <measureMapping columnObjectName="Join_1" columnName="expenseCY"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures>
+      <measure id="productivityDailyCoverActual" hidden="false" order="15" engineAggregation="sum" baseMeasure="dailyCoverCY" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Productivity Daily Cover - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="productivityDailyCoverBudget" hidden="false" order="16" engineAggregation="sum" baseMeasure="dailyCoverCY" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Productivity Daily Cover - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="expenseCubicYardsActual" hidden="false" order="17" engineAggregation="sum" baseMeasure="expenseCY" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Expense Cubic Yards - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="expenseCubicYardsBudget" hidden="false" order="18" engineAggregation="sum" baseMeasure="expenseCY" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Expense Cubic Yards - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="excavatorLoaderTonsActual" hidden="false" order="19" engineAggregation="sum" baseMeasure="cubicYards" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Excavator Loader Tons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="excavatorLoaderTonsBudget" hidden="false" order="20" engineAggregation="sum" baseMeasure="cubicYards" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Excavator Loader Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="compactorTonsActual" hidden="false" order="21" engineAggregation="sum" baseMeasure="cubicYards" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Compactor Tons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="compactorTonsBudget" hidden="false" order="22" engineAggregation="sum" baseMeasure="cubicYards" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Compactor Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="truckPanTonsActual" hidden="false" order="23" engineAggregation="sum" baseMeasure="cubicYards" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Truck Pan Tons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="truckPanTonsBudget" hidden="false" order="24" engineAggregation="sum" baseMeasure="cubicYards" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Truck Pan Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="productivityDailyCoverForecast" hidden="false" order="25" engineAggregation="sum" baseMeasure="dailyCoverCY" datatype="DECIMAL" length="18" scale="6">
+        <descriptions defaultDescription="Productivity Daily Cover - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

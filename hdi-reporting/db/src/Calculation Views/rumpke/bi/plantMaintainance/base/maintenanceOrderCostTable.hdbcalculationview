@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::maintenanceOrderCostTable" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="maintenanceOrderCostTable"/>
+  <metadata changedAt="2020-12-01 09:26:30.436"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost">
+      <resourceUri>rumpke.bi.plantMaintainance.rumpkeadm.data.ddl::transactionData.maintenanceOrderCost</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="MANDT" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="OBJNR" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OBJNR"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="OBJNR" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="COCUR" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COCUR"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="COCUR" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="BELTP" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BELTP"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="BELTP" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="WRTTP" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WRTTP"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="WRTTP" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="GJAHR" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="GJAHR"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="GJAHR" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="ACPOS" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ACPOS"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="ACPOS" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="VERSN" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VERSN"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="VERSN" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="PERBL" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PERBL"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="PERBL" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="VORGA" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VORGA"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="VORGA" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="BEMOT" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BEMOT"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="BEMOT" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="ABKAT" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABKAT"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="ABKAT" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="RPT_PERIOD" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="RPT_PERIOD"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="RPT_PERIOD" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+      <attribute id="FISCYEARPER" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FISCYEARPER"/>
+        <keyMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="FISCYEARPER" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="WRT_VALUE" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="WRT_VALUE"/>
+        <measureMapping columnObjectName="transactionData.maintenanceOrderCost" columnName="WRT_VALUE" alias="rumpke.bi.data.ddl::transactionData.maintenanceOrderCost"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

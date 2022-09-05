@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::Memory" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Memory"/>
+  <metadata changedAt="2022-02-22 12:48:26.392"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="SYS::M_TABLES">
+      <resourceUri>SYS::M_TABLES</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="SYS::M_TABLES">
+    <descriptions/>
+    <attributes>
+      <attribute id="SCHEMA_NAME" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Schema name"/>
+        <keyMapping columnObjectName="M_TABLES" columnName="SCHEMA_NAME"/>
+      </attribute>
+      <attribute id="TABLE_NAME" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Table name"/>
+        <keyMapping columnObjectName="M_TABLES" columnName="TABLE_NAME"/>
+      </attribute>
+      <attribute id="IS_COLUMN_TABLE" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Specifies whether the table is a column table: &apos;TRUE&apos;/&apos;FALSE&apos;"/>
+        <keyMapping columnObjectName="M_TABLES" columnName="IS_COLUMN_TABLE"/>
+      </attribute>
+      <attribute id="TABLE_TYPE" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Specifies type of the table: &apos;ROW&apos;/&apos;COLUMN&apos;/&apos;COLLECTION&apos;"/>
+        <keyMapping columnObjectName="M_TABLES" columnName="TABLE_TYPE"/>
+      </attribute>
+      <attribute id="IS_PARTITIONED" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Specifies whether the table is partitioned: &apos;TRUE&apos;/&apos;FALSE&apos;"/>
+        <keyMapping columnObjectName="M_TABLES" columnName="IS_PARTITIONED"/>
+      </attribute>
+      <attribute id="IS_REPLICATED" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Specifies whether the table is replicated: &apos;TRUE&apos;/&apos;FALSE&apos;"/>
+        <keyMapping columnObjectName="M_TABLES" columnName="IS_REPLICATED"/>
+      </attribute>
+      <attribute id="HAS_RECORD_COMMIT_TIMESTAMP" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Specifies whether the table is tracking commit timestamps of records: &apos;TRUE&apos;/&apos;FALSE&apos;"/>
+        <keyMapping columnObjectName="M_TABLES" columnName="HAS_RECORD_COMMIT_TIMESTAMP"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="RECORD_COUNT" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Number of records in this table"/>
+        <measureMapping columnObjectName="M_TABLES" columnName="RECORD_COUNT"/>
+      </measure>
+      <measure id="TABLE_SIZE" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Allocated memory size for fixed-size and variable-size part"/>
+        <measureMapping columnObjectName="M_TABLES" columnName="TABLE_SIZE"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/></shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

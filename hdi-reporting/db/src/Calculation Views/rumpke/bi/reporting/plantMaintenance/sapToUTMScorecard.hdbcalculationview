@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.plantMaintenance::sapToUTMScorecard" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="SAP To UTM Scorecard"/>
+  <metadata changedAt="2021-08-25 20:33:33.776"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="44"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.plantMaintainance.reuse::utmEmployeeHours">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::utmEmployeeHours</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.plantMaintainance.reuse::orderEmployeeHours">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::orderEmployeeHours</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.plantMaintainance.base::mmoEmployeeHoursWorked">
+      <resourceUri>rumpke.bi.plantMaintainance.base::mmoEmployeeHoursWorked</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributes">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributes</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.hr.base::employee">
+      <resourceUri>rumpke.bi.hr.base::employee</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="employeeFirstName"/>
+        <viewAttribute id="employeeLastName"/>
+        <viewAttribute id="workDate_1"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.plantMaintainance.reuse::utmEmployeeHours">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate_1" source="workDate"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="plantDescription"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="workCenterDescription"/>
+        <viewAttribute id="confirmationCreationDate"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="actualHr"/>
+        <viewAttribute id="sapHoursIndirect"/>
+        <viewAttribute id="sapHoursDirect"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.plantMaintainance.reuse::orderEmployeeHours"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="totalDuration"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.plantMaintainance.base::mmoEmployeeHoursWorked"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute datatype="DECIMAL" id="actualHr" length="7" scale="6"/>
+        <viewAttribute datatype="DECIMAL" id="sapHoursIndirect" length="23" scale="6"/>
+        <viewAttribute datatype="DECIMAL" id="sapHoursDirect" length="23" scale="6"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="date"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute datatype="DECIMAL" id="overtimeHours" length="38" scale="5"/>
+        <viewAttribute datatype="DECIMAL" id="regularHours" length="38" scale="5"/>
+        <viewAttribute id="totalDuration"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualHr" source="actualHr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursIndirect" source="sapHoursIndirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursDirect" source="sapHoursDirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="workStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalDuration" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_2">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="actualHr" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="sapHoursIndirect" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="sapHoursDirect" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="workDate_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalDuration" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_6">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="actualHr" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="sapHoursIndirect" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="sapHoursDirect" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="workStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHours" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHours" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalDuration" source="totalDuration"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="date"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="actualHr"/>
+        <viewAttribute id="sapHoursIndirect"/>
+        <viewAttribute id="sapHoursDirect"/>
+        <viewAttribute id="totalDuration"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualHr" source="actualHr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursIndirect" source="sapHoursIndirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursDirect" source="sapHoursDirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalDuration" source="totalDuration"/>
+      </input>
+      <input node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="date"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="yearQuarter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributes"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="date"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="actualHr"/>
+        <viewAttribute id="sapHoursIndirect"/>
+        <viewAttribute id="sapHoursDirect"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="totalDuration"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualHr" source="actualHr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursIndirect" source="sapHoursIndirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursDirect" source="sapHoursDirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalDuration" source="totalDuration"/>
+      </input>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="date"/>
+      </input>
+    <joinAttribute name="date"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="employeeID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.hr.base::employee"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="date"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="actualHr"/>
+        <viewAttribute id="sapHoursIndirect"/>
+        <viewAttribute id="sapHoursDirect"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="totalDuration"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualHr" source="actualHr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursIndirect" source="sapHoursIndirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sapHoursDirect" source="sapHoursDirect"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalDuration" source="totalDuration"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullName" source="employeeFullName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+      </input>
+    <joinAttribute name="employeeID"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="area" order="1" attributeHierarchyActive="false" descriptionColumnName="areaDescription" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_3" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_3" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="district" order="3" attributeHierarchyActive="false" descriptionColumnName="districtDescription" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Join_3" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_3" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="date" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Date"/>
+        <keyMapping columnObjectName="Join_3" columnName="date"/>
+      </attribute>
+      <attribute id="employeeID" order="7" attributeHierarchyActive="false" descriptionColumnName="employeeFullName" displayAttribute="false">
+        <descriptions defaultDescription="Employee ID"/>
+        <keyMapping columnObjectName="Join_3" columnName="employeeID"/>
+      </attribute>
+      <attribute id="employeeFullName" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee Full Name"/>
+        <keyMapping columnObjectName="Join_3" columnName="employeeFullName"/>
+      </attribute>
+      <attribute id="profitCenter" order="9" attributeHierarchyActive="false" descriptionColumnName="profitCenterDescription" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_3" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="Join_3" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="region" order="11" attributeHierarchyActive="false" descriptionColumnName="regionDescription" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_3" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_3" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_3" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="14" attributeHierarchyActive="false" descriptionColumnName="subDistrictDescription" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_3" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="fiscalYear" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Join_3" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Join_3" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (MM-YYYY)"/>
+        <keyMapping columnObjectName="Join_3" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="yearQuarter" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year-Quarter"/>
+        <keyMapping columnObjectName="Join_3" columnName="yearQuarter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="employee" hidden="false" order="6" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee ID / Full Name"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="50">
+          <formula>&quot;employeeID&quot;+ ' - ' + &quot;employeeFullName&quot;</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="overtimeHours" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="overtimeHours"/>
+        <measureMapping columnObjectName="Join_3" columnName="overtimeHours"/>
+      </measure>
+      <measure id="regularHours" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="regularHours"/>
+        <measureMapping columnObjectName="Join_3" columnName="regularHours"/>
+      </measure>
+      <measure id="actualHr" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actualHr"/>
+        <measureMapping columnObjectName="Join_3" columnName="actualHr"/>
+      </measure>
+      <measure id="sapHoursIndirect" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="sapHoursIndirect"/>
+        <measureMapping columnObjectName="Join_3" columnName="sapHoursIndirect"/>
+      </measure>
+      <measure id="sapHoursDirect" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="sapHoursDirect"/>
+        <measureMapping columnObjectName="Join_3" columnName="sapHoursDirect"/>
+      </measure>
+      <measure id="totalDuration" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalDuration"/>
+        <measureMapping columnObjectName="Join_3" columnName="totalDuration"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="totalUTMHours" hidden="false" order="24" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total UTM Hours"/>
+        <formula>&quot;overtimeHours&quot;+&quot;regularHours&quot;</formula>
+      </measure>
+      <measure id="totalSAPHours" hidden="false" order="25" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total SAP Hours"/>
+        <formula>&quot;sapHoursDirect&quot;+&quot;sapHoursIndirect&quot;</formula>
+      </measure>
+      <measure id="variance" hidden="false" order="26" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="UTM / SAP Hours Variance"/>
+        <formula>&quot;totalSAPHours&quot;-&quot;totalUTMHours&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions>
+      <localDimension id="orgHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">areaDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">regionDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">districtDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">subDistrictDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">profitCenterDescription</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="orgHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="Organizational Hierarchy"/>
+            <levels>
+              <level levelAttribute="areaDescription" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="areaDescription"/>
+              <level levelAttribute="regionDescription" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="regionDescription"/>
+              <level levelAttribute="districtDescription" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="districtDescription"/>
+              <level levelAttribute="subDistrictDescription" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="subDistrictDescription"/>
+              <level levelAttribute="profitCenterDescription" levelType="MDLEVEL_TYPE_REGULAR" order="5" orderAttribute="profitCenterDescription"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="659" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="488" y="696"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="512" y="871"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="871"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="871"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="132" y="696"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="158" y="536"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Union_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_3" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="593" y="536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="185" y="376"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="712" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="659" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

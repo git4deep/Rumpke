@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.materialsManagement.base::purchasingDocumentItems" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Purchasing Document Items"/>
+  <metadata changedAt="2020-12-01 11:08:00.715"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="S4HANA::EKPO">
+      <resourceUri>S4HANA::EKPO</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="S4HANA::EKPO">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="EKPO" columnName="MANDT"/>
+      </attribute>
+      <attribute id="purchasingDocumentNumber" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Document Number"/>
+        <keyMapping columnObjectName="EKPO" columnName="EBELN"/>
+      </attribute>
+      <attribute id="itemNumberofPurchasingDocument" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Item Number of Purchasing Document"/>
+        <keyMapping columnObjectName="EKPO" columnName="EBELP"/>
+      </attribute>
+      <attribute id="plant" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="EKPO" columnName="WERKS"/>
+      </attribute>
+      <attribute id="storageLocation" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Storage Location"/>
+        <keyMapping columnObjectName="EKPO" columnName="LGORT"/>
+      </attribute>
+      <attribute id="manufacturerNumber" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Manufacturer number"/>
+        <keyMapping columnObjectName="EKPO" columnName="MFRNR"/>
+      </attribute>
+      <attribute id="accountAssignmentCategory" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Assignment Category"/>
+        <keyMapping columnObjectName="EKPO" columnName="KNTTP"/>
+      </attribute>
+      <attribute id="adjustmentReason" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Adjustment Reason"/>
+        <keyMapping columnObjectName="EKPO" columnName="ZZ_ADJ_REASON"/>
+      </attribute>
+      <attribute id="rejectionIndicator" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rejection Indicator"/>
+        <keyMapping columnObjectName="EKPO" columnName="ABSKZ"/>
+      </attribute>
+      <attribute id="materiaNumber" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Number"/>
+        <keyMapping columnObjectName="EKPO" columnName="MATNR"/>
+      </attribute>
+      <attribute id="shortText" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Short Text"/>
+        <keyMapping columnObjectName="EKPO" columnName="TXZ01"/>
+      </attribute>
+      <attribute id="manufacturerPartNumber" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Manufacturer Part Number"/>
+        <keyMapping columnObjectName="EKPO" columnName="MFRPN"/>
+      </attribute>
+      <attribute id="profitCenter" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="EKPO" columnName="KO_PRCTR"/>
+      </attribute>
+      <attribute id="purchaseRequisitionNumber" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchase Requisition Number"/>
+        <keyMapping columnObjectName="EKPO" columnName="BANFN"/>
+      </attribute>
+      <attribute id="materialGroup" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Group"/>
+        <keyMapping columnObjectName="EKPO" columnName="MATKL"/>
+      </attribute>
+      <attribute id="purchaseRequisitionLineItem" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchase Requisition Line Item"/>
+        <keyMapping columnObjectName="EKPO" columnName="BNFPO"/>
+      </attribute>
+      <attribute id="originalPurchasingDocumentNumber" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Original Purchasing Document Number"/>
+        <keyMapping columnObjectName="EKPO" columnName="ZZ_ORIGIN_PO"/>
+      </attribute>
+      <attribute id="originalInvoiceNumber" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Original Invoice Number"/>
+        <keyMapping columnObjectName="EKPO" columnName="ZZ_ORIGIN_INV"/>
+      </attribute>
+      <attribute id="deletionIndicator" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Deletion Indicator"/>
+        <keyMapping columnObjectName="EKPO" columnName="LOEKZ"/>
+      </attribute>
+      <attribute id="returnItemsFlag" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Return Items Flag"/>
+        <keyMapping columnObjectName="EKPO" columnName="RETPO"/>
+      </attribute>
+      <attribute id="rejectionIndicatorN" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="rejectionIndicatorN"/>
+        <keyMapping columnObjectName="EKPO" columnName="ZZ_REJ_IND"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="purchaseOrderQuantity" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Purchase Order Quantity"/>
+        <measureMapping columnObjectName="EKPO" columnName="MENGE"/>
+      </measure>
+      <measure id="netPriceinPurchasingDocCurrency" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Price in Purchasing Document (in Document Currency)"/>
+        <measureMapping columnObjectName="EKPO" columnName="NETPR"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

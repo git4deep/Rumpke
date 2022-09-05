@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.finance::revenueComparisonPrYearBOD" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="revenueComparisonPrYearBOD - BOD 07"/>
+  <metadata changedAt="2022-07-11 16:31:32.433"/>
+  <localVariables>
+    <variable id="ipQuarter" parameter="true">
+      <descriptions defaultDescription="ipQuarter"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="2020Q3" length="7" mandatory="false">
+        <valueDomain type="StaticList">
+          <listEntry id="2020Q1">
+            <descriptions defaultDescription="2020Q1"/>
+          </listEntry>
+          <listEntry id="2020Q2">
+            <descriptions defaultDescription="2020Q2"/>
+          </listEntry>
+          <listEntry id="2020Q3">
+            <descriptions defaultDescription="2020Q3"/>
+          </listEntry>
+          <listEntry id="2020Q4">
+            <descriptions defaultDescription="2020Q4"/>
+          </listEntry>
+          <listEntry id="2021Q1">
+            <descriptions defaultDescription="2021Q1"/>
+          </listEntry>
+          <listEntry id="2021Q2">
+            <descriptions defaultDescription="2021Q2"/>
+          </listEntry>
+          <listEntry id="2021Q3">
+            <descriptions defaultDescription="2021Q3"/>
+          </listEntry>
+          <listEntry id="2021Q4">
+            <descriptions defaultDescription="2021Q4"/>
+          </listEntry>
+          <listEntry id="2022Q1">
+            <descriptions defaultDescription="2022Q1"/>
+          </listEntry>
+          <listEntry id="2022Q2">
+            <descriptions defaultDescription="2022Q2"/>
+          </listEntry>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.masterData.time::timeAttributesQuarterInput">
+      <targetVariable name="ipQuarter" resourceUri="rumpke.bi.masterData.time::timeAttributesQuarterInput"/>
+      <localVariable>ipQuarter</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="36"/>
+  <dataSources>
+    <DataSource id="incomeStatementBODBase">
+      <resourceUri>rumpke.bi.reporting.finance::incomeStatementBODBase</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributesQuarterInput">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributesQuarterInput</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="BODCategory"/>
+        <viewAttribute id="BODDistributionChannel"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="functionalAreaGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="incomeStatementBODBase"/>
+    <filter>(not in (&quot;BODCategory&quot;,'UNMAPPED')) AND (&quot;functionalAreaGroup&quot; ='TOTAL_REV')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="year"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributesQuarterInput"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="BODCategory"/>
+        <viewAttribute id="BODDistributionChannel"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="year"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BODCategory" source="BODCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BODDistributionChannel" source="BODDistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+      </input>
+    <joinAttribute name="calQuarter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="PYCQ">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="BODCategory"/>
+        <viewAttribute id="BODDistributionChannel"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="year"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(&quot;year&quot;)+'-'+rightstr('$$ipQuarter$$',2)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1"/>
+    <filter>(&quot;rollingYearNo&quot; ='-1') AND (&quot;QTD&quot; ='Y')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="CYCQ">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="BODCategory"/>
+        <viewAttribute id="BODDistributionChannel"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="year"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(&quot;year&quot;)+'-'+rightstr('$$ipQuarter$$',2)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1"/>
+    <filter>(&quot;rollingYearNo&quot; ='0') AND (&quot;QTD&quot; ='Y')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="CYTD">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="BODCategory"/>
+        <viewAttribute id="BODDistributionChannel"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="ytd"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(&quot;year&quot;)+'-'+'YTD'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1"/>
+    <filter>(&quot;rollingYearNo&quot; ='0') AND (&quot;ytd&quot; ='Y')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="BODCategory"/>
+        <viewAttribute id="BODDistributionChannel"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute datatype="DECIMAL" id="budget" length="23" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="variance" length="17" scale="2"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="source"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="PYCQ">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BODCategory" source="BODCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BODDistributionChannel" source="BODDistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="budget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="variance" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="CYCQ">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BODCategory" source="BODCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BODDistributionChannel" source="BODDistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="CYTD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="BODCategory" source="BODCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BODDistributionChannel" source="BODDistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="BODCategory" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BODCategory"/>
+        <keyMapping columnObjectName="Union_1" columnName="BODCategory"/>
+      </attribute>
+      <attribute id="BODDistributionChannel" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BODDistributionChannel"/>
+        <keyMapping columnObjectName="Union_1" columnName="BODDistributionChannel"/>
+      </attribute>
+      <attribute id="calQuarter" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter"/>
+        <keyMapping columnObjectName="Union_1" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="source" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="source"/>
+        <keyMapping columnObjectName="Union_1" columnName="source"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="actual" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="actual"/>
+      </measure>
+      <measure id="budget" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="budget"/>
+      </measure>
+      <measure id="variance" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Variance"/>
+        <measureMapping columnObjectName="Union_1" columnName="variance"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="473"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="PYCQ" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="299"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CYCQ" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="299"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CYTD" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="299"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

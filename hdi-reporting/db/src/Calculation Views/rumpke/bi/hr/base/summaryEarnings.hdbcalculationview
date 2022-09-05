@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.hr.base::summaryEarnings" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="summaryEarnings"/>
+  <metadata changedAt="2020-06-19 11:31:30.669"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="46"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.hr.ultipro::SUMMARY_EARNINGS">
+      <resourceUri>rumpke.bi.hr.ultipro::SUMMARY_EARNINGS</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributes">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributes</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::accountGroup">
+      <resourceUri>rumpke.bi.masterData.reuse::accountGroup</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.data.ddl::masterData.jobCode">
+      <resourceUri>rumpke.bi.hr.rumpkeadm.data.ddl::masterData.jobCode</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::gLAccountMaster">
+      <resourceUri>rumpke.bi.masterData.base::gLAccountMaster</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::setleafSetheader">
+      <resourceUri>rumpke.bi.masterData.reuse::setleafSetheader</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::costCenter">
+      <resourceUri>rumpke.bi.masterData.base::costCenter</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="periodEndDate"/>
+        <viewAttribute id="payDate"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="earningCode"/>
+        <viewAttribute id="employeeNumber"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="org2GLSegment"/>
+        <viewAttribute id="org4GLSegment"/>
+        <viewAttribute id="baseAccountCode"/>
+        <viewAttribute id="sequenceCode"/>
+        <viewAttribute id="CURRENT_HOURS"/>
+        <viewAttribute id="currentAmount"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="version" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Actual'</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="profitCenter" length="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr(&quot;org2GLSegment&quot;,6)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="costCenter" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>rightstr(&quot;org2GLSegment&quot;,6) +&quot;org4GLSegment&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="lineOfBusiness" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>midstr(&quot;org2GLSegment&quot;,5,2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="accountNumber" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>rpad ('00',10, &quot;baseAccountCode&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="currentHours" length="18" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>(&quot;CURRENT_HOURS&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.hr.ultipro::SUMMARY_EARNINGS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodEndDate" source="PERIOD_END_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payDate" source="PAY_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="COMPANY_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="earningCode" source="EARNINGS_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeNumber" source="EMPLOYEE_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="JOB_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="org2GLSegment" source="ORG2_GL_SEGMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="org4GLSegment" source="ORG4_GL_SEGMENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseAccountCode" source="BASE_ACCOUNT_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sequenceCode" source="SEQUENCE_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentAmount" source="CURRENT_AMOUNT"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="date"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributes"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="periodEndDate"/>
+        <viewAttribute id="payDate"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="earningsCode"/>
+        <viewAttribute id="employeeNumber"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="org2GLSegment"/>
+        <viewAttribute id="org4GLSegment"/>
+        <viewAttribute id="baseAccountCode"/>
+        <viewAttribute id="sequenceCode"/>
+        <viewAttribute id="currentAmount"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="currentHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodEndDate" source="periodEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payDate" source="payDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="earningsCode" source="earningCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeNumber" source="employeeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="org2GLSegment" source="org2GLSegment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="org4GLSegment" source="org4GLSegment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseAccountCode" source="baseAccountCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sequenceCode" source="sequenceCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentAmount" source="currentAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentHours" source="currentHours"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payDate" source="date"/>
+      </input>
+    <joinAttribute name="payDate"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+        <viewAttribute id="subordinatesetID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::accountGroup">
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="fromValue"/></input>
+    <filter>(in (&quot;setName&quot;,'OTHER_GROUPS','INCOME_STMT'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="baseAccountCode"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="baseAccountDesc"/>
+        <viewAttribute id="jobCodeGroup"/>
+        <viewAttribute id="jobDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.data.ddl::masterData.jobCode"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="currentAmount"/>
+        <viewAttribute id="payDate"/>
+        <viewAttribute id="currentHours"/>
+        <viewAttribute id="earningsCode"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="baseAccountCode"/>
+        <viewAttribute id="jobCodeGroup"/>
+        <viewAttribute id="jobDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentAmount" source="currentAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payDate" source="payDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentHours" source="currentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="earningsCode" source="earningsCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseAccountCode" source="baseAccountCode"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCodeGroup" source="jobCodeGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobDesc" source="jobDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseAccountCode" source="baseAccountCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+      </input>
+    <joinAttribute name="baseAccountCode"/>
+    <joinAttribute name="jobCode"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="subordinateID"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="currentAmount"/>
+        <viewAttribute id="payDate"/>
+        <viewAttribute id="currentHours"/>
+        <viewAttribute id="earningsCode"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="jobCodeGroup"/>
+        <viewAttribute id="jobDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="employeeLaborHoursActual" length="18" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;subordinateID&quot; = 'PAYROLL-ST' or  &quot;subordinateID&quot; = 'PAYROLL-OT' or &quot;subordinateID&quot; = 'PAYROLL-OTH' or &quot;subordinateID&quot; = 'PAYROLL-PTO',  &quot;currentHours&quot; ,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="employeeLaborCostActual" length="18" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;subordinateID&quot; = 'PAYROLL-ST' or  &quot;subordinateID&quot; = 'PAYROLL-OT' or &quot;subordinateID&quot; = 'PAYROLL-OTH' or &quot;subordinateID&quot; = 'PAYROLL-PTO', &quot;currentAmount&quot; ,0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentAmount" source="currentAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payDate" source="payDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentHours" source="currentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="earningsCode" source="earningsCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCodeGroup" source="jobCodeGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobDesc" source="jobDesc"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinateID" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+      </input>
+    <joinAttribute name="accountNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="chartOfAccounts"/>
+        <viewAttribute id="gLAccountNumber"/>
+        <viewAttribute id="functionalAreaGLAccount"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::gLAccountMaster">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGLAccount" source="functionalArea"/>
+      </input>
+    <filter>(&quot;chartOfAccounts&quot; ='YCOA')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" dynamic="false" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="payDate"/>
+        <viewAttribute id="currentHours"/>
+        <viewAttribute id="currentAmount"/>
+        <viewAttribute id="employeeLaborHoursActual"/>
+        <viewAttribute id="employeeLaborCostAcual"/>
+        <viewAttribute id="functionalAreaGLAccount"/>
+        <viewAttribute id="subordinateID"/>
+        <viewAttribute id="earningsCode"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="jobCodeGroup"/>
+        <viewAttribute id="jobDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payDate" source="payDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentHours" source="currentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentAmount" source="currentAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursActual" source="employeeLaborHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostAcual" source="employeeLaborCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinateID" source="subordinateID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="earningsCode" source="earningsCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCodeGroup" source="jobCodeGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobDesc" source="jobDesc"/>
+      </input>
+      <input node="Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGLAccount" source="functionalAreaGLAccount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="gLAccountNumber"/>
+      </input>
+    <joinAttribute name="accountNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaGroupDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::setleafSetheader">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="fromValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDesc" source="shortDescriptionofaSet"/>
+      </input>
+    <filter>(&quot;setClass&quot; ='0112')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="functionalArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::costCenter"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeLaborCostActual"/>
+        <viewAttribute id="employeeLaborHoursActual"/>
+        <viewAttribute id="currentAmount"/>
+        <viewAttribute id="currentHours"/>
+        <viewAttribute id="payDate"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalAreaGLAccount"/>
+        <viewAttribute id="subordinateID"/>
+        <viewAttribute id="earningsCode"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="jobCodeGroup"/>
+        <viewAttribute id="jobDesc"/>
+        <viewAttribute id="functionalAreaCostCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="functionalArea" length="15" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGLAccount&quot; = '' OR isNULL(&quot;functionalAreaGLAccount&quot;), &quot;functionalAreaCostCenter&quot;, &quot;functionalAreaGLAccount&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostActual" source="employeeLaborCostAcual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursActual" source="employeeLaborHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentAmount" source="currentAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentHours" source="currentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payDate" source="payDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGLAccount" source="functionalAreaGLAccount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinateID" source="subordinateID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="earningsCode" source="earningsCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCodeGroup" source="jobCodeGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobDesc" source="jobDesc"/>
+      </input>
+      <input node="Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaCostCenter" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+      </input>
+    <joinAttribute name="costCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDesc"/>
+        <viewAttribute id="employeeLaborCostActual"/>
+        <viewAttribute id="employeeLaborHoursActual"/>
+        <viewAttribute id="currentAmount"/>
+        <viewAttribute id="currentHours"/>
+        <viewAttribute id="payDate"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="subordinateID"/>
+        <viewAttribute id="earningsCode"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="jobCodeGroup"/>
+        <viewAttribute id="jobDesc"/>
+        <viewAttribute id="functionalArea"/>
+      <viewAttribute hidden="true" id="JOIN$functionalArea$functionalArea"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDesc" source="functionalAreaGroupDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$functionalArea$functionalArea" source="functionalArea"/>
+      </input>
+      <input node="Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobDesc" source="jobDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCodeGroup" source="jobCodeGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="earningsCode" source="earningsCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinateID" source="subordinateID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payDate" source="payDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentHours" source="currentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentAmount" source="currentAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursActual" source="employeeLaborHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostActual" source="employeeLaborCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$functionalArea$functionalArea" source="functionalArea"/>
+      </input>
+    <joinAttribute name="JOIN$functionalArea$functionalArea"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_5">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="Join_5" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="functionalArea" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="Join_5" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="functionalAreaGroup" order="3" attributeHierarchyActive="false" descriptionColumnName="functionalAreaGroupDesc" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group"/>
+        <keyMapping columnObjectName="Join_5" columnName="functionalAreaGroup"/>
+      </attribute>
+      <attribute id="functionalAreaGroupDesc" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group Desc"/>
+        <keyMapping columnObjectName="Join_5" columnName="functionalAreaGroupDesc"/>
+      </attribute>
+      <attribute id="profitCenter" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_5" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="costCenter" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_5" columnName="costCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line Of Business"/>
+        <keyMapping columnObjectName="Join_5" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="accountNumber" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Number"/>
+        <keyMapping columnObjectName="Join_5" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="subordinateID" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subordinate ID"/>
+        <keyMapping columnObjectName="Join_5" columnName="subordinateID"/>
+      </attribute>
+      <attribute id="payDate" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Pay Date"/>
+        <keyMapping columnObjectName="Join_5" columnName="payDate"/>
+      </attribute>
+      <attribute id="earningsCode" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Earnings Code"/>
+        <keyMapping columnObjectName="Join_5" columnName="earningsCode"/>
+      </attribute>
+      <attribute id="jobCode" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Job Code"/>
+        <keyMapping columnObjectName="Join_5" columnName="jobCode"/>
+      </attribute>
+      <attribute id="jobCodeGroup" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Job Code Group"/>
+        <keyMapping columnObjectName="Join_5" columnName="jobCodeGroup"/>
+      </attribute>
+      <attribute id="jobDesc" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Job Code Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="jobDesc"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="currentHours" hidden="true" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="currentHours"/>
+        <measureMapping columnObjectName="Join_5" columnName="currentHours"/>
+      </measure>
+      <measure id="employeeLaborCostActual" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Actual"/>
+        <measureMapping columnObjectName="Join_5" columnName="employeeLaborCostActual"/>
+      </measure>
+      <measure id="employeeLaborHoursActual" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Actual"/>
+        <measureMapping columnObjectName="Join_5" columnName="employeeLaborHoursActual"/>
+      </measure>
+      <measure id="currentAmount" hidden="true" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Current Amount"/>
+        <measureMapping columnObjectName="Join_5" columnName="currentAmount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures>
+      <measure id="employeeLaborHoursDirectActual" hidden="false" order="19" baseMeasure="currentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinateID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinateID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeLaborHoursIndirectActual" hidden="false" order="20" baseMeasure="currentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Employee Labor Hours Indirect - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinateID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinateID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeLaborCostDirectActual" hidden="false" order="21" baseMeasure="currentAmount" datatype="DECIMAL" length="38" scale="5">
+        <descriptions defaultDescription="Employee Labor Cost Direct - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinateID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinateID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeLaborCostIndirectActual" hidden="false" order="22" baseMeasure="currentAmount" datatype="DECIMAL" length="38" scale="5">
+        <descriptions defaultDescription="Employee Labor Cost Indirect - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinateID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinateID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="regularHours" hidden="false" order="23" baseMeasure="currentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Regular Hours"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll Expense"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="overtimeHours" hidden="false" order="24" baseMeasure="currentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Overtime Hours"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll - Overtime"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="vacationHours" hidden="false" order="25" baseMeasure="currentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Vacation Hours"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll - Vacation"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="otherHours" hidden="false" order="26" baseMeasure="currentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Other Hours"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll - Other"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="regularCost" hidden="false" order="27" baseMeasure="currentAmount" datatype="DECIMAL" length="38" scale="5">
+        <descriptions defaultDescription="Regular Hours"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll Expense"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="overtimeCost" hidden="false" order="28" baseMeasure="currentAmount" datatype="DECIMAL" length="38" scale="5">
+        <descriptions defaultDescription="Overtime Hours"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll - Overtime"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="vacationCost" hidden="false" order="29" baseMeasure="currentAmount" datatype="DECIMAL" length="38" scale="5">
+        <descriptions defaultDescription="Vacation Hours"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll - Vacation"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="otherCost" hidden="false" order="30" baseMeasure="currentAmount" datatype="DECIMAL" length="38" scale="5">
+        <descriptions defaultDescription="Other Hours"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll - Other"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="regularHoursLandfill" hidden="false" order="31" baseMeasure="currentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Regular Hours - Landfill"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll Expense"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCode">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HEQOPRTR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LABORER"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LFFOR"/>
+          </filter>
+          <attributeName>jobCode</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="lineOfBusiness">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LF"/>
+          </filter>
+          <attributeName>lineOfBusiness</attributeName>
+        </restriction>
+      </measure>
+      <measure id="overtimeHoursLandfill" hidden="false" order="32" baseMeasure="currentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Overtime Hours - Landfill"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll - Overtime"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCode">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HEQOPRTR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LABORER"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LFFOR"/>
+          </filter>
+          <attributeName>jobCode</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="lineOfBusiness">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LF"/>
+          </filter>
+          <attributeName>lineOfBusiness</attributeName>
+        </restriction>
+      </measure>
+      <measure id="otherHoursLandfill" hidden="false" order="33" baseMeasure="currentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Other Hours - Landfill"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll - Other"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCode">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HEQOPRTR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LABORER"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LFFOR"/>
+          </filter>
+          <attributeName>jobCode</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="lineOfBusiness">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LF"/>
+          </filter>
+          <attributeName>lineOfBusiness</attributeName>
+        </restriction>
+      </measure>
+      <measure id="vacationHoursLandfill" hidden="false" order="34" baseMeasure="currentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Vacation Hours - Landfill"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCodeGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Payroll - Vacation"/>
+          </filter>
+          <attributeName>jobCodeGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="jobCode">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HEQOPRTR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LABORER"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LFFOR"/>
+          </filter>
+          <attributeName>jobCode</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="lineOfBusiness">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LF"/>
+          </filter>
+          <attributeName>lineOfBusiness</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="785.6967089568443" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92.0000000000001" y="1176.9999928474426"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302.0000000000001" y="1176.9999928474426"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118.66666666666673" y="1016.9999940395355"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="472.34142282307397" y="856.9999952316284"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="379.61649066717905" y="1016.9999940395355"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="145.33333333333337" y="856.9999952316284"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="172" y="696.9999964237213"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="578.5331989281353" y="696.9999964237213"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="198.66666666666663" y="536.9999976158142"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_5" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="826.9641672370697" y="376.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="697.3367134363809" y="536.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="225.33333333333326" y="376.9999988079071"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_4" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_7" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="785.6967089568443" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_6" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Join_6" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

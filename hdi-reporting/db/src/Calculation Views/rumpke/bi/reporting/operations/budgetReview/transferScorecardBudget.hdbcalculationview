@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.operations.budgetReview::transferScorecardBudget" applyPrivilegeType="SQL_ANALYTIC_PRIVILEGE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Transfer Scorecard Budget"/>
+  <metadata changedAt="2021-07-12 15:34:09.513"/>
+  <localVariables>
+    <variable id="ipBudgetYear" parameter="true">
+      <descriptions defaultDescription="Budget Year"/>
+      <variableProperties datatype="VARCHAR" defaultValue="2021" length="4" mandatory="true" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeAttributes</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>year</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="40"/>
+  <dataSources>
+    <DataSource id="transferScorecard">
+      <resourceUri>rumpke.bi.reporting.operations::transferScorecard</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributes">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributes</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.operations.base::operationalDataFreeze">
+      <resourceUri>rumpke.bi.operations.base::operationalDataFreeze</resourceUri>
+    </DataSource>
+    <DataSource id="Forecast_CY$$$$rumpke.bi.operations.base::operationalDataFreeze$$">
+      <resourceUri>rumpke.bi.operations.base::operationalDataFreeze</resourceUri>
+    </DataSource>
+    <DataSource id="Actual_YTD$$$$rumpke.bi.operations.base::operationalDataFreeze$$">
+      <resourceUri>rumpke.bi.operations.base::operationalDataFreeze</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Budget">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="haulingExpenseBudget"/>
+        <viewAttribute id="disposalExpenseBudget"/>
+        <viewAttribute id="fuelCostBudget"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="otherTransferCostBudget"/>
+        <viewAttribute id="totalTransferOperatingExpenseBudget"/>
+        <viewAttribute id="tonnage3rdPartyBudget"/>
+        <viewAttribute id="tonnageIntercompanyBudget"/>
+        <viewAttribute id="totalRevenue3rdPartyBudget"/>
+        <viewAttribute id="totalRevenueIntercompanyBudget"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="OtherOperatingCost"/>
+        <viewAttribute id="OperatingIncome"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="allOtherCostsBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="transferScorecard">
+        <mapping xsi:type="Calculation:AttributeMapping" target="OtherOperatingCost" source="OtherOperatingCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OperatingIncome" source="OperatingIncomeBudget"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="year"/>
+        <viewAttribute id="yearInt"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="monthInt"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calendarMonth"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonthDisplay"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributes"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="haulingExpenseBudget"/>
+        <viewAttribute id="disposalExpenseBudget"/>
+        <viewAttribute id="fuelCostBudget"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="otherTransferCostBudget"/>
+        <viewAttribute id="totalTransferOperatingExpenseBudget"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="tonnageIntercompanyBudget"/>
+        <viewAttribute id="tonnage3rdPartyBudget"/>
+        <viewAttribute id="totalRevenue3rdPartyBudget"/>
+        <viewAttribute id="totalRevenueIntercompanyBudget"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="OtherOperatingCostBudget"/>
+        <viewAttribute id="OperatingIncomeBudget"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="allOtherCostsBudget"/>
+      <viewAttribute hidden="true" id="JOIN$fiscalYearPeriod$fiscalYearPeriod"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Budget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="haulingExpenseBudget" source="haulingExpenseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalExpenseBudget" source="disposalExpenseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostBudget" source="fuelCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageBudget" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherTransferCostBudget" source="otherTransferCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTransferOperatingExpenseBudget" source="totalTransferOperatingExpenseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageIntercompanyBudget" source="tonnageIntercompanyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3rdPartyBudget" source="tonnage3rdPartyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue3rdPartyBudget" source="totalRevenue3rdPartyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueIntercompanyBudget" source="totalRevenueIntercompanyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OtherOperatingCostBudget" source="OtherOperatingCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OperatingIncomeBudget" source="OperatingIncome"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsBudget" source="costOfOperationsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCostsBudget" source="allOtherCostsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$fiscalYearPeriod$fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="month" source="month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calendarMonthDesc" source="calendarMonthDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$fiscalYearPeriod$fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="JOIN$fiscalYearPeriod$fiscalYearPeriod"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Budget_NextYr">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="haulingExpense"/>
+        <viewAttribute id="disposalExpense"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="otherTransferCost"/>
+        <viewAttribute id="totalTransferOperatingExpense"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="tonnageIntercompany"/>
+        <viewAttribute id="tonnage3rdParty"/>
+        <viewAttribute id="totalRevenue3rdPartyBudget"/>
+        <viewAttribute id="totalRevenueIntercompanyBudget"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="OtherOperatingCostBudget"/>
+        <viewAttribute id="OperatingIncomeBudget"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="allOtherCostsBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="timeBucket" length="23" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(&quot;year&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="sortTimeBucket" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>4</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="version" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Budget'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="haulingExpense" source="haulingExpenseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalExpense" source="disposalExpenseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherTransferCost" source="otherTransferCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTransferOperatingExpense" source="totalTransferOperatingExpenseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageIntercompany" source="tonnageIntercompanyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3rdParty" source="tonnage3rdPartyBudget"/></input>
+    <filter>(&quot;year&quot; ='$$ipBudgetYear$$')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Budget_NextMn">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="haulingExpense"/>
+        <viewAttribute id="disposalExpense"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="otherTransferCost"/>
+        <viewAttribute id="totalTransferOperatingExpense"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="tonnageIntercompanyBudget"/>
+        <viewAttribute id="tonnage3rdPartyBudget"/>
+        <viewAttribute id="totalRevenue3rdPartyBudget"/>
+        <viewAttribute id="totalRevenueIntercompanyBudget"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="OtherOperatingCostBudget"/>
+        <viewAttribute id="OperatingIncomeBudget"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="allOtherCostsBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="timeBucket" length="23" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(&quot;calMonth&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="sortTimeBucket" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>5</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="version" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Budget'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="haulingExpense" source="haulingExpenseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalExpense" source="disposalExpenseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherTransferCost" source="otherTransferCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTransferOperatingExpense" source="totalTransferOperatingExpenseBudget"/></input>
+    <filter>(&quot;year&quot; ='$$ipBudgetYear$$')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Projection_CY">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="isCurrent"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="EBITDATarget"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="totalEquipmentCost"/>
+        <viewAttribute id="totalRevenueIntercompany"/>
+        <viewAttribute id="totalRevenue3rdParty"/>
+        <viewAttribute id="totalOtherTransferExpense"/>
+        <viewAttribute id="haulingExpense"/>
+        <viewAttribute id="disposalExpense"/>
+        <viewAttribute id="otherTransferCost"/>
+        <viewAttribute id="tonnage3rdParty"/>
+        <viewAttribute id="tonnageIntercompany"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="allOthercosts"/>
+        <viewAttribute id="otherOperatingCost"/>
+        <viewAttribute id="otherIncomeInterestandAmortization"/>
+        <viewAttribute id="operatingIncome"/>
+        <viewAttribute id="costOfOperations"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="sortTimeBucket" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>3</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="timeBucket" length="23" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Projection'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.operations.base::operationalDataFreeze"/>
+    <filter>(&quot;isCurrent&quot; ='1') AND (&quot;lineOfBusiness&quot; ='TR') AND (&quot;version&quot; ='Projection')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Forecast_CY">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="isCurrent"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="EBITDATarget"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="totalEquipmentCost"/>
+        <viewAttribute id="totalRevenueIntercompany"/>
+        <viewAttribute id="totalRevenue3rdParty"/>
+        <viewAttribute id="totalOtherTransferExpense"/>
+        <viewAttribute id="haulingExpense"/>
+        <viewAttribute id="disposalExpense"/>
+        <viewAttribute id="otherTransferCost"/>
+        <viewAttribute id="tonnage3rdParty"/>
+        <viewAttribute id="tonnageIntercompany"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="allOthercosts"/>
+        <viewAttribute id="rollingMonthFreeze"/>
+        <viewAttribute id="otherOperatingCost"/>
+        <viewAttribute id="otherIncomeInterestandAmortization"/>
+        <viewAttribute id="operatingIncome"/>
+        <viewAttribute id="costOfOperations"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="sortTimeBucket" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>2</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="timeBucket" length="23" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Forecast'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="Forecast_CY$$$$rumpke.bi.operations.base::operationalDataFreeze$$"/>
+    <filter>(&quot;isCurrent&quot; ='1') AND (&quot;lineOfBusiness&quot; ='TR') AND (&quot;version&quot; ='Forecast') AND (&quot;rollingMonthFreeze&quot; &gt;='0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Actual_YTD">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="isCurrent"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="EBITDATarget"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="totalEquipmentCost"/>
+        <viewAttribute id="totalRevenueIntercompany"/>
+        <viewAttribute id="totalRevenue3rdParty"/>
+        <viewAttribute id="totalOtherTransferExpense"/>
+        <viewAttribute id="haulingExpense"/>
+        <viewAttribute id="disposalExpense"/>
+        <viewAttribute id="otherTransferCost"/>
+        <viewAttribute id="tonnage3rdParty"/>
+        <viewAttribute id="tonnageIntercompany"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="allOthercosts"/>
+        <viewAttribute id="rollingMonthFreeze"/>
+        <viewAttribute id="otherOperatingCost"/>
+        <viewAttribute id="otherIncomeInterestandAmortization"/>
+        <viewAttribute id="operatingIncome"/>
+        <viewAttribute id="costOfOperations"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="sortTimeBucket" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="timeBucket" length="23" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Actual'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="Actual_YTD$$$$rumpke.bi.operations.base::operationalDataFreeze$$"/>
+    <filter>(&quot;isCurrent&quot; ='1') AND (&quot;lineOfBusiness&quot; ='TR') AND (&quot;version&quot; ='Actual') AND (&quot;rollingMonthFreeze&quot; &lt;'0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="haulingExpense"/>
+        <viewAttribute id="disposalExpense"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="otherTransferCost"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calendarMonthDesc"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="tonnageIntercompany"/>
+        <viewAttribute id="tonnage3rdParty"/>
+        <viewAttribute id="freezeDate"/>
+        <viewAttribute id="sortTimeBucket"/>
+        <viewAttribute id="timeBucket"/>
+        <viewAttribute id="totalRevenueIntercompany"/>
+        <viewAttribute id="totalRevenue3rdParty"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="otherOperatingCost"/>
+        <viewAttribute id="operatingIncome"/>
+        <viewAttribute id="totalTransferOperatingExpense"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="totalRevenue3rdPartyBudget"/>
+        <viewAttribute id="totalRevenueIntercompanyBudget"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="OperatingIncomeBudget"/>
+        <viewAttribute id="tonnageIntercompanyBudget"/>
+        <viewAttribute id="tonnage3rdPartyBudget"/>
+        <viewAttribute id="isCurrent"/>
+        <viewAttribute id="totalEquipmentCost"/>
+        <viewAttribute id="totalOtherTransferExpense"/>
+        <viewAttribute id="allOthercosts"/>
+        <viewAttribute id="otherIncomeInterestandAmortization"/>
+        <viewAttribute id="costOfOperations"/>
+        <viewAttribute id="rollingMonthFreeze"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Budget_NextYr">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="haulingExpense" source="haulingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalExpense" source="disposalExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherTransferCost" source="otherTransferCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="month" source="month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calendarMonthDesc" source="calendarMonthDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageIntercompany" source="tonnageIntercompany"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3rdParty" source="tonnage3rdParty"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="freezeDate" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortTimeBucket" source="sortTimeBucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="timeBucket" source="timeBucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueIntercompany" source="totalRevenueIntercompanyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue3rdParty" source="totalRevenue3rdPartyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsBudget" source="costOfOperationsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherOperatingCost" source="OtherOperatingCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="OperatingIncomeBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageIntercompanyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage3rdPartyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="isCurrent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalEquipmentCost" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalOtherTransferExpense" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="otherIncomeInterestandAmortization" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="costOfOperations" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="rollingMonthFreeze" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTransferOperatingExpense" source="totalTransferOperatingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue3rdPartyBudget" source="totalRevenue3rdPartyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueIntercompanyBudget" source="totalRevenueIntercompanyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OperatingIncomeBudget" source="OperatingIncomeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOthercosts" source="allOtherCostsBudget"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Budget_NextMn">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="haulingExpense" source="haulingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalExpense" source="disposalExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherTransferCost" source="otherTransferCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="month" source="month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calendarMonthDesc" source="calendarMonthDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageIntercompany" source="tonnageIntercompanyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3rdParty" source="tonnage3rdPartyBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="freezeDate" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortTimeBucket" source="sortTimeBucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="timeBucket" source="timeBucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueIntercompany" source="totalRevenueIntercompanyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue3rdParty" source="totalRevenue3rdPartyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsBudget" source="costOfOperationsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherOperatingCost" source="OtherOperatingCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="OperatingIncomeBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="isCurrent" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalEquipmentCost" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalOtherTransferExpense" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="otherIncomeInterestandAmortization" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="costOfOperations" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="rollingMonthFreeze" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTransferOperatingExpense" source="totalTransferOperatingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageIntercompanyBudget" source="tonnageIntercompanyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3rdPartyBudget" source="tonnage3rdPartyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue3rdPartyBudget" source="totalRevenue3rdPartyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueIntercompanyBudget" source="totalRevenueIntercompanyBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OperatingIncomeBudget" source="OperatingIncomeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOthercosts" source="allOtherCostsBudget"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_CY">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="lineOfBusinessGroup" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="EBITDATarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="haulingExpense" source="haulingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalExpense" source="disposalExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherTransferCost" source="otherTransferCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="month" source="month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calendarMonthDesc" source="calendarMonthDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageIntercompany" source="tonnageIntercompany"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3rdParty" source="tonnage3rdParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortTimeBucket" source="sortTimeBucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="timeBucket" source="timeBucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueIntercompany" source="totalRevenueIntercompany"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue3rdParty" source="totalRevenue3rdParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsBudget" source="costOfOperations"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherOperatingCost" source="otherOperatingCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncome"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalTransferOperatingExpense" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalRevenue3rdPartyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalRevenueIntercompanyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="profitCenterDescription" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="OperatingIncomeBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageIntercompanyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage3rdPartyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="rollingMonthFreeze" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isCurrent" source="isCurrent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEquipmentCost" source="totalEquipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherTransferExpense" source="totalOtherTransferExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOthercosts" source="allOthercosts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherIncomeInterestandAmortization" source="otherIncomeInterestandAmortization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="costOfOperations"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Forecast_CY">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="lineOfBusinessGroup" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="EBITDATarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="haulingExpense" source="haulingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalExpense" source="disposalExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherTransferCost" source="otherTransferCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="month" source="month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calendarMonthDesc" source="calendarMonthDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageIntercompany" source="tonnageIntercompany"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3rdParty" source="tonnage3rdParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortTimeBucket" source="sortTimeBucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="timeBucket" source="timeBucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueIntercompany" source="totalRevenueIntercompany"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue3rdParty" source="totalRevenue3rdParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsBudget" source="costOfOperations"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherOperatingCost" source="otherOperatingCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncome"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalTransferOperatingExpense" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="rollingMonthNo" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalRevenue3rdPartyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalRevenueIntercompanyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="profitCenterDescription" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="OperatingIncomeBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageIntercompanyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage3rdPartyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isCurrent" source="isCurrent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEquipmentCost" source="totalEquipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherTransferExpense" source="totalOtherTransferExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOthercosts" source="allOthercosts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthFreeze" source="rollingMonthFreeze"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherIncomeInterestandAmortization" source="otherIncomeInterestandAmortization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="costOfOperations"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Actual_YTD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="lineOfBusinessGroup" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="EBITDATarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="haulingExpense" source="haulingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalExpense" source="disposalExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherTransferCost" source="otherTransferCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="month" source="month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calendarMonthDesc" source="calendarMonthDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageIntercompany" source="tonnageIntercompany"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3rdParty" source="tonnage3rdParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="freezeDate" source="freezeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortTimeBucket" source="sortTimeBucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="timeBucket" source="timeBucket"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueIntercompany" source="totalRevenueIntercompany"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue3rdParty" source="totalRevenue3rdParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsBudget" source="costOfOperations"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherOperatingCost" source="otherOperatingCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncome"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalTransferOperatingExpense" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalRevenue3rdPartyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalRevenueIntercompanyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="profitCenterDescription" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="OperatingIncomeBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageIntercompanyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage3rdPartyBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isCurrent" source="isCurrent"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEquipmentCost" source="totalEquipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherTransferExpense" source="totalOtherTransferExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOthercosts" source="allOthercosts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthFreeze" source="rollingMonthFreeze"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherIncomeInterestandAmortization" source="otherIncomeInterestandAmortization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="costOfOperations"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="area" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Union_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="district" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Union_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="lineOfBusinessGroup" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Group"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusinessGroup"/>
+      </attribute>
+      <attribute id="region" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Union_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="year" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="Union_1" columnName="year"/>
+      </attribute>
+      <attribute id="month" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month"/>
+        <keyMapping columnObjectName="Union_1" columnName="month"/>
+      </attribute>
+      <attribute id="calMonth" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (YYYYMM)"/>
+        <keyMapping columnObjectName="Union_1" columnName="calMonth"/>
+      </attribute>
+      <attribute id="calendarMonthDesc" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month Desc"/>
+        <keyMapping columnObjectName="Union_1" columnName="calendarMonthDesc"/>
+      </attribute>
+      <attribute id="monthName" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month Name"/>
+        <keyMapping columnObjectName="Union_1" columnName="monthName"/>
+      </attribute>
+      <attribute id="rollingYearNo" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Year Number (Current Year = 0)"/>
+        <keyMapping columnObjectName="Union_1" columnName="rollingYearNo"/>
+      </attribute>
+      <attribute id="ytd" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Yera to Date"/>
+        <keyMapping columnObjectName="Union_1" columnName="ytd"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (MM-YYYY)"/>
+        <keyMapping columnObjectName="Union_1" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="timeBucket" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="timeBucket"/>
+        <keyMapping columnObjectName="Union_1" columnName="timeBucket"/>
+      </attribute>
+      <attribute id="sortTimeBucket" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sortTimeBucket"/>
+        <keyMapping columnObjectName="Union_1" columnName="sortTimeBucket"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="Freezedate" hidden="false" order="46" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Freezedate"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="8">
+          <formula>int(leftstr(string(&quot;freezeDate&quot;),6))-1</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="freezeDate" order="21" aggregationType="max" measureType="simple">
+        <descriptions defaultDescription="freezeDate"/>
+        <measureMapping columnObjectName="Union_1" columnName="freezeDate"/>
+      </measure>
+      <measure id="totalRevenue" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Revenue"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalRevenue"/>
+      </measure>
+      <measure id="ebitdaTarget" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target"/>
+        <measureMapping columnObjectName="Union_1" columnName="ebitdaTarget"/>
+      </measure>
+      <measure id="haulingExpense" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Hauling Expense"/>
+        <measureMapping columnObjectName="Union_1" columnName="haulingExpense"/>
+      </measure>
+      <measure id="disposalExpense" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Disposal Expenses"/>
+        <measureMapping columnObjectName="Union_1" columnName="disposalExpense"/>
+      </measure>
+      <measure id="fuelCost" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Cost"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelCost"/>
+      </measure>
+      <measure id="tonnage" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnage"/>
+      </measure>
+      <measure id="otherTransferCost" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Other Transfer Cost"/>
+        <measureMapping columnObjectName="Union_1" columnName="otherTransferCost"/>
+      </measure>
+      <measure id="tonnage3rdParty" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage 3rd Party"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnage3rdParty"/>
+      </measure>
+      <measure id="totalRevenue3rdParty" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Revenue - 3rd Party"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalRevenue3rdParty"/>
+      </measure>
+      <measure id="totalRevenueIntercompany" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Revenue - Intercompany"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalRevenueIntercompany"/>
+      </measure>
+      <measure id="tonnageIntercompany" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage Interco"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnageIntercompany"/>
+      </measure>
+      <measure id="costOfOperations" order="47" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cost of Operations"/>
+        <measureMapping columnObjectName="Union_1" columnName="costOfOperationsBudget"/>
+      </measure>
+      <measure id="otherOperatingCost" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Other Operating Cost"/>
+        <measureMapping columnObjectName="Union_1" columnName="otherOperatingCost"/>
+      </measure>
+      <measure id="operatingIncome" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operating Income"/>
+        <measureMapping columnObjectName="Union_1" columnName="operatingIncome"/>
+      </measure>
+      <measure id="allOthercosts" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="allOthercosts"/>
+        <measureMapping columnObjectName="Union_1" columnName="allOthercosts"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="totalRevenuePerTon" hidden="false" order="35" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Total Revenue /Ton"/>
+        <formula>round(IF(&quot;tonnage&quot; &gt; 0, &quot;totalRevenue&quot; / &quot;tonnage&quot;,0),2)</formula>
+      </measure>
+      <measure id="ebitdaTargetPerTon" hidden="false" order="36" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="EBITDA Target /Ton"/>
+        <formula>round(IF(&quot;tonnage&quot; &gt; 0, &quot;ebitdaTarget&quot; / &quot;tonnage&quot;,0),2)</formula>
+      </measure>
+      <measure id="haulingExpensePerTon" hidden="false" order="37" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Hauling Expense /Ton"/>
+        <formula>round(IF(&quot;tonnage&quot; &gt; 0, &quot;haulingExpense&quot; / &quot;tonnage&quot;,0),2)</formula>
+      </measure>
+      <measure id="disposalExpensePerTon" hidden="false" order="38" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Disposal Expense /Ton"/>
+        <formula>round(IF(&quot;tonnage&quot; &gt; 0, &quot;disposalExpense&quot; / &quot;tonnage&quot;,0),2)</formula>
+      </measure>
+      <measure id="OperatingIncomePerTon" hidden="false" order="39" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Operating Income /Ton"/>
+        <formula>round(IF(&quot;tonnage&quot; &gt; 0, &quot;operatingIncome&quot; / &quot;tonnage&quot;,0),2)</formula>
+      </measure>
+      <measure id="OtherIncomeInterestAndAmortizationPerTon" hidden="false" order="40" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Other Income Interest And Amortization /Ton"/>
+        <formula>round(IF(&quot;tonnage&quot; &gt; 0, &quot;allOthercosts&quot; / &quot;tonnage&quot;,0),2)</formula>
+      </measure>
+      <measure id="otherTransferCostPerTon" hidden="false" order="41" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Other Transfer Cost /Ton"/>
+        <formula>round(IF(&quot;tonnage&quot; &gt; 0, &quot;otherTransferCost&quot; / &quot;tonnage&quot;,0),2)</formula>
+      </measure>
+      <measure id="CostOfOperationPerTon" hidden="false" order="42" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Cost Of Operation /Ton"/>
+        <formula>round(IF(&quot;tonnage&quot; &gt; 0, &quot;costOfOperations&quot; / &quot;tonnage&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalOperatingCostPerTon" hidden="false" order="43" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Total Operating Cost /Ton"/>
+        <formula>round(IF(&quot;tonnage&quot; &gt; 0, &quot;otherOperatingCost&quot; / &quot;tonnage&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalRevenue3rdPartyPerTon" hidden="false" order="44" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Total Revenue 3rd Party /Ton"/>
+        <formula>round(IF(&quot;tonnage3rdParty&quot; &gt; 0, &quot;totalRevenue3rdParty&quot; / &quot;tonnage3rdParty&quot;,0),2)</formula>
+      </measure>
+      <measure id="totalRevenueIntercompanyPerTon" hidden="false" order="45" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Total Revenue Intercompany /Ton"/>
+        <formula>round(IF(&quot;tonnageIntercompany&quot; &gt; 0, &quot;totalRevenueIntercompany&quot; / &quot;tonnageIntercompany&quot;,0),2)</formula>
+      </measure>
+      <measure id="OtherOperatingCostPerTon" hidden="false" order="50" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Other Operating Cost/Ton"/>
+        <formula>round(IF(&quot;tonnage&quot; &gt; 0,&quot;otherOperatingCost&quot;  / &quot;tonnage&quot;,0),2)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="626.0893993051745" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Budget" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="422.9479264045803" y="746.9999952316284"/>
+        <rectangleSize height="64" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="632.9479264045802" y="746.9999952316284"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="533.4503800066095" y="586.9999964237213"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Budget" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Budget_NextYr" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560.1170466732761" y="441.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Budget_NextMn" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="350.1170466732761" y="441.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_CY" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92.00000000000011" y="441.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Forecast_CY" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="980.117046673276" y="441.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Actual_YTD" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="770.117046673276" y="441.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="560.1170466732761" y="236.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

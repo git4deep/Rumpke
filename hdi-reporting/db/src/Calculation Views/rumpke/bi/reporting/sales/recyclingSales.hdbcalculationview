@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.sales::recyclingSales" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Recycling Sales"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.reuse::recyclingSalesReuse">
+      <resourceUri>rumpke.bi.operations.reuse::recyclingSalesReuse</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="materialCategory"/>
+        <viewAttribute id="material"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="recyclingTons"/>
+        <viewAttribute id="recyclingSales"/>
+        <viewAttribute id="recyclingSalesActual"/>
+        <viewAttribute id="recyclingSalesBudget"/>
+        <viewAttribute id="recyclingTonsActual"/>
+        <viewAttribute id="recyclingTonsBudget"/>
+        <viewAttribute id="soldTonsActual"/>
+        <viewAttribute id="soldTonsBudget"/>
+        <viewAttribute id="disposalTonsActual"/>
+        <viewAttribute id="disposalTonsBudget"/>
+        <viewAttribute id="inventoryAdjustmentActual"/>
+        <viewAttribute id="inventoryAdjustmentBudget"/>
+        <viewAttribute id="processedTonsActual"/>
+        <viewAttribute id="processedTonsBudget"/>
+        <viewAttribute id="recyclingMaterialSalesActual"/>
+        <viewAttribute id="recyclingMaterialSalesBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.operations.reuse::recyclingSalesReuse"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="area" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Projection_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="materialClass" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Class"/>
+        <keyMapping columnObjectName="Projection_1" columnName="materialClass"/>
+      </attribute>
+      <attribute id="materialCategory" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Category"/>
+        <keyMapping columnObjectName="Projection_1" columnName="materialCategory"/>
+      </attribute>
+      <attribute id="material" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material"/>
+        <keyMapping columnObjectName="Projection_1" columnName="material"/>
+      </attribute>
+      <attribute id="processingType" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Processing Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="processingType"/>
+      </attribute>
+      <attribute id="profitCenter" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterGroup" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Froup"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenterGroup"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Desc"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="region" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Projection_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Projection_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Projection_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="version" hidden="true" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Projection_1" columnName="version"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="recyclingSalesActual" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Sales - Actual"/>
+        <measureMapping columnObjectName="Projection_1" columnName="recyclingSalesActual"/>
+      </measure>
+      <measure id="recyclingSalesBudget" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Sales - Budget"/>
+        <measureMapping columnObjectName="Projection_1" columnName="recyclingSalesBudget"/>
+      </measure>
+      <measure id="recyclingTonsActual" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Tons - Actual"/>
+        <measureMapping columnObjectName="Projection_1" columnName="recyclingTonsActual"/>
+      </measure>
+      <measure id="recyclingTonsBudget" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Tons - Budget"/>
+        <measureMapping columnObjectName="Projection_1" columnName="recyclingTonsBudget"/>
+      </measure>
+      <measure id="soldTonsActual" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Sold Tons - Actual"/>
+        <measureMapping columnObjectName="Projection_1" columnName="soldTonsActual"/>
+      </measure>
+      <measure id="soldTonsBudget" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Sold Tons - Budget
+"/>
+        <measureMapping columnObjectName="Projection_1" columnName="soldTonsBudget"/>
+      </measure>
+      <measure id="disposalTonsActual" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Disposal Tons - Actual"/>
+        <measureMapping columnObjectName="Projection_1" columnName="disposalTonsActual"/>
+      </measure>
+      <measure id="disposalTonsBudget" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Disposal Tons - Budget"/>
+        <measureMapping columnObjectName="Projection_1" columnName="disposalTonsBudget"/>
+      </measure>
+      <measure id="inventoryAdjustmentActual" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Inventory Adjustment - Actual"/>
+        <measureMapping columnObjectName="Projection_1" columnName="inventoryAdjustmentActual"/>
+      </measure>
+      <measure id="inventoryAdjustmentBudget" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Inventory Adjustment - Budget"/>
+        <measureMapping columnObjectName="Projection_1" columnName="inventoryAdjustmentBudget"/>
+      </measure>
+      <measure id="processedTonsActual" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Processed Tons - Actual"/>
+        <measureMapping columnObjectName="Projection_1" columnName="processedTonsActual"/>
+      </measure>
+      <measure id="processedTonsBudget" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Processed Tons - Budget"/>
+        <measureMapping columnObjectName="Projection_1" columnName="processedTonsBudget"/>
+      </measure>
+      <measure id="recyclingMaterialSalesActual" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Material Sales - Actual"/>
+        <measureMapping columnObjectName="Projection_1" columnName="recyclingMaterialSalesActual"/>
+      </measure>
+      <measure id="recyclingMaterialSalesBudget" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Material Sales - Budget"/>
+        <measureMapping columnObjectName="Projection_1" columnName="recyclingMaterialSalesBudget"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,53 @@
+PROCEDURE "rumpke.bi.data.proc::findDependentModels" (in p_SchemaName nvarchar(255), p_TableName nvarchar(1000))
+    LANGUAGE SQLSCRIPT
+    SQL SECURITY INVOKER AS
+   --READS SQL DATA AS
+BEGIN
+    with "dups" as (
+    	select   	
+    		od.BASE_SCHEMA_NAME, 
+    		od.BASE_OBJECT_NAME,
+    		od.DEPENDENT_SCHEMA_NAME,
+    		odd.DEPENDENT_OBJECT_NAME,
+    		od.DEPENDENT_OBJECT_TYPE
+    	from "SYS::OBJECT_DEPENDENCIES" od
+    	inner join (
+    		select   	
+    			BASE_SCHEMA_NAME, 
+    			BASE_OBJECT_NAME,
+    			DEPENDENT_SCHEMA_NAME,
+    			DEPENDENT_OBJECT_NAME,
+    			DEPENDENT_OBJECT_TYPE
+    		from "SYS::OBJECT_DEPENDENCIES" 
+    		where DEPENDENT_OBJECT_NAME LIKE 'rumpke%'
+    	) odd on
+    		odd.BASE_SCHEMA_NAME = od.BASE_SCHEMA_NAME and
+    		odd.BASE_OBJECT_NAME = od.BASE_OBJECT_NAME and
+    		odd.DEPENDENT_SCHEMA_NAME = od.DEPENDENT_SCHEMA_NAME and
+    		odd.DEPENDENT_OBJECT_NAME like od.DEPENDENT_OBJECT_NAME || '%' and
+    		odd.DEPENDENT_OBJECT_TYPE = od.DEPENDENT_OBJECT_TYPE and
+    		odd.DEPENDENT_OBJECT_NAME <> od.DEPENDENT_OBJECT_NAME
+    )
+    select   	
+    	od.BASE_SCHEMA_NAME, 
+    	od.BASE_OBJECT_NAME,
+    	od.DEPENDENT_SCHEMA_NAME,
+    	od.DEPENDENT_OBJECT_NAME,
+    	od.DEPENDENT_OBJECT_TYPE--,
+    	--dups.DEPENDENT_OBJECT_NAME
+    from "SYS::OBJECT_DEPENDENCIES" od
+    left join "dups" on 
+    	"dups".BASE_SCHEMA_NAME = od.BASE_SCHEMA_NAME and
+    	"dups".BASE_OBJECT_NAME = od.BASE_OBJECT_NAME and
+    	"dups".DEPENDENT_SCHEMA_NAME = od.DEPENDENT_SCHEMA_NAME and
+    	"dups".DEPENDENT_OBJECT_TYPE = od.DEPENDENT_OBJECT_TYPE and
+    	"dups".DEPENDENT_OBJECT_NAME = od.DEPENDENT_OBJECT_NAME
+    
+    where 
+    	upper(od.BASE_SCHEMA_NAME) = upper(p_SchemaName)/*'MSSQL'*/ and
+    	upper(od.BASE_OBJECT_NAME) = upper(p_TableName)/*'data_HaulingProductivitySummary'*/ and
+    	od.DEPENDENT_OBJECT_NAME LIKE 'rumpke%' and
+    	od.DEPENDENT_OBJECT_TYPE <> 'SYNONYM' and
+    	"dups".DEPENDENT_OBJECT_NAME is null
+    order by od.DEPENDENT_OBJECT_NAME;
+END

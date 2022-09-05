@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::node" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Profit Center"/>
+  <metadata changedAt="2020-06-19 13:45:22.396"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="50"/>
+  <dataSources>
+    <DataSource id="lowerLevelSetsInSets">
+      <resourceUri>rumpke.bi.masterData.base::lowerLevelSetsInSets</resourceUri>
+    </DataSource>
+    <DataSource id="setHeaderDirectory">
+      <resourceUri>rumpke.bi.masterData.base::setHeaderDirectory</resourceUri>
+    </DataSource>
+    <DataSource id="valuesInSet">
+      <resourceUri>rumpke.bi.masterData.base::valuesInSet</resourceUri>
+    </DataSource>
+    <DataSource id="profitCenter_1">
+      <resourceUri>rumpke.bi.masterData.base::profitCenter</resourceUri>
+    </DataSource>
+    <DataSource id="costCenter_1">
+      <resourceUri>rumpke.bi.masterData.base::costCenter</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="organizationalUnitSetSubClass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setLineCounter"/>
+        <viewAttribute id="classSubordinateSet"/>
+        <viewAttribute id="subclassSubordinateSet"/>
+        <viewAttribute id="subordinateSetID"/>
+        <viewAttribute id="sequentialNumberSetLine"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="lowerLevelSetsInSets">
+        <mapping xsi:type="Calculation:AttributeMapping" target="organizationalUnitSetSubClass" source="organizationalUnitSetSubclass"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="organizationalUnitSetSubclass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="description"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="setHeaderDirectory">
+        <mapping xsi:type="Calculation:AttributeMapping" target="organizationalUnitSetSubclass" source="organizationalunitasSetSubclass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="description" source="shortDescriptionofaSet"/>
+      </input>
+    <filter>(&quot;languageKey&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="organizationalUnitSetSubclass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setLineCounter"/>
+        <viewAttribute id="signFieldSelectionOptionTable"/>
+        <viewAttribute id="optionFieldStructureSelectionOptionTables"/>
+        <viewAttribute id="fromValue"/>
+        <viewAttribute id="toValue"/>
+        <viewAttribute id="sequentialNumberSetLine"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="valuesInSet">
+        <mapping xsi:type="Calculation:AttributeMapping" target="organizationalUnitSetSubclass" source="organizationalUnitasSetSubclass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="signFieldSelectionOptionTable" source="sIGNFieldinCreation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="optionFieldStructureSelectionOptionTables" source="oPTIONFieldinStructure"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sequentialNumberSetLine" source="sequentialNumberofSetLine"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="generalName"/>
+        <viewAttribute id="longText"/>
+        <viewAttribute id="matchCodeSearch"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="profitCenter_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="matchCodeSearch" source="matchcodesearch"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="subClass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="subSetName"/>
+        <viewAttribute id="description"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setClass" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subClass" source="organizationalUnitSetSubClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setName" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subSetName" source="subordinateSetID"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="description" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subSetName" source="setName"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="subSetName"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="C1_1" joinType="textTable" languageColumn="languageKey">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="fromValue"/>
+        <viewAttribute id="subClass"/>
+        <viewAttribute id="longText"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setName" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setClass" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fromValue" source="fromValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subClass" source="organizationalUnitSetSubclass"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="longText" source="longText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fromValue" source="profitCenter"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="fromValue"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="validFromDate"/>
+        <viewAttribute id="lockIndicatorActual"/>
+        <viewAttribute id="lockIndicatorPlan"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="businessArea"/>
+        <viewAttribute id="costCenterCategory"/>
+        <viewAttribute id="personResponsible"/>
+        <viewAttribute id="userResponsible"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="generalName"/>
+        <viewAttribute id="description"/>
+        <viewAttribute id="searchTerm"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="costCenter_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" cardinality="C1_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="fromValue"/>
+        <viewAttribute id="subClass"/>
+        <viewAttribute id="longText"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setName" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setClass" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fromValue" source="fromValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subClass" source="subClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="longText" source="longText"/>
+      </input>
+      <input node="Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDescription" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fromValue" source="profitCenter"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="fromValue"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="SUBCLASS"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SETCLASS"/>
+        <viewAttribute id="SETNAME"/>
+        <viewAttribute id="SUBSETNAME"/>
+        <viewAttribute id="DESCRIPT"/>
+        <viewAttribute datatype="NVARCHAR" id="SUBSET" length="24"/>
+        <viewAttribute datatype="NVARCHAR" id="costCenter" length="10"/>
+        <viewAttribute datatype="NVARCHAR" id="profitCenter" length="10"/>
+        <viewAttribute datatype="NVARCHAR" id="costCenterDescription" length="40"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBCLASS" source="subClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SETCLASS" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SETNAME" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSETNAME" source="subSetName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPT" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSET" source="subSetName"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="costCenter" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="profitCenter" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="costCenterDescription" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBCLASS" source="subClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SETCLASS" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SETNAME" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSETNAME" source="fromValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPT" source="longText"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="SUBSET" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDescription" source="costCenterDescription"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Union_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="setName" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Name"/>
+        <keyMapping columnObjectName="Union_1" columnName="SETNAME"/>
+      </attribute>
+      <attribute id="setClass" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Class"/>
+        <keyMapping columnObjectName="Union_1" columnName="SETCLASS"/>
+      </attribute>
+      <attribute id="subClass" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub Class"/>
+        <keyMapping columnObjectName="Union_1" columnName="SUBCLASS"/>
+      </attribute>
+      <attribute id="subSetName" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub Set Name"/>
+        <keyMapping columnObjectName="Union_1" columnName="SUBSETNAME"/>
+      </attribute>
+      <attribute id="description" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="DESCRIPT"/>
+      </attribute>
+      <attribute id="subSet" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub Set"/>
+        <keyMapping columnObjectName="Union_1" columnName="SUBSET"/>
+      </attribute>
+      <attribute id="costCenter" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="costCenter"/>
+        <keyMapping columnObjectName="Union_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="costCenterDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="costCenterDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="costCenterDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="554" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="603" y="516"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="813" y="516"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="91" y="676"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="676"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="629" y="356"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118" y="516"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="393" y="516"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="366" y="356"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_5" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="554" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

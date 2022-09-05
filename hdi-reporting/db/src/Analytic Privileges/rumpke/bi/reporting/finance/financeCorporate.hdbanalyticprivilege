@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Privilege:analyticPrivilege xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="1.1" id="rumpke.bi.reporting.finance::financeCorporate" privilegeType="SQL_ANALYTIC_PRIVILEGE">
+  <origin/>
+  <descriptions defaultDescription="Finance - Corporate"/>
+  <metadata changedAt="2020-09-09 11:09:10.167" createdAt="2020-02-18 15:39:14.69"/>
+  <securedModels allInformationModels="false">
+    <modelUri>rumpke.bi.reporting.finance.budgetReview::budgetEBITDATargetPerRevenue</modelUri>
+    <modelUri>rumpke.bi.reporting.finance.budgetReview::ebitdaTargetPercentRevenue</modelUri>
+  </securedModels>
+  <restriction logicalOperator="AND">
+    <filter xsi:type="Privilege:AttributeFilter" attributeName="region">
+      <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="CORPORATE"/>
+    </filter>
+    <originInformationModelUri>rumpke.bi.reporting.finance.budgetReview::budgetEBITDATargetPerRevenue</originInformationModelUri>
+  </restriction>
+  <restriction logicalOperator="AND">
+    <filter xsi:type="Privilege:AttributeFilter" attributeName="region">
+      <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="CORPORATE"/>
+    </filter>
+    <originInformationModelUri>rumpke.bi.reporting.finance.budgetReview::ebitdaTargetPercentRevenue</originInformationModelUri>
+  </restriction>
+</Privilege:analyticPrivilege>

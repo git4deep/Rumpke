@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::mmoEmployeeHoursWorked" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Employee hours worked by order operation "/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="ZPM_FIORI_CONF">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::ZPM_FIORI_CONF</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::orderMaster">
+      <resourceUri>rumpke.bi.masterData.base::orderMaster</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="operationNumber"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="action"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="workStartTime"/>
+        <viewAttribute id="workEndDate"/>
+        <viewAttribute id="workEndTime"/>
+        <viewAttribute id="duration"/>
+        <viewAttribute id="unit"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="ZPM_FIORI_CONF">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="MAINTENANCEORDER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationNumber" source="MAINTENANCEORDEROPERATION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="ASSIGNED_PERSON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="COUNTER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="action" source="ACTION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDate" source="START_JOB_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartTime" source="START_JOB_TIME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workEndDate" source="END_JOB_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workEndTime" source="END_JOB_TIME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="duration" source="DURATION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unit" source="UNIT"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="objectNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::orderMaster"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="operationNumber"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="action"/>
+        <viewAttribute id="workStartDate"/>
+        <viewAttribute id="workStartTime"/>
+        <viewAttribute id="workEndDate"/>
+        <viewAttribute id="workEndTime"/>
+        <viewAttribute id="unit"/>
+        <viewAttribute id="duration"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="objectNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationNumber" source="operationNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="action" source="action"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartDate" source="workStartDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workStartTime" source="workStartTime"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workEndDate" source="workEndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workEndTime" source="workEndTime"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unit" source="unit"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="duration" source="duration"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+      </input>
+    <joinAttribute name="orderNumber"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_1" columnName="client"/>
+      </attribute>
+      <attribute id="orderNumber" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="orderNumber"/>
+      </attribute>
+      <attribute id="operationNumber" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Operation Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="operationNumber"/>
+      </attribute>
+      <attribute id="employeeID" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="employeeID"/>
+      </attribute>
+      <attribute id="counter" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Counter"/>
+        <keyMapping columnObjectName="Join_1" columnName="counter"/>
+      </attribute>
+      <attribute id="action" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Action"/>
+        <keyMapping columnObjectName="Join_1" columnName="action"/>
+      </attribute>
+      <attribute id="workStartDate" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Start Date"/>
+        <keyMapping columnObjectName="Join_1" columnName="workStartDate"/>
+      </attribute>
+      <attribute id="workStartTime" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Start Time"/>
+        <keyMapping columnObjectName="Join_1" columnName="workStartTime"/>
+      </attribute>
+      <attribute id="workEndDate" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work End Date"/>
+        <keyMapping columnObjectName="Join_1" columnName="workEndDate"/>
+      </attribute>
+      <attribute id="workEndTime" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work End Time"/>
+        <keyMapping columnObjectName="Join_1" columnName="workEndTime"/>
+      </attribute>
+      <attribute id="unit" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Unit of Measure (H,M,S)"/>
+        <keyMapping columnObjectName="Join_1" columnName="unit"/>
+      </attribute>
+      <attribute id="profitCenter" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center (Order)"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="objectNumber" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="objectNumber"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="duration" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Duration (in H,M,S)"/>
+        <measureMapping columnObjectName="Join_1" columnName="duration"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="totalDuration" hidden="false" order="1" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Total Duration in Hours"/>
+        <formula>round(IF(&quot;unit&quot; = 'S', &quot;duration&quot;/3600, IF(&quot;unit&quot; = 'H', &quot;duration&quot;,IF(&quot;unit&quot; = 'M', &quot;duration&quot;/60,0))),4)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="221" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

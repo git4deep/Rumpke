@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.reuse::organizationalHierarchy" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Profit Center"/>
+  <metadata changedAt="2020-01-04 03:35:36.649"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="53"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.base::node">
+      <resourceUri>rumpke.bi.masterData.base::node</resourceUri>
+    </DataSource>
+    <DataSource id="Projection_2$$$$rumpke.bi.masterData.base::node$$">
+      <resourceUri>rumpke.bi.masterData.base::node</resourceUri>
+    </DataSource>
+    <DataSource id="Projection_3$$$$rumpke.bi.masterData.base::node$$">
+      <resourceUri>rumpke.bi.masterData.base::node</resourceUri>
+    </DataSource>
+    <DataSource id="Projection_4$$$$rumpke.bi.masterData.base::node$$">
+      <resourceUri>rumpke.bi.masterData.base::node</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::setHeaderDirectory">
+      <resourceUri>rumpke.bi.masterData.base::setHeaderDirectory</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="level1"/>
+        <viewAttribute id="level2"/>
+        <viewAttribute id="DESCRIPT"/>
+        <viewAttribute id="SUBSET"/>
+        <viewAttribute id="costCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::node">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="subClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level1" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2" source="subSetName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPT" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSET" source="subSet"/></input>
+    <filter>(&quot;profitCenter&quot; ='0106') AND (&quot;controllingArea&quot; ='A000') AND (&quot;level1&quot; !='YBPH')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SETCLASS"/>
+        <viewAttribute id="SUBCLASS"/>
+        <viewAttribute id="SETNAME"/>
+        <viewAttribute id="SUBSETNAME"/>
+        <viewAttribute id="DESCRIPT"/>
+        <viewAttribute id="SUBSET"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_2$$$$rumpke.bi.masterData.base::node$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SETCLASS" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBCLASS" source="subClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SETNAME" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSETNAME" source="subSetName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPT" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSET" source="subSet"/></input>
+    <filter>(&quot;SUBSET&quot; !='')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="level1"/>
+        <viewAttribute id="level2"/>
+        <viewAttribute id="level3"/>
+        <viewAttribute id="level2Description"/>
+        <viewAttribute id="level3Description"/>
+        <viewAttribute id="SUBSET"/>
+      <viewAttribute hidden="true" id="JOIN$profitCenter$SETCLASS"/>
+      <viewAttribute hidden="true" id="JOIN$SUBSET$SETNAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level1" source="level1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2" source="level2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2Description" source="DESCRIPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$profitCenter$SETCLASS" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$SUBSET$SETNAME" source="SUBSET"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="level3" source="SUBSETNAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level3Description" source="DESCRIPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSET" source="SUBSET"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$profitCenter$SETCLASS" source="SETCLASS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="SUBCLASS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$SUBSET$SETNAME" source="SETNAME"/>
+      </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="JOIN$profitCenter$SETCLASS"/>
+    <joinAttribute name="controllingArea"/>
+    <joinAttribute name="JOIN$SUBSET$SETNAME"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SETNAME"/>
+        <viewAttribute id="SETCLASS"/>
+        <viewAttribute id="level4"/>
+        <viewAttribute id="level4Description"/>
+        <viewAttribute id="SUBSET"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_3$$$$rumpke.bi.masterData.base::node$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SETNAME" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SETCLASS" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level4" source="subSetName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level4Description" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSET" source="subSet"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="level1"/>
+        <viewAttribute id="level2"/>
+        <viewAttribute id="level3"/>
+        <viewAttribute id="level4"/>
+        <viewAttribute id="level2Description"/>
+        <viewAttribute id="level3Description"/>
+        <viewAttribute id="level4Description"/>
+        <viewAttribute id="SUBSET"/>
+      <viewAttribute hidden="true" id="JOIN$SUBSET$SETNAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level1" source="level1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2" source="level2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2Description" source="level2Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level3Description" source="level3Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$SUBSET$SETNAME" source="SUBSET"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="level3" source="SETNAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level4" source="level4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level4Description" source="level4Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSET" source="SUBSET"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$SUBSET$SETNAME" source="SETNAME"/>
+      </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="JOIN$SUBSET$SETNAME"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="SETNAME"/>
+        <viewAttribute id="SETCLASS"/>
+        <viewAttribute id="level5"/>
+        <viewAttribute id="level5Description"/>
+        <viewAttribute id="SUBSET"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_4$$$$rumpke.bi.masterData.base::node$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SETNAME" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SETCLASS" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level5" source="subSetName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level5Description" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSET" source="subSet"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="level1"/>
+        <viewAttribute id="level2"/>
+        <viewAttribute id="level2Description"/>
+        <viewAttribute id="level3"/>
+        <viewAttribute id="level3Description"/>
+        <viewAttribute id="level4"/>
+        <viewAttribute id="level4Description"/>
+        <viewAttribute id="SUBSET"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" dynamic="false" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="level1"/>
+        <viewAttribute id="level2"/>
+        <viewAttribute id="level2Description"/>
+        <viewAttribute id="level3"/>
+        <viewAttribute id="level3Description"/>
+        <viewAttribute id="level4"/>
+        <viewAttribute id="level4Description"/>
+        <viewAttribute id="level5"/>
+        <viewAttribute id="level5Description"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+        <viewAttribute id="SUBSET"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="profitCenter" length="40" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;level5&quot;),if(isnull(&quot;level5&quot;),if(isnull(&quot;level4&quot;),if(isnull(&quot;level3&quot;),&quot;level2&quot;,&quot;level3&quot;),&quot;level4&quot;),&quot;level5&quot;),&quot;level5&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="level4" source="level4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level4Description" source="level4Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSET" source="SUBSET"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level1" source="level1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2" source="level2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level2Description" source="level2Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level3" source="level3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level3Description" source="level3Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="level5" source="level5"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="level5Description" source="level5Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDescription" source="costCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SUBSET" source="SETNAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+      </input>
+    <joinAttribute name="SUBSET"/>
+    <joinAttribute name="client"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+        <viewAttribute id="organizationalunitasSetSubclass"/>
+        <viewAttribute id="setClass"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::setHeaderDirectory"/>
+    <filter>(&quot;organizationalunitasSetSubclass&quot; ='A000') AND (&quot;setClass&quot; ='0106')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="level4"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="level4Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="level5"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="level5Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDescription" source="costCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="level1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="level2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="level2Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="level3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="level3Description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+      <input node="Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="shortDescriptionofaSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+    <joinAttribute name="area"/>
+    <joinAttribute name="client"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_5">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_5" columnName="client"/>
+      </attribute>
+      <attribute id="area" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_5" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_5" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Join_5" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="8" attributeHierarchyActive="false" descriptionColumnName="subDistrictDescription" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_5" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="10" attributeHierarchyActive="false" descriptionColumnName="profitCenterDescription" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_5" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="costCenter" key="true" order="12" attributeHierarchyActive="false" descriptionColumnName="costCenterDescription" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_5" columnName="costCenter"/>
+      </attribute>
+      <attribute id="costCenterDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="costCenterDescription"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="328" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="627"/>
+        <rectangleSize height="50" width="140"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="627"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="531"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="531"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="435"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="357"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="251" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="405" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="328" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Join_4" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_5" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

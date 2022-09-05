@@ -1,0 +1,36 @@
+{
+  "role": {
+    "name": "sec.ps::prodSupport",
+    "schema_privileges": [
+      {
+        "reference": "REPORTING",
+        "privileges": [
+          "CREATE ANY",
+          "SELECT"
+        ]
+      },
+      {
+        "reference": "RUMPKEADM",
+        "privileges": [
+          "DELETE",
+          "INSERT",
+          "SELECT"
+        ]
+      }
+    ],
+    "schema_roles": [
+      {
+        "names": [
+          "sec.endUser::sltSchemaSelect",
+          "sec.endUser::endUserGeneric",
+          "sec.endUser::endUserHRAll",
+          "sec.endUser.materialsManagement::endUserMaterialsManagementAll",
+          "sec.endUser.operations::endUserOperationsAll",
+          "sec.endUser.sales::endUserSalesAll",
+          "sec.endUser.plantMaintenance::endUserPlantMaintenanceAll",
+          "sec.endUser.finance::endUserFinanceAll"
+        ]
+      }
+    ]
+  }
+}

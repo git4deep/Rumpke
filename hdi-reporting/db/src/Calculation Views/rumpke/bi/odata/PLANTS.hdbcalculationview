@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.odata::PLANTS" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Plants"/>
+  <metadata changedAt="2019-12-04 20:07:28.384"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.base::plantsBranches">
+      <resourceUri>rumpke.bi.masterData.base::plantsBranches</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="rumpke.bi.masterData.base::plantsBranches">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="client"/>
+      </attribute>
+      <attribute id="plant" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="plant"/>
+      </attribute>
+      <attribute id="name" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="name"/>
+      </attribute>
+      <attribute id="valuationArea" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valuation Area"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="valuationArea"/>
+      </attribute>
+      <attribute id="customerNumberofPlant" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Customer Number of Plant"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="customerNumberofPlant"/>
+      </attribute>
+      <attribute id="supplierNumberofPlant" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Supplier Number of Plant"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="supplierNumberofPlant"/>
+      </attribute>
+      <attribute id="factoryCalendarKey" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Factory Calendar Key"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="factoryCalendarKey"/>
+      </attribute>
+      <attribute id="name2" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name2"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="name2"/>
+      </attribute>
+      <attribute id="streetAndHouseNumber" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Street and House Number"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="streetAndHouseNumber"/>
+      </attribute>
+      <attribute id="pobox" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PO Box"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="pobox"/>
+      </attribute>
+      <attribute id="postalCode" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Postal Code"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="postalCode"/>
+      </attribute>
+      <attribute id="city" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="City"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="city"/>
+      </attribute>
+      <attribute id="purchasingOrganization" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchasing Organization"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="purchasingOrganization"/>
+      </attribute>
+      <attribute id="salesOrganizationforIntercompanyBilling" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Organization for Intercompany Billing"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="salesOrganizationforIntercompanyBilling"/>
+      </attribute>
+      <attribute id="indicatorBatchStatusManagementAct" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Indicator: Batch Status Management Active"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="indicatorBatchStatusManagementAct"/>
+      </attribute>
+      <attribute id="indicatorConditionsatPlantlevel" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Indicator: Conditions at Plant Level"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="indicatorConditionsatPlantlevel"/>
+      </attribute>
+      <attribute id="indicatorSourceListRequirement" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Indicator: Source List Requirement"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="indicatorSourceListRequirement"/>
+      </attribute>
+      <attribute id="activatingRequirementsPlanning" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Activating Requirements Planning"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="activatingRequirementsPlanning"/>
+      </attribute>
+      <attribute id="countryKey" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country Key"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="countryKey"/>
+      </attribute>
+      <attribute id="regionStateProvinceCounty" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region (State, Province, County)"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="regionStateProvinceCounty"/>
+      </attribute>
+      <attribute id="countyCode" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="County Code"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="countyCode"/>
+      </attribute>
+      <attribute id="cityCode" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="City Code"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="cityCode"/>
+      </attribute>
+      <attribute id="address" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Address"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="address"/>
+      </attribute>
+      <attribute id="maintenancePlanningPlant" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Planning Plant"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="maintenancePlanningPlant"/>
+      </attribute>
+      <attribute id="taxJurisdiction" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Tax Jurisdiction"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="taxJurisdiction"/>
+      </attribute>
+      <attribute id="distributionChannelforIntercompanyBilling" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel for Intercompany Billing"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="distributionChannelforIntercompanyBilling"/>
+      </attribute>
+      <attribute id="divisionforIntercompanyBilling" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Division for Intercompany Billing"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="divisionforIntercompanyBilling"/>
+      </attribute>
+      <attribute id="languageKey" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="languageKey"/>
+      </attribute>
+      <attribute id="sopPlant" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SOP Plant"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="sopPlant"/>
+      </attribute>
+      <attribute id="varianceKey" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Variance Key"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="varianceKey"/>
+      </attribute>
+      <attribute id="indicatorBatchStatusManagementActive" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Indicator: Batch Status Management Active"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="indicatorBatchStatusManagementActive"/>
+      </attribute>
+      <attribute id="plantCategory" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant Category"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="plantCategory"/>
+      </attribute>
+      <attribute id="salesDistrict" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales District"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="salesDistrict"/>
+      </attribute>
+      <attribute id="supplyRegion" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Supply Region (Region Supplied)"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="supplyRegion"/>
+      </attribute>
+      <attribute id="taxIndicatorPlantPurchasing" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Tax Indicator: Plant (Purchasing)"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="taxIndicatorPlantPurchasing"/>
+      </attribute>
+      <attribute id="takeRegularSupplierintoAccount" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Take Regular Supplier into Account"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="takeRegularSupplierintoAccount"/>
+      </attribute>
+      <attribute id="numberofDaysforFirstReminderExpediter" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of Days for First Reminder/Expediter"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="numberofDaysforFirstReminderExpediter"/>
+      </attribute>
+      <attribute id="numberofDaysforSecondReminderExpediter" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of Days for Second Reminder/Expediter"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="numberofDaysforSecondReminderExpediter"/>
+      </attribute>
+      <attribute id="numberofDaysforThirdReminderExpediter" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of Days for Third Reminder/Expediter"/>
+        <keyMapping columnObjectName="plantsBranches" columnName="numberofDaysforThirdReminderExpediter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/></shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

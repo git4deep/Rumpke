@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::material" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Material"/>
+  <metadata changedAt="2020-06-19 13:43:32.956"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="39"/>
+  <dataSources>
+    <DataSource id="MARA">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::MARA</resourceUri>
+    </DataSource>
+    <DataSource id="MAKT">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::MAKT</resourceUri>
+    </DataSource>
+    <DataSource id="materialGroupDescriptions">
+      <resourceUri>rumpke.bi.masterData.base::materialGroupDescriptions</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="materialMasterGeneralData">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="createdOn"/>
+        <viewAttribute id="personCreatedObject"/>
+        <viewAttribute id="dateLastChange"/>
+        <viewAttribute id="personChangedObject"/>
+        <viewAttribute id="maintenanceStatusCompleteMaterial"/>
+        <viewAttribute id="maintenanceStatus"/>
+        <viewAttribute id="materialDeletionFlag"/>
+        <viewAttribute id="materialType"/>
+        <viewAttribute id="industrySector"/>
+        <viewAttribute id="materialGroup"/>
+        <viewAttribute id="oldMaterialNumber"/>
+        <viewAttribute id="baseUnitMeasure"/>
+        <viewAttribute id="purchaseOrderUnitMeasure"/>
+        <viewAttribute id="documentNumber"/>
+        <viewAttribute id="documentType"/>
+        <viewAttribute id="documentVersion"/>
+        <viewAttribute id="documentChangeNumber"/>
+        <viewAttribute id="basicMaterial"/>
+        <viewAttribute id="grossWeight"/>
+        <viewAttribute id="netWeight"/>
+        <viewAttribute id="weightUnit"/>
+        <viewAttribute id="volumn"/>
+        <viewAttribute id="volumeUnit"/>
+        <viewAttribute id="division"/>
+        <viewAttribute id="productHierarchy"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="MARA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOn" source="ERSDA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="personCreatedObject" source="ERNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChange" source="LAEDA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="personChangedObject" source="AENAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceStatusCompleteMaterial" source="VPSTA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceStatus" source="PSTAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialDeletionFlag" source="LVORM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialType" source="MTART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="industrySector" source="MBRSH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialGroup" source="MATKL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="oldMaterialNumber" source="BISMT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseUnitMeasure" source="MEINS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="purchaseOrderUnitMeasure" source="BSTME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentNumber" source="ZEINR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentType" source="ZEIAR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentVersion" source="ZEIVR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentChangeNumber" source="AESZN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="basicMaterial" source="WRKST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossWeight" source="BRGEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netWeight" source="NTGEW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUnit" source="GEWEI"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="volumn" source="VOLUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="volumeUnit" source="VOLEH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="division" source="SPART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productHierarchy" source="PRDHA"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="materialDescriptions">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="MATNR"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="materialDescription"/>
+        <viewAttribute id="materialDescriptioninUppercase"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="MAKT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialDescription" source="MAKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialDescriptioninUppercase" source="MAKTG"/>
+      </input>
+    <filter>(&quot;languageKey&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="referential" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="createdOn"/>
+        <viewAttribute id="personCreatedObject"/>
+        <viewAttribute id="dateLastChange"/>
+        <viewAttribute id="personChangedObject"/>
+        <viewAttribute id="maintenanceStatusCompleteMaterial"/>
+        <viewAttribute id="maintenanceStatus"/>
+        <viewAttribute id="materialDeletionFlag"/>
+        <viewAttribute id="materialType"/>
+        <viewAttribute id="industrySector"/>
+        <viewAttribute id="materialGroup"/>
+        <viewAttribute id="oldMaterialNumber"/>
+        <viewAttribute id="baseUnitMeasure"/>
+        <viewAttribute id="purchaseOrderUnitMeasure"/>
+        <viewAttribute id="documentNumber"/>
+        <viewAttribute id="documentType"/>
+        <viewAttribute id="documentVersion"/>
+        <viewAttribute id="documentChangeNumber"/>
+        <viewAttribute id="grossWeight"/>
+        <viewAttribute id="netWeight"/>
+        <viewAttribute id="weightUnit"/>
+        <viewAttribute id="volumn"/>
+        <viewAttribute id="volumeUnit"/>
+        <viewAttribute id="division"/>
+        <viewAttribute id="productHierarchy"/>
+        <viewAttribute id="materialDescription"/>
+        <viewAttribute id="materialDescriptioninUppercase"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="basicMaterial"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="materialMasterGeneralData">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOn" source="createdOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="personCreatedObject" source="personCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChange" source="dateLastChange"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="personChangedObject" source="personChangedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceStatusCompleteMaterial" source="maintenanceStatusCompleteMaterial"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceStatus" source="maintenanceStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialDeletionFlag" source="materialDeletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialType" source="materialType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="industrySector" source="industrySector"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialGroup" source="materialGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="oldMaterialNumber" source="oldMaterialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseUnitMeasure" source="baseUnitMeasure"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="purchaseOrderUnitMeasure" source="purchaseOrderUnitMeasure"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentNumber" source="documentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentType" source="documentType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentVersion" source="documentVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentChangeNumber" source="documentChangeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossWeight" source="grossWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netWeight" source="netWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUnit" source="weightUnit"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="volumn" source="volumn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="volumeUnit" source="volumeUnit"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="division" source="division"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productHierarchy" source="productHierarchy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="basicMaterial" source="basicMaterial"/>
+      </input>
+      <input node="materialDescriptions">
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialDescription" source="materialDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialDescriptioninUppercase" source="materialDescriptioninUppercase"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="MATNR"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="materialNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="materialGroup"/>
+        <viewAttribute id="materialGroupDescription"/>
+        <viewAttribute id="descriptionoftheMaterialGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="materialGroupDescriptions"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="C1_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="createdOn"/>
+        <viewAttribute id="personCreatedObject"/>
+        <viewAttribute id="dateLastChange"/>
+        <viewAttribute id="personChangedObject"/>
+        <viewAttribute id="maintenanceStatusCompleteMaterial"/>
+        <viewAttribute id="maintenanceStatus"/>
+        <viewAttribute id="materialDeletionFlag"/>
+        <viewAttribute id="materialType"/>
+        <viewAttribute id="industrySector"/>
+        <viewAttribute id="materialGroup"/>
+        <viewAttribute id="oldMaterialNumber"/>
+        <viewAttribute id="baseUnitMeasure"/>
+        <viewAttribute id="purchaseOrderUnitMeasure"/>
+        <viewAttribute id="documentNumber"/>
+        <viewAttribute id="documentType"/>
+        <viewAttribute id="documentVersion"/>
+        <viewAttribute id="documentChangeNumber"/>
+        <viewAttribute id="basicMaterial"/>
+        <viewAttribute id="grossWeight"/>
+        <viewAttribute id="netWeight"/>
+        <viewAttribute id="weightUnit"/>
+        <viewAttribute id="volumn"/>
+        <viewAttribute id="volumeUnit"/>
+        <viewAttribute id="division"/>
+        <viewAttribute id="productHierarchy"/>
+        <viewAttribute id="materialDescription"/>
+        <viewAttribute id="materialDescriptioninUppercase"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="materialGroupDescription"/>
+        <viewAttribute id="descriptionoftheMaterialGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOn" source="createdOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="personCreatedObject" source="personCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChange" source="dateLastChange"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="personChangedObject" source="personChangedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceStatusCompleteMaterial" source="maintenanceStatusCompleteMaterial"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceStatus" source="maintenanceStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialDeletionFlag" source="materialDeletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialType" source="materialType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="industrySector" source="industrySector"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialGroup" source="materialGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="oldMaterialNumber" source="oldMaterialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseUnitMeasure" source="baseUnitMeasure"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="purchaseOrderUnitMeasure" source="purchaseOrderUnitMeasure"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentNumber" source="documentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentType" source="documentType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentVersion" source="documentVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentChangeNumber" source="documentChangeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="basicMaterial" source="basicMaterial"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossWeight" source="grossWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netWeight" source="netWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUnit" source="weightUnit"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="volumn" source="volumn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="volumeUnit" source="volumeUnit"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="division" source="division"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productHierarchy" source="productHierarchy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialDescription" source="materialDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialDescriptioninUppercase" source="materialDescriptioninUppercase"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+      </input>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialGroupDescription" source="materialGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionoftheMaterialGroup" source="descriptionoftheMaterialGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialGroup" source="materialGroup"/>
+      </input>
+    <joinAttribute name="materialGroup"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_2" columnName="client"/>
+      </attribute>
+      <attribute id="materialNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="materialNumber"/>
+      </attribute>
+      <attribute id="createdOn" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Created On"/>
+        <keyMapping columnObjectName="Join_2" columnName="createdOn"/>
+      </attribute>
+      <attribute id="personCreatedObject" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Person Created Object"/>
+        <keyMapping columnObjectName="Join_2" columnName="personCreatedObject"/>
+      </attribute>
+      <attribute id="dateLastChange" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Last Change"/>
+        <keyMapping columnObjectName="Join_2" columnName="dateLastChange"/>
+      </attribute>
+      <attribute id="personChangedObject" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Person Changed Object"/>
+        <keyMapping columnObjectName="Join_2" columnName="personChangedObject"/>
+      </attribute>
+      <attribute id="maintenanceStatusCompleteMaterial" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Status Complete Material"/>
+        <keyMapping columnObjectName="Join_2" columnName="maintenanceStatusCompleteMaterial"/>
+      </attribute>
+      <attribute id="maintenanceStatus" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Status"/>
+        <keyMapping columnObjectName="Join_2" columnName="maintenanceStatus"/>
+      </attribute>
+      <attribute id="materialDeletionFlag" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Deletion Flag"/>
+        <keyMapping columnObjectName="Join_2" columnName="materialDeletionFlag"/>
+      </attribute>
+      <attribute id="materialType" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Type"/>
+        <keyMapping columnObjectName="Join_2" columnName="materialType"/>
+      </attribute>
+      <attribute id="industrySector" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Industry Sector"/>
+        <keyMapping columnObjectName="Join_2" columnName="industrySector"/>
+      </attribute>
+      <attribute id="materialGroup" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Group"/>
+        <keyMapping columnObjectName="Join_2" columnName="materialGroup"/>
+      </attribute>
+      <attribute id="oldMaterialNumber" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Old Material Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="oldMaterialNumber"/>
+      </attribute>
+      <attribute id="baseUnitMeasure" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Base Unit Measure"/>
+        <keyMapping columnObjectName="Join_2" columnName="baseUnitMeasure"/>
+      </attribute>
+      <attribute id="purchaseOrderUnitMeasure" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchase Order Unit Measure"/>
+        <keyMapping columnObjectName="Join_2" columnName="purchaseOrderUnitMeasure"/>
+      </attribute>
+      <attribute id="documentNumber" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="documentNumber"/>
+      </attribute>
+      <attribute id="documentType" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Type"/>
+        <keyMapping columnObjectName="Join_2" columnName="documentType"/>
+      </attribute>
+      <attribute id="documentVersion" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Version"/>
+        <keyMapping columnObjectName="Join_2" columnName="documentVersion"/>
+      </attribute>
+      <attribute id="documentChangeNumber" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Change Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="documentChangeNumber"/>
+      </attribute>
+      <attribute id="basicMaterial" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Basic Material"/>
+        <keyMapping columnObjectName="Join_2" columnName="basicMaterial"/>
+      </attribute>
+      <attribute id="grossWeight" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Gross Weight"/>
+        <keyMapping columnObjectName="Join_2" columnName="grossWeight"/>
+      </attribute>
+      <attribute id="netWeight" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Net Weight"/>
+        <keyMapping columnObjectName="Join_2" columnName="netWeight"/>
+      </attribute>
+      <attribute id="weightUnit" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Weight Unit"/>
+        <keyMapping columnObjectName="Join_2" columnName="weightUnit"/>
+      </attribute>
+      <attribute id="volumn" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Volumn"/>
+        <keyMapping columnObjectName="Join_2" columnName="volumn"/>
+      </attribute>
+      <attribute id="volumeUnit" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Volume Unit"/>
+        <keyMapping columnObjectName="Join_2" columnName="volumeUnit"/>
+      </attribute>
+      <attribute id="division" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Division"/>
+        <keyMapping columnObjectName="Join_2" columnName="division"/>
+      </attribute>
+      <attribute id="productHierarchy" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Product Hierarchy"/>
+        <keyMapping columnObjectName="Join_2" columnName="productHierarchy"/>
+      </attribute>
+      <attribute id="materialDescription" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="materialDescription"/>
+      </attribute>
+      <attribute id="materialDescriptioninUppercase" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Description in Uppercase"/>
+        <keyMapping columnObjectName="Join_2" columnName="materialDescriptioninUppercase"/>
+      </attribute>
+      <attribute id="languageKey" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="Join_2" columnName="languageKey"/>
+      </attribute>
+      <attribute id="materialGroupDescription" order="31" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Group Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="materialGroupDescription"/>
+      </attribute>
+      <attribute id="descriptionoftheMaterialGroup" order="32" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Description of the Material Group"/>
+        <keyMapping columnObjectName="Join_2" columnName="descriptionoftheMaterialGroup"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="328" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="materialMasterGeneralData" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="materialDescriptions" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="materialMasterGeneralData" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="materialDescriptions" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="395" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="328" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

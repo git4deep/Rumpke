@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::transferReuse" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="transferReuse"/>
+  <metadata changedAt="2020-01-15 16:04:52.311"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="41"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.base::profitCenter">
+      <resourceUri>rumpke.bi.masterData.base::profitCenter</resourceUri>
+    </DataSource>
+    <DataSource id="dataScaleTransactionsView">
+      <resourceUri>rumpke.bi.operations.reuse::dataScaleTransactionsView</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="generalName"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::profitCenter"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="scaleID"/>
+        <viewAttribute id="scaleType"/>
+        <viewAttribute id="transferProfitCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="transactionNumber"/>
+        <viewAttribute id="countyMunicipalType"/>
+        <viewAttribute id="countyMunicipalCode"/>
+        <viewAttribute id="countyMunicipalName"/>
+        <viewAttribute id="wasteID"/>
+        <viewAttribute id="wasteDescription"/>
+        <viewAttribute id="inOutDistrictState"/>
+        <viewAttribute id="districtDisposalFee"/>
+        <viewAttribute id="generationFee"/>
+        <viewAttribute id="townshipFee"/>
+        <viewAttribute id="stateFee"/>
+        <viewAttribute id="otherFee"/>
+        <viewAttribute id="feesCountyCode"/>
+        <viewAttribute id="feesStateCode"/>
+        <viewAttribute id="inDateTime"/>
+        <viewAttribute id="inDate"/>
+        <viewAttribute id="inTime"/>
+        <viewAttribute id="netWeight"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="dataScaleTransactionsView"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="scaleID"/>
+        <viewAttribute id="scaleType"/>
+        <viewAttribute id="transferProfitCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="transactionNumber"/>
+        <viewAttribute id="countyMunicipalType"/>
+        <viewAttribute id="countyMunicipalCode"/>
+        <viewAttribute id="countyMunicipalName"/>
+        <viewAttribute id="wasteID"/>
+        <viewAttribute id="wasteDescription"/>
+        <viewAttribute id="inOutDistrictState"/>
+        <viewAttribute id="districtDisposalFee"/>
+        <viewAttribute id="generationFee"/>
+        <viewAttribute id="townshipFee"/>
+        <viewAttribute id="stateFee"/>
+        <viewAttribute id="otherFee"/>
+        <viewAttribute id="feesCountyCode"/>
+        <viewAttribute id="feesStateCode"/>
+        <viewAttribute id="inDateTime"/>
+        <viewAttribute id="inDate"/>
+        <viewAttribute id="inTime"/>
+        <viewAttribute id="netWeight"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="generalName"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="scaleID" source="scaleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scaleType" source="scaleType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="transferProfitCenter" source="transferProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="transactionNumber" source="transactionNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countyMunicipalType" source="countyMunicipalType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countyMunicipalCode" source="countyMunicipalCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countyMunicipalName" source="countyMunicipalName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wasteID" source="wasteID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wasteDescription" source="wasteDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inOutDistrictState" source="inOutDistrictState"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDisposalFee" source="districtDisposalFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="generationFee" source="generationFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="townshipFee" source="townshipFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stateFee" source="stateFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherFee" source="otherFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="feesCountyCode" source="feesCountyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="feesStateCode" source="feesStateCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inDateTime" source="inDateTime"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inDate" source="inDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inTime" source="inTime"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netWeight" source="netWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="generalName" source="generalName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+        <viewAttribute id="client"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="scaleID"/>
+        <viewAttribute id="scaleType"/>
+        <viewAttribute id="transferProfitCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="otherFee"/>
+        <viewAttribute id="transactionNumber"/>
+        <viewAttribute id="countyMunicipalType"/>
+        <viewAttribute id="countyMunicipalCode"/>
+        <viewAttribute id="countyMunicipalName"/>
+        <viewAttribute id="wasteID"/>
+        <viewAttribute id="wasteDescription"/>
+        <viewAttribute id="inOutDistrictState"/>
+        <viewAttribute id="districtDisposalFee"/>
+        <viewAttribute id="generationFee"/>
+        <viewAttribute id="townshipFee"/>
+        <viewAttribute id="stateFee"/>
+        <viewAttribute id="feesCountyCode"/>
+        <viewAttribute id="feesStateCode"/>
+        <viewAttribute id="inDateTime"/>
+        <viewAttribute id="inDate"/>
+        <viewAttribute id="inTime"/>
+        <viewAttribute id="netWeight"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="generalName"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="scaleID" source="scaleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scaleType" source="scaleType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="transferProfitCenter" source="transferProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherFee" source="otherFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="transactionNumber" source="transactionNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countyMunicipalType" source="countyMunicipalType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countyMunicipalCode" source="countyMunicipalCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countyMunicipalName" source="countyMunicipalName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wasteID" source="wasteID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wasteDescription" source="wasteDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inOutDistrictState" source="inOutDistrictState"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDisposalFee" source="districtDisposalFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="generationFee" source="generationFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="townshipFee" source="townshipFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stateFee" source="stateFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="feesCountyCode" source="feesCountyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="feesStateCode" source="feesStateCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inDateTime" source="inDateTime"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inDate" source="inDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inTime" source="inTime"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netWeight" source="netWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="generalName" source="generalName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDescription" source="costCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="scaleID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Scale ID"/>
+        <keyMapping columnObjectName="Join_2" columnName="scaleID"/>
+      </attribute>
+      <attribute id="scaleType" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Scale Type"/>
+        <keyMapping columnObjectName="Join_2" columnName="scaleType"/>
+      </attribute>
+      <attribute id="transferProfitCenter" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Transfer Profit Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="transferProfitCenter"/>
+      </attribute>
+      <attribute id="profitCenter" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="accountNumber" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="transactionNumber" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Transaction Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="transactionNumber"/>
+      </attribute>
+      <attribute id="countyMunicipalType" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="County Municipal Type"/>
+        <keyMapping columnObjectName="Join_2" columnName="countyMunicipalType"/>
+      </attribute>
+      <attribute id="countyMunicipalName" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="County Municipal Name"/>
+        <keyMapping columnObjectName="Join_2" columnName="countyMunicipalName"/>
+      </attribute>
+      <attribute id="wasteID" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Waste ID"/>
+        <keyMapping columnObjectName="Join_2" columnName="wasteID"/>
+      </attribute>
+      <attribute id="wasteDescription" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Waste Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="wasteDescription"/>
+      </attribute>
+      <attribute id="countyMunicipalCode" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="County Municipal Code"/>
+        <keyMapping columnObjectName="Join_2" columnName="countyMunicipalCode"/>
+      </attribute>
+      <attribute id="inOutDistrictState" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="In / Out District State"/>
+        <keyMapping columnObjectName="Join_2" columnName="inOutDistrictState"/>
+      </attribute>
+      <attribute id="feesCountyCode" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="County Code Fees"/>
+        <keyMapping columnObjectName="Join_2" columnName="feesCountyCode"/>
+      </attribute>
+      <attribute id="feesStateCode" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="State Code Fees"/>
+        <keyMapping columnObjectName="Join_2" columnName="feesStateCode"/>
+      </attribute>
+      <attribute id="inDateTime" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="In Date / Time"/>
+        <keyMapping columnObjectName="Join_2" columnName="inDateTime"/>
+      </attribute>
+      <attribute id="inDate" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date In"/>
+        <keyMapping columnObjectName="Join_2" columnName="inDate"/>
+      </attribute>
+      <attribute id="inTime" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Time In"/>
+        <keyMapping columnObjectName="Join_2" columnName="inTime"/>
+      </attribute>
+      <attribute id="profitCenterGroup" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Group"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenterGroup"/>
+      </attribute>
+      <attribute id="generalName" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="General Name"/>
+        <keyMapping columnObjectName="Join_2" columnName="generalName"/>
+      </attribute>
+      <attribute id="area" order="20" attributeHierarchyActive="false" descriptionColumnName="areaDescription" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_2" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="regionDescription" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="region" order="23" attributeHierarchyActive="false" descriptionColumnName="regionDescription" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_2" columnName="region"/>
+      </attribute>
+      <attribute id="district" order="24" attributeHierarchyActive="false" descriptionColumnName="districtDescription" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Join_2" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="26" attributeHierarchyActive="false" descriptionColumnName="subDistrictDescription" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_2" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="costCenter" order="28" attributeHierarchyActive="false" descriptionColumnName="costCenterDescription" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="costCenter"/>
+      </attribute>
+      <attribute id="costCenterDescription" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="costCenterDescription"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="30" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Join_2" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="31" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_2" columnName="lineOfBusiness"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="netWeight" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="netWeight"/>
+        <measureMapping columnObjectName="Join_2" columnName="netWeight"/>
+      </measure>
+      <measure id="stateFee" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="stateFee"/>
+        <measureMapping columnObjectName="Join_2" columnName="stateFee"/>
+      </measure>
+      <measure id="townshipFee" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="townshipFee"/>
+        <measureMapping columnObjectName="Join_2" columnName="townshipFee"/>
+      </measure>
+      <measure id="generationFee" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="generationFee"/>
+        <measureMapping columnObjectName="Join_2" columnName="generationFee"/>
+      </measure>
+      <measure id="districtDisposalFee" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="districtDisposalFee"/>
+        <measureMapping columnObjectName="Join_2" columnName="districtDisposalFee"/>
+      </measure>
+      <measure id="otherFee" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="otherFee"/>
+        <measureMapping columnObjectName="Join_2" columnName="otherFee"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="328.6900820831794" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="536.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="536.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118.66666666666666" y="376.9999988079071"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="395.83468516943316" y="376.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="328.6900820831794" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::vehicleMaintenanceHistory" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Vehicle Maintenance History View"/>
+  <metadata changedAt="2020-01-15 10:14:58.543"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="32"/>
+  <dataSources>
+    <DataSource id="data_VehicleMaintenanceHistory">
+      <resourceUri>rumpke.bi.plantMaintainance.mssql::data_VehicleMaintenanceHistory</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="vehicleMiles"/>
+        <viewAttribute id="totalAmount"/>
+        <viewAttribute id="laborAmount"/>
+        <viewAttribute id="wreckerAmount"/>
+        <viewAttribute id="partsAmount"/>
+        <viewAttribute id="vendorAmount"/>
+        <viewAttribute id="tiresAmount"/>
+        <viewAttribute id="fuelAmount"/>
+        <viewAttribute id="capTotalAmount"/>
+        <viewAttribute id="capLaborAmount"/>
+        <viewAttribute id="capWreckerAmount"/>
+        <viewAttribute id="capPartsAmount"/>
+        <viewAttribute id="capVendorAmount"/>
+        <viewAttribute id="capTiresAmount"/>
+        <viewAttribute id="unitCount"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="data_VehicleMaintenanceHistory">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FiscalMonthID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="ProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="LOB_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="Versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="TruckHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleMiles" source="VehicleMiles"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalAmount" source="TotalAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborAmount" source="LaborAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wreckerAmount" source="WreckerAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="partsAmount" source="PartsAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vendorAmount" source="VendorAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tiresAmount" source="TiresAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelAmount" source="FuelAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capTotalAmount" source="Cap_TotalAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capLaborAmount" source="Cap_LaborAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capWreckerAmount" source="Cap_WreckerAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capPartsAmount" source="Cap_PartsAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capVendorAmount" source="Cap_VendorAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capTiresAmount" source="Cap_TiresAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitCount" source="UnitCount"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="profitCenter" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="version" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Projection_1" columnName="version"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="truckHours" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="truckHours"/>
+      </measure>
+      <measure id="vehicleMiles" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vehicle Miles"/>
+        <measureMapping columnObjectName="Projection_1" columnName="vehicleMiles"/>
+      </measure>
+      <measure id="totalAmount" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalAmount"/>
+      </measure>
+      <measure id="laborAmount" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Labor Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="laborAmount"/>
+      </measure>
+      <measure id="wreckerAmount" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Wrecker Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="wreckerAmount"/>
+      </measure>
+      <measure id="partsAmount" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Parts Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="partsAmount"/>
+      </measure>
+      <measure id="vendorAmount" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vendor Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="vendorAmount"/>
+      </measure>
+      <measure id="tiresAmount" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tires Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="tiresAmount"/>
+      </measure>
+      <measure id="fuelAmount" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelAmount"/>
+      </measure>
+      <measure id="capTotalAmount" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Total Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capTotalAmount"/>
+      </measure>
+      <measure id="capLaborAmount" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Labor Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capLaborAmount"/>
+      </measure>
+      <measure id="capWreckerAmount" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Wrecker Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capWreckerAmount"/>
+      </measure>
+      <measure id="capPartsAmount" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Parts Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capPartsAmount"/>
+      </measure>
+      <measure id="capVendorAmount" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Vendor Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capVendorAmount"/>
+      </measure>
+      <measure id="capTiresAmount" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Tires Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capTiresAmount"/>
+      </measure>
+      <measure id="unitCount" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Unit Count"/>
+        <measureMapping columnObjectName="Projection_1" columnName="unitCount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures>
+      <measure id="truckHoursActual" hidden="false" order="21" baseMeasure="truckHours" datatype="BIGINT" length="19" scale="0">
+        <descriptions defaultDescription="Truck Hours - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="truckHoursBudget" hidden="false" order="22" baseMeasure="truckHours" datatype="BIGINT" length="19" scale="0">
+        <descriptions defaultDescription="Truck Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="vehicleMilesActual" hidden="false" order="23" baseMeasure="vehicleMiles" datatype="BIGINT" length="19" scale="0">
+        <descriptions defaultDescription="Vehicle Miles - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="vehicleMilesBudget" hidden="false" order="24" baseMeasure="vehicleMiles" datatype="BIGINT" length="19" scale="0">
+        <descriptions defaultDescription="Vehicle Miles - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalAmountActual" hidden="false" order="25" baseMeasure="totalAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalAmountBudget" hidden="false" order="26" baseMeasure="totalAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="laborAmountActual" hidden="false" order="27" baseMeasure="laborAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Labor Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="laborAmountBudget" hidden="false" order="28" baseMeasure="laborAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Labor Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="wreckerAmountActual" hidden="false" order="29" baseMeasure="wreckerAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Wrecker Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="wreckerAmountBudget" hidden="false" order="30" baseMeasure="wreckerAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Wrecker Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="partsAmountActual" hidden="false" order="31" baseMeasure="partsAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Parts Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="partsAmountBudget" hidden="false" order="32" baseMeasure="partsAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Parts Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="supplierAmountActual" hidden="false" order="33" baseMeasure="vendorAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Supplier Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="supplierAmountBudget" hidden="false" order="34" baseMeasure="vendorAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Supplier Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="tiresAmountActual" hidden="false" order="35" baseMeasure="tiresAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Tires Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="tiresAmountBudget" hidden="false" order="36" baseMeasure="tiresAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Tires Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelAmountActual" hidden="false" order="37" baseMeasure="fuelAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Fuel Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelAmountBudget" hidden="false" order="38" baseMeasure="fuelAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Fuel Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexTotalAmountActual" hidden="false" order="39" baseMeasure="capTotalAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Total Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexTotalAmountBudget" hidden="false" order="40" baseMeasure="capTotalAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Total Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexLaborAmountActual" hidden="false" order="41" baseMeasure="capLaborAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Labor Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexLaborAmountBudget" hidden="false" order="42" baseMeasure="capLaborAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Labor Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexPartsAmountActual" hidden="false" order="43" baseMeasure="capPartsAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Parts Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexPartsAmountBudget" hidden="false" order="44" baseMeasure="capPartsAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Parts Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexSupplierAmountActual" hidden="false" order="45" baseMeasure="capVendorAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Supplier Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexSupplierAmountBudget" hidden="false" order="46" baseMeasure="capVendorAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Supplier Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexWreckerAmountActual" hidden="false" order="47" baseMeasure="capWreckerAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Wrecker Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexWreckerAmountBudget" hidden="false" order="48" baseMeasure="capWreckerAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Wrecker Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="unitCountActual" hidden="false" order="49" baseMeasure="unitCount" datatype="INTEGER" length="10" scale="0">
+        <descriptions defaultDescription="Unit Count - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="unitCountBudget" hidden="false" order="50" baseMeasure="unitCount" datatype="INTEGER" length="10" scale="0">
+        <descriptions defaultDescription="Unit Count - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexTiresAmountActual" hidden="false" order="51" baseMeasure="capTiresAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Tires Amount - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexTiresAmountBudget" hidden="false" order="52" baseMeasure="capTiresAmount" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="CAPEX Tires Amount - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

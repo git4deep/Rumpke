@@ -1,0 +1,174 @@
+FUNCTION "rumpke.bi.data.proc::timeAttributesByFiscalMonth" ( ) 
+RETURNS TABLE (
+		"date" DATE
+		,"dateSAP" VARCHAR(8)
+		,"year" VARCHAR(4)
+		,"yearInt" INT
+		,"quarter" VARCHAR(2)
+		,"quarterInt" TINYINT
+		,"calQuarter" VARCHAR(5)
+		,"month" VARCHAR(2)
+		,"monthInt" TINYINT
+		,"calMonth" VARCHAR(6)
+		,"calendarMonth" VARCHAR(7)
+		,"calendarMonthDesc" VARCHAR(10)
+		,"monthName" VARCHAR(10)
+		,"lastDayOfMonthIndic" TINYINT
+		,"week" VARCHAR(2)
+		,"weekInt" TINYINT
+		,"calWeek" VARCHAR(6)
+		,"yearOfWeek" VARCHAR(4)
+		,"yearOfWeekInt" INT
+		,"dayOfWeek" VARCHAR(2)
+		,"dayOfWeekInt" TINYINT
+		,"dayName" VARCHAR(10)
+		,"day" VARCHAR(2)
+		,"dayInt" TINYINT
+		,"dayOfYear" SMALLINT
+		,"rollingDayNo" INT
+		,"rollingYearNo" INT
+		,"rollingWeekNo" INT
+		,"ytd" VARCHAR(1)
+		,"ytdClosedPeriod" VARCHAR(1)
+		,"ytdClosedPeriodAdjustedForJan" VARCHAR(1)
+		,"rollingMonthNo" INT
+		,"mtd" VARCHAR(1)
+		,"daysInMonth" TINYINT
+		,"yearQuarter" VARCHAR(7)
+		,"currentQuarter" VARCHAR(1)
+		,"currentQTD" VARCHAR(1)
+		,"today" VARCHAR(1)
+		,"todayPriorYear" VARCHAR(1)
+		,"yesterday" VARCHAR(1)
+		,"fiscalPeriod" VARCHAR(3)
+		,"fiscalYear" VARCHAR(4)
+		,"fiscalYearPeriod" VARCHAR(7)
+		,"calMonthDisplay" VARCHAR(7)
+		) LANGUAGE SQLSCRIPT SQL SECURITY INVOKER AS
+
+BEGIN
+	/***************************** 
+	Write your function logic
+ *****************************/
+	VAR_OUT =
+
+	SELECT "DATE_SQL" AS "date"
+		,"DATE_SAP" AS "dateSAP"
+		,"YEAR" AS "year"
+		,"YEAR_INT" AS "yearInt"
+		,"QUARTER" AS "quarter"
+		,"QUARTER_INT" AS "quarterInt"
+		,"CALQUARTER" AS "calQuarter"
+		,"MONTH" AS "month"
+		,"MONTH_INT" AS "monthInt"
+		,"CALMONTH" AS "calMonth"
+		,LEFT("CALMONTH", 4) || '/' || RIGHT("CALMONTH", 2) AS "calendarMonth"
+		,"YEAR" || '/' || LEFT(MONTHNAME("DATE_SQL"), 3) AS "calendarMonthDesc"
+		,MONTHNAME("DATE_SQL") AS "monthName"
+		,"MONTH_LAST_DAY" AS "lastDayOfMonthIndic"
+		,"WEEK" AS "week"
+		,"WEEK_INT" AS "weekInt"
+		,"CALWEEK" AS "calWeek"
+		,"WEEK_YEAR" AS "yearOfWeek"
+		,"WEEK_YEAR_INT" AS "yearOfWeekInt"
+		,"DAY_OF_WEEK" AS "dayOfWeek"
+		,"DAY_OF_WEEK_INT" AS "dayOfWeekInt"
+		,DAYNAME("DATE_SQL") AS "dayName"
+		,"DAY" AS "day"
+		,"DAY_INT" AS "dayInt"
+		,DAYOFYEAR("DATE_SQL") AS "dayOfYear"
+		,DAYS_BETWEEN(CURRENT_DATE,"DATE_SQL") AS "rollingDayNo"
+		,YEAR("DATE_SQL") - YEAR(CURRENT_DATE) AS "rollingYearNo"
+		,FLOOR(DAYS_BETWEEN(CURRENT_DATE, "DATE_SQL")/7) AS "rollingWeekNo"
+		,CASE 
+			WHEN SUBSTRING(TO_VARCHAR(CURRENT_DATE), 6, 2) > SUBSTRING(TO_VARCHAR("DATE_SQL"), 6, 2)
+				THEN 'Y'
+			ELSE 'N'
+			END AS "ytd"
+		,CASE 
+			WHEN SUBSTRING(TO_VARCHAR(CURRENT_DATE), 6, 2) != '01'
+				THEN (
+						CASE 
+							WHEN TO_INT(SUBSTRING(TO_VARCHAR(LAST_DAY(ADD_MONTHS(CURRENT_DATE, - 1))), 6, 2) || SUBSTRING(TO_VARCHAR(LAST_DAY(ADD_MONTHS(CURRENT_DATE, - 1))), 9, 2)) >= TO_INT(SUBSTRING(TO_VARCHAR("DATE_SQL"), 6, 2) || SUBSTRING(TO_VARCHAR("DATE_SQL"), 9, 2))
+								THEN 'Y'
+							ELSE 'N'
+							END
+						)
+			ELSE 'N'
+			END AS "ytdClosedPeriod"
+		,CASE 
+			WHEN SUBSTRING(TO_VARCHAR(CURRENT_DATE), 6, 2) = '01'
+				THEN (
+						CASE 
+							WHEN YEAR(CURRENT_DATE) - 1 = YEAR("DATE_SQL")
+								THEN 'Y'
+							ELSE 'N'
+							END
+						)
+			WHEN TO_INT(SUBSTRING(TO_VARCHAR(LAST_DAY(ADD_MONTHS(CURRENT_DATE, - 1))), 6, 2) || SUBSTRING(TO_VARCHAR(LAST_DAY(ADD_MONTHS(CURRENT_DATE, - 1))), 9, 2)) >= TO_INT(SUBSTRING(TO_VARCHAR("DATE_SQL"), 6, 2) || SUBSTRING(TO_VARCHAR("DATE_SQL"), 9, 2))
+				THEN 'Y'
+			ELSE 'N'
+			END AS "ytdClosedPeriodAdjustedForJan"
+		,CASE 
+			WHEN "DATE_SQL" <= LAST_DAY(CURRENT_DATE)
+				THEN (
+						CASE 
+							WHEN "DAY" = '01'
+								THEN MONTHS_BETWEEN(NEXT_DAY(LAST_DAY(CURRENT_DATE)), "DATE_SQL") + 1
+							ELSE MONTHS_BETWEEN(NEXT_DAY(LAST_DAY(CURRENT_DATE)), "DATE_SQL")
+							END
+						)
+			WHEN "DATE_SQL" >= NEXT_DAY(LAST_DAY(CURRENT_DATE))
+				THEN MONTHS_BETWEEN(ADD_MONTHS(NEXT_DAY(LAST_DAY(CURRENT_DATE)), - 1), "DATE_SQL")
+			ELSE NULL
+			END AS "rollingMonthNo"
+		,CASE 
+			WHEN MONTH(CURRENT_DATE) > "MONTH"
+				THEN 'Y'
+			ELSE 'N'
+			END AS "mtd"
+		,DAYOFMONTH(LAST_DAY("DATE_SQL")) AS "daysInMonth"
+		,QUARTER("DATE_SQL") AS "yearQuarter"
+		,CASE 
+			WHEN "QUARTER" = (
+					SELECT "QUARTER"
+					FROM "M_TIME_DIMENSION"
+					WHERE "DATE_SQL" = CURRENT_DATE
+					)
+				THEN 'Y'
+			ELSE 'N'
+			END AS "currentQuarter"
+		,CASE 
+			WHEN TO_INT(SUBSTRING(TO_VARCHAR(CURRENT_DATE), 6, 2) || SUBSTRING(TO_VARCHAR(CURRENT_DATE), 9, 2)) >= TO_INT(SUBSTRING(TO_VARCHAR("DATE_SQL"), 6, 2) || SUBSTRING(TO_VARCHAR("DATE_SQL"), 9, 2))
+				AND "QUARTER" = (
+					SELECT "QUARTER"
+					FROM "M_TIME_DIMENSION"
+					WHERE "DATE_SQL" = CURRENT_DATE
+					)
+				THEN 'Y'
+			ELSE 'N'
+			END AS "currentQTD"
+		,CASE 
+			WHEN CURRENT_DATE = "DATE_SQL"
+				THEN 'Y'
+			ELSE 'N'
+			END AS "today"
+		,CASE 
+			WHEN ADD_MONTHS (CURRENT_DATE, -12) = "DATE_SQL"
+				THEN 'Y'
+			ELSE 'N'
+			END AS "todayPriorYear"
+		,CASE 
+			WHEN ADD_DAYS(CURRENT_DATE,-1) = "DATE_SQL"
+				THEN 'Y'
+			ELSE 'N'
+			END AS "yesterday"
+		,CONCAT(0,RIGHT("CALMONTH", 2)) AS "fiscalPeriod"
+		,LEFT("CALMONTH", 4) AS "fiscalYear"
+		,CONCAT((LEFT("CALMONTH", 4)), CONCAT(0,RIGHT("CALMONTH", 2))) AS "fiscalYearPeriod"
+		,CONCAT(CONCAT("MONTH", '-'),"YEAR") AS "calMonthDisplay"		
+	FROM "M_TIME_DIMENSION";
+
+	RETURN :VAR_OUT;
+
+END;

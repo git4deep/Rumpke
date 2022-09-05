@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.materialsManagement.base::materialDocuments" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Material Documents"/>
+  <metadata changedAt="2020-11-25 10:23:13.366"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="MATDOC">
+      <resourceUri>rumpke.bi.materialsManagement.base.s4hana::MATDOC</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="MATDOC">
+    <descriptions/>
+    <attributes>
+      <attribute id="numberofMaterialDocument" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Number of Material Document"/>
+        <keyMapping columnObjectName="MATDOC" columnName="MBLNR"/>
+      </attribute>
+      <attribute id="reasonforMovement" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Reason for Movement"/>
+        <keyMapping columnObjectName="MATDOC" columnName="GRUND"/>
+      </attribute>
+      <attribute id="documentType" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Type"/>
+        <keyMapping columnObjectName="MATDOC" columnName="BLART"/>
+      </attribute>
+      <attribute id="movementType" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Movement type (inventory management)"/>
+        <keyMapping columnObjectName="MATDOC" columnName="BWART"/>
+      </attribute>
+      <attribute id="purchasingDocumentNumber" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="purchasingDocumentNumber"/>
+        <keyMapping columnObjectName="MATDOC" columnName="EBELN"/>
+      </attribute>
+      <attribute id="itemNumberofPurchasingDocument" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="itemNumberofPurchasingDocument"/>
+        <keyMapping columnObjectName="MATDOC" columnName="EBELP"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="quantity" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Quantity"/>
+        <measureMapping columnObjectName="MATDOC" columnName="MENGE"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="30" y="140"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

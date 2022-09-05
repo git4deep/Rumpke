@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::reasonforMovement" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Reason for Movement"/>
+  <metadata changedAt="2020-06-19 13:54:50.255"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="36"/>
+  <dataSources>
+    <DataSource id="T157D">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T157D</resourceUri>
+    </DataSource>
+    <DataSource id="T157E">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T157E</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="movementType"/>
+        <viewAttribute id="reasonforMovement"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T157D">
+        <mapping xsi:type="Calculation:AttributeMapping" target="movementType" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reasonforMovement" source="GRUND"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="movementType"/>
+        <viewAttribute id="reasonforMovement"/>
+        <viewAttribute id="reasonforMovementDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T157E">
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="movementType" source="BWART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reasonforMovement" source="GRUND"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reasonforMovementDescription" source="GRTXT"/>
+      </input>
+    <filter>(&quot;languageKey&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="movementType"/>
+        <viewAttribute id="reasonforMovement"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="reasonforMovementDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="movementType" source="movementType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reasonforMovement" source="reasonforMovement"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reasonforMovementDescription" source="reasonforMovementDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="movementType" source="movementType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reasonforMovement" source="reasonforMovement"/>
+      </input>
+    <joinAttribute name="movementType"/>
+    <joinAttribute name="reasonforMovement"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="movementType" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Movement type (inventory management)"/>
+        <keyMapping columnObjectName="Join_1" columnName="movementType"/>
+      </attribute>
+      <attribute id="reasonforMovement" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Reason for Movement"/>
+        <keyMapping columnObjectName="Join_1" columnName="reasonforMovement"/>
+      </attribute>
+      <attribute id="languageKey" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="Join_1" columnName="languageKey"/>
+      </attribute>
+      <attribute id="reasonforMovementDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Text: Reason for Goods Movement"/>
+        <keyMapping columnObjectName="Join_1" columnName="reasonforMovementDescription"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

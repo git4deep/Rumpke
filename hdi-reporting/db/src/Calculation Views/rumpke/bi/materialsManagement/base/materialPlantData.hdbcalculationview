@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.materialsManagement.base::materialPlantData" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="materialPlantData"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="MARC">
+      <resourceUri>rumpke.bi.materialsManagement.base.s4hana::MARC</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="MARC">
+    <descriptions/>
+    <attributes>
+      <attribute id="material" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="material"/>
+        <keyMapping columnObjectName="MARC" columnName="MATNR"/>
+      </attribute>
+      <attribute id="plant" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="plant"/>
+        <keyMapping columnObjectName="MARC" columnName="WERKS"/>
+      </attribute>
+      <attribute id="profitCenter" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="MARC" columnName="PRCTR"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="baseQuantity" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="baseQuantity"/>
+        <measureMapping columnObjectName="MARC" columnName="BASMG"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

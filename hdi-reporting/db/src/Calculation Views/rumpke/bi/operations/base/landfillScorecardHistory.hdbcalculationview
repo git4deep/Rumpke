@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::landfillScorecardHistory" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Landfill Scorecard History"/>
+  <metadata changedAt="2020-01-10 21:30:53.81"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="22"/>
+  <dataSources>
+    <DataSource id="data_LandfillScorecardHistory">
+      <resourceUri>rumpke.bi.operations.base.mssql::data_LandfillScorecardHistory</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="costOfOperations"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="totalNetRevenue"/>
+        <viewAttribute id="totalNetRevenuePerTon"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="totalNetLaborCostPerTon"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="totalNetEquipmentCostPerTon"/>
+        <viewAttribute id="totalCellSiteAmortizationCost"/>
+        <viewAttribute id="totalCellSiteAmorticationCostPerTon"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalOtherLandfillExpensesPerTon"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="totalLandfillOperatingExpensePerTon"/>
+        <viewAttribute id="landfillOperatingProfit"/>
+        <viewAttribute id="landfillOperatingProfitPerTon"/>
+        <viewAttribute id="landfillAllOtherCost"/>
+        <viewAttribute id="landfillTons_CM"/>
+        <viewAttribute id="landfillTons_CY_YTD"/>
+        <viewAttribute id="landfillTons_LY_CM"/>
+        <viewAttribute id="landfillTons_LY_YTD"/>
+        <viewAttribute id="payrollHours"/>
+        <viewAttribute id="rtaHours"/>
+        <viewAttribute id="equipmentCost"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="maintenanceCost"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="equipmentCostPerHour"/>
+        <viewAttribute id="ownershipCostPerHour"/>
+        <viewAttribute id="maintenanceCostPerHour"/>
+        <viewAttribute id="fuelCostPerHour"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="data_LandfillScorecardHistory">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FiscalMonthID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="ProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="LOB_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="versions" source="Versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="TotalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="CostOfOperations"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="EBITDATarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="TotalNetRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenuePerTon" source="TotalNetRevenuePerTon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="TotalNetLaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCostPerTon" source="TotalNetLaborCostPerTon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="TotalNetEquipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCostPerTon" source="TotalNetEquipmentCostPerTon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalCellSiteAmortizationCost" source="TotalCellSiteAmortizationCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalCellSiteAmorticationCostPerTon" source="TotalCellSiteAmorticationCostPerTon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="TotalOtherLandfillExpenses"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpensesPerTon" source="TotalOtherLandfillExpensesPerTon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="TotalLandfillOperatingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpensePerTon" source="TotalLandfillOperatingExpensePerTon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillOperatingProfit" source="LandfillOperatingProfit"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillOperatingProfitPerTon" source="LandfillOperatingProfitPerTon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillAllOtherCost" source="LandfillAllOtherCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillTons_CM" source="LandfillTons_CM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillTons_CY_YTD" source="LandfillTons_CY_YTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillTons_LY_CM" source="LandfillTons_LY_CM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillTons_LY_YTD" source="LandfillTons_LY_YTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payrollHours" source="PayrollHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rtaHours" source="RTAHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCost" source="EquipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="OwnershipCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCost" source="MaintenanceCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="FuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCostPerHour" source="EquipmentCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCostPerHour" source="OwnershipCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostPerHour" source="MaintenanceCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostPerHour" source="FuelCostPerHour"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" key="true" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="profitCenter" key="true" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" key="true" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="versions" key="true" order="4" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Versions"/>
+        <keyMapping columnObjectName="Projection_1" columnName="versions"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="totalRevenue" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Revenue"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalRevenue"/>
+      </measure>
+      <measure id="costOfOperations" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cost of Operations"/>
+        <measureMapping columnObjectName="Projection_1" columnName="costOfOperations"/>
+      </measure>
+      <measure id="ebitdaTarget" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ebitdaTarget"/>
+      </measure>
+      <measure id="totalNetRevenue" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Net Revenue"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetRevenue"/>
+      </measure>
+      <measure id="totalNetRevenuePerTon" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Net Revenue Per Ton"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetRevenuePerTon"/>
+      </measure>
+      <measure id="totalNetLaborCost" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Net Labor Cost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetLaborCost"/>
+      </measure>
+      <measure id="totalNetLaborCostPerTon" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Net Labor Cost Per Ton"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetLaborCostPerTon"/>
+      </measure>
+      <measure id="totalNetEquipmentCost" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Net Equipment Cost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetEquipmentCost"/>
+      </measure>
+      <measure id="totalNetEquipmentCostPerTon" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Net Equipment Cost Per Ton"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetEquipmentCostPerTon"/>
+      </measure>
+      <measure id="totalCellSiteAmortizationCost" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Cell Site Amortization Cost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalCellSiteAmortizationCost"/>
+      </measure>
+      <measure id="totalCellSiteAmorticationCostPerTon" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Cell Site Amortization Cost Per Ton"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalCellSiteAmorticationCostPerTon"/>
+      </measure>
+      <measure id="totalOtherLandfillExpenses" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Other Landfill Expenses"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalOtherLandfillExpenses"/>
+      </measure>
+      <measure id="totalOtherLandfillExpensesPerTon" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Other Landfill Expenses Per Ton"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalOtherLandfillExpensesPerTon"/>
+      </measure>
+      <measure id="totalLandfillOperatingExpense" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Landfill Operating Expense"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalLandfillOperatingExpense"/>
+      </measure>
+      <measure id="totalLandfillOperatingExpensePerTon" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Landfill Operating Expense Per Ton"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalLandfillOperatingExpensePerTon"/>
+      </measure>
+      <measure id="landfillOperatingProfit" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Landfill Operating Profit"/>
+        <measureMapping columnObjectName="Projection_1" columnName="landfillOperatingProfit"/>
+      </measure>
+      <measure id="landfillOperatingProfitPerTon" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Landfill Operating Profit Per Ton"/>
+        <measureMapping columnObjectName="Projection_1" columnName="landfillOperatingProfitPerTon"/>
+      </measure>
+      <measure id="landfillAllOtherCost" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Landfill All Other Cost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="landfillAllOtherCost"/>
+      </measure>
+      <measure id="landfillTons_CM" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Landfill Tons CM"/>
+        <measureMapping columnObjectName="Projection_1" columnName="landfillTons_CM"/>
+      </measure>
+      <measure id="landfillTons_CY_YTD" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Landfill Tons CY YTD"/>
+        <measureMapping columnObjectName="Projection_1" columnName="landfillTons_CY_YTD"/>
+      </measure>
+      <measure id="landfillTons_LY_CM" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Landfill Tons LY CM"/>
+        <measureMapping columnObjectName="Projection_1" columnName="landfillTons_LY_CM"/>
+      </measure>
+      <measure id="landfillTons_LY_YTD" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Landfill Tons LY YTD"/>
+        <measureMapping columnObjectName="Projection_1" columnName="landfillTons_LY_YTD"/>
+      </measure>
+      <measure id="payrollHours" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Payroll Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="payrollHours"/>
+      </measure>
+      <measure id="rtaHours" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="RTA Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="rtaHours"/>
+      </measure>
+      <measure id="equipmentCost" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Cost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="equipmentCost"/>
+      </measure>
+      <measure id="ownershipCost" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Ownership Cost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ownershipCost"/>
+      </measure>
+      <measure id="maintenanceCost" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance Cost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintenanceCost"/>
+      </measure>
+      <measure id="fuelCost" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Cost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelCost"/>
+      </measure>
+      <measure id="equipmentCostPerHour" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Cost Per Hour"/>
+        <measureMapping columnObjectName="Projection_1" columnName="equipmentCostPerHour"/>
+      </measure>
+      <measure id="ownershipCostPerHour" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Ownership Cost Per Hour"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ownershipCostPerHour"/>
+      </measure>
+      <measure id="maintenanceCostPerHour" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance Cost Per Hour"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintenanceCostPerHour"/>
+      </measure>
+      <measure id="fuelCostPerHour" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Cost Per Hour"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelCostPerHour"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

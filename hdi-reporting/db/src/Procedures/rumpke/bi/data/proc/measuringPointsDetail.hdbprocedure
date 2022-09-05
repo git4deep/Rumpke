@@ -1,0 +1,57 @@
+PROCEDURE "rumpke.bi.data.proc::measuringPointsDetail" ( ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER AS
+--	READS SQL DATA AS
+
+BEGIN
+/***************************** 
+	Write your procedure logic 
+ *****************************/
+
+--Deletion of the records from the table prior to executing for the new date
+--
+DELETE FROM "rumpke.bi.data.ddl::transactionData.measurementPoints";
+
+--Insert the data into the measurementPoints tranasactional table using the table function and the base view associated
+--with the base table.
+insert into "rumpke.bi.data.ddl::transactionData.measurementPoints" 
+SELECT "equipmentNumber",
+"objectNumber",
+"measuringPoint",
+"measuringPointDesc",
+"documentDate",
+"documentTime",
+"measuringType",
+"measuringPointUOM",
+"fuelCostByGallon",
+"measuringDocumentNumber",
+"measuringPointQuantity",
+"fuelGallons",
+"numberOfHours",
+"mdText",
+"currentLag",
+"truckHours",
+"vehicleMiles",
+"currentTruckLag",
+"currentVehicleLag",
+"controllingArea",
+"costCenter",
+"vehicleID",
+"equipmentCategory",
+"equipmentDescription",
+"plant",
+"functionalArea",
+"functionalAreaDescription",
+"lineOfBusiness",
+"client",
+"fleetObjectType",
+"priorDocumentDate",
+"activityCode",
+"unitCount" 
+FROM 
+"rumpke.bi.plantMaintainance.base::measuringPointsHourMilesDelta";
+
+--Update the job Control table with the last time the program successfully ran.  This will allow us to determine if something failed
+insert into "rumpke.bi.data.ddl::transactionData.jobControl" values('measurementPointsDetail',now(),'Y', CURRENT_USER);
+
+END;

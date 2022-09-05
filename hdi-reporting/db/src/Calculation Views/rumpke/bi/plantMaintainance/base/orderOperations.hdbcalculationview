@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::orderOperations" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="SAP Operations in order"/>
+  <metadata changedAt="2020-04-09 15:45:57.18"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="34"/>
+  <dataSources>
+    <DataSource id="S4HANA::AFVC">
+      <resourceUri>S4HANA::AFVC</resourceUri>
+    </DataSource>
+    <DataSource id="T435T">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::T435T</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="objectIDOfResource"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::AFVC">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="AUFPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="APLZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="KTSCH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="ARBID"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="language"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T435T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="language" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="VLSCH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="TXT"/>
+      </input>
+    <filter>(&quot;language&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="objectIDOfResource"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="wac"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_1" columnName="client"/>
+      </attribute>
+      <attribute id="routingNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Routing Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="routingNumber"/>
+      </attribute>
+      <attribute id="counter" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Counter"/>
+        <keyMapping columnObjectName="Join_1" columnName="counter"/>
+      </attribute>
+      <attribute id="objectNumber" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="wac" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WAC"/>
+        <keyMapping columnObjectName="Join_1" columnName="wac"/>
+      </attribute>
+      <attribute id="wacDesc" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WAC Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="wacDesc"/>
+      </attribute>
+      <attribute id="objectIDOfResource" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object ID of Resource"/>
+        <keyMapping columnObjectName="Join_1" columnName="objectIDOfResource"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

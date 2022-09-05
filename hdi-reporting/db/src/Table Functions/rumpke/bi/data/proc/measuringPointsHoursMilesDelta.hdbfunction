@@ -1,0 +1,124 @@
+/* MOD#: 001
+*********************************************************************/
+FUNCTION "rumpke.bi.data.proc::measuringPointsHoursMilesDelta" () 
+  /*This is the return table and it is in uppercase due to sensitivity of same names*/
+  RETURNS TABLE (
+    "CLIENT" NVARCHAR(3),
+    "EQUIPMENTNUMBER" NVARCHAR(18),
+    "OBJECTNUMBER" NVARCHAR(22),
+    "MEASURINGPOINT" NVARCHAR(12),
+    "MEASURINGPOINTDESC" NVARCHAR(40),
+    "DOCUMENTDATE" DATE,
+    "DOCUMENTTIME" NVARCHAR(6),
+    "MEASURINGTYPE" NVARCHAR(20),
+    "MEASURINGPOINTUOM" NVARCHAR(3),
+    "FUELCOSTBYGALLON" DECIMAL(13, 3),
+    "MEASURINGDOCUMENTNUMBER" NVARCHAR(20),
+    "MEASURINGPOINTQUANTITY" DOUBLE,
+    "TRUCKHOURS" BIGINT,
+    "VEHICLEMILES" BIGINT,
+    "FUELGALLONS" DECIMAL(13, 3),
+    "NUMBEROFHOURS" DECIMAL(13, 3),
+    "MDTEXT" NVARCHAR(40),
+    "CURRENTLAG" DECIMAL(13, 3),
+    "CURRENTTRUCKLAG" BIGINT,
+    "CURRENTVEHICLELAG" BIGINT,
+    "PRIORDOCUMENTDATE" DATE,--Document Date - MOD-001
+    "CONTROLLINGAREA" NVARCHAR(4),
+    "COSTCENTER" NVARCHAR(10),
+    "FUNCTAREA" NVARCHAR(16),
+    "FUNCTAREADESC" NVARCHAR(25),
+    "LINEOFBUS" NVARCHAR(12),
+    "VEHICLEID" NVARCHAR(30),
+    "EQUIPMENTCATEGORY" NVARCHAR(1),
+    "EQUIPMENTDESCRIPTION" NVARCHAR(40),
+    "ACTIVITYCODE" NVARCHAR(10),
+    "PLANT" NVARCHAR(4),
+    "FLEETOBJECTTYPE" NVARCHAR(10)
+  ) 
+  LANGUAGE SQLSCRIPT 
+  SQL SECURITY INVOKER AS 
+BEGIN VAR_OUT =
+  SELECT "client" AS CLIENT,
+    "equipmentNumber" AS EQUIPMENTNUMBER,
+    "objectNumber" AS OBJECTNUMBER,
+    "measuringPoint" AS MEASURINGPOINT,
+    "measuringPointDesc" AS MEASURINGPOINTDESC,
+    "documentDate" AS DOCUMENTDATE,
+    "documentTime" AS DOCUMENTTIME,
+    "measuringType" AS MEASURINGTYPE,
+    "measuringPointUOM" AS MEASURINGPOINTUOM,
+    "FUELCOSTBYGALLON",
+    "measuringDocumentNumber" AS MEASURINGDOCUMENTNUMBER,
+    "measuringPointQuantity" AS MEASURINGPOINTQUANTITY,
+    "truckHours" AS TRUCKHOURS,
+    "vehicleMiles" AS VEHICLEMILES,
+    "fuelGallons" AS FUELGALLONS,
+    NUMBEROFHOURS,
+    "mdText" AS MDTEXT,
+    COALESCE (HOURSLAG, "measuringPointQuantity") AS CURRENTLAG,
+    COALESCE (truckHoursLag, "measuringPointQuantity") AS CURRENTTRUCKLAG,
+    COALESCE (vehicleHoursLag, "measuringPointQuantity") AS CURRENTVEHICLELAG,
+    COALESCE (priorDocumentDate, "documentDate") AS PRIORDOCUMENTDATE, --MOD-001
+    "controllingArea" AS CONTROLLINGAREA,
+    "costCenter" AS COSTCENTER,
+    "functionalArea" AS FUNCTAREA,
+    "functionalAreaDesc" AS FUNCTAREADESC,
+    "lineOfBusiness" AS LINEOFBUS,
+    "vehicleID" AS VEHICLEID,
+    "equipmentCategory" AS EQUIPMENTCATEGORY,
+    "equipmentDescription" AS EQUIPMENTDESCRIPTION,
+    "activityCode" AS ACTIVITYCODE,
+    "plant" AS PLANT,
+    "fleetObjectType" AS FLEETOBJECTTYPE
+  FROM (
+      SELECT A."client",
+        A."equipmentNumber",
+        A."objectNumber",
+        A."measuringPoint",
+        A."measuringPointDesc",
+        A."documentDate",
+        A."documentTime",
+        A."measuringType",
+        A."measuringPointUOM",
+        A."fuelCostByGallon" AS FUELCOSTBYGALLON,
+        A."measuringDocumentNumber",
+        A."measuringPointQuantity",
+        A."fuelGallons",
+        A."numberOfHours" AS NUMBEROFHOURS,
+        A."mdText",
+        A."fuelCostByGallon",
+        A."truckHours",
+        A."vehicleMiles",
+        B."controllingArea",
+        B."costCenter",
+        B."functionalArea",
+        B."functionalAreaDesc",
+        B."lineOfBusiness",
+        B."vehicleID",
+        C."equipmentCategory",
+        C."equipmentDescription",
+        C."plant",
+        C."fleetObjectType",
+        C."activityCode",
+        /*Pulling the lags for trucks and vehicles and a general one*/
+        LAG(A."numberOfHours") OVER (PARTITION BY A."objectNumber"ORDER BY A."objectNumber",A."measuringType",A."documentDate",A."documentTime") AS HOURSLAG,
+        /*Pulling the lag for the hours that will be used for truck / miles */
+        LAG(A."truckHours") OVER (PARTITION BY A."objectNumber"ORDER BY A."objectNumber",A."measuringType",A."documentDate",A."documentTime") AS truckHoursLag,
+        LAG(A."vehicleMiles") OVER (PARTITION BY A."objectNumber"ORDER BY A."objectNumber",A."measuringType",A."documentDate",A."documentTime") AS vehicleHoursLag,
+        LAG(a."documentDate") OVER (PARTITION BY A."objectNumber"ORDER BY A."objectNumber",A."measuringType",A."documentDate",A."documentTime") AS priorDocumentDate --MOD-001
+      FROM "rumpke.bi.plantMaintainance.base::measuringPoints" AS A
+        INNER JOIN "rumpke.bi.masterData.reuse::equipmentMasterTimeDependent" AS B
+        ON A."client" = B."client"
+        AND A."equipmentNumber" = B."equipmentNumber"
+        AND A."abcIndicator" = B."abcIndicator"
+        AND A."documentDate" > B."validFrom"
+        AND A."documentDate" <= B."validToDate"
+        INNER JOIN "rumpke.bi.masterData.reuse::equipmentMaster" AS C
+        ON A."client" = C."client"
+        AND A."equipmentNumber" = C."equipmentNumber"
+        WHERE A."measuringType" = 'HOURS'
+        OR A."measuringType" = 'MILES'
+    );
+  RETURN :VAR_OUT;
+END;

@@ -1,0 +1,2694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.reuse::orderCostsDetails" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Plant Maintenance Order Details "/>
+  <metadata changedAt="2021-08-06 11:03:25.21"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="42"/>
+  <dataSources>
+    <DataSource id="maintenanceOrderCost">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::maintenanceOrderCost</resourceUri>
+    </DataSource>
+    <DataSource id="orderOperations">
+      <resourceUri>rumpke.bi.plantMaintainance.base::orderOperations</resourceUri>
+    </DataSource>
+    <DataSource id="JEST">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::JEST</resourceUri>
+    </DataSource>
+    <DataSource id="operationsUserFields">
+      <resourceUri>rumpke.bi.plantMaintainance.base::operationsUserFields</resourceUri>
+    </DataSource>
+    <DataSource id="ppOrderHeader">
+      <resourceUri>rumpke.bi.plantMaintainance.base::ppOrderHeader</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::orderMaster">
+      <resourceUri>rumpke.bi.masterData.base::orderMaster</resourceUri>
+    </DataSource>
+    <DataSource id="orderHeader">
+      <resourceUri>rumpke.bi.plantMaintainance.base::orderHeader</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributes">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributes</resourceUri>
+    </DataSource>
+    <DataSource id="settlementRules">
+      <resourceUri>rumpke.bi.plantMaintainance.base::settlementRules</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::equipmentMasterTimeDependent">
+      <resourceUri>rumpke.bi.masterData.reuse::equipmentMasterTimeDependent</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::costCenter">
+      <resourceUri>rumpke.bi.masterData.base::costCenter</resourceUri>
+    </DataSource>
+    <DataSource id="CRCO">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::CRCO</resourceUri>
+    </DataSource>
+    <DataSource id="prj_costCenterFunctionalArea$$$$rumpke.bi.masterData.base::costCenter$$">
+      <resourceUri>rumpke.bi.masterData.base::costCenter</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="prj_maintenanceOrderCost" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="maintenanceOrderCost"/>
+    <filter>(&quot;reportingPeriod&quot; !='00')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="objectIDOfResource"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="orderOperations"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="status"/>
+        <viewAttribute id="inactive"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="JEST">
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="status" source="STAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inactive" source="INACT"/>
+      </input>
+    <filter>(&quot;status&quot; ='I0013') AND (&quot;inactive&quot; ='')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_11" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="status"/>
+        <viewAttribute id="inactive"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="deletionFlag" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;status&quot; = 'I0013' AND &quot;inactive&quot; = '', 'X', '')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="prj_maintenanceOrderCost">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="status" source="status"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inactive" source="inactive"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+    <joinAttribute name="objectNumber"/>
+    <joinAttribute name="client"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="objectNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="operationsUserFields"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+    <joinAttribute name="counter"/>
+    <joinAttribute name="routingNumber"/>
+    <joinAttribute name="client"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="routingNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="ppOrderHeader"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+    <joinAttribute name="routingNumber"/>
+    <joinAttribute name="client"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="agg_orderMaster">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="profitCenterRO"/>
+        <viewAttribute id="functionalAreaRO"/>
+        <viewAttribute id="locationRO"/>
+        <viewAttribute id="responsibleCostCenterRO"/>
+        <viewAttribute id="controllingAreaRO"/>
+        <viewAttribute id="plantRO"/>
+        <viewAttribute id="businessAreaRO"/>
+        <viewAttribute id="companyCodeRO"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="workCenterRO"/>
+        <viewAttribute id="createdOnRO"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::orderMaster">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterRO" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaRO" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationRO" source="location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenterRO" source="responsibleCostCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingAreaRO" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantRO" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessAreaRO" source="businessArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeRO" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterRO" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnRO" source="createdOn"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="profitCenterRO"/>
+        <viewAttribute id="functionalAreaRO"/>
+        <viewAttribute id="locationRO"/>
+        <viewAttribute id="responsibleCostCenterRO"/>
+        <viewAttribute id="controllingAreaRO"/>
+        <viewAttribute id="plantRO"/>
+        <viewAttribute id="businessAreaRO"/>
+        <viewAttribute id="companyCodeRO"/>
+        <viewAttribute id="workCenterRO"/>
+        <viewAttribute id="createdOnRO"/>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="agg_orderMaster">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterRO" source="profitCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaRO" source="functionalAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationRO" source="locationRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenterRO" source="responsibleCostCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingAreaRO" source="controllingAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantRO" source="plantRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessAreaRO" source="businessAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeRO" source="companyCodeRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterRO" source="workCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnRO" source="createdOnRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDesc" source="orderTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="orderNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="orderHeader"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="materialNumber_1"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="profitCenterRO"/>
+        <viewAttribute id="functionalAreaRO"/>
+        <viewAttribute id="locationRO"/>
+        <viewAttribute id="responsibleCostCenterRO"/>
+        <viewAttribute id="controllingAreaRO"/>
+        <viewAttribute id="plantRO"/>
+        <viewAttribute id="businessAreaRO"/>
+        <viewAttribute id="companyCodeRO"/>
+        <viewAttribute id="workCenterRO"/>
+        <viewAttribute id="createdOnRO"/>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber_1" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterRO" source="profitCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaRO" source="functionalAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationRO" source="locationRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenterRO" source="responsibleCostCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingAreaRO" source="controllingAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantRO" source="plantRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessAreaRO" source="businessAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeRO" source="companyCodeRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterRO" source="workCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnRO" source="createdOnRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDesc" source="orderTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerNumber" source="customerNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleParty" source="responsibleParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="serialNumber" source="serialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityTypeDesc" source="maintenanceActivityTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="orderNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="year"/>
+        <viewAttribute id="quarter"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="fiscalYearPeriodDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributes">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriodDesc" source="monthName"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="rountingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="settlementType"/>
+        <viewAttribute id="settlementCategory"/>
+        <viewAttribute id="internalOrderNumber"/>
+        <viewAttribute id="settlementCostCenterOriginal"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="settlementRules"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="prj_equipmentMaster">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="maintenancePlanningPlantDescription"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="vehicleID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::equipmentMasterTimeDependent"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jnr_orderCostEquipment" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="profitCenterRO"/>
+        <viewAttribute id="functionalAreaRO"/>
+        <viewAttribute id="locationRO"/>
+        <viewAttribute id="responsibleCostCenterRO"/>
+        <viewAttribute id="controllingAreaRO"/>
+        <viewAttribute id="plantRO"/>
+        <viewAttribute id="businessAreaRO"/>
+        <viewAttribute id="companyCodeRO"/>
+        <viewAttribute id="workCenterRO"/>
+        <viewAttribute id="createdOnRO"/>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="maintenancePlanningPlantDescription"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="vehicleID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerNumber" source="customerNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleParty" source="responsibleParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="serialNumber" source="serialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterRO" source="profitCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaRO" source="functionalAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationRO" source="locationRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenterRO" source="responsibleCostCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingAreaRO" source="controllingAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantRO" source="plantRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessAreaRO" source="businessAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeRO" source="companyCodeRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterRO" source="workCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnRO" source="createdOnRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDesc" source="orderTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityTypeDesc" source="maintenanceActivityTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="prj_equipmentMaster">
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="companyCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="costCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlantDescription" source="maintenancePlanningPlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDesc" source="profitCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+      </input>
+    <joinAttribute name="equipmentNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="prj_equipmentFilter" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="createdOnRO"/>
+        <viewAttribute id="workCenterRO"/>
+        <viewAttribute id="companyCodeRO"/>
+        <viewAttribute id="businessAreaRO"/>
+        <viewAttribute id="plantRO"/>
+        <viewAttribute id="controllingAreaRO"/>
+        <viewAttribute id="responsibleCostCenterRO"/>
+        <viewAttribute id="locationRO"/>
+        <viewAttribute id="functionalAreaRO"/>
+        <viewAttribute id="profitCenterRO"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="maintenancePlanningPlantDescription"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="vehicleID"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="vehicleIDRevised" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF((ISNULL(&quot;vehicleID&quot;) OR TRIM(&quot;vehicleID&quot;)='') AND ISNULL(&quot;validFrom&quot;) != 1, 
+      'No Vehicle Identifier',
+      IF(ISNULL(&quot;vehicleID&quot;), 
+            'No Truck Assigned', 
+            &quot;vehicleID&quot;
+      )
+)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="functionalAreaRevised" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(ISNULL(&quot;functionalArea&quot;), 'RUSITE', &quot;functionalArea&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="jnr_orderCostEquipment"/>
+    <filter>(ISNULL(&quot;validFrom&quot;) OR (&quot;createdOnRO&quot; &gt;= &quot;validFrom&quot; AND &quot;createdOnRO&quot; &lt; &quot;validToDate&quot;))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="settlementType"/>
+        <viewAttribute id="settlementCategory"/>
+        <viewAttribute id="internalOrderNumber"/>
+        <viewAttribute id="settlementCostCenterOriginal"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="createdOnRO"/>
+        <viewAttribute id="workCenterRO"/>
+        <viewAttribute id="companyCodeRO"/>
+        <viewAttribute id="businessAreaRO"/>
+        <viewAttribute id="plantRO"/>
+        <viewAttribute id="controllingAreaRO"/>
+        <viewAttribute id="responsibleCostCenterRO"/>
+        <viewAttribute id="locationRO"/>
+        <viewAttribute id="functionalAreaRO"/>
+        <viewAttribute id="profitCenterRO"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="maintenancePlanningPlantDescription"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="functionalArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="joinCostCenter" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(ISNULL(&quot;settlementCostCenterOriginal&quot;) OR TRIM(&quot;settlementCostCenterOriginal&quot;)='', &quot;responsibleCostCenterRO&quot;, &quot;settlementCostCenterOriginal&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="prj_equipmentFilter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityTypeDesc" source="maintenanceActivityTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDesc" source="orderTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnRO" source="createdOnRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterRO" source="workCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeRO" source="companyCodeRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessAreaRO" source="businessAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantRO" source="plantRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingAreaRO" source="controllingAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenterRO" source="responsibleCostCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationRO" source="locationRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaRO" source="functionalAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterRO" source="profitCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="serialNumber" source="serialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleParty" source="responsibleParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerNumber" source="customerNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="companyCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="costCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlantDescription" source="maintenancePlanningPlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDesc" source="profitCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleIDRevised"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+      </input>
+      <input node="Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementType" source="settlementType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCategory" source="settlementCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="internalOrderNumber" source="internalOrderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCostCenterOriginal" source="settlementCostCenterOriginal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="objectNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="workCenterCostCenter"/>
+        <viewAttribute id="workCenterCostCenterDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::costCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterCostCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterCostCenterDescription" source="description"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute aggregationType="max" id="workCenterCostCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="CRCO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="OBJID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterCostCenter" source="KOSTL"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="prj_costCenterFunctionalArea">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="prj_costCenterFunctionalArea$$$$rumpke.bi.masterData.base::costCenter$$"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jnr_costFunctionalArea" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="createdOnRO"/>
+        <viewAttribute id="workCenterRO"/>
+        <viewAttribute id="companyCodeRO"/>
+        <viewAttribute id="businessAreaRO"/>
+        <viewAttribute id="plantRO"/>
+        <viewAttribute id="controllingAreaRO"/>
+        <viewAttribute id="responsibleCostCenterRO"/>
+        <viewAttribute id="locationRO"/>
+        <viewAttribute id="functionalAreaRO"/>
+        <viewAttribute id="profitCenterRO"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="settlementType"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+        <viewAttribute id="settlementCategory"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="internalOrderNumber"/>
+        <viewAttribute id="settlementCostCenterOriginal"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="maintenancePlanningPlantDescription"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="settlementFunctionalArea"/>
+        <viewAttribute id="functionalAreaOriginal"/>
+        <viewAttribute id="settlementFunctionalAreaDesc"/>
+      <viewAttribute hidden="true" id="JOIN$joinCostCenter$costCenter"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="functionalArea" length="16" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(ISNULL(&quot;functionalAreaOriginal&quot;), &quot;settlementFunctionalArea&quot;, &quot;functionalAreaOriginal&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDesc" source="orderTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnRO" source="createdOnRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterRO" source="workCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeRO" source="companyCodeRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessAreaRO" source="businessAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantRO" source="plantRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingAreaRO" source="controllingAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenterRO" source="responsibleCostCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationRO" source="locationRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaRO" source="functionalAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterRO" source="profitCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="serialNumber" source="serialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleParty" source="responsibleParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerNumber" source="customerNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementType" source="settlementType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityTypeDesc" source="maintenanceActivityTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCategory" source="settlementCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="internalOrderNumber" source="internalOrderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCostCenterOriginal" source="settlementCostCenterOriginal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="companyCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="costCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlantDescription" source="maintenancePlanningPlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDesc" source="profitCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaOriginal" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$joinCostCenter$costCenter" source="joinCostCenter"/>
+      </input>
+      <input node="prj_costCenterFunctionalArea">
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementFunctionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementFunctionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$joinCostCenter$costCenter" source="costCenter"/>
+      </input>
+    <joinAttribute name="JOIN$joinCostCenter$costCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jnr_costWorkingCostCenter" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client_1"/>
+        <viewAttribute id="workCenterCostCenter"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="createdOnRO"/>
+        <viewAttribute id="workCenterRO"/>
+        <viewAttribute id="companyCodeRO"/>
+        <viewAttribute id="businessAreaRO"/>
+        <viewAttribute id="plantRO"/>
+        <viewAttribute id="controllingAreaRO"/>
+        <viewAttribute id="responsibleCostCenterRO"/>
+        <viewAttribute id="locationRO"/>
+        <viewAttribute id="functionalAreaRO"/>
+        <viewAttribute id="profitCenterRO"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="settlementType"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+        <viewAttribute id="settlementCategory"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="internalOrderNumber"/>
+        <viewAttribute id="settlementCostCenterOriginal"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="maintenancePlanningPlantDescription"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="functionalArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="jnr_costFunctionalArea">
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDesc" source="orderTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnRO" source="createdOnRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterRO" source="workCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeRO" source="companyCodeRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessAreaRO" source="businessAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantRO" source="plantRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingAreaRO" source="controllingAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenterRO" source="responsibleCostCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationRO" source="locationRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaRO" source="functionalAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterRO" source="profitCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="serialNumber" source="serialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleParty" source="responsibleParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerNumber" source="customerNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementType" source="settlementType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityTypeDesc" source="maintenanceActivityTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCategory" source="settlementCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="internalOrderNumber" source="internalOrderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCostCenterOriginal" source="settlementCostCenterOriginal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="companyCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="costCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlantDescription" source="maintenancePlanningPlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDesc" source="profitCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+      </input>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client_1" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterCostCenter" source="workCenterCostCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="objectIDOfResource"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jnr_costWorkingCCDescription" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="settlementCategory"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="settlementType"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="profitCenterRO"/>
+        <viewAttribute id="functionalAreaRO"/>
+        <viewAttribute id="locationRO"/>
+        <viewAttribute id="responsibleCostCenterRO"/>
+        <viewAttribute id="controllingAreaRO"/>
+        <viewAttribute id="plantRO"/>
+        <viewAttribute id="businessAreaRO"/>
+        <viewAttribute id="companyCodeRO"/>
+        <viewAttribute id="workCenterRO"/>
+        <viewAttribute id="createdOnRO"/>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="workCenterCostCenterDescription"/>
+        <viewAttribute id="workCenterCostCenter"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="internalOrderNumber"/>
+        <viewAttribute id="settlementCostCenterOriginal"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="maintenancePlanningPlantDescription"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="functionalArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="jnr_costWorkingCostCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCategory" source="settlementCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityTypeDesc" source="maintenanceActivityTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementType" source="settlementType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerNumber" source="customerNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleParty" source="responsibleParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="serialNumber" source="serialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterRO" source="profitCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaRO" source="functionalAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationRO" source="locationRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenterRO" source="responsibleCostCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingAreaRO" source="controllingAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantRO" source="plantRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessAreaRO" source="businessAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeRO" source="companyCodeRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterRO" source="workCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnRO" source="createdOnRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDesc" source="orderTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterCostCenter" source="workCenterCostCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="internalOrderNumber" source="internalOrderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCostCenterOriginal" source="settlementCostCenterOriginal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="companyCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="costCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlantDescription" source="maintenancePlanningPlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDesc" source="profitCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+      </input>
+      <input node="Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterCostCenterDescription" source="workCenterCostCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingAreaRO" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterCostCenter" source="workCenterCostCenter"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="controllingAreaRO"/>
+    <joinAttribute name="workCenterCostCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jnr_costTimeData" cardinality="CN_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="maintenancePlanningPlantDescription"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="month"/>
+        <viewAttribute id="quarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="fiscalYearPeriodDesc"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="createdOnRO"/>
+        <viewAttribute id="workCenterRO"/>
+        <viewAttribute id="companyCodeRO"/>
+        <viewAttribute id="businessAreaRO"/>
+        <viewAttribute id="plantRO"/>
+        <viewAttribute id="controllingAreaRO"/>
+        <viewAttribute id="responsibleCostCenterRO"/>
+        <viewAttribute id="locationRO"/>
+        <viewAttribute id="functionalAreaRO"/>
+        <viewAttribute id="profitCenterRO"/>
+        <viewAttribute id="costsValue"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="reportingPeriod"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="settlementType"/>
+        <viewAttribute id="wac"/>
+        <viewAttribute id="wacDesc"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+        <viewAttribute id="settlementCategory"/>
+        <viewAttribute id="objectIDOfResource"/>
+        <viewAttribute id="workCenterCostCenterDescription"/>
+        <viewAttribute id="workCenterCostCenter"/>
+        <viewAttribute id="deletionFlag"/>
+        <viewAttribute id="internalOrderNumber"/>
+        <viewAttribute id="settlementCostCenterOriginal"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="functionalArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="jnr_costWorkingCCDescription">
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="companyCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="costCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlantDescription" source="maintenancePlanningPlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDesc" source="profitCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDesc" source="orderTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnRO" source="createdOnRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterRO" source="workCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeRO" source="companyCodeRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessAreaRO" source="businessAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantRO" source="plantRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingAreaRO" source="controllingAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenterRO" source="responsibleCostCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationRO" source="locationRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaRO" source="functionalAreaRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterRO" source="profitCenterRO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costsValue" source="costsValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="serialNumber" source="serialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleParty" source="responsibleParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerNumber" source="customerNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="varianceCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="accountingIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="budgetType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="periodBlock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="planningBudgetingVersion"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="valueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="valueType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="debitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="currency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportingPeriod" source="reportingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementType" source="settlementType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wac" source="wac"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wacDesc" source="wacDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityTypeDesc" source="maintenanceActivityTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCategory" source="settlementCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfResource" source="objectIDOfResource"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterCostCenterDescription" source="workCenterCostCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenterCostCenter" source="workCenterCostCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="deletionFlag" source="deletionFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="internalOrderNumber" source="internalOrderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCostCenterOriginal" source="settlementCostCenterOriginal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="month" source="month"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="quarter" source="quarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriodDesc" source="fiscalYearPeriodDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="fiscalYearPeriod"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="jnr_costTimeData">
+    <descriptions/>
+    <attributes>
+      <attribute id="accountingIndicator" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Accounting Indicator"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="accountingIndicator"/>
+      </attribute>
+      <attribute id="budgetType" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Budget Type"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="budgetType"/>
+      </attribute>
+      <attribute id="businessAreaRO" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Business Area (Repair Order)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="businessAreaRO"/>
+      </attribute>
+      <attribute id="equipmentNumber" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="equipmentNumber"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="client" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="client"/>
+      </attribute>
+      <attribute id="companyCodeRO" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code (Repair Order)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="companyCodeRO"/>
+      </attribute>
+      <attribute id="controllingAreaRO" order="9" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area (Repair Order)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="controllingAreaRO"/>
+      </attribute>
+      <attribute id="counter" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Counter"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="counter"/>
+      </attribute>
+      <attribute id="currency" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="currency"/>
+      </attribute>
+      <attribute id="customerNumber" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Customer Number"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="customerNumber"/>
+      </attribute>
+      <attribute id="debitType" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Debit Type"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="debitType"/>
+      </attribute>
+      <attribute id="fiscalYear" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="functionalAreaRO" order="15" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area (Repair Order)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="functionalAreaRO"/>
+      </attribute>
+      <attribute id="locationAccountAssignment" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Location Account Assignment"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="locationAccountAssignment"/>
+      </attribute>
+      <attribute id="locationRO" order="17" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Location (Repair Order)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="locationRO"/>
+      </attribute>
+      <attribute id="maintenanceActivityType" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Activity Type"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="maintenanceActivityType"/>
+      </attribute>
+      <attribute id="maintenanceActivityTypeDesc" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Activity Type Description"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="maintenanceActivityTypeDesc"/>
+      </attribute>
+      <attribute id="materialNumber" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="materialNumber"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="materialNumber"/>
+      </attribute>
+      <attribute id="orderNumber" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Number"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="orderNumber"/>
+      </attribute>
+      <attribute id="orderType" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Type"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="orderType"/>
+      </attribute>
+      <attribute id="orderTypeDesc" order="24" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Type Desc"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="orderTypeDesc"/>
+      </attribute>
+      <attribute id="periodBlock" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="periodBlock"/>
+      </attribute>
+      <attribute id="planningBudgetingVersion" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Planning / Bugetting Version"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="planningBudgetingVersion"/>
+      </attribute>
+      <attribute id="plantRO" order="27" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant (Repair Order)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="plantRO"/>
+      </attribute>
+      <attribute id="profitCenterRO" order="28" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center (Repair Order)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="profitCenterRO"/>
+      </attribute>
+      <attribute id="reportingPeriod" order="29" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Reporting Period"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="reportingPeriod"/>
+      </attribute>
+      <attribute id="responsibleCostCenterRO" order="30" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Responsible Cost Center (Repair Order)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="responsibleCostCenterRO"/>
+      </attribute>
+      <attribute id="responsibleParty" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Responsible Party"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="responsibleParty"/>
+      </attribute>
+      <attribute id="routingNumber" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Routing Number"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="routingNumber"/>
+      </attribute>
+      <attribute id="serialNumber" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Serial Number"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="serialNumber"/>
+      </attribute>
+      <attribute id="settlementType" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Settlement Type"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="settlementType"/>
+      </attribute>
+      <attribute id="settlementCategory" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Settlement Category"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="settlementCategory"/>
+      </attribute>
+      <attribute id="workCenterRO" order="37" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Center (Repair Order)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="workCenterRO"/>
+      </attribute>
+      <attribute id="vrmsReasonCode" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Reason Code"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="vrmsReasonCode"/>
+      </attribute>
+      <attribute id="vrmsSymptomCode" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Symptom Code"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="vrmsSymptomCode"/>
+      </attribute>
+      <attribute id="vrmsReasonCodeDesc" order="40" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Reason Code Desc"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="vrmsReasonCodeDesc"/>
+      </attribute>
+      <attribute id="vrmsSymptomCodeDesc" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Symptom Code Desc"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="vrmsSymptomCodeDesc"/>
+      </attribute>
+      <attribute id="vrmsSystemCodeDesc" order="42" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - System Code Desc"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="vrmsSystemCodeDesc"/>
+      </attribute>
+      <attribute id="vrmsSystemCode" order="43" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - System Code"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="vrmsSystemCode"/>
+      </attribute>
+      <attribute id="varianceCategory" order="44" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Variance Category"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="varianceCategory"/>
+      </attribute>
+      <attribute id="valueCategory" order="45" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Value Category"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="valueCategory"/>
+      </attribute>
+      <attribute id="valueType" order="46" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Value Type"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="valueType"/>
+      </attribute>
+      <attribute id="wac" order="47" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WAC"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="wac"/>
+      </attribute>
+      <attribute id="wacDesc" order="48" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WAC Description"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="wacDesc"/>
+      </attribute>
+      <attribute id="year" order="49" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="year"/>
+      </attribute>
+      <attribute id="quarter" order="50" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Quarter"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="quarter"/>
+      </attribute>
+      <attribute id="month" order="51" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="month"/>
+      </attribute>
+      <attribute id="calQuarter" order="52" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter (YYYYQQ)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="calMonth" order="53" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (YYYYMM)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="calMonth"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="54" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="fiscalYearPeriodDesc" order="55" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period Desc"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="fiscalYearPeriodDesc"/>
+      </attribute>
+      <attribute id="createdOnRO" order="56" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Created On (Repair Order)"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="createdOnRO"/>
+      </attribute>
+      <attribute id="objectIDOfResource" order="118" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object ID of Resource"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="objectIDOfResource"/>
+      </attribute>
+      <attribute id="workCenterCostCenterDescription" order="119" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Description"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="workCenterCostCenterDescription"/>
+      </attribute>
+      <attribute id="workCenterCostCenter" order="120" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Center Cost Center"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="workCenterCostCenter"/>
+      </attribute>
+      <attribute id="deletionFlag" order="121" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Deletion Flag"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="deletionFlag"/>
+      </attribute>
+      <attribute id="internalOrderNumber" order="122" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Internal Order Number"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="internalOrderNumber"/>
+      </attribute>
+      <attribute id="settlementCostCenterOriginal" order="123" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Settlement Cost Center"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="settlementCostCenterOriginal"/>
+      </attribute>
+      <attribute id="objectNumber" order="124" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="objectNumber"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="abcIndicator" order="125" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABC Indicator"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="abcIndicator"/>
+      </attribute>
+      <attribute id="abcIndicatorDesc" order="126" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABC Indicator Desc"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="abcIndicatorDesc"/>
+      </attribute>
+      <attribute id="mdCompanyCode" order="127" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="companyCode"/>
+      </attribute>
+      <attribute id="mdCompanyCodeDesc" order="128" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code Desc"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="companyCodeDesc"/>
+      </attribute>
+      <attribute id="mdControllingArea" order="129" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="controllingArea"/>
+      </attribute>
+      <attribute id="mdCostCenter" order="130" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="costCenter"/>
+      </attribute>
+      <attribute id="costCenterDesc" order="131" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center Description"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="costCenterDesc"/>
+      </attribute>
+      <attribute id="mdFunctionalArea" order="132" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="mdFunctionalAreaDesc" order="133" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Desc"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="functionalAreaDesc"/>
+      </attribute>
+      <attribute id="mdFunctionalLocation" order="134" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Location"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="functionalLocation"/>
+      </attribute>
+      <attribute id="languageKey" order="135" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="languageKey"/>
+      </attribute>
+      <attribute id="mdLineOfBusiness" order="136" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="137" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="maintenancePlant" order="138" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="maintenancePlant"/>
+      </attribute>
+      <attribute id="maintenancePlantDescription" order="139" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant Description"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="maintenancePlantDescription"/>
+      </attribute>
+      <attribute id="maintenancePlanningPlant" order="140" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Planning Plant"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="maintenancePlanningPlant"/>
+      </attribute>
+      <attribute id="maintenancePlanningPlantDescription" order="141" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Planning Plant Description"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="maintenancePlanningPlantDescription"/>
+      </attribute>
+      <attribute id="objectIDWorkCenter" order="142" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object ID of the Work Center"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="objectIDWorkCenter"/>
+      </attribute>
+      <attribute id="profitCenterDesc" order="143" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Desc"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="profitCenterDesc"/>
+      </attribute>
+      <attribute id="mdProfitCenter" order="144" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="consecutiveNumberingEquipUsagePeriodsSameDay" order="145" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Consecutive Numbering EquipUsage Periods Same Day"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+      </attribute>
+      <attribute id="validFrom" order="146" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valid From Date"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="validFrom"/>
+      </attribute>
+      <attribute id="validToDate" order="147" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valid To Date"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="validToDate"/>
+      </attribute>
+      <attribute id="mdVehicleID" order="148" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Vehicle ID"/>
+        <keyMapping columnObjectName="jnr_costTimeData" columnName="vehicleID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="externalFlag" hidden="false" order="5" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="External Supplier Flag"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="1">
+          <formula>IF(&quot;maintenanceActivityType&quot; = '054' AND &quot;wac&quot; != '0076' OR &quot;wac&quot; = '0077' , 'X', '')</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="capitalizedCost" hidden="false" order="6" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Capitalize Cost Flag"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="1">
+          <formula>IF(&quot;settlementCategory&quot; = 'OR', 'X', '')</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="maintenanceNonTireFlag" hidden="false" order="18" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance (Non-Tire) Flag"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="1">
+          <formula>IF(leftstr(&quot;vrmsSystemCode&quot;,2) = '17' AND leftstr(&quot;vrmsSystemCode&quot;,3) != '17A' AND leftstr(&quot;vrmsSystemCode&quot;,3) != '17B' OR rightstr(&quot;vrmsSystemCode&quot;,2) = '17', '', 'X') </formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="tireFlag" hidden="false" order="36" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Tire Flag"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="1">
+          <formula>IF(leftstr(&quot;vrmsSystemCode&quot;,2) = '17' AND leftstr(&quot;vrmsSystemCode&quot;,3) != '17A' AND leftstr(&quot;vrmsSystemCode&quot;,3) != '17B' OR rightstr(&quot;vrmsSystemCode&quot;,2) = '17', 'X', '') </formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="costsValue" order="67" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Order Costs Value"/>
+        <measureMapping columnObjectName="jnr_costTimeData" columnName="costsValue"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="capexMaintenanceLaborActual" hidden="false" order="57" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="CAPEX - Maintenance Labor $ (Actual)"/>
+        <formula>IF(&quot;capitalizedCost&quot; = 'X', &quot;maintenanceLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="capexMaintenancePartsActual" hidden="false" order="58" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="CAPEX - Maintenance Parts $ (Actual)"/>
+        <formula>IF(&quot;capitalizedCost&quot; = 'X', &quot;maintenancePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="capexTiresPartsActual" hidden="false" order="59" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="CAPEX - Tire Parts $ (Actual)"/>
+        <formula>IF(&quot;capitalizedCost&quot; = 'X', &quot;tirePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="capexTiresLaborActual" hidden="false" order="60" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="CAPEX - Tire Labor $ (Actual)"/>
+        <formula>IF(&quot;capitalizedCost&quot; = 'X', &quot;tireLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="capexTotalCost" hidden="false" order="61" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="CAPEX - Total Cost"/>
+        <formula>&quot;capexMaintenanceLaborActual&quot; + &quot;capexMaintenancePartsActual&quot; + &quot;capexTiresPartsActual&quot; + &quot;capexTiresLaborActual&quot;</formula>
+      </measure>
+      <measure id="costsPartsActualOriginal" hidden="false" order="62" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="13" scale="2">
+        <descriptions defaultDescription="Cost Parts $ (Actual) - Original Value with/without Tire Parts"/>
+        <formula>IF(&quot;budgetType&quot; = 'COIN' AND &quot;valueType&quot; = '04', &quot;costsValue&quot;, 0)</formula>
+      </measure>
+      <measure id="costsPartsBudgetOriginal" hidden="false" order="63" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="13" scale="2">
+        <descriptions defaultDescription="Cost Parts $ (Budget) - Original Value with/without Tire Parts"/>
+        <formula>IF(&quot;budgetType&quot; = 'KPPP' AND &quot;valueType&quot; = '01', &quot;costsValue&quot;, 0)</formula>
+      </measure>
+      <measure id="costsLaborActualOriginal" hidden="false" order="64" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="13" scale="2">
+        <descriptions defaultDescription="Cost Parts $ (Actual) - Original Value with/without Tire Parts"/>
+        <formula>IF(&quot;budgetType&quot; = 'RKL' AND &quot;valueType&quot; = '04', &quot;costsValue&quot;, 0)</formula>
+      </measure>
+      <measure id="costsLaborBudgetOriginal" hidden="false" order="65" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="13" scale="2">
+        <descriptions defaultDescription="Cost Parts $ (Actual) - Original Value with/without Tire Parts"/>
+        <formula>IF(&quot;budgetType&quot; = 'KPPS' AND &quot;valueType&quot; = '01', &quot;costsValue&quot;, 0)</formula>
+      </measure>
+      <measure id="costsLaborEstimateOriginal" hidden="false" order="66" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="13" scale="2">
+        <descriptions defaultDescription="Cost Parts $ (Actual) - Original Value with/without Tire Parts"/>
+        <formula>IF(&quot;planningBudgetingVersion&quot; = 'EST' AND &quot;valueType&quot; = '01', &quot;costsValue&quot;, 0)</formula>
+      </measure>
+      <measure id="capexTireTotalCostActual" hidden="false" order="68" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="CAPEX - Tire Total Cost $ (Actuals)"/>
+        <formula>&quot;capexTiresLaborActual&quot;+&quot;capexTiresPartsActual&quot;</formula>
+      </measure>
+      <measure id="capexMaintenaceTotalCostActual" hidden="false" order="69" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="CAPEX - Maintenance Total Cost $ (Actuals)"/>
+        <formula>&quot;capexMaintenanceLaborActual&quot;+&quot;capexMaintenancePartsActual&quot;</formula>
+      </measure>
+      <measure id="externalMaintenanceLaborActual" hidden="false" order="70" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="External - Maintenance Labor $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X', &quot;maintenanceLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="externalMaintenancePartsActual" hidden="false" order="71" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="External - Maintenance Parts $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X', &quot;maintenancePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="externalTireLaborActual" hidden="false" order="72" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="External - Tire Labor $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X', &quot;tireLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="externalTirePartsActual" hidden="false" order="73" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="External - Tire Parts $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X', &quot;tirePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="externalTireTotalCostActual" hidden="false" order="74" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="External - Tire Total Cost $ (Actual)"/>
+        <formula>&quot;externalTireLaborActual&quot; + &quot;externalTirePartsActual&quot;</formula>
+      </measure>
+      <measure id="externalMaintenanceTotalCostActual" hidden="false" order="75" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="External - Maintenance Total Cost $ (Actual)"/>
+        <formula>&quot;externalMaintenanceLaborActual&quot; + &quot;externalMaintenancePartsActual&quot;</formula>
+      </measure>
+      <measure id="externalTotalCostActual" hidden="false" order="76" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="External - Total Cost $ (Actual)"/>
+        <formula>&quot;externalTireTotalCostActual&quot; + &quot;externalMaintenanceTotalCostActual&quot;</formula>
+      </measure>
+      <measure id="internalMaintenanceLaborActual" hidden="false" order="77" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Internal - Maintenance Labor $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = '', &quot;maintenanceLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="internalMaintenancePartsActual" hidden="false" order="78" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Internal - Maintenance Parts $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = '', &quot;maintenancePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="internalTiresPartsActual" hidden="false" order="79" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Internal - Tire Parts $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = '', &quot;tirePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="internalTiresLaborActual" hidden="false" order="80" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Internal - Tire Labor $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = '', &quot;tireLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="internalTiresTotalCostsActual" hidden="false" order="81" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Internal - Tire Total Cost $ (Actual)"/>
+        <formula>&quot;internalTiresPartsActual&quot; + &quot;internalTiresLaborActual&quot;</formula>
+      </measure>
+      <measure id="internalMaintenanceTotalCostActual" hidden="false" order="82" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Internal - Maintenance Total Cost $ (Actual)"/>
+        <formula>&quot;internalMaintenanceLaborActual&quot; + &quot;internalMaintenancePartsActual&quot;</formula>
+      </measure>
+      <measure id="internalTotalCostActual" hidden="false" order="83" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Internal - Total Cost $ (Actual)"/>
+        <formula>&quot;internalTiresTotalCostsActual&quot; + &quot;internalMaintenanceTotalCostActual&quot;</formula>
+      </measure>
+      <measure id="maintenancePartsActual" hidden="false" order="84" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Maintenance Parts $ (Actuals)"/>
+        <formula>IF(&quot;maintenanceNonTireFlag&quot; = 'X', IF(isNull(&quot;costsPartsActualOriginal&quot;),0,&quot;costsPartsActualOriginal&quot;),0)</formula>
+      </measure>
+      <measure id="maintenanceLaborActual" hidden="false" order="85" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Maintenance Labor $ (Actuals)"/>
+        <formula>IF(&quot;maintenanceNonTireFlag&quot; = 'X', IF(isNull(&quot;costsLaborActualOriginal&quot;),0,&quot;costsLaborActualOriginal&quot;),0)</formula>
+      </measure>
+      <measure id="maintenancePartsBudget" hidden="false" order="86" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Maintenance Parts $ (Budget)"/>
+        <formula>IF(&quot;maintenanceNonTireFlag&quot; = 'X', IF(isNull(&quot;costsPartsBudgetOriginal&quot;),0,&quot;costsPartsBudgetOriginal&quot;),0)</formula>
+      </measure>
+      <measure id="maintenanceLaborBudget" hidden="false" order="87" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Maintenance Labor $ (Budget)"/>
+        <formula>IF(&quot;maintenanceNonTireFlag&quot; = 'X', IF(isNull(&quot;costsLaborBudgetOriginal&quot;),0,&quot;costsLaborBudgetOriginal&quot;),0)</formula>
+      </measure>
+      <measure id="maintenanceLaborEstimate" hidden="false" order="88" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Maintenance Labor $ (Estimate)"/>
+        <formula>IF(&quot;maintenanceNonTireFlag&quot; = 'X', IF(isNull(&quot;costsLaborEstimateOriginal&quot;),0,&quot;costsLaborEstimateOriginal&quot;),0)</formula>
+      </measure>
+      <measure id="nonCapexMaintenanceLaborActual" hidden="false" order="89" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Non-CAPEX - Maintenance Labor $ (Actual)"/>
+        <formula>IF(&quot;capitalizedCost&quot; = '', &quot;maintenanceLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="nonCapexMaintenancePartsActual" hidden="false" order="90" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Non-CAPEX - Maintenance Parts $ (Actual)"/>
+        <formula>IF(&quot;capitalizedCost&quot; = '', &quot;maintenancePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="nonCapexTiresPartsActual" hidden="false" order="91" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Non-CAPEX - Tire Parts $ (Actual)"/>
+        <formula>IF(&quot;capitalizedCost&quot; = '', &quot;tirePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="nonCapexTiresLaborActual" hidden="false" order="92" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Non-CAPEX - Tire Labor $ (Actual)"/>
+        <formula>IF(&quot;capitalizedCost&quot; = '', &quot;tireLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="nonCapexTiresTotalCostActual" hidden="false" order="93" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Non-CAPEX - Tire Total Cost $ (Actual)"/>
+        <formula>&quot;nonCapexTiresPartsActual&quot; + &quot;nonCapexTiresLaborActual&quot;</formula>
+      </measure>
+      <measure id="nonCapexMaintenanceTotalCostActual" hidden="false" order="94" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Non-CAPEX - Maintenance Labor $ (Actual)"/>
+        <formula>&quot;nonCapexMaintenanceLaborActual&quot; + &quot;nonCapexMaintenancePartsActual&quot;</formula>
+      </measure>
+      <measure id="nonCapexTotalCostActual" hidden="false" order="95" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Non-CAPEX - Total Cost $ (Actual)"/>
+        <formula>&quot;nonCapexTiresTotalCostActual&quot; + &quot;nonCapexMaintenanceTotalCostActual&quot;</formula>
+      </measure>
+      <measure id="supplierCAPEXTiresTotalCostActual" hidden="false" order="96" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier CAPEX Tires Total Cost $ (Actual)"/>
+        <formula>&quot;supplierCAPEXTiresPartsActual&quot; + &quot;supplierCAPEXTiresLaborActual&quot;</formula>
+      </measure>
+      <measure id="supplierCAPEXMaintenanceTotalCostActual" hidden="false" order="97" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier CAPEX - Maintenance Total Cost $ (Actual)"/>
+        <formula>&quot;supplierCAPEXMaintenanceLaborActual&quot; + &quot;supplierCAPEXMaintenancePartsActual&quot;</formula>
+      </measure>
+      <measure id="supplierNonCAPEXTiresTotalCostActual" hidden="false" order="98" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier Non-CAPEX -  Tire Total Cost $ (Actual)"/>
+        <formula>&quot;supplierNonCAPEXTiresPartsActual&quot; + &quot;supplierNonCAPEXTiresLaborActual&quot;</formula>
+      </measure>
+      <measure id="maintenanceCostActual" hidden="false" order="99" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Maintenance Total Cost $ (Actual)"/>
+        <formula>&quot;maintenancePartsActual&quot;+&quot;maintenanceLaborActual&quot;</formula>
+      </measure>
+      <measure id="maintenanceCostBudget" hidden="false" order="100" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Maintenance Total Cost $ (Budget)"/>
+        <formula>&quot;maintenancePartsBudget&quot;+&quot;maintenanceLaborBudget&quot;</formula>
+      </measure>
+      <measure id="supplierNonCAPEXMaintenanceTotalCostActual" hidden="false" order="101" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier Non-CAPEX - Maintenance Total Cost $ (Actual)"/>
+        <formula>&quot;supplierNonCAPEXMaintenanceLaborActual&quot; + &quot;supplierNonCAPEXMaintenancePartsActual&quot;</formula>
+      </measure>
+      <measure id="supplierCAPEXTotalCostActual" hidden="false" order="102" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier CAPEX Total Cost $ (Actual)"/>
+        <formula>&quot;supplierCAPEXTiresTotalCostActual&quot; + &quot;supplierCAPEXMaintenanceTotalCostActual&quot;</formula>
+      </measure>
+      <measure id="supplierNonCAPEXTotalCostActual" hidden="false" order="103" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier Non-CAPEX -  Total Cost $ (Actual)"/>
+        <formula>&quot;supplierNonCAPEXTiresTotalCostActual&quot; + &quot;supplierNonCAPEXMaintenanceTotalCostActual&quot;</formula>
+      </measure>
+      <measure id="supplierNonCAPEXMaintenanceLaborActual" hidden="false" order="104" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Supplier Non-CAPEX - Maintenance Labor $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X' AND &quot;capitalizedCost&quot; = '', &quot;maintenanceLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="supplierNonCAPEXMaintenancePartsActual" hidden="false" order="105" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier Non-CAPEX - Maintenance Parts $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X' AND &quot;capitalizedCost&quot; = '', &quot;maintenancePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="supplierNonCAPEXTiresPartsActual" hidden="false" order="106" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier Non-CAPEX - Tire Parts $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X' AND &quot;capitalizedCost&quot; = '', &quot;tirePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="supplierNonCAPEXTiresLaborActual" hidden="false" order="107" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier Non-CAPEX -  Tire Labor $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X' AND &quot;capitalizedCost&quot; = '', &quot;tireLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="supplierCAPEXMaintenanceLaborActual" hidden="false" order="108" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Supplier CAPEX - Maintenance Labor $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X' AND &quot;capitalizedCost&quot; = 'X', &quot;maintenanceLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="supplierCAPEXMaintenancePartsActual" hidden="false" order="109" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier CAPEX - Maintenance Parts $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X' AND &quot;capitalizedCost&quot; = 'X', &quot;maintenancePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="supplierCAPEXTiresPartsActual" hidden="false" order="110" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier CAPEX - Tire Parts $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X' AND &quot;capitalizedCost&quot; = 'X', &quot;tirePartsActual&quot;, 0)</formula>
+      </measure>
+      <measure id="supplierCAPEXTiresLaborActual" hidden="false" order="111" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="12" scale="2">
+        <descriptions defaultDescription="Supplier CAPEX -  Tire Labor $ (Actual)"/>
+        <formula>IF(&quot;externalFlag&quot; = 'X' AND &quot;capitalizedCost&quot; = 'X', &quot;tireLaborActual&quot;, 0)</formula>
+      </measure>
+      <measure id="tirePartsActual" hidden="false" order="112" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Tire Parts $ (Actual)"/>
+        <formula>IF(&quot;tireFlag&quot; = 'X', IF(isNull(&quot;costsPartsActualOriginal&quot;),0,&quot;costsPartsActualOriginal&quot;), 0)</formula>
+      </measure>
+      <measure id="tirePartsBudget" hidden="false" order="113" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Tire Parts $ (Budget)"/>
+        <formula>IF(&quot;tireFlag&quot; = 'X', IF(isNull(&quot;costsPartsBudgetOriginal&quot;),0,&quot;costsPartsBudgetOriginal&quot;), 0)</formula>
+      </measure>
+      <measure id="tireLaborActual" hidden="false" order="114" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Tire Labor $ (Actual)"/>
+        <formula>IF(&quot;tireFlag&quot; = 'X', IF(isNull(&quot;costsLaborActualOriginal&quot;),0,&quot;costsLaborActualOriginal&quot;), 0)</formula>
+      </measure>
+      <measure id="tireLaborBudget" hidden="false" order="115" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Tire Labor $ (Budget)"/>
+        <formula>IF(&quot;tireFlag&quot; = 'X', IF(isNull(&quot;costsLaborBudgetOriginal&quot;),0,&quot;costsLaborBudgetOriginal&quot;), 0)</formula>
+      </measure>
+      <measure id="tireCostActual" hidden="false" order="116" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Tire Cost $ (Actuals)"/>
+        <formula>&quot;tirePartsActual&quot;+&quot;tireLaborActual&quot;</formula>
+      </measure>
+      <measure id="tireCostBudget" hidden="false" order="117" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="2">
+        <descriptions defaultDescription="Tire Cost $ (Budget)"/>
+        <formula>&quot;tirePartsBudget&quot;+&quot;tireLaborBudget&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="888" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="prj_maintenanceOrderCost" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="91" y="2281"/>
+        <rectangleSize height="64" width="269"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="468" y="2121"/>
+        <rectangleSize height="64" width="174"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="410" y="2281"/>
+        <rectangleSize height="64" width="164"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="165" y="2121"/>
+        <rectangleSize height="82" width="182"/>
+      </shape>
+    <shape modelObjectName="prj_maintenanceOrderCost" modelObjectNameSpace="Join_11" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_3" modelObjectNameSpace="Join_11" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="203" y="1961"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_11" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_5" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="553" y="1961"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="230" y="1801"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_4" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_6" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="643" y="1801"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="256" y="1641"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_5" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="agg_orderMaster" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="735" y="1641"/>
+        <rectangleSize height="64" width="203"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="283" y="1481"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_3" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="agg_orderMaster" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="846" y="1481"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="819" y="1321"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="960" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="487" y="1016"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="prj_equipmentMaster" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="399" y="1321"/>
+        <rectangleSize height="66" width="285"/>
+      </shape>
+      <shape expanded="true" modelObjectName="jnr_orderCostEquipment" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="451" y="1161"/>
+        <rectangleSize height="82" width="274"/>
+      </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="jnr_orderCostEquipment" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="prj_equipmentMaster" modelObjectNameSpace="jnr_orderCostEquipment" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="prj_equipmentFilter" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="203" y="1016"/>
+        <rectangleSize height="64" width="234"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="266" y="856"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="prj_equipmentFilter" modelObjectNameSpace="Join_7" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_7" modelObjectNameSpace="Join_7" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="787" y="536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="645" y="696"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="prj_costCenterFunctionalArea" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="485" y="856"/>
+        <rectangleSize height="64" width="297"/>
+      </shape>
+      <shape expanded="true" modelObjectName="jnr_costFunctionalArea" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="261" y="696"/>
+        <rectangleSize height="82" width="257"/>
+      </shape>
+    <shape modelObjectName="Join_7" modelObjectNameSpace="jnr_costFunctionalArea" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="prj_costCenterFunctionalArea" modelObjectNameSpace="jnr_costFunctionalArea" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="jnr_costWorkingCostCenter" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="295" y="536"/>
+        <rectangleSize height="82" width="281"/>
+      </shape>
+    <shape modelObjectName="jnr_costFunctionalArea" modelObjectNameSpace="jnr_costWorkingCostCenter" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="jnr_costWorkingCostCenter" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="jnr_costWorkingCCDescription" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="376"/>
+        <rectangleSize height="82" width="320"/>
+      </shape>
+    <shape modelObjectName="jnr_costWorkingCostCenter" modelObjectNameSpace="jnr_costWorkingCCDescription" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_10" modelObjectNameSpace="jnr_costWorkingCCDescription" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="jnr_costTimeData" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="829" y="217"/>
+        <rectangleSize height="82" width="277"/>
+      </shape>
+    
+    <shape modelObjectName="jnr_costWorkingCCDescription" modelObjectNameSpace="jnr_costTimeData" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="jnr_costTimeData" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

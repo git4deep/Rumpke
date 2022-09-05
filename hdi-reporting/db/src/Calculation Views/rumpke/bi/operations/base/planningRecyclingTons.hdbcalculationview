@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::planningRecyclingTons" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Planning RecyclingTons"/>
+  <metadata changedAt="2022-05-27 11:03:55.285"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="44"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.data.ddl::transactionData.planningRecyclingTons">
+      <resourceUri>rumpke.bi.data.ddl::transactionData.planningRecyclingTons</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::profitCenter">
+      <resourceUri>rumpke.bi.masterData.base::profitCenter</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributes">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributes</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="prj_planningSales">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="measureType"/>
+        <viewAttribute id="materialType"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="value"/>
+        <viewAttribute id="isActive"/>
+        <viewAttribute id="processingType"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.data.ddl::transactionData.planningRecyclingTons"/>
+    <filter>(&quot;isActive&quot; ='1')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="prj_profitCenter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenterGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::profitCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="department"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jnr_planningProfitCenter" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="measureType"/>
+        <viewAttribute id="materialType"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="value"/>
+        <viewAttribute id="isActive"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="profitCenterGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="prj_planningSales">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measureType" source="measureType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialType" source="materialType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="value" source="value"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isActive" source="isActive"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processingType" source="processingType"/>
+      </input>
+      <input node="prj_profitCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="prj_orgHeirarchy">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jnr_planningOrg" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="measureType"/>
+        <viewAttribute id="materialType"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="isActive"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="value"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="profitCenterGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="jnr_planningProfitCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measureType" source="measureType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialType" source="materialType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isActive" source="isActive"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processingType" source="processingType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="value" source="value"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+      </input>
+      <input node="prj_orgHeirarchy">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="agg_timeDimension">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="fiscalPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributes"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="jnr_planningTime" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="measureType"/>
+        <viewAttribute id="materialType"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="isActive"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="value"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="profitCenterGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="jnr_planningOrg">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measureType" source="measureType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialType" source="materialType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="isActive" source="isActive"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processingType" source="processingType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="value" source="value"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+      </input>
+      <input node="agg_timeDimension">
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalPeriod" source="fiscalPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="fiscalYearPeriod"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="jnr_planningTime">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="profitCenter" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="measureType" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="measureType"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="measureType"/>
+      </attribute>
+      <attribute id="materialType" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="materialType"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="materialType"/>
+      </attribute>
+      <attribute id="version" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="version"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="version"/>
+      </attribute>
+      <attribute id="isActive" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="isActive"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="isActive"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="processingType" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="processingType"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="processingType"/>
+      </attribute>
+      <attribute id="area" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="calQuarter" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="calMonth" order="42" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (YYYYMM)"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="calMonth"/>
+      </attribute>
+      <attribute id="yearQuarter" order="43" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year-Quarter"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="fiscalYear" order="44" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="45" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (MM-YYYY)"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="fiscalPeriod" order="46" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Period"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="fiscalPeriod"/>
+      </attribute>
+      <attribute id="profitCenterGroup" order="47" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Froup"/>
+        <keyMapping columnObjectName="jnr_planningTime" columnName="profitCenterGroup"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="priorMonth" hidden="false" order="40" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PriorMonth - For Live Projections Only"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="7">
+          <formula>leftstr(string(addmonths(now(), -1)),4) + '0' + rightstr(leftstr(string(addmonths(now(), -1)),7),2)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="value" order="39" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="value"/>
+        <measureMapping columnObjectName="jnr_planningTime" columnName="value"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures>
+      <measure id="disposalTons" hidden="false" order="1" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Disposal Tons"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DISPOSAL"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+      </measure>
+      <measure id="disposalTonsBudget" hidden="false" order="2" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Disposal Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DISPOSAL"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="disposalTonsForecast" hidden="false" order="3" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Disposal Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DISPOSAL"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="WORKING_FCST"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="soldTons" hidden="false" order="4" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Sold Tons"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BROKERAGE"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSED"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+      </measure>
+      <measure id="soldTonsBudget" hidden="false" order="5" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Sold Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BROKERAGE"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSED"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="soldTonsForecast" hidden="false" order="6" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Sold Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BROKERAGE"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSED"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="WORKING_FCST"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="processedTons" hidden="false" order="7" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Processed Tons"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSED"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="COMMINGLED"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DISPOSAL"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INVENTORY ADJ"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+      </measure>
+      <measure id="processedTonsBudget" hidden="false" order="8" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Processed Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSED"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="COMMINGLED"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DISPOSAL"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INVENTORY ADJ"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="processedTonsForecast" hidden="false" order="9" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Processed Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSED"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="COMMINGLED"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DISPOSAL"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INVENTORY ADJ"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="WORKING_FCST"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="inventoryAdjustments" hidden="false" order="10" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Inventory Adjustments"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INVENTORY ADJ"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+      </measure>
+      <measure id="inventoryAdjustmentsBudget" hidden="false" order="11" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Inventory Adjustments - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INVENTORY ADJ"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="inventoryAdjustmentsForecast" hidden="false" order="12" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Inventory Adjustments - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INVENTORY ADJ"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="WORKING_FCST"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recyclingMaterialSales" hidden="false" order="13" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Recycling Material Sales"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="REVENUE_NET"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recyclingMaterialSalesBudget" hidden="false" order="14" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Recycling Material Sales - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="REVENUE_NET"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="NET_REV_COGS"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BROKERAGE"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSED"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recyclingMaterialSalesForecast" hidden="false" order="15" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Recycling Material Sales - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="REVENUE_NET"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="NET_REV_COGS"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="processingType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BROKERAGE"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSED"/>
+          </filter>
+          <attributeName>processingType</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recyclingTons" hidden="false" order="16" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Recycling Tons"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recyclingTonsBudget" hidden="false" order="17" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Recycling Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recyclingTonsForecast" hidden="false" order="18" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Recycling Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TON_TOTAL"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="WORKING_FCST"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recyclingSalesBudget" hidden="false" order="19" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Recycling Sales - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="REVENUE_NET"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="NET_REV_COGS"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recyclingSalesForecast" hidden="false" order="20" baseMeasure="value" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Recycling Sales - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="measureType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="REVENUE_NET"/>
+          </filter>
+          <attributeName>measureType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="WORKING_FCST"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="634" y="112"/>
+        <rectangleSize height="64" width="193"/>
+      </shape>
+      <shape expanded="true" modelObjectName="prj_planningSales" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="696"/>
+        <rectangleSize height="64" width="294"/>
+      </shape>
+      <shape expanded="true" modelObjectName="prj_profitCenter" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="436" y="696"/>
+        <rectangleSize height="64" width="271"/>
+      </shape>
+      <shape expanded="true" modelObjectName="jnr_planningProfitCenter" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="158" y="536"/>
+        <rectangleSize height="82" width="242"/>
+      </shape>
+    <shape modelObjectName="prj_planningSales" modelObjectNameSpace="jnr_planningProfitCenter" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="prj_profitCenter" modelObjectNameSpace="jnr_planningProfitCenter" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="prj_orgHeirarchy" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="551" y="536"/>
+        <rectangleSize height="64" width="231"/>
+      </shape>
+      <shape expanded="true" modelObjectName="jnr_planningOrg" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="200" y="376"/>
+        <rectangleSize height="82" width="235"/>
+      </shape>
+    <shape modelObjectName="jnr_planningProfitCenter" modelObjectNameSpace="jnr_planningOrg" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="prj_orgHeirarchy" modelObjectNameSpace="jnr_planningOrg" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="agg_timeDimension" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="699" y="376"/>
+        <rectangleSize height="64" width="220"/>
+      </shape>
+      <shape expanded="true" modelObjectName="jnr_planningTime" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="620" y="217"/>
+        <rectangleSize height="84" width="221"/>
+      </shape>
+    
+    <shape modelObjectName="jnr_planningOrg" modelObjectNameSpace="jnr_planningTime" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="agg_timeDimension" modelObjectNameSpace="jnr_planningTime" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

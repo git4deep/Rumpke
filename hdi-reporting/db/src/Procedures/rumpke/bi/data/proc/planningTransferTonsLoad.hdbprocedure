@@ -1,0 +1,82 @@
+PROCEDURE "rumpke.bi.data.proc::planningTransferTonsLoad" ( )
+    LANGUAGE SQLSCRIPT
+    SQL SECURITY INVOKER AS
+    --READS SQL DATA AS
+BEGIN
+    DECLARE v_recordCount Integer := 0;
+    DECLARE v_duplicateCount Integer := 0;
+
+        insert into "RUMPKEADM::ETLProcessingLog" ("ETLProcess", "ETLDateTime", "ETLDescription")
+        select 'TransferTons', TO_CHAR(ADD_SECONDS(CURRENT_TIMESTAMP, -60*60*4), 'YYYY-MM-DD HH24:MI'), 'Procedure started' from "SYS::DUMMY";
+ 
+	CALL "rumpke.bi.dp.flatfile.rep::REP_SACPlanningTransferTons_Staging.START_REPLICATION"();
+
+        insert into "RUMPKEADM::ETLProcessingLog" ("ETLProcess", "ETLDateTime", "ETLDescription")
+        select 
+        	'TransferTons', 
+        	TO_CHAR(ADD_SECONDS(CURRENT_TIMESTAMP, -60*60*4), 'YYYY-MM-DD HH24:MI'), 
+        	'SACPlanningTransferTons_Staging:' ||
+        		' record_count ' || case when "cnt" is null then 'null' else cast("cnt" as varchar(50)) end ||
+        		' value_sum ' || case when "valueSum" is null then 'null' else cast("valueSum" as varchar(50)) end ||
+        		' profit_center_count ' || case when "profitCenterCount" is null then 'null' else cast("profitCenterCount" as varchar(50)) end
+        from "SYS::DUMMY" d
+        left join (
+        	select count(*) as "cnt", round(sum(cast("Value" as float)), 2) as "valueSum", count(distinct "Profit_CenterId") as "profitCenterCount"
+        	from "FLATFILE::SACPlanningTransferTons_Staging"
+        ) a on 1=1;
+
+        select
+        	max(coalesce("recCount", 0)),
+        	sum(coalesce("rowCount", 0))
+        into v_recordCount, v_duplicateCount
+        from "SYS::DUMMY" d
+        left join (
+        	select
+        		1 as "rowCount"
+        	from "FLATFILE::SACPlanningTransferTons_Staging"
+        	group by "Measures___OperationsId", "VersionVersion", "DateMonth", "CompanyId", "CompanyDescription", "Service_CustomerId", "Profit_CenterId", "Value", "ValueUnit"
+        	having count(*) > 1
+        ) on 1=1
+        left join (
+        	select count(*) as "recCount" from "FLATFILE::SACPlanningTransferTons_Staging"
+        ) on 1=1;
+
+    if v_recordCount = 0 then 
+        insert into "RUMPKEADM::ETLProcessingLog" ("ETLProcess", "ETLDateTime", "ETLDescription")
+        select 'TransferTons', TO_CHAR(ADD_SECONDS(CURRENT_TIMESTAMP, -60*60*4), 'YYYY-MM-DD HH24:MI'), 'Staging table is empty!' from "SYS::DUMMY";
+    elseif v_duplicateCount > 0 and v_duplicateCount > v_recordCount / 3.0 then
+        insert into "RUMPKEADM::ETLProcessingLog" ("ETLProcess", "ETLDateTime", "ETLDescription")
+        select 
+            'TransferTons', 
+            TO_CHAR(ADD_SECONDS(CURRENT_TIMESTAMP, -60*60*4), 'YYYY-MM-DD HH24:MI'), 
+            'File appears to be duplicated: ' ||
+    		' record_count ' || cast(v_recordCount as varchar(50)) ||
+    		' duplicate_count ' || cast(v_duplicateCount as varchar(50)) 
+        from "SYS::DUMMY";
+    else
+
+    	CALL "rumpke.bi.dp.flatfile.fg::FG_planningTransferTons_SP"();
+    
+            insert into "RUMPKEADM::ETLProcessingLog" ("ETLProcess", "ETLDateTime", "ETLDescription")
+            select 
+            	'TransferTons', 
+            	TO_CHAR(ADD_SECONDS(CURRENT_TIMESTAMP, -60*60*4), 'YYYY-MM-DD HH24:MI'), 
+            	'planningRecyclingTons:' ||
+            		' record_count ' || case when "cnt" is null then 'null' else cast("cnt" as varchar(50)) end ||
+            		' active_count ' || case when "activeCount" is null then 'null' else cast("activeCount" as varchar(50)) end ||
+            		' value_sum ' || case when "valueSum" is null then 'null' else cast("valueSum" as varchar(50)) end ||
+            		' profit_center_count ' || case when "profitCenterCount" is null then 'null' else cast("profitCenterCount" as varchar(50)) end
+            from "SYS::DUMMY" d
+            left join (
+            	select count(*) as "cnt", round(sum(cast(case when "isActive" = 1 then "value" end as float)), 2) as "valueSum", count(distinct "profitCenter") as "profitCenterCount", sum("isActive") as "activeCount"
+            	from "rumpke.bi.data.ddl::transactionData.planningTransferTons"
+            ) a on 1=1;
+
+    end if;
+    
+   	Call "rumpke.bi.dp.flatfile.fg::FG_SACPlanning_CSVArchive"('/usr/sap/S4P/dataprovagent/SACPlanningTRArchive.sh', '  ', 4);
+
+        insert into "RUMPKEADM::ETLProcessingLog" ("ETLProcess", "ETLDateTime", "ETLDescription")
+        select 'TransferTons', TO_CHAR(ADD_SECONDS(CURRENT_TIMESTAMP, -60*60*4), 'YYYY-MM-DD HH24:MI'), 'Procedure completed' from "SYS::DUMMY";
+
+END

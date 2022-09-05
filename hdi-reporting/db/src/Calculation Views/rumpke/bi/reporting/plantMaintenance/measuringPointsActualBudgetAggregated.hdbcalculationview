@@ -1,0 +1,881 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.plantMaintenance::measuringPointsActualBudgetAggregated" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Measuring Points Actual / Budget"/>
+  <metadata changedAt="2020-09-17 13:39:39.508"/>
+  <localVariables>
+    <variable id="varFiscalYearPeriod">
+      <descriptions defaultDescription="Fiscal Year / Period"/>
+      <variableProperties datatype="NVARCHAR" mandatory="true" length="7" scale="null">
+        <valueDomain type="AttributeValue">
+          <attribute name="fiscalYearPeriod"/>
+        </valueDomain>
+        <selection multiLine="false" type="Range"/>
+        <defaultRange operator="BT" including="true"/>
+      </variableProperties>
+    </variable>
+    <variable id="varArea">
+      <descriptions defaultDescription="Area"/>
+      <variableProperties datatype="NVARCHAR" mandatory="false" length="24" scale="null">
+        <valueDomain type="AttributeValue">
+          <attribute name="area"/>
+        </valueDomain>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="varRegion">
+      <descriptions defaultDescription="Region"/>
+      <variableProperties datatype="NVARCHAR" mandatory="false" length="40" scale="null">
+        <valueDomain type="AttributeValue">
+          <attribute name="region"/>
+        </valueDomain>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="varDistrict">
+      <descriptions defaultDescription="District"/>
+      <variableProperties datatype="NVARCHAR" mandatory="false" length="24" scale="null">
+        <valueDomain type="AttributeValue">
+          <attribute name="district"/>
+        </valueDomain>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="36"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.plantMaintainance.reuse::measuringPointsHistoricalAggregation">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::measuringPointsHistoricalAggregation</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::lineofBusinessText">
+      <resourceUri>rumpke.bi.masterData.base::lineofBusinessText</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="source"/>
+        <viewAttribute id="maintenancePartsActual"/>
+        <viewAttribute id="maintenancePartsBudget"/>
+        <viewAttribute id="maintenanceLaborActual"/>
+        <viewAttribute id="maintenanceLaborBudget"/>
+        <viewAttribute id="maintenanceCostActual"/>
+        <viewAttribute id="maintenanceCostBudget"/>
+        <viewAttribute id="maintenanceLaborEstimate"/>
+        <viewAttribute id="tirePartsActual"/>
+        <viewAttribute id="tirePartsBudget"/>
+        <viewAttribute id="tireLaborActual"/>
+        <viewAttribute id="tireLaborBudget"/>
+        <viewAttribute id="tireCostActual"/>
+        <viewAttribute id="tireCostBudget"/>
+        <viewAttribute id="capexMaintenanceLaborActual"/>
+        <viewAttribute id="capexMaintenancePartsActual"/>
+        <viewAttribute id="capexTiresPartsActual"/>
+        <viewAttribute id="capexTiresLaborActual"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="fuelAmountActual"/>
+        <viewAttribute id="fuelAmountBudget"/>
+        <viewAttribute id="capexTotalAmountActual"/>
+        <viewAttribute id="capexTotalAmountBudget"/>
+        <viewAttribute id="capexLaborAmountActual"/>
+        <viewAttribute id="capexLaborAmountBudget"/>
+        <viewAttribute id="capexPartsAmountActual"/>
+        <viewAttribute id="capexPartsAmountBudget"/>
+        <viewAttribute id="capexSupplierAmountActual"/>
+        <viewAttribute id="capexSupplierAmountBudget"/>
+        <viewAttribute id="capexWreckerAmountActual"/>
+        <viewAttribute id="capexWreckerAmountBudget"/>
+        <viewAttribute id="unitCountActual"/>
+        <viewAttribute id="unitCountBudget"/>
+        <viewAttribute id="capexTiresAmountActual"/>
+        <viewAttribute id="capexTiresAmountBudget"/>
+        <viewAttribute id="vehicleMilesActual"/>
+        <viewAttribute id="vehicleMilesBudget"/>
+        <viewAttribute id="totalAmountActual"/>
+        <viewAttribute id="totalAmountBudget"/>
+        <viewAttribute id="laborAmountActual"/>
+        <viewAttribute id="laborAmountBudget"/>
+        <viewAttribute id="wreckerAmountActual"/>
+        <viewAttribute id="wreckerAmountBudget"/>
+        <viewAttribute id="partsAmountActual"/>
+        <viewAttribute id="partsAmountBudget"/>
+        <viewAttribute id="supplierAmountActual"/>
+        <viewAttribute id="supplierAmountBudget"/>
+        <viewAttribute id="tiresAmountActual"/>
+        <viewAttribute id="tiresAmountBudget"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="truckHoursActual"/>
+        <viewAttribute id="truckPanHoursActual"/>
+        <viewAttribute id="compactorHoursActual"/>
+        <viewAttribute id="excavatorLoaderHoursActual"/>
+        <viewAttribute id="activityCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.plantMaintainance.reuse::measuringPointsHistoricalAggregation"/>
+    <filter>(&quot;fiscalPeriod&quot; !='000')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="source"/>
+        <viewAttribute id="maintenancePartsActual"/>
+        <viewAttribute id="maintenancePartsBudget"/>
+        <viewAttribute id="maintenanceLaborActual"/>
+        <viewAttribute id="maintenanceLaborBudget"/>
+        <viewAttribute id="maintenanceCostActual"/>
+        <viewAttribute id="maintenanceCostBudget"/>
+        <viewAttribute id="maintenanceLaborEstimate"/>
+        <viewAttribute id="tirePartsActual"/>
+        <viewAttribute id="tirePartsBudget"/>
+        <viewAttribute id="tireLaborActual"/>
+        <viewAttribute id="tireLaborBudget"/>
+        <viewAttribute id="tireCostActual"/>
+        <viewAttribute id="tireCostBudget"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="capexMaintenanceLaborActual"/>
+        <viewAttribute id="capexMaintenancePartsActual"/>
+        <viewAttribute id="capexTiresPartsActual"/>
+        <viewAttribute id="capexTiresLaborActual"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="fuelAmountActual"/>
+        <viewAttribute id="fuelAmountBudget"/>
+        <viewAttribute id="capexTotalAmountActual"/>
+        <viewAttribute id="capexTotalAmountBudget"/>
+        <viewAttribute id="capexLaborAmountActual"/>
+        <viewAttribute id="capexLaborAmountBudget"/>
+        <viewAttribute id="capexPartsAmountActual"/>
+        <viewAttribute id="capexPartsAmountBudget"/>
+        <viewAttribute id="capexSupplierAmountActual"/>
+        <viewAttribute id="capexSupplierAmountBudget"/>
+        <viewAttribute id="capexWreckerAmountActual"/>
+        <viewAttribute id="capexWreckerAmountBudget"/>
+        <viewAttribute id="unitCountActual"/>
+        <viewAttribute id="unitCountBudget"/>
+        <viewAttribute id="capexTiresAmountActual"/>
+        <viewAttribute id="capexTiresAmountBudget"/>
+        <viewAttribute id="vehicleMilesActual"/>
+        <viewAttribute id="vehicleMilesBudget"/>
+        <viewAttribute id="totalAmountActual"/>
+        <viewAttribute id="totalAmountBudget"/>
+        <viewAttribute id="laborAmountActual"/>
+        <viewAttribute id="laborAmountBudget"/>
+        <viewAttribute id="wreckerAmountActual"/>
+        <viewAttribute id="wreckerAmountBudget"/>
+        <viewAttribute id="partsAmountActual"/>
+        <viewAttribute id="partsAmountBudget"/>
+        <viewAttribute id="supplierAmountActual"/>
+        <viewAttribute id="supplierAmountBudget"/>
+        <viewAttribute id="tiresAmountActual"/>
+        <viewAttribute id="tiresAmountBudget"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="truckHoursActual"/>
+        <viewAttribute id="truckPanHoursActual"/>
+        <viewAttribute id="compactorHoursActual"/>
+        <viewAttribute id="excavatorLoaderHoursActual"/>
+        <viewAttribute id="activityCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePartsActual" source="maintenancePartsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePartsBudget" source="maintenancePartsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceLaborActual" source="maintenanceLaborActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceLaborBudget" source="maintenanceLaborBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostActual" source="maintenanceCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostBudget" source="maintenanceCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceLaborEstimate" source="maintenanceLaborEstimate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tirePartsActual" source="tirePartsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tirePartsBudget" source="tirePartsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tireLaborActual" source="tireLaborActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tireLaborBudget" source="tireLaborBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tireCostActual" source="tireCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tireCostBudget" source="tireCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexMaintenanceLaborActual" source="capexMaintenanceLaborActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexMaintenancePartsActual" source="capexMaintenancePartsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTiresPartsActual" source="capexTiresPartsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTiresLaborActual" source="capexTiresLaborActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalPeriod" source="fiscalPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursBudget" source="truckHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelAmountActual" source="fuelAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelAmountBudget" source="fuelAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTotalAmountActual" source="capexTotalAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTotalAmountBudget" source="capexTotalAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexLaborAmountActual" source="capexLaborAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexLaborAmountBudget" source="capexLaborAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexPartsAmountActual" source="capexPartsAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexPartsAmountBudget" source="capexPartsAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexSupplierAmountActual" source="capexSupplierAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexSupplierAmountBudget" source="capexSupplierAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexWreckerAmountActual" source="capexWreckerAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexWreckerAmountBudget" source="capexWreckerAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitCountActual" source="unitCountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitCountBudget" source="unitCountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTiresAmountActual" source="capexTiresAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTiresAmountBudget" source="capexTiresAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleMilesActual" source="vehicleMilesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleMilesBudget" source="vehicleMilesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalAmountActual" source="totalAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalAmountBudget" source="totalAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborAmountActual" source="laborAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborAmountBudget" source="laborAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wreckerAmountActual" source="wreckerAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wreckerAmountBudget" source="wreckerAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="partsAmountActual" source="partsAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="partsAmountBudget" source="partsAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="supplierAmountActual" source="supplierAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="supplierAmountBudget" source="supplierAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tiresAmountActual" source="tiresAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tiresAmountBudget" source="tiresAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual" source="truckHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckPanHoursActual" source="truckPanHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHoursActual" source="compactorHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHoursActual" source="excavatorLoaderHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="lineofBusinessCode"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::lineofBusinessText"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="source"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalPeriod"/>
+        <viewAttribute id="capexMaintenanceLaborActual"/>
+        <viewAttribute id="capexMaintenancePartsActual"/>
+        <viewAttribute id="capexTiresPartsActual"/>
+        <viewAttribute id="capexTiresLaborActual"/>
+        <viewAttribute id="capexLaborAmountActual"/>
+        <viewAttribute id="capexLaborAmountBudget"/>
+        <viewAttribute id="capexPartsAmountActual"/>
+        <viewAttribute id="capexPartsAmountBudget"/>
+        <viewAttribute id="capexTiresAmountActual"/>
+        <viewAttribute id="capexTiresAmountBudget"/>
+        <viewAttribute id="capexTotalAmountActual"/>
+        <viewAttribute id="capexTotalAmountBudget"/>
+        <viewAttribute id="capexWreckerAmountBudget"/>
+        <viewAttribute id="capexSupplierAmountActual"/>
+        <viewAttribute id="capexSupplierAmountBudget"/>
+        <viewAttribute id="capexWreckerAmountActual"/>
+        <viewAttribute id="fuelAmountActual"/>
+        <viewAttribute id="fuelAmountBudget"/>
+        <viewAttribute id="laborAmountActual"/>
+        <viewAttribute id="laborAmountBudget"/>
+        <viewAttribute id="maintenanceLaborEstimate"/>
+        <viewAttribute id="maintenanceCostBudget"/>
+        <viewAttribute id="maintenanceCostActual"/>
+        <viewAttribute id="maintenanceLaborBudget"/>
+        <viewAttribute id="maintenanceLaborActual"/>
+        <viewAttribute id="maintenancePartsBudget"/>
+        <viewAttribute id="maintenancePartsActual"/>
+        <viewAttribute id="partsAmountActual"/>
+        <viewAttribute id="partsAmountBudget"/>
+        <viewAttribute id="supplierAmountActual"/>
+        <viewAttribute id="supplierAmountBudget"/>
+        <viewAttribute id="tireCostBudget"/>
+        <viewAttribute id="tireCostActual"/>
+        <viewAttribute id="tireLaborBudget"/>
+        <viewAttribute id="tireLaborActual"/>
+        <viewAttribute id="tirePartsBudget"/>
+        <viewAttribute id="tirePartsActual"/>
+        <viewAttribute id="tiresAmountActual"/>
+        <viewAttribute id="tiresAmountBudget"/>
+        <viewAttribute id="totalAmountActual"/>
+        <viewAttribute id="totalAmountBudget"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="unitCountActual"/>
+        <viewAttribute id="unitCountBudget"/>
+        <viewAttribute id="vehicleMilesActual"/>
+        <viewAttribute id="vehicleMilesBudget"/>
+        <viewAttribute id="wreckerAmountActual"/>
+        <viewAttribute id="wreckerAmountBudget"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="truckHoursActual"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="truckPanHoursActual"/>
+        <viewAttribute id="compactorHoursActual"/>
+        <viewAttribute id="excavatorLoaderHoursActual"/>
+        <viewAttribute id="activityCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalPeriod" source="fiscalPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexMaintenanceLaborActual" source="capexMaintenanceLaborActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexMaintenancePartsActual" source="capexMaintenancePartsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTiresPartsActual" source="capexTiresPartsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTiresLaborActual" source="capexTiresLaborActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexLaborAmountActual" source="capexLaborAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexLaborAmountBudget" source="capexLaborAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexPartsAmountActual" source="capexPartsAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexPartsAmountBudget" source="capexPartsAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTiresAmountActual" source="capexTiresAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTiresAmountBudget" source="capexTiresAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTotalAmountActual" source="capexTotalAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexTotalAmountBudget" source="capexTotalAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexWreckerAmountBudget" source="capexWreckerAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexSupplierAmountActual" source="capexSupplierAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexSupplierAmountBudget" source="capexSupplierAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexWreckerAmountActual" source="capexWreckerAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelAmountActual" source="fuelAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelAmountBudget" source="fuelAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborAmountActual" source="laborAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborAmountBudget" source="laborAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceLaborEstimate" source="maintenanceLaborEstimate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostBudget" source="maintenanceCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostActual" source="maintenanceCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceLaborBudget" source="maintenanceLaborBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceLaborActual" source="maintenanceLaborActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePartsBudget" source="maintenancePartsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePartsActual" source="maintenancePartsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="partsAmountActual" source="partsAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="partsAmountBudget" source="partsAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="supplierAmountActual" source="supplierAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="supplierAmountBudget" source="supplierAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tireCostBudget" source="tireCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tireCostActual" source="tireCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tireLaborBudget" source="tireLaborBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tireLaborActual" source="tireLaborActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tirePartsBudget" source="tirePartsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tirePartsActual" source="tirePartsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tiresAmountActual" source="tiresAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tiresAmountBudget" source="tiresAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalAmountActual" source="totalAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalAmountBudget" source="totalAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursBudget" source="truckHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitCountActual" source="unitCountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitCountBudget" source="unitCountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleMilesActual" source="vehicleMilesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleMilesBudget" source="vehicleMilesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wreckerAmountActual" source="wreckerAmountActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wreckerAmountBudget" source="wreckerAmountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual" source="truckHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckPanHoursActual" source="truckPanHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHoursActual" source="compactorHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHoursActual" source="excavatorLoaderHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineofBusinessCode"/>
+      </input>
+    <joinAttribute name="lineOfBusiness"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="area" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <localVariable>varArea</localVariable>
+        <keyMapping columnObjectName="Join_2" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Short Description of a Set"/>
+        <keyMapping columnObjectName="Join_2" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="district" order="3" attributeHierarchyActive="false" descriptionColumnName="districtDescription" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <localVariable>varDistrict</localVariable>
+        <keyMapping columnObjectName="Join_2" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="6" attributeHierarchyActive="false" descriptionColumnName="lineOfBusinessGroup" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_2" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="8" attributeHierarchyActive="false" descriptionColumnName="profitCenterDescription" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="region" order="10" attributeHierarchyActive="false" descriptionColumnName="regionDescription" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <localVariable>varRegion</localVariable>
+        <keyMapping columnObjectName="Join_2" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="12" attributeHierarchyActive="false" descriptionColumnName="subDistrictDescription" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_2" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="fiscalYear" order="14" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Join_2" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <localVariable>varFiscalYearPeriod</localVariable>
+        <keyMapping columnObjectName="Join_2" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="fiscalPeriod" order="16" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Period"/>
+        <keyMapping columnObjectName="Join_2" columnName="fiscalPeriod"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Year/Month (YYYY-MM)"/>
+        <keyMapping columnObjectName="Join_2" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="yearQuarter" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year / Quarter (YYYY-QQ)"/>
+        <keyMapping columnObjectName="Join_2" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="source" hidden="true" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Data Source"/>
+        <keyMapping columnObjectName="Join_2" columnName="source"/>
+      </attribute>
+      <attribute id="activityCode" order="74" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Activity Code"/>
+        <keyMapping columnObjectName="Join_2" columnName="activityCode"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="lineOfBusinessGroup" hidden="false" order="5" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Group"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="20">
+          <formula>case(&quot;lineOfBusiness&quot;,'FL','Hauling',
+'OH','Hauling',
+'RL','Hauling',
+ 'RO','Hauling',
+ 'SS','Hauling',
+ 'TT','Hauling',
+ 'LF','Landfill',
+ 'TR','Transfer',
+ 'RE','Recycling',
+ 'IE','IESC',
+ 'HY','Hydraulics',
+ 'CO','Corporate',
+ 'WT','WTG','Rental Property') </formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="capexMaintenanceLaborActual" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Maintenance Labor $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexMaintenanceLaborActual"/>
+      </measure>
+      <measure id="capexMaintenancePartsActual" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Maintenance Parts $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexMaintenancePartsActual"/>
+      </measure>
+      <measure id="capexTiresPartsActual" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Tire Parts $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexTiresPartsActual"/>
+      </measure>
+      <measure id="capexTiresLaborActual" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Tire Labor $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexTiresLaborActual"/>
+      </measure>
+      <measure id="capexLaborAmountActual" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Labor $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexLaborAmountActual"/>
+      </measure>
+      <measure id="capexLaborAmountBudget" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Labor $ (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexLaborAmountBudget"/>
+      </measure>
+      <measure id="capexPartsAmountActual" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Parts $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexPartsAmountActual"/>
+      </measure>
+      <measure id="capexPartsAmountBudget" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Parts $  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexPartsAmountBudget"/>
+      </measure>
+      <measure id="capexTotalAmountActual" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Total Cost (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexTotalAmountActual"/>
+      </measure>
+      <measure id="capexTotalAmountBudget" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Total Cost - Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexTotalAmountBudget"/>
+      </measure>
+      <measure id="capexWreckerAmountBudget" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Wrecker $  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexWreckerAmountBudget"/>
+      </measure>
+      <measure id="capexSupplierAmountActual" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Supplier $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexSupplierAmountActual"/>
+      </measure>
+      <measure id="capexSupplierAmountBudget" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Supplier $  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexSupplierAmountBudget"/>
+      </measure>
+      <measure id="capexWreckerAmountActual" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX - Wrecker $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexWreckerAmountActual"/>
+      </measure>
+      <measure id="fuelAmountActual" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="fuelAmountActual"/>
+      </measure>
+      <measure id="fuelAmountBudget" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel $ - Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="fuelAmountBudget"/>
+      </measure>
+      <measure id="laborAmountActual" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Labor Cost (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="laborAmountActual"/>
+      </measure>
+      <measure id="laborAmountBudget" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Labor Cost  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="laborAmountBudget"/>
+      </measure>
+      <measure id="maintenanceLaborEstimate" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance Labor $ (Estimate)"/>
+        <measureMapping columnObjectName="Join_2" columnName="maintenanceLaborEstimate"/>
+      </measure>
+      <measure id="maintenanceCostBudget" order="39" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance Parts $ (Actuals)"/>
+        <measureMapping columnObjectName="Join_2" columnName="maintenanceCostBudget"/>
+      </measure>
+      <measure id="maintenanceCostActual" order="40" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance Parts $ (Actuals)"/>
+        <measureMapping columnObjectName="Join_2" columnName="maintenanceCostActual"/>
+      </measure>
+      <measure id="maintenanceLaborBudget" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance Labor $ (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="maintenanceLaborBudget"/>
+      </measure>
+      <measure id="maintenanceLaborActual" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance Labor $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="maintenanceLaborActual"/>
+      </measure>
+      <measure id="maintenancePartsBudget" order="43" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance Parts $ (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="maintenancePartsBudget"/>
+      </measure>
+      <measure id="maintenancePartsActual" order="44" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance Parts $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="maintenancePartsActual"/>
+      </measure>
+      <measure id="partsAmountActual" order="45" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Parts Cost (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="partsAmountActual"/>
+      </measure>
+      <measure id="partsAmountBudget" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Parts Cost  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="partsAmountBudget"/>
+      </measure>
+      <measure id="supplierAmountActual" order="47" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Supplier Cost (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="supplierAmountActual"/>
+      </measure>
+      <measure id="supplierAmountBudget" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Supplier Cost  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="supplierAmountBudget"/>
+      </measure>
+      <measure id="tireCostBudget" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tire Cost $ (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="tireCostBudget"/>
+      </measure>
+      <measure id="tireCostActual" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tire Cost $ (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="tireCostActual"/>
+      </measure>
+      <measure id="capexTiresAmountActual" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tire Cost CAPEX (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexTiresAmountActual"/>
+      </measure>
+      <measure id="capexTiresAmountBudget" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tire Cost CAPEX  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="capexTiresAmountBudget"/>
+      </measure>
+      <measure id="tireLaborBudget" order="53" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tire Labor $ (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="tireLaborBudget"/>
+      </measure>
+      <measure id="tireLaborActual" order="54" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tire Labor $ (Actuals)"/>
+        <measureMapping columnObjectName="Join_2" columnName="tireLaborActual"/>
+      </measure>
+      <measure id="tirePartsBudget" order="55" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tire Parts $ (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="tirePartsBudget"/>
+      </measure>
+      <measure id="tirePartsActual" order="56" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tire Parts $ (Actuals)"/>
+        <measureMapping columnObjectName="Join_2" columnName="tirePartsActual"/>
+      </measure>
+      <measure id="tiresAmountActual" order="57" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tires Cost (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="tiresAmountActual"/>
+      </measure>
+      <measure id="tiresAmountBudget" order="58" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tires Cost  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="tiresAmountBudget"/>
+      </measure>
+      <measure id="totalAmountActual" order="59" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Cost (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="totalAmountActual"/>
+      </measure>
+      <measure id="totalAmountBudget" order="60" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Cost  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="totalAmountBudget"/>
+      </measure>
+      <measure id="truckHoursActual" order="61" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="truckHoursActual"/>
+      </measure>
+      <measure id="truckHoursBudget" order="62" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="truckHoursBudget"/>
+      </measure>
+      <measure id="unitCountActual" order="63" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Units (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="unitCountActual"/>
+      </measure>
+      <measure id="unitCountBudget" order="64" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Units  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="unitCountBudget"/>
+      </measure>
+      <measure id="vehicleMilesActual" order="67" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vehicle Miles (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="vehicleMilesActual"/>
+      </measure>
+      <measure id="vehicleMilesBudget" order="68" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vehicle Miles  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="vehicleMilesBudget"/>
+      </measure>
+      <measure id="wreckerAmountActual" order="69" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Wrecker Cost (Actual)"/>
+        <measureMapping columnObjectName="Join_2" columnName="wreckerAmountActual"/>
+      </measure>
+      <measure id="wreckerAmountBudget" order="70" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Wrecker Cost  (Budget)"/>
+        <measureMapping columnObjectName="Join_2" columnName="wreckerAmountBudget"/>
+      </measure>
+      <measure id="truckPanHoursActual" order="71" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Pan Hours - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="truckPanHoursActual"/>
+      </measure>
+      <measure id="compactorHoursActual" order="72" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Hours - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="compactorHoursActual"/>
+      </measure>
+      <measure id="excavatorLoaderHoursActual" order="73" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavator Loader Hours - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="excavatorLoaderHoursActual"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="utilizationHoursPerUnitCountBudget" hidden="false" order="65" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Utilization Hours Per Unit Count - Budget"/>
+        <formula>IF(&quot;unitCountBudget&quot; &gt; 0, &quot;truckHoursBudget&quot; / &quot;unitCountBudget&quot;, 0)</formula>
+      </measure>
+      <measure id="utilizationHoursPerUnitCountActual" hidden="false" order="66" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Utilization Hours Per Unit Count - Actual"/>
+        <formula>IF(&quot;unitCountActual&quot; &gt; 0, &quot;truckHoursActual&quot; / &quot;unitCountActual&quot;, 0)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions>
+      <localDimension id="orgHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">areaDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">regionDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">districtDescription</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="orgHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="Organizational Hierarchy"/>
+            <levels>
+              <level levelAttribute="areaDescription" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="areaDescription"/>
+              <level levelAttribute="regionDescription" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="regionDescription"/>
+              <level levelAttribute="districtDescription" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="districtDescription"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+      <localDimension id="dateHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">fiscalYear</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="dateHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="Date Hiearchy"/>
+            <levels>
+              <level levelAttribute="fiscalYear" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="fiscalYear"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+      <localDimension id="lobHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">lineOfBusinessGroup</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">lineOfBusiness</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="lobHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="Line of Business Hierarchy"/>
+            <levels>
+              <level levelAttribute="lineOfBusinessGroup" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="lineOfBusinessGroup"/>
+              <level levelAttribute="lineOfBusiness" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="lineOfBusiness"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="263"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="260" y="271"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

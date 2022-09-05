@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::settlementRules" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Settlement Rules"/>
+  <metadata changedAt="2020-04-28 09:09:40.813"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="S4HANA::COBRB">
+      <resourceUri>S4HANA::COBRB</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="distributionRuleGroup"/>
+        <viewAttribute id="sequenceNumberOfDistributionRule"/>
+        <viewAttribute id="settlementType"/>
+        <viewAttribute id="quantityForSettlement"/>
+        <viewAttribute id="unitOfMeasure"/>
+        <viewAttribute id="rountingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="settlementCategory"/>
+        <viewAttribute id="settlementCostCenter"/>
+        <viewAttribute id="internalOrderNumber"/>
+        <viewAttribute id="lastUsedYear"/>
+        <viewAttribute id="lastUsedPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="lastUpdateFiscalYearPeriod" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;lastUsedYear&quot; + &quot;lastUsedPeriod&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="S4HANA::COBRB">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionRuleGroup" source="BUREG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sequenceNumberOfDistributionRule" source="LFDNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementType" source="PERBZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="quantityForSettlement" source="BMENG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitOfMeasure" source="BEINH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rountingNumber" source="AUFPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="APLZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCategory" source="KONTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCostCenter" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="internalOrderNumber" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastUsedYear" source="LETJA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastUsedPeriod" source="LETPE"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="distributionRuleGroup"/>
+        <viewAttribute id="sequenceNumberOfDistributionRule"/>
+        <viewAttribute id="settlementType"/>
+        <viewAttribute id="unitOfMeasure"/>
+        <viewAttribute id="rountingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="settlementCategory"/>
+        <viewAttribute id="settlementCostCenterOriginal"/>
+        <viewAttribute id="quantityForSettlement"/>
+        <viewAttribute id="internalOrderNumber"/>
+        <viewAttribute id="lastUpdateFiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="settlementCostCenterOriginal" source="settlementCostCenter"/></input>
+    <windowFunction dynamicPartitionAttributes="false">
+      <partitionViewAttributeName>client</partitionViewAttributeName>
+      <partitionViewAttributeName>objectNumber</partitionViewAttributeName>
+      <order byViewAttributeName="lastUpdateFiscalYearPeriod" direction="DESC"/>
+      <rankThreshold>
+        <value>1</value>
+      </rankThreshold>
+      <rankViewAttributeName>rankNumber</rankViewAttributeName>
+    </windowFunction>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Rank_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Rank_1" columnName="client"/>
+      </attribute>
+      <attribute id="objectNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Rank_1" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="distributionRuleGroup" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Rule Group"/>
+        <keyMapping columnObjectName="Rank_1" columnName="distributionRuleGroup"/>
+      </attribute>
+      <attribute id="sequenceNumberOfDistributionRule" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sequence Number of Distribution Rule"/>
+        <keyMapping columnObjectName="Rank_1" columnName="sequenceNumberOfDistributionRule"/>
+      </attribute>
+      <attribute id="settlementType" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Settlement Type"/>
+        <keyMapping columnObjectName="Rank_1" columnName="settlementType"/>
+      </attribute>
+      <attribute id="unitOfMeasure" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Unit of Measure"/>
+        <keyMapping columnObjectName="Rank_1" columnName="unitOfMeasure"/>
+      </attribute>
+      <attribute id="rountingNumber" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Routing Number"/>
+        <keyMapping columnObjectName="Rank_1" columnName="rountingNumber"/>
+      </attribute>
+      <attribute id="counter" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Counter"/>
+        <keyMapping columnObjectName="Rank_1" columnName="counter"/>
+      </attribute>
+      <attribute id="settlementCategory" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Settlement Category"/>
+        <keyMapping columnObjectName="Rank_1" columnName="settlementCategory"/>
+      </attribute>
+      <attribute id="settlementCostCenterOriginal" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Settlement Cost Center"/>
+        <keyMapping columnObjectName="Rank_1" columnName="settlementCostCenterOriginal"/>
+      </attribute>
+      <attribute id="internalOrderNumber" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Internal Order Number"/>
+        <keyMapping columnObjectName="Rank_1" columnName="internalOrderNumber"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="quantityForSettlement" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Quantity for Settlement"/>
+        <measureMapping columnObjectName="Rank_1" columnName="quantityForSettlement"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="243"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::equipment" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Equipment"/>
+  <metadata changedAt="2019-11-19 13:57:00.013"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="38"/>
+  <dataSources>
+    <DataSource id="S4HANA::EQUI">
+      <resourceUri>S4HANA::EQUI</resourceUri>
+    </DataSource>
+    <DataSource id="S4HANA::EQKT">
+      <resourceUri>S4HANA::EQKT</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="equipmentMasterData">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="dateonWhichtheRecordWasCreated"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="storageLocation"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::EQUI">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateonWhichtheRecordWasCreated" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonCreatedObject" source="ERNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentLanguageEntered" source="EQASP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChanged" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonWhoChanged" source="AENAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="EQTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inventoryNumber" source="INVNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionDate" source="ANSDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionValue" source="ANSWT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startupDateTechnicalObject" source="INBDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipUsagePeriods" source="EQLFN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="MATNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="WERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="size" source="GROES"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateWarrantyEnds" source="GWLEN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="guaranteeDate" source="GWLDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerofAsset" source="HERST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryofManufacture" source="HERLD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerSerialNumber" source="SERGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerModelNumber" source="TYPBZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearofConstruction" source="BAUJJ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthofConstruction" source="BAUMM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="LAGER"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="equipmentDescription">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="longTextIndicator"/>
+        <viewAttribute id="primaryLanguageIndicatorforTextSegment"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="utcTimeStamp"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::EQKT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionofTechnicalObject" source="EQKTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="longTextIndicator" source="KZLTX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="primaryLanguageIndicatorforTextSegment" source="TXASP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="EQKTU"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utcTimeStamp" source="TEXTCHANGEDDATETIME"/>
+      </input>
+    <filter>(&quot;languageKey&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="textTable" languageColumn="languageKey">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="dateRecordCreated"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="longTextIndicator"/>
+        <viewAttribute id="primaryLanguageIndicatorforTextSegment"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="utcTimeStamp"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="storageLocation"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="equipmentMasterData">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateRecordCreated" source="dateonWhichtheRecordWasCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonCreatedObject" source="nameofPersonCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentLanguageEntered" source="equipmentLanguageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChanged" source="dateLastChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonWhoChanged" source="nameofPersonWhoChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inventoryNumber" source="inventoryNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="size" source="size"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionDate" source="acquisitionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionValue" source="acquisitionValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="currencyKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startupDateTechnicalObject" source="startupDateTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipUsagePeriods" source="equipUsagePeriods"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateWarrantyEnds" source="dateWarrantyEnds"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="guaranteeDate" source="guaranteeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerofAsset" source="manufacturerofAsset"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryofManufacture" source="countryofManufacture"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerSerialNumber" source="manufacturerSerialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerModelNumber" source="manufacturerModelNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearofConstruction" source="yearofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthofConstruction" source="monthofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="storageLocation"/>
+      </input>
+      <input node="equipmentDescription">
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionofTechnicalObject" source="descriptionofTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="longTextIndicator" source="longTextIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="primaryLanguageIndicatorforTextSegment" source="primaryLanguageIndicatorforTextSegment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utcTimeStamp" source="utcTimeStamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="equipmentNumber"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_1" columnName="client"/>
+      </attribute>
+      <attribute id="equipmentNumber" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="equipmentDescription" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Description in Capital Letters"/>
+        <keyMapping columnObjectName="Join_1" columnName="equipmentDescription"/>
+      </attribute>
+      <attribute id="dateRecordCreated" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date on which the record was created"/>
+        <keyMapping columnObjectName="Join_1" columnName="dateRecordCreated"/>
+      </attribute>
+      <attribute id="nameofPersonCreatedObject" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name of Person who Created the Object"/>
+        <keyMapping columnObjectName="Join_1" columnName="nameofPersonCreatedObject"/>
+      </attribute>
+      <attribute id="equipmentLanguageEntered" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language in Which the Piece of Equipment was Entered"/>
+        <keyMapping columnObjectName="Join_1" columnName="equipmentLanguageEntered"/>
+      </attribute>
+      <attribute id="dateLastChanged" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date of Last Change"/>
+        <keyMapping columnObjectName="Join_1" columnName="dateLastChanged"/>
+      </attribute>
+      <attribute id="nameofPersonWhoChanged" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name of person who changed object"/>
+        <keyMapping columnObjectName="Join_1" columnName="nameofPersonWhoChanged"/>
+      </attribute>
+      <attribute id="equipmentCategory" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Category"/>
+        <keyMapping columnObjectName="Join_1" columnName="equipmentCategory"/>
+      </attribute>
+      <attribute id="inventoryNumber" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Inventory number"/>
+        <keyMapping columnObjectName="Join_1" columnName="inventoryNumber"/>
+      </attribute>
+      <attribute id="size" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Size/dimension"/>
+        <keyMapping columnObjectName="Join_1" columnName="size"/>
+      </attribute>
+      <attribute id="acquisitionDate" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Acquisition date"/>
+        <keyMapping columnObjectName="Join_1" columnName="acquisitionDate"/>
+      </attribute>
+      <attribute id="acquisitionValue" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Acquisition Value"/>
+        <keyMapping columnObjectName="Join_1" columnName="acquisitionValue"/>
+      </attribute>
+      <attribute id="currencyKey" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency Key"/>
+        <keyMapping columnObjectName="Join_1" columnName="currencyKey"/>
+      </attribute>
+      <attribute id="startupDateTechnicalObject" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Start-up Date of the Technical Object"/>
+        <keyMapping columnObjectName="Join_1" columnName="startupDateTechnicalObject"/>
+      </attribute>
+      <attribute id="dateWarrantyEnds" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date on which the warranty ends"/>
+        <keyMapping columnObjectName="Join_1" columnName="dateWarrantyEnds"/>
+      </attribute>
+      <attribute id="guaranteeDate" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Guarantee date"/>
+        <keyMapping columnObjectName="Join_1" columnName="guaranteeDate"/>
+      </attribute>
+      <attribute id="manufacturerofAsset" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Manufacturer of Asset"/>
+        <keyMapping columnObjectName="Join_1" columnName="manufacturerofAsset"/>
+      </attribute>
+      <attribute id="countryofManufacture" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country of manufacture"/>
+        <keyMapping columnObjectName="Join_1" columnName="countryofManufacture"/>
+      </attribute>
+      <attribute id="manufacturerSerialNumber" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Manufacturer Serial Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="manufacturerSerialNumber"/>
+      </attribute>
+      <attribute id="manufacturerModelNumber" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Manufacturer Model Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="manufacturerModelNumber"/>
+      </attribute>
+      <attribute id="yearofConstruction" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year of Construction"/>
+        <keyMapping columnObjectName="Join_1" columnName="yearofConstruction"/>
+      </attribute>
+      <attribute id="monthofConstruction" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month of Construction"/>
+        <keyMapping columnObjectName="Join_1" columnName="monthofConstruction"/>
+      </attribute>
+      <attribute id="equipUsagePeriods" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Consecutive numbering of EquipUsagePeriods on same day"/>
+        <keyMapping columnObjectName="Join_1" columnName="equipUsagePeriods"/>
+      </attribute>
+      <attribute id="objectNumber" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="materialNumber" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="materialNumber"/>
+      </attribute>
+      <attribute id="plant" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="Join_1" columnName="plant"/>
+      </attribute>
+      <attribute id="storageLocation" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Storage location"/>
+        <keyMapping columnObjectName="Join_1" columnName="storageLocation"/>
+      </attribute>
+      <attribute id="languageEntered" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language in Which the Piece of Equipment was Entered"/>
+        <keyMapping columnObjectName="Join_1" columnName="languageKey"/>
+      </attribute>
+      <attribute id="descriptionofTechnicalObject" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Description of technical object"/>
+        <keyMapping columnObjectName="Join_1" columnName="descriptionofTechnicalObject"/>
+      </attribute>
+      <attribute id="utcTimeStamp" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UTC Time Stamp in Short For"/>
+        <keyMapping columnObjectName="Join_1" columnName="utcTimeStamp"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="221" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="equipmentMasterData" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="equipmentDescription" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="equipmentMasterData" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="equipmentDescription" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

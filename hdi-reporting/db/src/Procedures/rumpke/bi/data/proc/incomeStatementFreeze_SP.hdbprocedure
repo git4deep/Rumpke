@@ -1,0 +1,60 @@
+PROCEDURE "rumpke.bi.data.proc::incomeStatementFreeze_SP" ( in p_ForceFreeze Integer DEFAULT 0 ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER AS
+--	READS SQL DATA AS
+BEGIN
+    DECLARE v_PerformDataFreeze Integer := 0;
+    DECLARE v_CurrentDate BigInt := to_bigint(to_char(CURRENT_TIMESTAMP, 'YYYYMMDDHHMISS'));
+	DECLARE v_CurrentFreezeDate bigint := 0;
+
+    select max("freezeDate") into v_CurrentFreezeDate 
+    from "rumpke.bi.data.ddl::freezeData.incomeStatementFreeze" 
+    where "isCurrent" = 1;
+	
+    SELECT case when v_CurrentFreezeDate >= to_bigint(to_varchar(fp."FREEZEDATE", 'YYYYMMDDHHMISS')) and fp."FREEZEDATE" is not null then 1 else 0 end into v_PerformDataFreeze
+    FROM (select max("FREEZEDATE") as "FREEZEDATE" from "S4HANA::ZPLANFREEZCAL" where "FREEZETYPE" = 'INCOME' and "FREEZEDATE" <= CURRENT_DATE) fp;
+    --LEFT JOIN (select max("freezeDate") as "freezeDate" from "RUMPKEADM"."rumpke.bi.data.ddl::freezeData.incomeStatementFreeze" where "isCurrent" = 1) isf on isf."freezeDate" >= to_bigint(to_varchar(fp."FREEZEDATE", 'YYYYMMDDHHMISS'));
+    
+    IF (v_PerformDataFreeze = 1 and v_PerformDataFreeze is not null) or p_ForceFreeze = 1 THEN
+
+        --delete from "RUMPKEADM"."rumpke.bi.data.ddl::freezeData.incomeStatementFreeze" where "freezeDate" <= to_bigint(to_varchar(add_years(CURRENT_DATE, -3), 'YYYYMMDDHHMISS'));
+    
+    	update "rumpke.bi.data.ddl::freezeData.incomeStatementFreeze" set "isCurrent" = 0 where "freezeDate" = v_CurrentFreezeDate;
+    
+    	insert into "rumpke.bi.data.ddl::freezeData.incomeStatementFreeze" (
+    		"freezeDate", "lineNumber", "isCurrent",
+    		"profitCenter", "profitCenterDescription", "area", "areaDescription", "region", "regionDescription", "district", "districtDescription", "subDistrict", "subDistrictDescription", "functionalAreaGroup", "functionalAreaGroupDescription",
+    		"level2FunctionalArea", "level2FunctionalAreaDescription", "level3AccountGroup", "level3AccountGroupDescription", "level4AccountNumber", "level4AccountNumberDescription", "fiscalYear", "yearQuarter", "calMonthDisplay", "lineOfBusiness",
+    		"lineofBusinessDescription", "lineOfBusinessGroup", "functionalArea", "nameofTheFunctionalArea", "orderType", "orderTypeDescription", "contractType", "contractTypeDescription", "accountNumber", "gLAccountLongDescription", "distributionChannelPa",
+    		"distributionChannelPaDescription", "accountGroupDescription", "revenueCategory", "costCenter", "costCenterName", "companyCode", "nameCompanyCode", "plant", "name", "postingPeriod", "calMonth", "fiscYearPer", "calQuarter", "rollingYearNo",
+    		"rumpkeMaterialGrp", "rumpkeMaterialGrpDescription", "sortOrder", "sortOrderforExpense", "sortOrderforRevenue", "tradingPartnerCompanyID", "partnerProfitCenter", "accountGroup", "monthName", "rollingMonthNo",
+    		"actual", "budget", "forecast", "projection", "variance"
+    	)
+    	select
+    		v_CurrentDate as "freezeDate",
+    		row_number() over(order by "fiscYearPer", "profitCenter", "level4AccountNumber") as "lineNumber",
+    		1 as "isCurrent",
+    		*
+    	from (
+    		SELECT
+    			"profitCenter", "profitCenterDescription", "area", "areaDescription", "region", "regionDescription", "district", "districtDescription", "subDistrict", "subDistrictDescription", "functionalAreaGroup", "functionalAreaGroupDescription",
+    			"level2FunctionalArea", "level2FunctionalAreaDescription", "level3AccountGroup", "level3AccountGroupDescription", "level4AccountNumber", "level4AccountNumberDescription", "fiscalYear", "yearQuarter", "calMonthDisplay", "lineOfBusiness",
+    			"lineofBusinessDescription", "lineOfBusinessGroup", "functionalArea", "nameofTheFunctionalArea", "orderType", "orderTypeDescription", "contractType", "contractTypeDescription", "accountNumber", "gLAccountLongDescription", "distributionChannelPa",
+    			"distributionChannelPaDescription", "accountGroupDescription", "revenueCategory", "costCenter", "costCenterName", "companyCode", "nameCompanyCode", "plant", "name", "postingPeriod", "calMonth", "fiscYearPer", "calQuarter", "rollingYearNo",
+    			"rumpkeMaterialGrp", "rumpkeMaterialGrpDescription", "sortOrder", "sortOrderforExpense", "sortOrderforRevenue", "tradingPartnerCompanyID", "partnerProfitCenter", "accountGroup", "monthName", "rollingMonthNo",
+    			sum("actual") AS "actual", sum("budget") AS "budget", sum("forecast") AS "forecast", sum("projection") AS "projection", sum("variance") AS "variance" 
+    		FROM "rumpke.bi.reporting.finance::incomeStatement"
+    		where 
+            "fiscalYearPeriod" between concat(year(CURRENT_DATE),'001') and concat(year(CURRENT_DATE),'012') and
+    			length("profitCenter") > 0
+    		GROUP BY 
+    			"profitCenter", "profitCenterDescription", "area", "areaDescription", "region", "regionDescription", "district", "districtDescription", "subDistrict", "subDistrictDescription", "functionalAreaGroup", "functionalAreaGroupDescription",
+    			"level2FunctionalArea", "level2FunctionalAreaDescription", "level3AccountGroup", "level3AccountGroupDescription", "level4AccountNumber", "level4AccountNumberDescription", "fiscalYear", "yearQuarter", "calMonthDisplay", "lineOfBusiness",
+    			"lineofBusinessDescription", "lineOfBusinessGroup", "functionalArea", "nameofTheFunctionalArea", "orderType", "orderTypeDescription", "contractType", "contractTypeDescription", "accountNumber", "gLAccountLongDescription", "distributionChannelPa",
+    			"distributionChannelPaDescription", "accountGroupDescription", "revenueCategory", "costCenter", "costCenterName", "companyCode", "nameCompanyCode", "plant", "name", "postingPeriod", "calMonth", "fiscYearPer", "calQuarter", "rollingYearNo",
+    			"rumpkeMaterialGrp", "rumpkeMaterialGrpDescription", "sortOrder", "sortOrderforExpense", "sortOrderforRevenue", "tradingPartnerCompanyID", "partnerProfitCenter", "accountGroup",  "monthName", "rollingMonthNo"
+    	) "dat";
+    	
+    END IF;
+
+END;

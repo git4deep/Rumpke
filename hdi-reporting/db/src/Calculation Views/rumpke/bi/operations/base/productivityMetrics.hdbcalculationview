@@ -1,0 +1,1270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::productivityMetrics" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Productivity Metrics"/>
+  <metadata changedAt="2022-04-08 16:07:59.392"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="38"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.data.ddl::transactionData.productivityMetrics">
+      <resourceUri>rumpke.bi.data.ddl::transactionData.productivityMetrics</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::profitCenter">
+      <resourceUri>rumpke.bi.masterData.base::profitCenter</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="fieldName"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="fieldValue"/>
+        <viewAttribute id="isActive"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="fieldNameTrim" length="50" expressionLanguage="COLUMN_ENGINE">
+          <formula>trim(&quot;fieldName&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.data.ddl::transactionData.productivityMetrics">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fieldName" source="account"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fieldValue" source="value"/></input>
+    <filter>&quot;isActive&quot;=1</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::profitCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="department"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="fieldName"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="fieldValue"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="fieldNameTrim"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fieldName" source="fieldName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fieldValue" source="fieldValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fieldNameTrim" source="fieldNameTrim"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <viewAttributes>
+      <viewAttribute id="profitCenter"/>
+      <viewAttribute id="fiscalYearPeriod"/>
+      <viewAttribute id="costCenter"/>
+      <viewAttribute id="fieldName"/>
+      <viewAttribute id="version"/>
+      <viewAttribute id="fieldValue" aggregationType="sum"/>
+      <viewAttribute id="lineOfBusiness"/>
+      <viewAttribute id="lineofBusinessDescription"/>
+      <viewAttribute id="fieldNameTrim"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="gallonsForecast" datatype="DECIMAL" length="23" scale="2" expressionLanguage="SQL">
+        <formula>TO_DECIMAL(CASE WHEN &quot;version&quot; = 'BUDGET01' AND &quot;fieldName&quot; = 'gallonsBudget' THEN &quot;fieldValue&quot; ELSE 0 END,23,2)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="yardsForecast" datatype="DECIMAL" length="23" scale="2" expressionLanguage="SQL">
+        <formula>TO_DECIMAL(CASE WHEN &quot;version&quot; = 'BUDGET01' AND &quot;fieldName&quot; = 'yardsBudget' THEN &quot;fieldValue&quot; ELSE 0 END,23,2)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="rmLoadsForecast" datatype="DECIMAL" length="23" scale="2" expressionLanguage="SQL">
+        <formula>TO_DECIMAL(CASE WHEN &quot;version&quot; = 'BUDGET01' AND &quot;fieldName&quot; = 'loadsBudget' THEN &quot;fieldValue&quot; ELSE 0 END,23,2)
+</formula>
+      </calculatedViewAttribute>
+    
+      <calculatedViewAttribute id="yardsBudget" datatype="DECIMAL" length="23" scale="2" expressionLanguage="SQL">
+    
+        <formula>TO_DECIMAL(CASE WHEN &quot;version&quot; = 'PLN' AND &quot;fieldName&quot; = 'yardsBudget' THEN &quot;fieldValue&quot; ELSE 0 END,23,2)</formula>
+    
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="rmLoadsBudget" datatype="DECIMAL" length="23" scale="2" expressionLanguage="SQL">
+        <formula>TO_DECIMAL(CASE WHEN &quot;version&quot; = 'PLN' AND &quot;fieldName&quot; = 'loadsBudget' THEN &quot;fieldValue&quot; ELSE 0 END,23,2)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="gallonsBudget" datatype="DECIMAL" length="23" scale="2" expressionLanguage="SQL">
+        <formula>TO_DECIMAL(CASE WHEN &quot;version&quot; = 'PLN' AND &quot;fieldName&quot; = 'gallonsBudget' THEN &quot;fieldValue&quot; ELSE 0 END,23,2)</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+    <input node="Join_1"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Aggregation_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="profitCenter" order="64" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="65" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="costCenter" order="66" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="fieldName" order="67" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Field Name"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="fieldName"/>
+      </attribute>
+      <attribute id="version" order="68" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="version"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="70" attributeHierarchyActive="false" descriptionColumnName="lineofBusinessDescription" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="71" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="fieldNameTrim" order="79" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fieldNameTrim"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="fieldNameTrim"/>
+      </attribute>
+    
+      <attribute id="gallonsForecast" order="89" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="gallonsForecast"/>
+    
+        <keyMapping columnObjectName="Aggregation_1" columnName="gallonsForecast"/>
+    
+      </attribute>
+      <attribute id="yardsForecast" order="90" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="yardsForecast"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="yardsForecast"/>
+      </attribute>
+      <attribute id="rmLoadsForecast" order="91" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="rmLoadsForecast"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="rmLoadsForecast"/>
+      </attribute>
+    
+      <attribute id="yardsBudget" order="92" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="yardsBudget"/>
+    
+        <keyMapping columnObjectName="Aggregation_1" columnName="yardsBudget"/>
+    
+      </attribute>
+      <attribute id="rmLoadsBudget" order="93" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="rmLoadsBudget"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="rmLoadsBudget"/>
+      </attribute>
+      <attribute id="gallonsBudget" order="94" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="gallonsBudget"/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="gallonsBudget"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="priorMonth" hidden="false" order="77" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month - For Live Projections"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="7">
+          <formula>leftstr(string(addmonths(now(), -1)),4) + '0' + rightstr(leftstr(string(addmonths(now(), -1)),7),2)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="test" hidden="false" order="86" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="test"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="12">
+          <formula>0</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="fieldValue" order="69" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Field Value"/>
+        <measureMapping columnObjectName="Aggregation_1" columnName="fieldValue"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="loadsBudget" hidden="false" order="72" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Loads - Budget"/>
+        <formula>int(&quot;rmLoadsBudget&quot;)</formula>
+      
+        
+        
+        </measure>
+      <measure id="loadsForecast" hidden="false" order="73" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Loads - Budget"/>
+        <formula>int(&quot;rmLoadsForecast&quot;)</formula>
+      
+        
+        
+        </measure>
+      <measure id="unitCountBudget" hidden="false" order="74" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Unit Count - Budget"/>
+        <formula>int(&quot;rmUnitCountBudget&quot;)</formula>
+      
+        
+        
+        </measure>
+      <measure id="unitCountForecast" hidden="false" order="76" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Unit Count - Budget"/>
+        <formula>int(&quot;rmUnitCountForecast&quot;)</formula>
+      
+        
+        
+        </measure>
+      <measure id="truckHoursForecast1" hidden="false" order="80" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="truckHoursForecast1"/>
+        <formula>&quot;truckHoursForecast&quot;</formula>
+      
+        
+        
+        </measure>
+      <measure id="truckHoursBudget1" hidden="false" order="81" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="truckHoursBudget"/>
+        <formula>&quot;truckHoursBudget&quot;</formula>
+      
+        
+        
+        </measure>
+      <measure id="unitsBudget" hidden="false" order="82" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Units - Budget"/>
+        <formula>IF(in(&quot;lineOfBusiness&quot;, 'FL','RL'),&quot;yardsBudget&quot;,
+IF(in(&quot;lineOfBusiness&quot;, 'RO','TT'), &quot;loadsBudget&quot;,IF(in(&quot;lineOfBusiness&quot;, 'PT'),&quot;gallonsBudget&quot;,0)))</formula>
+      
+        
+        
+        </measure>
+      <measure id="unitsForecast" hidden="false" order="83" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Units - Forecast"/>
+        <formula>IF(in(&quot;lineOfBusiness&quot;, 'FL','RL'),&quot;yardsForecast&quot;, IF(in(&quot;lineOfBusiness&quot;, 'RO','TT'), &quot;rmLoadsForecast&quot;,IF(in(&quot;lineOfBusiness&quot;, 'PT'),&quot;gallonsForecast&quot;,0)))</formula>
+      
+        
+        
+        </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="payrollHoursBudget" hidden="false" order="1" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Payroll Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="payrollHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="payrollHoursForecast" hidden="false" order="2" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Payroll Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="payrollHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="capexCubicYardsBudget" hidden="false" order="3" baseMeasure="fieldValue" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="CAPEX Cubic Yards - Budget"/>
+        <restrictionExpression>(&quot;version&quot; = 'PLN') AND ((&quot;fieldName&quot; = 'capexCubicYardsBudget') OR (&quot;fieldName&quot; = 'CAPEXCY'))</restrictionExpression>
+      </measure>
+      <measure id="capexCubicYardsForecast" hidden="false" order="4" baseMeasure="fieldValue" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="CAPEX Cubic Yards - Forecast"/>
+        <restrictionExpression>((&quot;version&quot; = 'BUDGET01') AND (&quot;fieldName&quot; = 'capexCubicYardsBudget')) OR ((&quot;version&quot; = 'WORKING_FCST') AND (&quot;fieldName&quot; = 'CAPEXCY'))</restrictionExpression>
+      </measure>
+      <measure id="compactorHoursBudget" hidden="false" order="5" baseMeasure="fieldValue" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Compactor Hours - Budget"/>
+        <restrictionExpression>(&quot;version&quot; = 'PLN') AND ((&quot;fieldName&quot; = 'compactorHoursBudget') OR (&quot;fieldName&quot; = 'COMPACTORHRS' ))</restrictionExpression>
+      </measure>
+      <measure id="compactorHoursForecast" hidden="false" order="6" baseMeasure="fieldValue" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Compactor Hours - Forecast"/>
+        <restrictionExpression>((&quot;version&quot; = 'BUDGET01') AND (&quot;fieldName&quot; = 'compactorHoursBudget')) OR
+((&quot;version&quot; = 'WORKING_FCST') AND (&quot;fieldName&quot; = 'COMPACTORHRS'))</restrictionExpression>
+      </measure>
+      <measure id="processedTonsBudget" hidden="false" order="7" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Processed Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="processedTonsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="processedTonsForecast" hidden="false" order="8" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Processed Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="processedTonsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="excavationCubicYardsBudget" hidden="false" order="9" baseMeasure="fieldValue" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Excavation Cubic Yards - Budget"/>
+        <restrictionExpression>(&quot;version&quot; = 'PLN') AND ((&quot;fieldName&quot; = 'excavationCubicYardsBudget') or (&quot;fieldName&quot; = 'EXCAVATEDCY' ))</restrictionExpression>
+      </measure>
+      <measure id="excavationCubicYardsForecast" hidden="false" order="10" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Excavation Cubic Yards - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="excavationCubicYardsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rumpkeDirectLaborHoursBudget" hidden="false" order="11" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Rumpke Direct Labor Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="rumpkeDirectLaborHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rumpkeDirectLaborHoursForecast" hidden="false" order="12" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Rumpke Direct Labor Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="rumpkeDirectLaborHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rumpkeIndirectLaborHoursBudget" hidden="false" order="13" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Rumpke Indirect Labor Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="rumpkeIndirectLaborHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rumpkeIndirectLaborHoursForecast" hidden="false" order="14" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Rumpke Indirect Labor Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="rumpkeIndirectLaborHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="excavatorLoaderHoursBudget" hidden="false" order="15" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Excavator Loader Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="excavatorLoaderHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="excavatorLoaderHoursForecast" hidden="false" order="16" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Excavator Loader Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="excavatorLoaderHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="excavatorLoaderTonsBudget" hidden="false" order="17" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Excavator Loader Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="excavatorLoaderTonsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="excavatorLoaderTonsForecast" hidden="false" order="18" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Excavator Loader Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="excavatorLoaderTonsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="stopsBudget" hidden="false" order="19" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Stops - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="stopsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="stopsForecast" hidden="false" order="20" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Stops - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="stopsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="expenseCubicYardsBudget" hidden="false" order="21" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Expense Cubic Yards - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="expenseCubicYardsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="expenseCubicYardsForecast" hidden="false" order="22" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Expense Cubic Yards - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="expenseCubicYardsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="tonnageBudget" hidden="false" order="23" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Tonnage - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="tonnageBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="tonnageForecast" hidden="false" order="24" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Tonnage - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="tonnageBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="truckHoursBudget" hidden="false" order="25" baseMeasure="fieldValue" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Truck Hours - Budget"/>
+        <restrictionExpression>(&quot;version&quot; = 'PLN') AND ((&quot;fieldName&quot; = 'truckHoursBudget') or (&quot;fieldName&quot; = 'LANDFILLTRUCKHRS' ))</restrictionExpression>
+      </measure>
+      <measure id="truckHoursForecast" hidden="false" order="26" baseMeasure="fieldValue" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Truck Hours - Forecast"/>
+        <restrictionExpression>((&quot;version&quot; = 'BUDGET01') AND (&quot;fieldName&quot; = 'truckHoursBudget')) OR (( &quot;version&quot; = 'WORKING_FCST') AND ( &quot;fieldName&quot; = 'LANDFILLTRUCKHRS'))</restrictionExpression>
+      </measure>
+      <measure id="liftsBudget" hidden="false" order="27" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Lifts - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="liftsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="liftsForecast" hidden="false" order="28" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Lifts - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="liftsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="truckPanHoursBudget" hidden="false" order="29" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Truck Pan Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="truckPanHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="truckPanHoursForecast" hidden="false" order="30" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Truck Pan Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="truckPanHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmUnitCountBudget" hidden="false" order="31" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Unit Count - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="unitCountBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmUnitCountForecast" hidden="false" order="32" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Unit Count - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="unitCountBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="manHoursBudget" hidden="false" order="33" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Man Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="manHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="manHoursForecast" hidden="false" order="34" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Man Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="manHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="mechanicHoursBudget" hidden="false" order="35" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Mechanic Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="mechanicHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="mechanicHoursForecast" hidden="false" order="36" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Mechanic Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="mechanicHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="processedTonsManHrBudget" hidden="false" order="37" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Processed Tons Man Hour - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="processedTonsManHrBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="processedTonsManHrForecast" hidden="false" order="38" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Processed Tons Man Hour - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="processedTonsManHrBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="compactorTonsBudget" hidden="false" order="39" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Compactor Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="compactorTonsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="compactorTonsForecast" hidden="false" order="40" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Compactor Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="compactorTonsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="productivityDailyCoverBudget" hidden="false" order="41" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Productiivity Daily Cover - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="productivityDailyCoverBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="productivityDailyCoverForecast" hidden="false" order="42" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Productiivity Daily Cover - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="productivityDailyCoverBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="contractLaborHoursDirectBudget" hidden="false" order="43" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Contract Labor Hours Direct - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="contractLaborHoursDirectBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="contractLaborHoursDirectForecast" hidden="false" order="44" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Contract Labor Hours Direct - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="contractLaborHoursDirectBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recoveryRateBudget" hidden="false" order="45" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Recovery Rate - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="recoveryRateBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recoveryRateForecast" hidden="false" order="46" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Recovery Rate - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="recoveryRateBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="cubicYardsConsumedBudget" hidden="false" order="47" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Cubic Yards Consumed - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="cubicYardsConsumedBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="cubicYardsConsumedForecast" hidden="false" order="48" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Cubic Yards Consumed - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="cubicYardsConsumedBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recyclingTonsBudget" hidden="false" order="49" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Recycling Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="recyclingTonsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="recyclingTonsForecast" hidden="false" order="50" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Recycling Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="recyclingTonsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="directLaborHoursBudget" hidden="false" order="51" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Direct Labor Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="directLaborHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="directLaborHoursForecast" hidden="false" order="52" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Direct Labor Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="directLaborHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="disposalTonsBudget" hidden="false" order="53" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Disposal Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="disposalTonsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="disposalTonsForecast" hidden="false" order="54" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Disposal Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="disposalTonsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="routeCustomerMilesBudget" hidden="false" order="55" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Route Customer Miles - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="routeCustomerMilesBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="routeCustomerMilesForecast" hidden="false" order="56" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Route Customer Miles - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="routeCustomerMilesBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeDirectLaborHoursBudget" hidden="false" order="57" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Employee Direct Labor Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="employeeDirectLaborHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="employeeDirectLaborHoursForecast" hidden="false" order="58" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Employee Direct Labor Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="employeeDirectLaborHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="routeHoursBudget" hidden="false" order="59" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Route Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="routeHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="routeHoursForecast" hidden="false" order="60" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Route Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="routeHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="equipmentHoursBudget" hidden="false" order="61" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Equipment Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="equipmentHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="equipmentHoursForecast" hidden="false" order="62" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Equipment Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="equipmentHoursBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="routeHoursWithMechanicBudget" hidden="false" order="63" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Route Hours with Mechanic - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="routeHoursWithMechanicBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="routeHoursWithMechanicForecast" hidden="false" order="75" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Route Hours with Mechanic - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="routeHoursWithMechanicBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+      </measure>
+      <measure id="PayrollHrsBudgetTest" hidden="false" order="78" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="PayrollHrsBudgetTest"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldNameTrim">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="payrollHoursBudget"/>
+          </filter>
+          <attributeName>fieldNameTrim</attributeName>
+        </restriction>
+      </measure>
+      <measure id="soldTonsBudget" hidden="false" order="84" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Sold Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldNameTrim">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="soldTonsBudget"/>
+          </filter>
+          <attributeName>fieldNameTrim</attributeName>
+        </restriction>
+      </measure>
+      <measure id="soldTonsForecast" hidden="false" order="85" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Sold Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldNameTrim">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="soldTonsBudget"/>
+          </filter>
+          <attributeName>fieldNameTrim</attributeName>
+        </restriction>
+      </measure>
+      <measure id="equipmentHoursTransferBudget" hidden="false" order="87" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Equipment Hours Transfer - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="rep2TRequiphrsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PLN"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+      <measure id="equipmentHoursTransferForecast" hidden="false" order="88" baseMeasure="fieldValue" datatype="DECIMAL" length="34" scale="6">
+        <descriptions defaultDescription="Equipment Hours Transfer - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="fieldName">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="rep2TRequiphrsBudget"/>
+          </filter>
+          <attributeName>fieldName</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="version">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="BUDGET01"/>
+          </filter>
+          <attributeName>version</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="241" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="501"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="501"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="222" y="341"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="222" y="236"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

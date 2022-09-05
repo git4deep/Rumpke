@@ -1,0 +1,1126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.hr.reuse::payrollHours" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="payroll Hours"/>
+  <metadata changedAt="2020-08-19 05:41:42.064"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="45"/>
+  <dataSources>
+    <DataSource id="summaryEarnings">
+      <resourceUri>rumpke.bi.hr.base::summaryEarnings</resourceUri>
+    </DataSource>
+    <DataSource id="payrollSummaryHistory">
+      <resourceUri>rumpke.bi.hr.base::payrollSummaryHistory</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.hr.reuse::payrollFinancials">
+      <resourceUri>rumpke.bi.hr.reuse::payrollFinancials</resourceUri>
+    </DataSource>
+    <DataSource id="PayrollFinancialsBudgetForecast$$$$rumpke.bi.hr.reuse::payrollFinancials$$">
+      <resourceUri>rumpke.bi.hr.reuse::payrollFinancials</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::node">
+      <resourceUri>rumpke.bi.masterData.base::node</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::lineofBusinessText">
+      <resourceUri>rumpke.bi.masterData.base::lineofBusinessText</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="summaryEarningsP">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="employeeLaborHoursDirectActual"/>
+        <viewAttribute id="employeeLaborHoursIndirectActual"/>
+        <viewAttribute id="subordinateID"/>
+        <viewAttribute id="regularHoursLandfill"/>
+        <viewAttribute id="overtimeHoursLandfill"/>
+        <viewAttribute id="otherHoursLandfill"/>
+        <viewAttribute id="vacationHoursLandfill"/>
+        <viewAttribute id="otherHours"/>
+        <viewAttribute id="vacationHours"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="summaryEarnings"/>
+    <filter>(&quot;fiscalYearPeriod&quot; &gt;='2020001')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="payrollSummaryP">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="employeeLaborHoursDirectBudget"/>
+        <viewAttribute id="employeeLaborHoursIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborHoursBudget"/>
+        <viewAttribute id="employeeLaborCostDirectBudget"/>
+        <viewAttribute id="employeeLaborCostIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectBudget"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="subordinateID"/>
+        <viewAttribute id="wages"/>
+        <viewAttribute id="regularHoursLandfillBudget"/>
+        <viewAttribute id="overtimeHoursLandfillBudget"/>
+        <viewAttribute id="employeeLaborHoursDirectForecast"/>
+        <viewAttribute id="employeeLaborHoursIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborHoursForecast"/>
+        <viewAttribute id="employeeLaborCostDirectForecast"/>
+        <viewAttribute id="employeeLaborCostIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectForecast"/>
+        <viewAttribute id="regularHoursLandfillForecast"/>
+        <viewAttribute id="overtimeHoursLandfillForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="payrollSummaryHistory"/>
+    <filter>(&quot;fiscalYearPeriod&quot; &gt;='2020001' AND &quot;fiscalYearPeriod&quot;&lt;='2020012')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="payrollFinancialsActuals">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="nonEmployeeLaborHoursActual"/>
+        <viewAttribute id="accrualLaborHoursDirectActual"/>
+        <viewAttribute id="accrualLaborHoursIndirectActual"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectActual"/>
+        <viewAttribute id="accrualLaborCostDirectActual"/>
+        <viewAttribute id="accrualLaborCostIndirectActual"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="employeeLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborCostIndirectActual"/>
+        <viewAttribute id="forecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.hr.reuse::payrollFinancials"/>
+    <filter>(&quot;fiscalYearPeriod&quot; &gt;='2020001')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="PayrollFinancialsBudgetForecast">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectForecast"/>
+        <viewAttribute id="employeeLaborCostDirectBudget"/>
+        <viewAttribute id="employeeLaborCostDirectForecast"/>
+        <viewAttribute id="employeeLaborCostIndirectBudget"/>
+        <viewAttribute id="employeeLaborCostIndirectForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="PayrollFinancialsBudgetForecast$$$$rumpke.bi.hr.reuse::payrollFinancials$$"/>
+    <filter>(&quot;fiscalYearPeriod&quot; &gt;='2021001')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute datatype="DECIMAL" id="actual" length="23" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="budget" length="23" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="quantity" length="23" scale="3"/>
+        <viewAttribute datatype="DECIMAL" id="nonEmployeeLaborHoursActual" length="23" scale="3"/>
+        <viewAttribute datatype="DECIMAL" id="accrualLaborHoursDirectActual" length="23" scale="3"/>
+        <viewAttribute datatype="DECIMAL" id="accrualLaborHoursIndirectActual" length="23" scale="3"/>
+        <viewAttribute datatype="DECIMAL" id="nonEmployeeLaborCostDirectActual" length="23" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="accrualLaborCostDirectActual" length="23" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="accrualLaborCostIndirectActual" length="23" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="employeeLaborHoursDirectActual" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="employeeLaborHoursIndirectActual" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="employeeLaborCostDirectActual" length="23" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="employeeLaborCostIndirectActual" length="23" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="employeeLaborHoursDirectBudget" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="employeeLaborHoursIndirectBudget" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="nonEmployeeLaborHoursBudget" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="employeeLaborCostDirectBudget" length="18" scale="3"/>
+        <viewAttribute datatype="DECIMAL" id="employeeLaborCostIndirectBudget" length="18" scale="3"/>
+        <viewAttribute datatype="DECIMAL" id="nonEmployeeLaborCostDirectBudget" length="18" scale="3"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute datatype="DECIMAL" id="regularHoursLandfill" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="overtimeHoursLandfill" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="otherHoursLandfill" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="vacationHoursLandfill" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="otherHours" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="vacationHours" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="regularHoursLandfillBudget" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="overtimeHoursLandfillBudget" length="18" scale="2"/>
+        <viewAttribute id="employeeLaborHoursDirectForecast"/>
+        <viewAttribute id="employeeLaborHoursIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborHoursForecast"/>
+        <viewAttribute id="employeeLaborCostDirectForecast"/>
+        <viewAttribute id="employeeLaborCostIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectForecast"/>
+        <viewAttribute id="regularHoursLandfillForecast"/>
+        <viewAttribute id="overtimeHoursLandfillForecast"/>
+        <viewAttribute id="forecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="payrollSummaryP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="actual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="budget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="quantity" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborHoursActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborHoursDirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborHoursIndirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborCostDirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborCostDirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborCostIndirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursDirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursIndirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostDirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostIndirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectBudget" source="employeeLaborHoursDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectBudget" source="employeeLaborHoursIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursBudget" source="nonEmployeeLaborHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectBudget" source="employeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectBudget" source="employeeLaborCostIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectBudget" source="nonEmployeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinateID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHoursLandfill" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHoursLandfill" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="otherHoursLandfill" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vacationHoursLandfill" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="otherHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vacationHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfillBudget" source="regularHoursLandfillBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfillBudget" source="overtimeHoursLandfillBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectForecast" source="employeeLaborHoursDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectForecast" source="employeeLaborHoursIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursForecast" source="nonEmployeeLaborHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectForecast" source="employeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectForecast" source="employeeLaborCostIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectForecast" source="nonEmployeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfillForecast" source="regularHoursLandfillForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfillForecast" source="overtimeHoursLandfillForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="forecast" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="summaryEarningsP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="actual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="budget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="quantity" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborHoursActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborHoursDirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborHoursIndirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborCostDirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborCostDirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborCostIndirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectActual" source="employeeLaborHoursDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectActual" source="employeeLaborHoursIndirectActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostDirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostIndirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursDirectBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursIndirectBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborHoursBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostDirectBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostIndirectBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborCostDirectBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinateID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfill" source="regularHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfill" source="overtimeHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherHoursLandfill" source="otherHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vacationHoursLandfill" source="vacationHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherHours" source="otherHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vacationHours" source="vacationHours"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHoursLandfillBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHoursLandfillBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursDirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursIndirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostDirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostIndirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborCostDirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHoursLandfillForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHoursLandfillForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="forecast" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="payrollFinancialsActuals">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="quantity" source="quantity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursActual" source="nonEmployeeLaborHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHoursDirectActual" source="accrualLaborHoursDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHoursIndirectActual" source="accrualLaborHoursIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectActual" source="nonEmployeeLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCostDirectActual" source="accrualLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCostIndirectActual" source="accrualLaborCostIndirectActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursDirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursIndirectActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectActual" source="employeeLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectActual" source="employeeLaborCostIndirectActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursDirectBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursIndirectBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborHoursBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostDirectBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostIndirectBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborCostDirectBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHoursLandfill" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHoursLandfill" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="otherHoursLandfill" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vacationHoursLandfill" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="otherHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vacationHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHoursLandfillBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHoursLandfillBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursDirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursIndirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostDirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostIndirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborCostDirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHoursLandfillForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHoursLandfillForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="PayrollFinancialsBudgetForecast">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="actual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="budget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="quantity" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborHoursActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborHoursDirectActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborHoursIndirectActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborCostDirectActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborCostDirectActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accrualLaborCostIndirectActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursDirectActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursIndirectActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostDirectActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborCostIndirectActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursDirectBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursIndirectBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectBudget" source="employeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectBudget" source="employeeLaborCostIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectBudget" source="nonEmployeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHoursLandfill" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHoursLandfill" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="otherHoursLandfill" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vacationHoursLandfill" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="otherHours" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vacationHours" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHoursLandfillBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHoursLandfillBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursDirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="employeeLaborHoursIndirectForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nonEmployeeLaborHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectForecast" source="employeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectForecast" source="employeeLaborCostIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectForecast" source="nonEmployeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHoursLandfillForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHoursLandfillForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="forecast" null="true" value=""/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="subClass"/>
+        <viewAttribute id="subSetName"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::node"/>
+    <filter>(in (&quot;setName&quot;,'STDRECY_SC','NSRECY_SC'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="nonEmployeeLaborHoursActual"/>
+        <viewAttribute id="accrualLaborHoursIndirectActual"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectActual"/>
+        <viewAttribute id="accrualLaborCostIndirectActual"/>
+        <viewAttribute id="accrualLaborHoursDirectActual"/>
+        <viewAttribute id="accrualLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborHoursDirectActual"/>
+        <viewAttribute id="employeeLaborHoursIndirectActual"/>
+        <viewAttribute id="employeeLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborCostIndirectActual"/>
+        <viewAttribute id="employeeLaborHoursDirectBudget"/>
+        <viewAttribute id="employeeLaborHoursIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborHoursBudget"/>
+        <viewAttribute id="employeeLaborCostDirectBudget"/>
+        <viewAttribute id="employeeLaborCostIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectBudget"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="regularHoursLandfill"/>
+        <viewAttribute id="overtimeHoursLandfill"/>
+        <viewAttribute id="otherHoursLandfill"/>
+        <viewAttribute id="vacationHoursLandfill"/>
+        <viewAttribute id="otherHours"/>
+        <viewAttribute id="vacationHours"/>
+        <viewAttribute id="regularHoursLandfillBudget"/>
+        <viewAttribute id="overtimeHoursLandfillBudget"/>
+        <viewAttribute id="employeeLaborHoursDirectForecast"/>
+        <viewAttribute id="employeeLaborHoursIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborHoursForecast"/>
+        <viewAttribute id="employeeLaborCostDirectForecast"/>
+        <viewAttribute id="employeeLaborCostIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectForecast"/>
+        <viewAttribute id="regularHoursLandfillForecast"/>
+        <viewAttribute id="overtimeHoursLandfillForecast"/>
+        <viewAttribute id="forecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="quantity" source="quantity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursActual" source="nonEmployeeLaborHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHoursIndirectActual" source="accrualLaborHoursIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectActual" source="nonEmployeeLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCostIndirectActual" source="accrualLaborCostIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHoursDirectActual" source="accrualLaborHoursDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCostDirectActual" source="accrualLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectActual" source="employeeLaborHoursDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectActual" source="employeeLaborHoursIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectActual" source="employeeLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectActual" source="employeeLaborCostIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectBudget" source="employeeLaborHoursDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectBudget" source="employeeLaborHoursIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursBudget" source="nonEmployeeLaborHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectBudget" source="employeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectBudget" source="employeeLaborCostIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectBudget" source="nonEmployeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfill" source="regularHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfill" source="overtimeHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherHoursLandfill" source="otherHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vacationHoursLandfill" source="vacationHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherHours" source="otherHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vacationHours" source="vacationHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfillBudget" source="regularHoursLandfillBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfillBudget" source="overtimeHoursLandfillBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectForecast" source="employeeLaborHoursDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectForecast" source="employeeLaborHoursIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursForecast" source="nonEmployeeLaborHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectForecast" source="employeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectForecast" source="employeeLaborCostIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectForecast" source="nonEmployeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfillForecast" source="regularHoursLandfillForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfillForecast" source="overtimeHoursLandfillForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+      </input>
+      <input node="Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+    <joinAttribute name="costCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenterDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="nonEmployeeLaborHoursActual"/>
+        <viewAttribute id="accrualLaborHoursIndirectActual"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectActual"/>
+        <viewAttribute id="accrualLaborCostIndirectActual"/>
+        <viewAttribute id="accrualLaborHoursDirectActual"/>
+        <viewAttribute id="accrualLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborHoursDirectActual"/>
+        <viewAttribute id="employeeLaborHoursIndirectActual"/>
+        <viewAttribute id="employeeLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborCostIndirectActual"/>
+        <viewAttribute id="employeeLaborHoursDirectBudget"/>
+        <viewAttribute id="employeeLaborHoursIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborHoursBudget"/>
+        <viewAttribute id="employeeLaborCostDirectBudget"/>
+        <viewAttribute id="employeeLaborCostIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectBudget"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="regularHoursLandfill"/>
+        <viewAttribute id="overtimeHoursLandfill"/>
+        <viewAttribute id="otherHoursLandfill"/>
+        <viewAttribute id="vacationHoursLandfill"/>
+        <viewAttribute id="otherHours"/>
+        <viewAttribute id="vacationHours"/>
+        <viewAttribute id="regularHoursLandfillBudget"/>
+        <viewAttribute id="overtimeHoursLandfillBudget"/>
+        <viewAttribute id="employeeLaborHoursDirectForecast"/>
+        <viewAttribute id="employeeLaborHoursIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborHoursForecast"/>
+        <viewAttribute id="employeeLaborCostDirectForecast"/>
+        <viewAttribute id="employeeLaborCostIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectForecast"/>
+        <viewAttribute id="regularHoursLandfillForecast"/>
+        <viewAttribute id="overtimeHoursLandfillForecast"/>
+        <viewAttribute id="forecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursActual" source="nonEmployeeLaborHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHoursIndirectActual" source="accrualLaborHoursIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectActual" source="nonEmployeeLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCostIndirectActual" source="accrualLaborCostIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHoursDirectActual" source="accrualLaborHoursDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCostDirectActual" source="accrualLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectActual" source="employeeLaborHoursDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectActual" source="employeeLaborHoursIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectActual" source="employeeLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectActual" source="employeeLaborCostIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectBudget" source="employeeLaborHoursDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectBudget" source="employeeLaborHoursIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursBudget" source="nonEmployeeLaborHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectBudget" source="employeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectBudget" source="employeeLaborCostIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectBudget" source="nonEmployeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfill" source="regularHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfill" source="overtimeHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherHoursLandfill" source="otherHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vacationHoursLandfill" source="vacationHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherHours" source="otherHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vacationHours" source="vacationHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfillBudget" source="regularHoursLandfillBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfillBudget" source="overtimeHoursLandfillBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectForecast" source="employeeLaborHoursDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectForecast" source="employeeLaborHoursIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursForecast" source="nonEmployeeLaborHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectForecast" source="employeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectForecast" source="employeeLaborCostIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectForecast" source="nonEmployeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfillForecast" source="regularHoursLandfillForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfillForecast" source="overtimeHoursLandfillForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDescription" source="costCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+    <joinAttribute name="costCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="lineofBusinessCode"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::lineofBusinessText"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenterDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="nonEmployeeLaborHoursActual"/>
+        <viewAttribute id="accrualLaborHoursIndirectActual"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectActual"/>
+        <viewAttribute id="accrualLaborCostIndirectActual"/>
+        <viewAttribute id="accrualLaborHoursDirectActual"/>
+        <viewAttribute id="accrualLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborHoursDirectActual"/>
+        <viewAttribute id="employeeLaborHoursIndirectActual"/>
+        <viewAttribute id="employeeLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborCostIndirectActual"/>
+        <viewAttribute id="employeeLaborHoursDirectBudget"/>
+        <viewAttribute id="employeeLaborHoursIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborHoursBudget"/>
+        <viewAttribute id="employeeLaborCostDirectBudget"/>
+        <viewAttribute id="employeeLaborCostIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectBudget"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="regularHoursLandfill"/>
+        <viewAttribute id="overtimeHoursLandfill"/>
+        <viewAttribute id="otherHoursLandfill"/>
+        <viewAttribute id="vacationHoursLandfill"/>
+        <viewAttribute id="otherHours"/>
+        <viewAttribute id="vacationHours"/>
+        <viewAttribute id="regularHoursLandfillBudget"/>
+        <viewAttribute id="overtimeHoursLandfillBudget"/>
+        <viewAttribute id="employeeLaborHoursDirectForecast"/>
+        <viewAttribute id="employeeLaborHoursIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborHoursForecast"/>
+        <viewAttribute id="employeeLaborCostDirectForecast"/>
+        <viewAttribute id="employeeLaborCostIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectForecast"/>
+        <viewAttribute id="regularHoursLandfillForecast"/>
+        <viewAttribute id="overtimeHoursLandfillForecast"/>
+        <viewAttribute id="forecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDescription" source="costCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursActual" source="nonEmployeeLaborHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHoursIndirectActual" source="accrualLaborHoursIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectActual" source="nonEmployeeLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCostIndirectActual" source="accrualLaborCostIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHoursDirectActual" source="accrualLaborHoursDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCostDirectActual" source="accrualLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectActual" source="employeeLaborHoursDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectActual" source="employeeLaborHoursIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectActual" source="employeeLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectActual" source="employeeLaborCostIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectBudget" source="employeeLaborHoursDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectBudget" source="employeeLaborHoursIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursBudget" source="nonEmployeeLaborHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectBudget" source="employeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectBudget" source="employeeLaborCostIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectBudget" source="nonEmployeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfill" source="regularHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfill" source="overtimeHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherHoursLandfill" source="otherHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vacationHoursLandfill" source="vacationHoursLandfill"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherHours" source="otherHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vacationHours" source="vacationHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfillBudget" source="regularHoursLandfillBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfillBudget" source="overtimeHoursLandfillBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectForecast" source="employeeLaborHoursDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectForecast" source="employeeLaborHoursIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursForecast" source="nonEmployeeLaborHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectForecast" source="employeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectForecast" source="employeeLaborCostIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectForecast" source="nonEmployeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHoursLandfillForecast" source="regularHoursLandfillForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHoursLandfillForecast" source="overtimeHoursLandfillForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineofBusinessCode"/>
+      </input>
+    <joinAttribute name="lineOfBusiness"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="Join_2" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="functionalAreaGroup" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group"/>
+        <keyMapping columnObjectName="Join_2" columnName="functionalAreaGroup"/>
+      </attribute>
+      <attribute id="functionalArea" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="Join_2" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="area" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_2" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_2" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Join_2" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_2" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="costCenter" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="costCenter"/>
+      </attribute>
+      <attribute id="costCenterDescription" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="costCenterDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line Of Business"/>
+        <keyMapping columnObjectName="Join_2" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="subordinatesetID" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subordinate ID"/>
+        <keyMapping columnObjectName="Join_2" columnName="subordinatesetID"/>
+      </attribute>
+      <attribute id="accountNumber" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="accountNumber"/>
+        <keyMapping columnObjectName="Join_2" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="profitCenterGroup" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Group"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenterGroup"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="priorMonth" hidden="false" order="47" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month - For Live Projections ONLY"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="7">
+          <formula>leftstr(string(addmonths(now(), -1)),4) + '0' + rightstr(leftstr(string(addmonths(now(), -1)),7),2)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="nonEmployeeLaborHoursActual" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Hours - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="nonEmployeeLaborHoursActual"/>
+      </measure>
+      <measure id="accrualLaborHoursIndirectActual" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual Labor Hours Indirect - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="accrualLaborHoursIndirectActual"/>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectActual" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Cost Direct - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="nonEmployeeLaborCostDirectActual"/>
+      </measure>
+      <measure id="accrualLaborCostIndirectActual" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual Labor Cost Indirect - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="accrualLaborCostIndirectActual"/>
+      </measure>
+      <measure id="accrualLaborHoursDirectActual" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual Labor Hours Direct - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="accrualLaborHoursDirectActual"/>
+      </measure>
+      <measure id="accrualLaborCostDirectActual" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual Labor Cost Direct - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="accrualLaborCostDirectActual"/>
+      </measure>
+      <measure id="employeeLaborHoursDirectActual" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborHoursDirectActual"/>
+      </measure>
+      <measure id="employeeLaborHoursIndirectActual" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Indirect - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborHoursIndirectActual"/>
+      </measure>
+      <measure id="employeeLaborCostDirectActual" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Direct - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborCostDirectActual"/>
+      </measure>
+      <measure id="employeeLaborCostIndirectActual" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Indirect - Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborCostIndirectActual"/>
+      </measure>
+      <measure id="employeeLaborHoursDirectBudget" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborHoursDirectBudget"/>
+      </measure>
+      <measure id="employeeLaborHoursIndirectBudget" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborHoursIndirectBudget"/>
+      </measure>
+      <measure id="nonEmployeeLaborHoursBudget" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Hours - Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="nonEmployeeLaborHoursBudget"/>
+      </measure>
+      <measure id="employeeLaborCostDirectBudget" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Direct - Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborCostDirectBudget"/>
+      </measure>
+      <measure id="employeeLaborCostIndirectBudget" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Indirect - Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborCostIndirectBudget"/>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectBudget" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Cost Direct - Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="nonEmployeeLaborCostDirectBudget"/>
+      </measure>
+      <measure id="regularHoursLandfillBudget" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Regular Hours - Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="regularHoursLandfillBudget"/>
+      </measure>
+      <measure id="overtimeHoursLandfillBudget" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Overtime Hours - Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="overtimeHoursLandfillBudget"/>
+      </measure>
+      <measure id="vacationHours" order="39" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vacation Hours"/>
+        <measureMapping columnObjectName="Join_2" columnName="vacationHours"/>
+      </measure>
+      <measure id="budget" order="40" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="budget"/>
+      </measure>
+      <measure id="actual" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="actual"/>
+      </measure>
+      <measure id="regularHoursLandfill" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Regular Hours - Landfill"/>
+        <measureMapping columnObjectName="Join_2" columnName="regularHoursLandfill"/>
+      </measure>
+      <measure id="overtimeHoursLandfill" order="43" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Overtime Hours - Landfill"/>
+        <measureMapping columnObjectName="Join_2" columnName="overtimeHoursLandfill"/>
+      </measure>
+      <measure id="otherHoursLandfill" order="44" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Other Hours - Landfill"/>
+        <measureMapping columnObjectName="Join_2" columnName="otherHoursLandfill"/>
+      </measure>
+      <measure id="vacationHoursLandfill" order="45" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vacation Hours - Landfill"/>
+        <measureMapping columnObjectName="Join_2" columnName="vacationHoursLandfill"/>
+      </measure>
+      <measure id="otherHours" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Other Hours"/>
+        <measureMapping columnObjectName="Join_2" columnName="otherHours"/>
+      </measure>
+      <measure id="employeeLaborHoursDirectForecast" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Forecast"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborHoursDirectForecast"/>
+      </measure>
+      <measure id="employeeLaborHoursIndirectForecast" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Forecast"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborHoursIndirectForecast"/>
+      </measure>
+      <measure id="nonEmployeeLaborHoursForecast" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_2" columnName="nonEmployeeLaborHoursForecast"/>
+      </measure>
+      <measure id="employeeLaborCostDirectForecast" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Direct - Forecast"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborCostDirectForecast"/>
+      </measure>
+      <measure id="employeeLaborCostIndirectForecast" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Indirect - Forecast"/>
+        <measureMapping columnObjectName="Join_2" columnName="employeeLaborCostIndirectForecast"/>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectForecast" order="53" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Cost - Forecast"/>
+        <measureMapping columnObjectName="Join_2" columnName="nonEmployeeLaborCostDirectForecast"/>
+      </measure>
+      <measure id="regularHoursLandfillForecast" order="54" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Regular Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_2" columnName="regularHoursLandfillForecast"/>
+      </measure>
+      <measure id="overtimeHoursLandfillForecast" order="55" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Overtime Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_2" columnName="overtimeHoursLandfillForecast"/>
+      </measure>
+      <measure id="forecast" order="64" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="forecast"/>
+        <measureMapping columnObjectName="Join_2" columnName="forecast"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="employeeLaborHoursDirectProjection" hidden="true" order="56" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;employeeLaborHoursDirectForecast&quot;, &quot;employeeLaborHoursDirectActual&quot;)</formula>
+      </measure>
+      <measure id="employeeLaborHoursIndirectProjection" hidden="true" order="57" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="Employee Labor Hours Indirect - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;employeeLaborHoursIndirectForecast&quot;, &quot;employeeLaborHoursIndirectActual&quot;)</formula>
+      </measure>
+      <measure id="nonEmployeeLaborHoursProjection" hidden="true" order="58" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="nonEmployeeLaborHours - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;nonEmployeeLaborHoursForecast&quot;, &quot;nonEmployeeLaborHoursActual&quot;)</formula>
+      </measure>
+      <measure id="employeeLaborCostDirectProjection" hidden="true" order="59" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="Employee Labor Cost Direct - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;employeeLaborCostDirectForecast&quot;, &quot;employeeLaborCostDirectActual&quot;)</formula>
+      </measure>
+      <measure id="employeeLaborCostIndirectProjection" hidden="true" order="60" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="Employee Labor Cost Indirect - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;employeeLaborCostIndirectForecast&quot;, &quot;employeeLaborCostIndirectActual&quot;)</formula>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectProjection" hidden="true" order="61" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="Employee Labor Cost Direct - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;nonEmployeeLaborCostDirectForecast&quot;, &quot;nonEmployeeLaborCostDirectActual&quot;)</formula>
+      </measure>
+      <measure id="regularHoursLandfillProjection" hidden="true" order="62" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="Regular Hours Landfill - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;regularHoursLandfillForecast&quot;, &quot;regularHoursLandfill&quot;)</formula>
+      </measure>
+      <measure id="overtimeHoursLandfillProjection" hidden="true" order="63" aggregationType="sum" engineAggregation="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="Overtime Hours Landfill - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;overtimeHoursLandfillForecast&quot;, &quot;overtimeHoursLandfill&quot;)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="787" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="summaryEarningsP" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="886"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="payrollSummaryP" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="721" y="886"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="payrollFinancialsActuals" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="511" y="886"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="PayrollFinancialsBudgetForecast" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="886"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="318" y="696"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="600" y="696"/>
+        <rectangleSize height="86" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="344" y="536"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Union_1" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_9" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="715" y="536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="371" y="376"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_6" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="839" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="787" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

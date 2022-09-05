@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::equipmentTimeSegment" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Equipment time segment"/>
+  <metadata changedAt="2020-01-07 13:49:36.92"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="39"/>
+  <dataSources>
+    <DataSource id="EQUZ">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::EQUZ</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="EQUZ">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="EQUZ" columnName="MANDT"/>
+      </attribute>
+      <attribute id="consecutiveNumberingEquipUsagePeriodsSameDay" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Consecutive Numbering EquipUsage Periods Same Day"/>
+        <keyMapping columnObjectName="EQUZ" columnName="EQLFN"/>
+      </attribute>
+      <attribute id="equipmentNumber" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Number"/>
+        <keyMapping columnObjectName="EQUZ" columnName="EQUNR"/>
+      </attribute>
+      <attribute id="locationAccountAssignment" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Location and account assignment for technical object"/>
+        <keyMapping columnObjectName="EQUZ" columnName="ILOAN"/>
+      </attribute>
+      <attribute id="maintenancePlanningPlant" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Planning Plant"/>
+        <keyMapping columnObjectName="EQUZ" columnName="IWERK"/>
+      </attribute>
+      <attribute id="objectIDWorkCenter" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object ID of the Work Center"/>
+        <keyMapping columnObjectName="EQUZ" columnName="GEWRK"/>
+      </attribute>
+      <attribute id="validFrom" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valid From Date"/>
+        <keyMapping columnObjectName="EQUZ" columnName="DATAB"/>
+      </attribute>
+      <attribute id="validToDate" key="true" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valid To Date"/>
+        <keyMapping columnObjectName="EQUZ" columnName="DATBI"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

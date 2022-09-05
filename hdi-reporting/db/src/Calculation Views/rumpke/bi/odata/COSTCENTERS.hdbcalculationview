@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.odata::COSTCENTERS" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="CostCenters"/>
+  <metadata changedAt="2019-12-04 20:14:00.969"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.base::costCenter">
+      <resourceUri>rumpke.bi.masterData.base::costCenter</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="rumpke.bi.masterData.base::costCenter">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="costCenter" columnName="client"/>
+      </attribute>
+      <attribute id="controllingArea" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area"/>
+        <keyMapping columnObjectName="costCenter" columnName="controllingArea"/>
+      </attribute>
+      <attribute id="costCenter" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="costCenter" columnName="costCenter"/>
+      </attribute>
+      <attribute id="validToDate" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valid To Date"/>
+        <keyMapping columnObjectName="costCenter" columnName="validToDate"/>
+      </attribute>
+      <attribute id="validFromDate" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valid-From Date"/>
+        <keyMapping columnObjectName="costCenter" columnName="validFromDate"/>
+      </attribute>
+      <attribute id="lockIndicatorActual" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Lock Indicator for Actual Primary Postings"/>
+        <keyMapping columnObjectName="costCenter" columnName="lockIndicatorActual"/>
+      </attribute>
+      <attribute id="lockIndicatorPlan" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Lock Indicator for Plan Primary Costs"/>
+        <keyMapping columnObjectName="costCenter" columnName="lockIndicatorPlan"/>
+      </attribute>
+      <attribute id="companyCode" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="costCenter" columnName="companyCode"/>
+      </attribute>
+      <attribute id="businessArea" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Business Area"/>
+        <keyMapping columnObjectName="costCenter" columnName="businessArea"/>
+      </attribute>
+      <attribute id="costCenterCategory" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center Category"/>
+        <keyMapping columnObjectName="costCenter" columnName="costCenterCategory"/>
+      </attribute>
+      <attribute id="personResponsible" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Person Responsible"/>
+        <keyMapping columnObjectName="costCenter" columnName="personResponsible"/>
+      </attribute>
+      <attribute id="userResponsible" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="User Responsible"/>
+        <keyMapping columnObjectName="costCenter" columnName="userResponsible"/>
+      </attribute>
+      <attribute id="currencyKey" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency Key"/>
+        <keyMapping columnObjectName="costCenter" columnName="currencyKey"/>
+      </attribute>
+      <attribute id="generalName" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="General Name"/>
+        <keyMapping columnObjectName="costCenter" columnName="generalName"/>
+      </attribute>
+      <attribute id="description" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Description"/>
+        <keyMapping columnObjectName="costCenter" columnName="description"/>
+      </attribute>
+      <attribute id="searchTerm" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Search Term for Matchcode Use"/>
+        <keyMapping columnObjectName="costCenter" columnName="searchTerm"/>
+      </attribute>
+      <attribute id="languageKey" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="costCenter" columnName="languageKey"/>
+      </attribute>
+      <attribute id="profitCenter" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="costCenter" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="functionalArea" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="costCenter" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="functionalAreaDesc" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Desc"/>
+        <keyMapping columnObjectName="costCenter" columnName="functionalAreaDesc"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/></shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

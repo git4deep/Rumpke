@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::setHeaderDirectory" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Set Header and Directory"/>
+  <metadata changedAt="2020-06-17 11:47:07.995"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="37"/>
+  <dataSources>
+    <DataSource id="SETHEADER">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::SETHEADER</resourceUri>
+    </DataSource>
+    <DataSource id="SETHEADERT">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::SETHEADERT</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="organizationalunitasSetSubclass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setType"/>
+        <viewAttribute id="flagDynamicSet"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="xFlagMustBeUnique"/>
+        <viewAttribute id="representativeValueofaSet"/>
+        <viewAttribute id="createdBy"/>
+        <viewAttribute id="creationDate"/>
+        <viewAttribute id="creationTime"/>
+        <viewAttribute id="lastChangedBy"/>
+        <viewAttribute id="dateonWhichObjectWasLastChanged"/>
+        <viewAttribute id="timeofLastChange"/>
+        <viewAttribute id="releaseofSAPSystem"/>
+        <viewAttribute id="tableName"/>
+        <viewAttribute id="fieldName"/>
+        <viewAttribute id="representativeDataElementinaSet"/>
+        <viewAttribute id="originalLanguageforSets"/>
+        <viewAttribute id="noEntriesExistinTableRWSHEADERforThisSet"/>
+        <viewAttribute id="noEntriesExistinTableRWSLINEforThisSet"/>
+        <viewAttribute id="noEntriesExistinTableSETLINETforThisSet"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="SETHEADER">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setClass" source="SETCLASS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="organizationalunitasSetSubclass" source="SUBCLASS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setName" source="SETNAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setType" source="SETTYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="flagDynamicSet" source="XDYNAMIC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="authorizationGroup" source="AUTHGR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="xFlagMustBeUnique" source="XUNIQ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="representativeValueofaSet" source="RVALUE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdBy" source="CREUSER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="creationDate" source="CREDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="creationTime" source="CRETIME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedBy" source="UPDUSER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateonWhichObjectWasLastChanged" source="UPDDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="timeofLastChange" source="UPDTIME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="releaseofSAPSystem" source="SAPRL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tableName" source="TABNAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fieldName" source="FIELDNAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="representativeDataElementinaSet" source="ROLLNAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="originalLanguageforSets" source="SET_OLANGU"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="noEntriesExistinTableRWSHEADERforThisSet" source="NO_RWSHEADER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="noEntriesExistinTableRWSLINEforThisSet" source="NO_RWSLINE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="noEntriesExistinTableSETLINETforThisSet" source="NO_SETLINET"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="organizationalUnitasSetSubclass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="SETHEADERT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setClass" source="SETCLASS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="organizationalUnitasSetSubclass" source="SUBCLASS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setName" source="SETNAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="LANGU"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="shortDescriptionofaSet" source="DESCRIPT"/>
+      </input>
+    <filter>(&quot;languageKey&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="organizationalunitasSetSubclass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setType"/>
+        <viewAttribute id="flagDynamicSet"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="xFlagMustBeUnique"/>
+        <viewAttribute id="representativeValueofaSet"/>
+        <viewAttribute id="createdBy"/>
+        <viewAttribute id="creationDate"/>
+        <viewAttribute id="creationTime"/>
+        <viewAttribute id="lastChangedBy"/>
+        <viewAttribute id="dateonWhichObjectWasLastChanged"/>
+        <viewAttribute id="timeofLastChange"/>
+        <viewAttribute id="releaseofSAPSystem"/>
+        <viewAttribute id="tableName"/>
+        <viewAttribute id="fieldName"/>
+        <viewAttribute id="representativeDataElementinaSet"/>
+        <viewAttribute id="originalLanguageforSets"/>
+        <viewAttribute id="noEntriesExistinTableRWSHEADERforThisSet"/>
+        <viewAttribute id="noEntriesExistinTableRWSLINEforThisSet"/>
+        <viewAttribute id="noEntriesExistinTableSETLINETforThisSet"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setClass" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="organizationalunitasSetSubclass" source="organizationalunitasSetSubclass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setName" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setType" source="setType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="flagDynamicSet" source="flagDynamicSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="authorizationGroup" source="authorizationGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="xFlagMustBeUnique" source="xFlagMustBeUnique"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="representativeValueofaSet" source="representativeValueofaSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdBy" source="createdBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="creationDate" source="creationDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="creationTime" source="creationTime"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedBy" source="lastChangedBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateonWhichObjectWasLastChanged" source="dateonWhichObjectWasLastChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="timeofLastChange" source="timeofLastChange"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="releaseofSAPSystem" source="releaseofSAPSystem"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tableName" source="tableName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fieldName" source="fieldName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="representativeDataElementinaSet" source="representativeDataElementinaSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="originalLanguageforSets" source="originalLanguageforSets"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="noEntriesExistinTableRWSHEADERforThisSet" source="noEntriesExistinTableRWSHEADERforThisSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="noEntriesExistinTableRWSLINEforThisSet" source="noEntriesExistinTableRWSLINEforThisSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="noEntriesExistinTableSETLINETforThisSet" source="noEntriesExistinTableSETLINETforThisSet"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="shortDescriptionofaSet" source="shortDescriptionofaSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setClass" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="organizationalunitasSetSubclass" source="organizationalUnitasSetSubclass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setName" source="setName"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="setClass"/>
+    <joinAttribute name="organizationalunitasSetSubclass"/>
+    <joinAttribute name="setName"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_1" columnName="client"/>
+      </attribute>
+      <attribute id="setClass" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Class"/>
+        <keyMapping columnObjectName="Join_1" columnName="setClass"/>
+      </attribute>
+      <attribute id="organizationalunitasSetSubclass" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Organizational Unit as Set Subclass"/>
+        <keyMapping columnObjectName="Join_1" columnName="organizationalunitasSetSubclass"/>
+      </attribute>
+      <attribute id="setName" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="setName"/>
+      </attribute>
+      <attribute id="setType" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Type"/>
+        <keyMapping columnObjectName="Join_1" columnName="setType"/>
+      </attribute>
+      <attribute id="flagDynamicSet" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Flag: Dynamic Set"/>
+        <keyMapping columnObjectName="Join_1" columnName="flagDynamicSet"/>
+      </attribute>
+      <attribute id="authorizationGroup" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Authorization group"/>
+        <keyMapping columnObjectName="Join_1" columnName="authorizationGroup"/>
+      </attribute>
+      <attribute id="xFlagMustBeUnique" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="X Flag: Must Be Unique"/>
+        <keyMapping columnObjectName="Join_1" columnName="xFlagMustBeUnique"/>
+      </attribute>
+      <attribute id="representativeValueofaSet" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Representative Value of a Set"/>
+        <keyMapping columnObjectName="Join_1" columnName="representativeValueofaSet"/>
+      </attribute>
+      <attribute id="createdBy" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Created By"/>
+        <keyMapping columnObjectName="Join_1" columnName="createdBy"/>
+      </attribute>
+      <attribute id="creationDate" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Creation date"/>
+        <keyMapping columnObjectName="Join_1" columnName="creationDate"/>
+      </attribute>
+      <attribute id="creationTime" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Creation Time"/>
+        <keyMapping columnObjectName="Join_1" columnName="creationTime"/>
+      </attribute>
+      <attribute id="lastChangedBy" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Last Changed By"/>
+        <keyMapping columnObjectName="Join_1" columnName="lastChangedBy"/>
+      </attribute>
+      <attribute id="dateonWhichObjectWasLastChanged" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date on which object was last changed"/>
+        <keyMapping columnObjectName="Join_1" columnName="dateonWhichObjectWasLastChanged"/>
+      </attribute>
+      <attribute id="timeofLastChange" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Time of last change"/>
+        <keyMapping columnObjectName="Join_1" columnName="timeofLastChange"/>
+      </attribute>
+      <attribute id="releaseofSAPSystem" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Release of SAP System"/>
+        <keyMapping columnObjectName="Join_1" columnName="releaseofSAPSystem"/>
+      </attribute>
+      <attribute id="tableName" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Table Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="tableName"/>
+      </attribute>
+      <attribute id="fieldName" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Field Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="fieldName"/>
+      </attribute>
+      <attribute id="representativeDataElementinaSet" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Representative Data Element in a Set"/>
+        <keyMapping columnObjectName="Join_1" columnName="representativeDataElementinaSet"/>
+      </attribute>
+      <attribute id="originalLanguageforSets" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Original Language for Sets (SAP Internal Only)"/>
+        <keyMapping columnObjectName="Join_1" columnName="originalLanguageforSets"/>
+      </attribute>
+      <attribute id="noEntriesExistinTableRWSHEADERforThisSet" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="No Entries Exist in Table RWSHEADER for This Set"/>
+        <keyMapping columnObjectName="Join_1" columnName="noEntriesExistinTableRWSHEADERforThisSet"/>
+      </attribute>
+      <attribute id="noEntriesExistinTableRWSLINEforThisSet" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="noEntriesExistinTableRWSLINEforThisSet"/>
+        <keyMapping columnObjectName="Join_1" columnName="noEntriesExistinTableRWSLINEforThisSet"/>
+      </attribute>
+      <attribute id="noEntriesExistinTableSETLINETforThisSet" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="No Entries Exist in Table RWSLINE for This Set"/>
+        <keyMapping columnObjectName="Join_1" columnName="noEntriesExistinTableSETLINETforThisSet"/>
+      </attribute>
+      <attribute id="languageKey" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="Join_1" columnName="languageKey"/>
+      </attribute>
+      <attribute id="shortDescriptionofaSet" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Short Description of a Set"/>
+        <keyMapping columnObjectName="Join_1" columnName="shortDescriptionofaSet"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="221" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

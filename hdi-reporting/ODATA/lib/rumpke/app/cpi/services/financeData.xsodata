@@ -1,0 +1,11 @@
+service {
+
+    "rumpke.bi.reporting.finance::incomeStatement" as "IncomeStatements" 
+    keys("accountNumber", "functionalArea", "functionalAreaGroup", "fiscYearPer", "profitCenter", "costCenter", "area", "region", "district", "subDistrict", "revenueCategory")
+    
+    create forbidden
+    update forbidden 
+    delete forbidden;
+    
+}
+

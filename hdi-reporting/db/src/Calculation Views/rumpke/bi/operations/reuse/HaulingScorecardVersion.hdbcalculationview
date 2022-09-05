@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::HaulingScorecardVersion" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="HaulingScorecardVersion"/>
+  <metadata changedAt="2020-09-06 22:54:52.956"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="39"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.reporting.operations::haulingScorecard">
+      <resourceUri>rumpke.bi.reporting.operations::haulingScorecard</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetForecast"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalRevenueForecast"/>
+        <viewAttribute id="totalRevenueProjection"/>
+        <viewAttribute id="depreciationActual"/>
+        <viewAttribute id="depreciationBudget"/>
+        <viewAttribute id="depreciationForecast"/>
+        <viewAttribute id="depreciationProjection"/>
+        <viewAttribute id="routeCustomerMilesActual"/>
+        <viewAttribute id="routeCustomerMilesBudget"/>
+        <viewAttribute id="routeCustomerMilesForecast"/>
+        <viewAttribute id="routeCustomerMilesProjection"/>
+        <viewAttribute id="unitsActual"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="unitsForecast"/>
+        <viewAttribute id="unitsProjection"/>
+        <viewAttribute id="routeHoursWithMechanicActual"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="routeHoursWithMechanicForecast"/>
+        <viewAttribute id="routeHoursWithMechanicProjection"/>
+        <viewAttribute id="totalMaintenanceCostActual"/>
+        <viewAttribute id="totalMaintenanceCostBudget"/>
+        <viewAttribute id="totalMaintenanceCostProjection"/>
+        <viewAttribute id="totalMaintenanceCostForecast"/>
+        <viewAttribute id="insuranceAndClaimsActual"/>
+        <viewAttribute id="insuranceAndClaimsBudget"/>
+        <viewAttribute id="insuranceAndClaimsForecast"/>
+        <viewAttribute id="insuranceAndClaimsProjection"/>
+        <viewAttribute id="fuelCostActual"/>
+        <viewAttribute id="fuelCostBudget"/>
+        <viewAttribute id="fuelCostForecast"/>
+        <viewAttribute id="fuelCostProjection"/>
+        <viewAttribute id="totalTruckCostActual"/>
+        <viewAttribute id="totalTruckCostBudget"/>
+        <viewAttribute id="totalTruckCostForecast"/>
+        <viewAttribute id="totalTruckCostProjection"/>
+        <viewAttribute id="tonsperLoadActual"/>
+        <viewAttribute id="tonsperLoadBudget"/>
+        <viewAttribute id="tonsperLoadForecast"/>
+        <viewAttribute id="tonsperLoadProjection"/>
+        <viewAttribute id="baseRevenueActual"/>
+        <viewAttribute id="baseRevenueBudget"/>
+        <viewAttribute id="baseRevenueForecast"/>
+        <viewAttribute id="baseRevenueProjection"/>
+        <viewAttribute id="otherRevenueActual"/>
+        <viewAttribute id="otherRevenueBudget"/>
+        <viewAttribute id="otherRevenueProjection"/>
+        <viewAttribute id="otherRevenueForecast"/>
+        <viewAttribute id="commodityRevenueActual"/>
+        <viewAttribute id="commodityRevenueBudget"/>
+        <viewAttribute id="commodityRevenueForecast"/>
+        <viewAttribute id="commodityRevenueProjection"/>
+        <viewAttribute id="fuelSurchargeRevenueActual"/>
+        <viewAttribute id="fuelSurchargeRevenueBudget"/>
+        <viewAttribute id="fuelSurchargeRevenueProjection"/>
+        <viewAttribute id="fuelSurchargeRevenueForecast"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="loadsForecast"/>
+        <viewAttribute id="loadsProjection"/>
+        <viewAttribute id="yardsActual"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="yardsForecast"/>
+        <viewAttribute id="yardsProjection"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="tonnageForecast"/>
+        <viewAttribute id="tonnageProjection"/>
+        <viewAttribute id="liftsActual"/>
+        <viewAttribute id="liftsBudget"/>
+        <viewAttribute id="liftsForecast"/>
+        <viewAttribute id="liftsProjection"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeightedActual"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeightedBudget"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeightedForecast"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeightedProjection"/>
+        <viewAttribute id="truckHoursProjection"/>
+        <viewAttribute id="truckHoursActual"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="truckHoursForecast"/>
+        <viewAttribute id="driverLaborCostActual"/>
+        <viewAttribute id="driverLaborCostBudget"/>
+        <viewAttribute id="driverLaborCostForecast"/>
+        <viewAttribute id="driverLaborCostProjection"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.reporting.operations::haulingScorecard"/>
+    <filter>(&quot;fiscalYearPeriod&quot; &gt;='2020001')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="1Actual">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="routeHoursWithMechanic"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="depreciation"/>
+        <viewAttribute id="routeCustomerMiles"/>
+        <viewAttribute id="units"/>
+        <viewAttribute id="totalMaintenanceCost"/>
+        <viewAttribute id="insuranceAndClaims"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="totalTruckCost"/>
+        <viewAttribute id="tonsperLoad"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="baseRevenue"/>
+        <viewAttribute id="otherRevenue"/>
+        <viewAttribute id="commodityRevenue"/>
+        <viewAttribute id="fuelSurchargeRevenue"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="yards"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="lifts"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeighted"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="driverLaborCost"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Version" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Actual'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanic" source="routeHoursWithMechanicActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTargetActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="depreciation" source="depreciationActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMiles" source="routeCustomerMilesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="units" source="unitsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCost" source="totalMaintenanceCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="insuranceAndClaims" source="insuranceAndClaimsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTruckCost" source="totalTruckCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonsperLoad" source="tonsperLoadActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseRevenue" source="baseRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherRevenue" source="otherRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="commodityRevenue" source="commodityRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelSurchargeRevenue" source="fuelSurchargeRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loadsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yards" source="yardsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnageActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifts" source="liftsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="caWageEligibleForBenefitsWeighted" source="caWageEligibleForBenefitsWeightedActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="driverLaborCost" source="driverLaborCostActual"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="2Budget">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="depreciationBudget"/>
+        <viewAttribute id="routeCustomerMilesBudget"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="totalMaintenanceCostBudget"/>
+        <viewAttribute id="insuranceAndClaimsBudget"/>
+        <viewAttribute id="fuelCostBudget"/>
+        <viewAttribute id="totalTruckCostBudget"/>
+        <viewAttribute id="tonsperLoadBudget"/>
+        <viewAttribute id="baseRevenueBudget"/>
+        <viewAttribute id="otherRevenueBudget"/>
+        <viewAttribute id="commodityRevenueBudget"/>
+        <viewAttribute id="fuelSurchargeRevenueBudget"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="liftsBudget"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeightedBudget"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="driverLaborCostBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Version" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Budget'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="3Forecast">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="ebitdaTargetForecast"/>
+        <viewAttribute id="totalRevenueForecast"/>
+        <viewAttribute id="depreciationForecast"/>
+        <viewAttribute id="routeCustomerMilesForecast"/>
+        <viewAttribute id="unitsForecast"/>
+        <viewAttribute id="routeHoursWithMechanicForecast"/>
+        <viewAttribute id="totalMaintenanceCostForecast"/>
+        <viewAttribute id="insuranceAndClaimsForecast"/>
+        <viewAttribute id="fuelCostForecast"/>
+        <viewAttribute id="totalTruckCostForecast"/>
+        <viewAttribute id="tonsperLoadForecast"/>
+        <viewAttribute id="baseRevenueForecast"/>
+        <viewAttribute id="otherRevenueForecast"/>
+        <viewAttribute id="commodityRevenueForecast"/>
+        <viewAttribute id="fuelSurchargeRevenueForecast"/>
+        <viewAttribute id="loadsForecast"/>
+        <viewAttribute id="yardsForecast"/>
+        <viewAttribute id="tonnageForecast"/>
+        <viewAttribute id="liftsForecast"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeightedForecast"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="driverLaborCostForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Version" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Forecast'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHoursForecast"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="4Projection">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="totalRevenueProjection"/>
+        <viewAttribute id="depreciationProjection"/>
+        <viewAttribute id="routeCustomerMilesProjection"/>
+        <viewAttribute id="unitsProjection"/>
+        <viewAttribute id="routeHoursWithMechanicProjection"/>
+        <viewAttribute id="totalMaintenanceCostProjection"/>
+        <viewAttribute id="insuranceAndClaimsProjection"/>
+        <viewAttribute id="fuelCostProjection"/>
+        <viewAttribute id="totalTruckCostProjection"/>
+        <viewAttribute id="tonsperLoadProjection"/>
+        <viewAttribute id="baseRevenueProjection"/>
+        <viewAttribute id="otherRevenueProjection"/>
+        <viewAttribute id="commodityRevenueProjection"/>
+        <viewAttribute id="fuelSurchargeRevenueProjection"/>
+        <viewAttribute id="loadsProjection"/>
+        <viewAttribute id="yardsProjection"/>
+        <viewAttribute id="tonnageProjection"/>
+        <viewAttribute id="liftsProjection"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeightedProjection"/>
+        <viewAttribute id="truckHoursProjection"/>
+        <viewAttribute id="driverLaborCostProjection"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="Version" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Projection'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="Version"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="depreciation"/>
+        <viewAttribute id="routeCustomerMiles"/>
+        <viewAttribute id="units"/>
+        <viewAttribute id="totalMaintenanceCost"/>
+        <viewAttribute id="insuranceAndClaims"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="totalTruckCost"/>
+        <viewAttribute id="tonsperLoad"/>
+        <viewAttribute id="routeHoursWithMechanic"/>
+        <viewAttribute id="baseRevenue"/>
+        <viewAttribute id="otherRevenue"/>
+        <viewAttribute id="commodityRevenue"/>
+        <viewAttribute id="fuelSurchargeRevenue"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="yards"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="lifts"/>
+        <viewAttribute id="caWageEligibleForBenefitsWeighted"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="driverLaborCost"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="1Actual">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Version" source="Version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="depreciation" source="depreciation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMiles" source="routeCustomerMiles"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="units" source="units"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCost" source="totalMaintenanceCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="insuranceAndClaims" source="insuranceAndClaims"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTruckCost" source="totalTruckCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonsperLoad" source="tonsperLoad"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanic" source="routeHoursWithMechanic"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseRevenue" source="baseRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherRevenue" source="otherRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="commodityRevenue" source="commodityRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelSurchargeRevenue" source="fuelSurchargeRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loads"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yards" source="yards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifts" source="lifts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="caWageEligibleForBenefitsWeighted" source="caWageEligibleForBenefitsWeighted"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="driverLaborCost" source="driverLaborCost"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="2Budget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Version" source="Version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="depreciation" source="depreciationBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMiles" source="routeCustomerMilesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="units" source="unitsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCost" source="totalMaintenanceCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="insuranceAndClaims" source="insuranceAndClaimsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTruckCost" source="totalTruckCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonsperLoad" source="tonsperLoadBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanic" source="routeHoursWithMechanicBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseRevenue" source="baseRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherRevenue" source="otherRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="commodityRevenue" source="commodityRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelSurchargeRevenue" source="fuelSurchargeRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loadsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yards" source="yardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifts" source="liftsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="caWageEligibleForBenefitsWeighted" source="caWageEligibleForBenefitsWeightedBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="driverLaborCost" source="driverLaborCostBudget"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="3Forecast">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Version" source="Version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTargetForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="depreciation" source="depreciationForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMiles" source="routeCustomerMilesForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="units" source="unitsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCost" source="totalMaintenanceCostForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="insuranceAndClaims" source="insuranceAndClaimsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCostForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTruckCost" source="totalTruckCostForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonsperLoad" source="tonsperLoadForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanic" source="routeHoursWithMechanicForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseRevenue" source="baseRevenueForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherRevenue" source="otherRevenueForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="commodityRevenue" source="commodityRevenueForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelSurchargeRevenue" source="fuelSurchargeRevenueForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loadsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yards" source="yardsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnageForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifts" source="liftsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="caWageEligibleForBenefitsWeighted" source="caWageEligibleForBenefitsWeightedForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="driverLaborCost" source="driverLaborCostForecast"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="4Projection">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Version" source="Version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTargetProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="depreciation" source="depreciationProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMiles" source="routeCustomerMilesProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="units" source="unitsProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMaintenanceCost" source="totalMaintenanceCostProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="insuranceAndClaims" source="insuranceAndClaimsProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCostProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalTruckCost" source="totalTruckCostProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonsperLoad" source="tonsperLoadProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanic" source="routeHoursWithMechanicProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseRevenue" source="baseRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="otherRevenue" source="otherRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="commodityRevenue" source="commodityRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelSurchargeRevenue" source="fuelSurchargeRevenueProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loadsProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yards" source="yardsProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnageProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifts" source="liftsProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="caWageEligibleForBenefitsWeighted" source="caWageEligibleForBenefitsWeightedProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHoursProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="driverLaborCost" source="driverLaborCostProjection"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="area" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Union_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="region"/>
+        <keyMapping columnObjectName="Union_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="regionDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="district"/>
+        <keyMapping columnObjectName="Union_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="districtDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrict"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrictDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineofBusinessDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenterDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="Version" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Union_1" columnName="Version"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="totalRevenue" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalRevenue"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalRevenue"/>
+      </measure>
+      <measure id="ebitdaTarget" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="ebitdaTarget"/>
+        <measureMapping columnObjectName="Union_1" columnName="ebitdaTarget"/>
+      </measure>
+      <measure id="depreciation" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="depreciation"/>
+        <measureMapping columnObjectName="Union_1" columnName="depreciation"/>
+      </measure>
+      <measure id="routeCustomerMiles" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeCustomerMiles"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeCustomerMiles"/>
+      </measure>
+      <measure id="units" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="units"/>
+        <measureMapping columnObjectName="Union_1" columnName="units"/>
+      </measure>
+      <measure id="totalMaintenanceCost" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalMaintenanceCost"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalMaintenanceCost"/>
+      </measure>
+      <measure id="insuranceAndClaims" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="insuranceAndClaims"/>
+        <measureMapping columnObjectName="Union_1" columnName="insuranceAndClaims"/>
+      </measure>
+      <measure id="fuelCost" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelCost"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelCost"/>
+      </measure>
+      <measure id="totalTruckCost" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalTruckCost"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalTruckCost"/>
+      </measure>
+      <measure id="routeHoursWithMechanic" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Hours with Mechanic"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeHoursWithMechanic"/>
+      </measure>
+      <measure id="baseRevenue" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Base Revenue - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="baseRevenue"/>
+      </measure>
+      <measure id="otherRevenue" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Other Revenue - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="otherRevenue"/>
+      </measure>
+      <measure id="commodityRevenue" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Commodity Revenue - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="commodityRevenue"/>
+      </measure>
+      <measure id="fuelSurchargeRevenue" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Surcharge Revenue - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelSurchargeRevenue"/>
+      </measure>
+      <measure id="loads" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="loads"/>
+      </measure>
+      <measure id="yards" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Yards - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="yards"/>
+      </measure>
+      <measure id="tonnage" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnage"/>
+      </measure>
+      <measure id="lifts" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Lifts - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="lifts"/>
+      </measure>
+      <measure id="caWageEligibleForBenefitsWeighted" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Wage Eligible for Benefits Weighted - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="caWageEligibleForBenefitsWeighted"/>
+      </measure>
+      <measure id="truckHours" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="truckHours"/>
+        <measureMapping columnObjectName="Union_1" columnName="truckHours"/>
+      </measure>
+      <measure id="driverLaborCost" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="driverLaborCost"/>
+        <measureMapping columnObjectName="Union_1" columnName="driverLaborCost"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="253" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="395"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="1Actual" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="317"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="2Budget" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="317"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="3Forecast" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="317"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="4Projection" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="317"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

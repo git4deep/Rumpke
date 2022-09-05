@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.reuse::vehicleMaintenanceHistoryView" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Vehicle Maintenance History View"/>
+  <metadata changedAt="2019-12-03 07:11:24.84"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="32"/>
+  <dataSources>
+    <DataSource id="data_VehicleMaintenanceHistory">
+      <resourceUri>rumpke.bi.plantMaintainance.mssql::data_VehicleMaintenanceHistory</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="vehicleMiles"/>
+        <viewAttribute id="totalAmount"/>
+        <viewAttribute id="laborAmount"/>
+        <viewAttribute id="wreckerAmount"/>
+        <viewAttribute id="partsAmount"/>
+        <viewAttribute id="vendorAmount"/>
+        <viewAttribute id="tiresAmount"/>
+        <viewAttribute id="fuelAmount"/>
+        <viewAttribute id="capTotalAmount"/>
+        <viewAttribute id="capLaborAmount"/>
+        <viewAttribute id="capWreckerAmount"/>
+        <viewAttribute id="capPartsAmount"/>
+        <viewAttribute id="capVendorAmount"/>
+        <viewAttribute id="capTiresAmount"/>
+        <viewAttribute id="unitCount"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="data_VehicleMaintenanceHistory">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FiscalMonthID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="ProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="LOB_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="Versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="TruckHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleMiles" source="VehicleMiles"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalAmount" source="TotalAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborAmount" source="LaborAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="wreckerAmount" source="WreckerAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="partsAmount" source="PartsAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vendorAmount" source="VendorAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tiresAmount" source="TiresAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelAmount" source="FuelAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capTotalAmount" source="Cap_TotalAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capLaborAmount" source="Cap_LaborAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capWreckerAmount" source="Cap_WreckerAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capPartsAmount" source="Cap_PartsAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capVendorAmount" source="Cap_VendorAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capTiresAmount" source="Cap_TiresAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitCount" source="UnitCount"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="profitCenter" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="version" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Projection_1" columnName="version"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="truckHours" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="truckHours"/>
+      </measure>
+      <measure id="vehicleMiles" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vehicle Miles"/>
+        <measureMapping columnObjectName="Projection_1" columnName="vehicleMiles"/>
+      </measure>
+      <measure id="totalAmount" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalAmount"/>
+      </measure>
+      <measure id="laborAmount" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Labor Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="laborAmount"/>
+      </measure>
+      <measure id="wreckerAmount" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Wrecker Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="wreckerAmount"/>
+      </measure>
+      <measure id="partsAmount" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Parts Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="partsAmount"/>
+      </measure>
+      <measure id="vendorAmount" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vendor Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="vendorAmount"/>
+      </measure>
+      <measure id="tiresAmount" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tires Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="tiresAmount"/>
+      </measure>
+      <measure id="fuelAmount" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelAmount"/>
+      </measure>
+      <measure id="capTotalAmount" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Total Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capTotalAmount"/>
+      </measure>
+      <measure id="capLaborAmount" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Labor Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capLaborAmount"/>
+      </measure>
+      <measure id="capWreckerAmount" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Wrecker Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capWreckerAmount"/>
+      </measure>
+      <measure id="capPartsAmount" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Parts Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capPartsAmount"/>
+      </measure>
+      <measure id="capVendorAmount" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Vendor Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capVendorAmount"/>
+      </measure>
+      <measure id="capTiresAmount" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Tires Amount"/>
+        <measureMapping columnObjectName="Projection_1" columnName="capTiresAmount"/>
+      </measure>
+      <measure id="unitCount" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Unit Count"/>
+        <measureMapping columnObjectName="Projection_1" columnName="unitCount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

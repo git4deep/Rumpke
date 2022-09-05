@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::haulingProductivitySummary" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Hauling Productivity Summary"/>
+  <metadata changedAt="2020-09-14 15:42:42.266"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="MSSQL::data_HaulingProductivitySummary">
+      <resourceUri>MSSQL::data_HaulingProductivitySummary</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="record_Type"/>
+        <viewAttribute id="stops"/>
+        <viewAttribute id="extraStops"/>
+        <viewAttribute id="lifts"/>
+        <viewAttribute id="extraLifts"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="tons"/>
+        <viewAttribute id="yards"/>
+        <viewAttribute id="extraYards"/>
+        <viewAttribute id="hours"/>
+        <viewAttribute id="mechHours"/>
+        <viewAttribute id="landfillFee"/>
+        <viewAttribute id="laborCost"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="vehicleCost"/>
+        <viewAttribute id="mechCost"/>
+        <viewAttribute id="grossRevenue"/>
+        <viewAttribute id="extraRevenue"/>
+        <viewAttribute id="routeCustomerMiles"/>
+        <viewAttribute id="downMiles"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="yardsActual" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;yards&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="gallonsActual" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;lineOfBusiness&quot; = 'PT' AND &quot;versions&quot; = 'Actual') 
+THEN &quot;yards&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="yardsForecast" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;loads&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="gallonsForecast" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;lineOfBusiness&quot; = 'PT' AND &quot;versions&quot; = 'Forecast') 
+THEN &quot;yards&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="loadsForecast" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;loads&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="loadsBudget" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Budget' THEN &quot;loads&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="yardsBudget" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Budget' THEN &quot;yards&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="gallonsBudget" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;lineOfBusiness&quot; = 'PT' AND &quot;versions&quot; = 'Budget') 
+THEN &quot;yards&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="loadsActual" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;loads&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+      <input node="MSSQL::data_HaulingProductivitySummary">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="ProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="LOB_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="versions" source="Versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="record_Type" source="Record_Type"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stops" source="Stops"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraStops" source="ExtraStops"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifts" source="Lifts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraLifts" source="ExtraLifts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="Loads"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tons" source="Tons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yards" source="Yards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraYards" source="ExtraYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hours" source="Hours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechHours" source="MechHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillFee" source="LandfillFee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborCost" source="LaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="FuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleCost" source="VehicleCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechCost" source="MechCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossRevenue" source="GrossRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraRevenue" source="ExtraRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMiles" source="RouteCustomerMiles"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="downMiles" source="DownMiles"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FiscalMonthID"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" key="true" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="profitCenter" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="versions" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="versions"/>
+        <keyMapping columnObjectName="Projection_1" columnName="versions"/>
+      </attribute>
+    
+      <attribute id="yardsActual" order="93" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="yardsActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="yardsActual"/>
+      </attribute>
+      <attribute id="gallonsActual" order="94" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="gallonsActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="gallonsActual"/>
+      </attribute>
+      <attribute id="yardsForecast" order="95" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="yardsForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="yardsForecast"/>
+      </attribute>
+      <attribute id="gallonsForecast" order="96" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="gallonsForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="gallonsForecast"/>
+      </attribute>
+      <attribute id="loadsForecast" order="97" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="loadsForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="loadsForecast"/>
+      </attribute>
+      <attribute id="loadsBudget" order="98" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="loadsBudget"/>
+        <keyMapping columnObjectName="Projection_1" columnName="loadsBudget"/>
+      </attribute>
+      <attribute id="yardsBudget" order="99" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="yardsBudget"/>
+        <keyMapping columnObjectName="Projection_1" columnName="yardsBudget"/>
+      </attribute>
+      <attribute id="gallonsBudget" order="100" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="gallonsBudget"/>
+        <keyMapping columnObjectName="Projection_1" columnName="gallonsBudget"/>
+      </attribute>
+      <attribute id="loadsActual" order="101" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="loadsActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="loadsActual"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="stops" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="stops"/>
+        <measureMapping columnObjectName="Projection_1" columnName="stops"/>
+      </measure>
+      <measure id="extraStops" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraStops"/>
+        <measureMapping columnObjectName="Projection_1" columnName="extraStops"/>
+      </measure>
+      <measure id="lifts" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="lifts"/>
+        <measureMapping columnObjectName="Projection_1" columnName="lifts"/>
+      </measure>
+      <measure id="extraLifts" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraLifts"/>
+        <measureMapping columnObjectName="Projection_1" columnName="extraLifts"/>
+      </measure>
+      <measure id="loads" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="loads"/>
+        <measureMapping columnObjectName="Projection_1" columnName="loads"/>
+      </measure>
+      <measure id="tons" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="tons"/>
+      </measure>
+      <measure id="yards" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="yards"/>
+        <measureMapping columnObjectName="Projection_1" columnName="yards"/>
+      </measure>
+      <measure id="extraYards" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraYards"/>
+        <measureMapping columnObjectName="Projection_1" columnName="extraYards"/>
+      </measure>
+      <measure id="hours" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="hours"/>
+      </measure>
+      <measure id="mechHours" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="mechHours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="mechHours"/>
+      </measure>
+      <measure id="landfillFee" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="landfillFee"/>
+        <measureMapping columnObjectName="Projection_1" columnName="landfillFee"/>
+      </measure>
+      <measure id="laborCost" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="laborCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="laborCost"/>
+      </measure>
+      <measure id="fuelCost" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelCost"/>
+      </measure>
+      <measure id="vehicleCost" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="vehicleCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="vehicleCost"/>
+      </measure>
+      <measure id="mechCost" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="mechCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="mechCost"/>
+      </measure>
+      <measure id="grossRevenue" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="grossRevenue"/>
+        <measureMapping columnObjectName="Projection_1" columnName="grossRevenue"/>
+      </measure>
+      <measure id="extraRevenue" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraRevenue"/>
+        <measureMapping columnObjectName="Projection_1" columnName="extraRevenue"/>
+      </measure>
+      <measure id="routeCustomerMiles" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeCustomerMiles"/>
+        <measureMapping columnObjectName="Projection_1" columnName="routeCustomerMiles"/>
+      </measure>
+      <measure id="downMiles" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="downMiles"/>
+        <measureMapping columnObjectName="Projection_1" columnName="downMiles"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="unitsActual" hidden="false" order="83" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Units - Actual"/>
+        <formula>IF(in(&quot;lineOfBusiness&quot;, 'FL','RL'),&quot;yardsActual&quot;, IF(in(&quot;lineOfBusiness&quot;, 'RO','TT'), &quot;loadsActual&quot;,IF(in(&quot;lineOfBusiness&quot;, 'PT'),&quot;gallonsActual&quot;,0)))</formula>
+      
+        </measure>
+      <measure id="unitsBudget" hidden="false" order="84" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Units - Budget"/>
+        <formula>IF(in(&quot;lineOfBusiness&quot;, 'FL','RL'),&quot;yardsBudget&quot;, IF(in(&quot;lineOfBusiness&quot;, 'RO','TT'), &quot;loadsBudget&quot;,IF(in(&quot;lineOfBusiness&quot;, 'PT'),&quot;gallonsBudget&quot;,0)))</formula>
+      
+        </measure>
+      <measure id="unitsForecast" hidden="false" order="85" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Units - Forecast"/>
+        <formula>IF(in(&quot;lineOfBusiness&quot;, 'FL','RL'),&quot;yardsForecast&quot;, IF(in(&quot;lineOfBusiness&quot;, 'RO','TT'), &quot;loadsForecast&quot;,IF(in(&quot;lineOfBusiness&quot;, 'PT'),&quot;gallonsForecast&quot;,0)))</formula>
+      
+        </measure>
+      <measure id="totalMechanicHoursActual" hidden="false" order="86" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Mechanic Hours - Actual"/>
+        <formula>&quot;mechanicHoursActual&quot; + &quot;routeHoursActual&quot;</formula>
+      
+        </measure>
+      <measure id="totalMechanicHoursBudget" hidden="false" order="87" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Mechanic Hours - Budget"/>
+        <formula>&quot;mechanicHoursBudget&quot; + &quot;routeHoursBudget&quot;</formula>
+      
+        </measure>
+      <measure id="totalMechanicHoursForecast" hidden="false" order="88" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Mechanic Hours - Forecast"/>
+        <formula>&quot;mechanicHoursForecast&quot;+&quot;routeHoursForecast&quot;</formula>
+      
+        </measure>
+      <measure id="routeHoursWithMechanicBudget" hidden="false" order="89" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Hours with Mechanic – Budget"/>
+        <formula>&quot;mechanicHoursBudget&quot; + &quot;routeHoursBudget&quot;</formula>
+      
+        </measure>
+      <measure id="routeHoursWithMechanicActual" hidden="false" order="91" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Hours with Mechanic – Actual"/>
+        <formula>&quot;mechanicHoursActual&quot; + &quot;routeHoursActual&quot;</formula>
+      
+        </measure>
+      <measure id="routeHoursWithMechanicForecast" hidden="false" order="92" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Route Hours With Mechanic - Forecast"/>
+        <formula>&quot;mechanicHoursForecast&quot;+&quot;routeHoursForecast&quot;</formula>
+      
+        </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="stopsActual" hidden="false" order="24" baseMeasure="stops" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Stops - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="stopsBudget" hidden="false" order="25" baseMeasure="stops" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Stops - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="stopsForecast" hidden="false" order="26" baseMeasure="stops" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Stops - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraStopsActual" hidden="false" order="27" baseMeasure="extraStops" datatype="SMALLINT" length="5" scale="0">
+        <descriptions defaultDescription="Extra Stops - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraStopsBudget" hidden="false" order="28" baseMeasure="extraStops" datatype="SMALLINT" length="5" scale="0">
+        <descriptions defaultDescription="Extra Stops - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraStopsForecast" hidden="false" order="29" baseMeasure="extraStops" datatype="SMALLINT" length="5" scale="0">
+        <descriptions defaultDescription="Extra Stops - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="liftsActual" hidden="false" order="30" baseMeasure="lifts" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Lifts - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="liftsBudget" hidden="false" order="31" baseMeasure="lifts" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Lifts - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="liftsForecast" hidden="false" order="32" baseMeasure="lifts" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Lifts - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraLiftsActual" hidden="false" order="33" baseMeasure="extraLifts" datatype="SMALLINT" length="5" scale="0">
+        <descriptions defaultDescription="Extra Lifts - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraLiftsBudget" hidden="false" order="34" baseMeasure="extraLifts" datatype="SMALLINT" length="5" scale="0">
+        <descriptions defaultDescription="Extra Lifts - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraLiftsForecast" hidden="false" order="35" baseMeasure="extraLifts" datatype="SMALLINT" length="5" scale="0">
+        <descriptions defaultDescription="Extra Lifts - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="loadsActual_1" hidden="false" order="36" baseMeasure="loads" datatype="INTEGER" length="10" scale="0">
+        <descriptions defaultDescription="Loads - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="loadsBudget_1" hidden="false" order="37" baseMeasure="loads" datatype="INTEGER" length="10" scale="0">
+        <descriptions defaultDescription="Loads - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="loadsForecast_1" hidden="false" order="38" baseMeasure="loads" datatype="INTEGER" length="10" scale="0">
+        <descriptions defaultDescription="Loads - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnageActual" hidden="false" order="39" baseMeasure="tons" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="lineOfBusiness">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="PT"/>
+          </filter>
+          <attributeName>lineOfBusiness</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnageBudget" hidden="false" order="40" baseMeasure="tons" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="lineOfBusiness">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="PT"/>
+          </filter>
+          <attributeName>lineOfBusiness</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnageForecast" hidden="false" order="41" baseMeasure="tons" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="lineOfBusiness">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="PT"/>
+          </filter>
+          <attributeName>lineOfBusiness</attributeName>
+        </restriction>
+        </measure>
+      <measure id="yardsActual_1" hidden="false" order="42" baseMeasure="yards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Yards - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="yardsBudget_1" hidden="false" order="43" baseMeasure="yards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Yards - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="yardsForecast_1" hidden="false" order="44" baseMeasure="yards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Yards - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraYardsActual" hidden="false" order="45" baseMeasure="extraYards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Extra Yards - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraYardsBudget" hidden="false" order="46" baseMeasure="extraYards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Extra Yards - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraYardsForecast" hidden="false" order="47" baseMeasure="extraYards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Extra Yards - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="routeHoursActual" hidden="false" order="48" baseMeasure="hours" datatype="DECIMAL" length="18" scale="5">
+        <descriptions defaultDescription="Route Hours - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="routeHoursBudget" hidden="false" order="49" baseMeasure="hours" datatype="DECIMAL" length="18" scale="5">
+        <descriptions defaultDescription="Route Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="routeHoursForecast" hidden="false" order="50" baseMeasure="hours" datatype="DECIMAL" length="18" scale="5">
+        <descriptions defaultDescription="Route Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="mechanicHoursActual" hidden="false" order="51" baseMeasure="mechHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Mechanic Hours - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="mechanicHoursBudget" hidden="false" order="52" baseMeasure="mechHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Mechanic Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="mechanicHoursForecast" hidden="false" order="53" baseMeasure="mechHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Mechanic Hours - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="disposalCostActual" hidden="false" order="54" baseMeasure="landfillFee" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Disposal Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="disposalCostBudget" hidden="false" order="55" baseMeasure="landfillFee" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Disposal Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="disposalCostForecast" hidden="false" order="56" baseMeasure="landfillFee" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Disposal Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="laborCostActual" hidden="false" order="57" baseMeasure="laborCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Labor Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="laborCostBudget" hidden="false" order="58" baseMeasure="laborCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Labor Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="laborCostForecast" hidden="false" order="59" baseMeasure="laborCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Labor Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="fuelCostActual" hidden="false" order="60" baseMeasure="fuelCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Fuel Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="fuelCostBudget" hidden="false" order="61" baseMeasure="fuelCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Fuel Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="fuelCostForecast" hidden="false" order="62" baseMeasure="fuelCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Fuel Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="vehicleCostActual" hidden="false" order="63" baseMeasure="vehicleCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Vehicle Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="vehicleCostBudget" hidden="false" order="64" baseMeasure="vehicleCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Vehicle Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="vehicleCostForecast" hidden="false" order="65" baseMeasure="vehicleCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Vehicle Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="mechanicCostActual" hidden="false" order="66" baseMeasure="mechCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Mechanic Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="mechanicCostBudget" hidden="false" order="67" baseMeasure="mechCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Mechanic Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="mechanicCostForecast" hidden="false" order="68" baseMeasure="mechCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Mechanic Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="grossRevenueActual" hidden="false" order="69" baseMeasure="grossRevenue" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Gross Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="grossRevenueBudget" hidden="false" order="70" baseMeasure="grossRevenue" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Gross Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="grossRevenueForecast" hidden="false" order="71" baseMeasure="grossRevenue" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Gross Revenue - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraRevenueActual" hidden="false" order="72" baseMeasure="extraRevenue" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Extra Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraRevenueBudget" hidden="false" order="73" baseMeasure="extraRevenue" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Extra Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="extraRevenueForecast" hidden="false" order="74" baseMeasure="extraRevenue" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Extra Revenue - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="routeCustomerMilesActual" hidden="false" order="75" baseMeasure="routeCustomerMiles" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Route Customer Miles - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="routeCustomerMilesBudget" hidden="false" order="76" baseMeasure="routeCustomerMiles" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Route Customer Miles - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="routeCustomerMilesForecast" hidden="false" order="77" baseMeasure="routeCustomerMiles" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Route Customer Miles - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="downMilesActual" hidden="false" order="78" baseMeasure="downMiles" datatype="SMALLINT" length="5" scale="0">
+        <descriptions defaultDescription="Down Miles - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="downMilesBudget" hidden="false" order="79" baseMeasure="downMiles" datatype="SMALLINT" length="5" scale="0">
+        <descriptions defaultDescription="Down Miles - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="downMilesForecast" hidden="false" order="80" baseMeasure="downMiles" datatype="SMALLINT" length="5" scale="0">
+        <descriptions defaultDescription="Down Miles - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="gallonsActual_1" hidden="false" order="81" baseMeasure="yards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Gallons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="lineOfBusiness">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PT"/>
+          </filter>
+          <attributeName>lineOfBusiness</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="gallonsBudget_1" hidden="false" order="82" baseMeasure="yards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Gallons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="lineOfBusiness">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PT"/>
+          </filter>
+          <attributeName>lineOfBusiness</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="gallonsForecast_1" hidden="false" order="90" baseMeasure="yards" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Gallons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="lineOfBusiness">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PT"/>
+          </filter>
+          <attributeName>lineOfBusiness</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="92" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

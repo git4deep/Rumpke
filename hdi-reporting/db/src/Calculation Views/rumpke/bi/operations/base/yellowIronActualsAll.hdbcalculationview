@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::yellowIronActualsAll" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Yellow Iron Actuals All"/>
+  <metadata changedAt="2020-03-11 10:02:06.517"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="33"/>
+  <dataSources>
+    <DataSource id="FLATFILE::current_combined">
+      <resourceUri>FLATFILE::current_combined</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="reportType"/>
+        <viewAttribute id="date"/>
+        <viewAttribute id="title"/>
+        <viewAttribute id="project"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="model"/>
+        <viewAttribute id="type"/>
+        <viewAttribute id="operatorHour"/>
+        <viewAttribute id="operatorRate"/>
+        <viewAttribute id="operatorTotal"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="hrEQRate"/>
+        <viewAttribute id="equipmentTotal"/>
+        <viewAttribute id="hrDepRate"/>
+        <viewAttribute id="hrDepreciation"/>
+        <viewAttribute id="totalEQ"/>
+        <viewAttribute id="task"/>
+        <viewAttribute id="excavationType"/>
+        <viewAttribute id="excavationFrom"/>
+        <viewAttribute id="junsFrom"/>
+        <viewAttribute id="npk"/>
+        <viewAttribute id="placementTo"/>
+        <viewAttribute id="jensTo"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="cyLoad"/>
+        <viewAttribute id="cy"/>
+        <viewAttribute id="crusherTons"/>
+        <viewAttribute id="roadRock"/>
+        <viewAttribute id="total"/>
+        <viewAttribute id="monthlyDepreciation"/>
+        <viewAttribute id="fuelGallon"/>
+        <viewAttribute id="nameType"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="FLATFILE::current_combined">
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="title" source="TITLE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="project" source="PROJECT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="EQUIPMENT_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="model" source="MODEL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="type" source="TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorHour" source="OPERATOR_HR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorRate" source="OPERATOR_RATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorTotal" source="OPERATOR_TOTAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="EQUIPMENT_HOURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrEQRate" source="HR_EQ_RATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentTotal" source="EQUIPMENT_TOTAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrDepRate" source="HR_DEP_RATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrDepreciation" source="HR_DEPRECIATION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEQ" source="TOTAL_EQ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="task" source="TASK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationType" source="EXCAVATION_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationFrom" source="EXCAVATION_FROM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="junsFrom" source="JUNS_FROM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="npk" source="NPK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="placementTo" source="PLACEMENT_TO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jensTo" source="JENS_TO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="LOADS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cyLoad" source="CYLOAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cy" source="CY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="crusherTons" source="CRUSHER_TONS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="roadRock" source="ROAD_ROCK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="total" source="TOTAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthlyDepreciation" source="MONTHLY_DEPRECIATION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelGallon" source="FUEL_GALLON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reportType" source="LANDFILL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameType" source="NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="PERIOD"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="date" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="Projection_1" columnName="date"/>
+      </attribute>
+      <attribute id="excavationType" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Excavation Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="excavationType"/>
+      </attribute>
+      <attribute id="excavationFrom" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Excavation From"/>
+        <keyMapping columnObjectName="Projection_1" columnName="excavationFrom"/>
+      </attribute>
+      <attribute id="junsFrom" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="JUNS From"/>
+        <keyMapping columnObjectName="Projection_1" columnName="junsFrom"/>
+      </attribute>
+      <attribute id="jensTo" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="JENS To"/>
+        <keyMapping columnObjectName="Projection_1" columnName="jensTo"/>
+      </attribute>
+      <attribute id="model" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Model"/>
+        <keyMapping columnObjectName="Projection_1" columnName="model"/>
+      </attribute>
+      <attribute id="nameType" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="nameType"/>
+      </attribute>
+      <attribute id="npk" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NPK"/>
+        <keyMapping columnObjectName="Projection_1" columnName="npk"/>
+      </attribute>
+      <attribute id="placementTo" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Placement To"/>
+        <keyMapping columnObjectName="Projection_1" columnName="placementTo"/>
+      </attribute>
+      <attribute id="project" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Project"/>
+        <keyMapping columnObjectName="Projection_1" columnName="project"/>
+      </attribute>
+      <attribute id="type" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="type"/>
+      </attribute>
+      <attribute id="task" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Task"/>
+        <keyMapping columnObjectName="Projection_1" columnName="task"/>
+      </attribute>
+      <attribute id="title" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Title"/>
+        <keyMapping columnObjectName="Projection_1" columnName="title"/>
+      </attribute>
+      <attribute id="reportType" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Report Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="reportType"/>
+      </attribute>
+      <attribute id="roadRock" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Road Rock"/>
+        <keyMapping columnObjectName="Projection_1" columnName="roadRock"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="vehicleID$local">
+        <keyMapping columnObjectName="Projection_1" columnName="vehicleID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="loads" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads"/>
+        <measureMapping columnObjectName="Projection_1" columnName="loads"/>
+      </measure>
+      <measure id="operatorHour" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operator Hour"/>
+        <measureMapping columnObjectName="Projection_1" columnName="operatorHour"/>
+      </measure>
+      <measure id="operatorRate" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operator Rate"/>
+        <measureMapping columnObjectName="Projection_1" columnName="operatorRate"/>
+      </measure>
+      <measure id="operatorTotal" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operator Total"/>
+        <measureMapping columnObjectName="Projection_1" columnName="operatorTotal"/>
+      </measure>
+      <measure id="cyLoad" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CY Load"/>
+        <measureMapping columnObjectName="Projection_1" columnName="cyLoad"/>
+      </measure>
+      <measure id="cy" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CY"/>
+        <measureMapping columnObjectName="Projection_1" columnName="cy"/>
+      </measure>
+      <measure id="crusherTons" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Crusher Tons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="crusherTons"/>
+      </measure>
+      <measure id="total" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total"/>
+        <measureMapping columnObjectName="Projection_1" columnName="total"/>
+      </measure>
+      <measure id="equipmentHours" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="equipmentHours"/>
+      </measure>
+      <measure id="equipmentTotal" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Total"/>
+        <measureMapping columnObjectName="Projection_1" columnName="equipmentTotal"/>
+      </measure>
+      <measure id="monthlyDepreciation" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Monthly Depreciation"/>
+        <measureMapping columnObjectName="Projection_1" columnName="monthlyDepreciation"/>
+      </measure>
+      <measure id="hrDepRate" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="HR Department Rate"/>
+        <measureMapping columnObjectName="Projection_1" columnName="hrDepRate"/>
+      </measure>
+      <measure id="hrDepreciation" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="HR Depreciation"/>
+        <measureMapping columnObjectName="Projection_1" columnName="hrDepreciation"/>
+      </measure>
+      <measure id="totalEQ" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total EQ"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalEQ"/>
+      </measure>
+      <measure id="hrEQRate" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="HR EQ Rate"/>
+        <measureMapping columnObjectName="Projection_1" columnName="hrEQRate"/>
+      </measure>
+      <measure id="fuelGallon" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Gallon"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelGallon"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+    <sharedDimensions>
+      <logicalJoin associatedObjectUri="rumpke.bi.masterData.reuse::equipmentMasterTimeDependent">
+        <attributes>
+          <attributeRef>vehicleID$local</attributeRef>
+        </attributes>
+        <associatedAttributeNames>
+          <attributeName>vehicleID</attributeName>
+        </associatedAttributeNames>
+        <properties joinType="inner" joinOperator="Equal"/>
+        <temporalJoinProperties temporalElementName="date" fromElementName="validFrom" toElementName="validToDate" temporalCondition="EXCLUDE_TO_INCLUDE_FROM"/>
+        <associatedAttributeFeatures/>
+      </logicalJoin>
+    </sharedDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="203"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape modelObjectName="Projection_1" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+        <upperLeftCorner x="581" y="16"/>
+      </shape>
+      <shape modelObjectName="rumpke.bi.masterData.reuse::equipmentMasterTimeDependent" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+        <upperLeftCorner x="16" y="48"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.reuse::accountGroup" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Account Group"/>
+  <metadata changedAt="2020-02-18 19:34:31.63"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.base::setNode">
+      <resourceUri>rumpke.bi.masterData.base::setNode</resourceUri>
+    </DataSource>
+    <DataSource id="setleafSetheader">
+      <resourceUri>rumpke.bi.masterData.reuse::setleafSetheader</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="sequentialNumberofSetLine"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::setNode"/>
+    <filter>(&quot;setClass&quot; ='0000')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="fromValue"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+        <viewAttribute id="languageKey"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="setleafSetheader"/>
+    <filter>(&quot;setClass&quot; ='0000') AND (&quot;languageKey&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="fromValue"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+        <viewAttribute id="sequentialNumberofSetLine"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="setName" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sequentialNumberofSetLine" source="sequentialNumberofSetLine"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fromValue" source="fromValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="shortDescriptionofaSet" source="shortDescriptionofaSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="setName"/>
+      </input>
+    <joinAttribute name="subordinatesetID"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="setName" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="setName"/>
+      </attribute>
+      <attribute id="fromValue" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Group"/>
+        <keyMapping columnObjectName="Join_1" columnName="fromValue"/>
+      </attribute>
+      <attribute id="shortDescriptionofaSet" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Short Description of a Set"/>
+        <keyMapping columnObjectName="Join_1" columnName="shortDescriptionofaSet"/>
+      </attribute>
+      <attribute id="subordinatesetID" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subordinate set ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="subordinatesetID"/>
+      </attribute>
+      <attribute id="sequentialNumberofSetLine" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sequential number of set line"/>
+        <keyMapping columnObjectName="Join_1" columnName="sequentialNumberofSetLine"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

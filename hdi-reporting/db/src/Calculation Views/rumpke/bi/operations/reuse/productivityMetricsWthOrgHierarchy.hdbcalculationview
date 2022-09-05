@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::productivityMetricsWthOrgHierarchy" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Productivity Metrics - With Organization Hierarchy"/>
+  <metadata changedAt="2020-09-16 02:16:49.452"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="38"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.base::productivityMetrics">
+      <resourceUri>rumpke.bi.operations.base::productivityMetrics</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="payrollHoursBudget"/>
+        <viewAttribute id="payrollHoursForecast"/>
+        <viewAttribute id="capexCubicYardsBudget"/>
+        <viewAttribute id="capexCubicYardsForecast"/>
+        <viewAttribute id="compactorHoursBudget"/>
+        <viewAttribute id="compactorHoursForecast"/>
+        <viewAttribute id="processedTonsBudget"/>
+        <viewAttribute id="processedTonsForecast"/>
+        <viewAttribute id="excavationCubicYardsBudget"/>
+        <viewAttribute id="excavationCubicYardsForecast"/>
+        <viewAttribute id="rumpkeDirectLaborHoursBudget"/>
+        <viewAttribute id="rumpkeDirectLaborHoursForecast"/>
+        <viewAttribute id="rumpkeIndirectLaborHoursBudget"/>
+        <viewAttribute id="rumpkeIndirectLaborHoursForecast"/>
+        <viewAttribute id="excavatorLoaderHoursBudget"/>
+        <viewAttribute id="excavatorLoaderHoursForecast"/>
+        <viewAttribute id="excavatorLoaderTonsBudget"/>
+        <viewAttribute id="excavatorLoaderTonsForecast"/>
+        <viewAttribute id="stopsBudget"/>
+        <viewAttribute id="stopsForecast"/>
+        <viewAttribute id="expenseCubicYardsBudget"/>
+        <viewAttribute id="expenseCubicYardsForecast"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="tonnageForecast"/>
+        <viewAttribute id="gallonsBudget"/>
+        <viewAttribute id="gallonsForecast"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="truckHoursForecast"/>
+        <viewAttribute id="liftsBudget"/>
+        <viewAttribute id="liftsForecast"/>
+        <viewAttribute id="truckPanHoursBudget"/>
+        <viewAttribute id="truckPanHoursForecast"/>
+        <viewAttribute id="rmLoadsBudget"/>
+        <viewAttribute id="rmLoadsForecast"/>
+        <viewAttribute id="rmUnitCountBudget"/>
+        <viewAttribute id="rmUnitCountForecast"/>
+        <viewAttribute id="manHoursBudget"/>
+        <viewAttribute id="manHoursForecast"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="unitsForecast"/>
+        <viewAttribute id="mechanicHoursBudget"/>
+        <viewAttribute id="mechanicHoursForecast"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="yardsForecast"/>
+        <viewAttribute id="processedTonsManHrBudget"/>
+        <viewAttribute id="processedTonsManHrForecast"/>
+        <viewAttribute id="compactorTonsBudget"/>
+        <viewAttribute id="compactorTonsForecast"/>
+        <viewAttribute id="productivityDailyCoverBudget"/>
+        <viewAttribute id="productivityDailyCoverForecast"/>
+        <viewAttribute id="contractLaborHoursDirectBudget"/>
+        <viewAttribute id="contractLaborHoursDirectForecast"/>
+        <viewAttribute id="recoveryRateBudget"/>
+        <viewAttribute id="recoveryRateForecast"/>
+        <viewAttribute id="cubicYardsConsumedBudget"/>
+        <viewAttribute id="cubicYardsConsumedForecast"/>
+        <viewAttribute id="recyclingTonsBudget"/>
+        <viewAttribute id="recyclingTonsForecast"/>
+        <viewAttribute id="directLaborHoursBudget"/>
+        <viewAttribute id="directLaborHoursForecast"/>
+        <viewAttribute id="disposalTonsBudget"/>
+        <viewAttribute id="disposalTonsForecast"/>
+        <viewAttribute id="routeCustomerMilesBudget"/>
+        <viewAttribute id="routeCustomerMilesForecast"/>
+        <viewAttribute id="employeeDirectLaborHoursBudget"/>
+        <viewAttribute id="employeeDirectLaborHoursForecast"/>
+        <viewAttribute id="routeHoursBudget"/>
+        <viewAttribute id="routeHoursForecast"/>
+        <viewAttribute id="equipmentHoursBudget"/>
+        <viewAttribute id="equipmentHoursForecast"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="fieldName"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="fieldValue"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="loadsForecast"/>
+        <viewAttribute id="unitCountBudget"/>
+        <viewAttribute id="routeHoursWithMechanicForecast"/>
+        <viewAttribute id="unitCountForecast"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="soldTonsBudget"/>
+        <viewAttribute id="soldTonsForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.operations.base::productivityMetrics"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenterDescription"/>
+        <viewAttribute id="costCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="payrollHoursBudget"/>
+        <viewAttribute id="payrollHoursForecast"/>
+        <viewAttribute id="capexCubicYardsBudget"/>
+        <viewAttribute id="capexCubicYardsForecast"/>
+        <viewAttribute id="compactorHoursBudget"/>
+        <viewAttribute id="compactorHoursForecast"/>
+        <viewAttribute id="processedTonsBudget"/>
+        <viewAttribute id="processedTonsForecast"/>
+        <viewAttribute id="excavationCubicYardsBudget"/>
+        <viewAttribute id="excavationCubicYardsForecast"/>
+        <viewAttribute id="rumpkeDirectLaborHoursBudget"/>
+        <viewAttribute id="rumpkeDirectLaborHoursForecast"/>
+        <viewAttribute id="rumpkeIndirectLaborHoursBudget"/>
+        <viewAttribute id="rumpkeIndirectLaborHoursForecast"/>
+        <viewAttribute id="excavatorLoaderHoursBudget"/>
+        <viewAttribute id="excavatorLoaderHoursForecast"/>
+        <viewAttribute id="excavatorLoaderTonsBudget"/>
+        <viewAttribute id="excavatorLoaderTonsForecast"/>
+        <viewAttribute id="stopsBudget"/>
+        <viewAttribute id="stopsForecast"/>
+        <viewAttribute id="expenseCubicYardsBudget"/>
+        <viewAttribute id="expenseCubicYardsForecast"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="tonnageForecast"/>
+        <viewAttribute id="gallonsBudget"/>
+        <viewAttribute id="gallonsForecast"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="truckHoursForecast"/>
+        <viewAttribute id="liftsBudget"/>
+        <viewAttribute id="liftsForecast"/>
+        <viewAttribute id="truckPanHoursBudget"/>
+        <viewAttribute id="truckPanHoursForecast"/>
+        <viewAttribute id="rmLoadsBudget"/>
+        <viewAttribute id="rmLoadsForecast"/>
+        <viewAttribute id="rmUnitCountBudget"/>
+        <viewAttribute id="rmUnitCountForecast"/>
+        <viewAttribute id="manHoursBudget"/>
+        <viewAttribute id="manHoursForecast"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="unitsForecast"/>
+        <viewAttribute id="mechanicHoursBudget"/>
+        <viewAttribute id="mechanicHoursForecast"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="yardsForecast"/>
+        <viewAttribute id="processedTonsManHrBudget"/>
+        <viewAttribute id="processedTonsManHrForecast"/>
+        <viewAttribute id="compactorTonsBudget"/>
+        <viewAttribute id="compactorTonsForecast"/>
+        <viewAttribute id="productivityDailyCoverBudget"/>
+        <viewAttribute id="productivityDailyCoverForecast"/>
+        <viewAttribute id="contractLaborHoursDirectBudget"/>
+        <viewAttribute id="contractLaborHoursDirectForecast"/>
+        <viewAttribute id="recoveryRateBudget"/>
+        <viewAttribute id="recoveryRateForecast"/>
+        <viewAttribute id="cubicYardsConsumedBudget"/>
+        <viewAttribute id="cubicYardsConsumedForecast"/>
+        <viewAttribute id="recyclingTonsBudget"/>
+        <viewAttribute id="recyclingTonsForecast"/>
+        <viewAttribute id="directLaborHoursBudget"/>
+        <viewAttribute id="directLaborHoursForecast"/>
+        <viewAttribute id="disposalTonsBudget"/>
+        <viewAttribute id="disposalTonsForecast"/>
+        <viewAttribute id="routeCustomerMilesBudget"/>
+        <viewAttribute id="routeCustomerMilesForecast"/>
+        <viewAttribute id="employeeDirectLaborHoursBudget"/>
+        <viewAttribute id="employeeDirectLaborHoursForecast"/>
+        <viewAttribute id="routeHoursBudget"/>
+        <viewAttribute id="routeHoursForecast"/>
+        <viewAttribute id="equipmentHoursBudget"/>
+        <viewAttribute id="equipmentHoursForecast"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="fieldName"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="fieldValue"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="loadsForecast"/>
+        <viewAttribute id="unitCountBudget"/>
+        <viewAttribute id="routeHoursWithMechanicForecast"/>
+        <viewAttribute id="unitCountForecast"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="soldTonsBudget"/>
+        <viewAttribute id="soldTonsForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="payrollHoursBudget" source="payrollHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payrollHoursForecast" source="payrollHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCubicYardsBudget" source="capexCubicYardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCubicYardsForecast" source="capexCubicYardsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHoursBudget" source="compactorHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHoursForecast" source="compactorHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTonsBudget" source="processedTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTonsForecast" source="processedTonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationCubicYardsBudget" source="excavationCubicYardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationCubicYardsForecast" source="excavationCubicYardsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeDirectLaborHoursBudget" source="rumpkeDirectLaborHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeDirectLaborHoursForecast" source="rumpkeDirectLaborHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeIndirectLaborHoursBudget" source="rumpkeIndirectLaborHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeIndirectLaborHoursForecast" source="rumpkeIndirectLaborHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHoursBudget" source="excavatorLoaderHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHoursForecast" source="excavatorLoaderHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderTonsBudget" source="excavatorLoaderTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderTonsForecast" source="excavatorLoaderTonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stopsBudget" source="stopsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stopsForecast" source="stopsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCubicYardsBudget" source="expenseCubicYardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCubicYardsForecast" source="expenseCubicYardsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageBudget" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageForecast" source="tonnageForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="gallonsBudget" source="gallonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="gallonsForecast" source="gallonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursBudget" source="truckHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursForecast" source="truckHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="liftsBudget" source="liftsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="liftsForecast" source="liftsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckPanHoursBudget" source="truckPanHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckPanHoursForecast" source="truckPanHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rmLoadsBudget" source="rmLoadsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rmLoadsForecast" source="rmLoadsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rmUnitCountBudget" source="rmUnitCountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rmUnitCountForecast" source="rmUnitCountForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manHoursBudget" source="manHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manHoursForecast" source="manHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsBudget" source="unitsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsForecast" source="unitsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicHoursBudget" source="mechanicHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicHoursForecast" source="mechanicHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsBudget" source="yardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsForecast" source="yardsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTonsManHrBudget" source="processedTonsManHrBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processedTonsManHrForecast" source="processedTonsManHrForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTonsBudget" source="compactorTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTonsForecast" source="compactorTonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityDailyCoverBudget" source="productivityDailyCoverBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityDailyCoverForecast" source="productivityDailyCoverForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractLaborHoursDirectBudget" source="contractLaborHoursDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractLaborHoursDirectForecast" source="contractLaborHoursDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recoveryRateBudget" source="recoveryRateBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recoveryRateForecast" source="recoveryRateForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsConsumedBudget" source="cubicYardsConsumedBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsConsumedForecast" source="cubicYardsConsumedForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsBudget" source="recyclingTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTonsForecast" source="recyclingTonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="directLaborHoursBudget" source="directLaborHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="directLaborHoursForecast" source="directLaborHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalTonsBudget" source="disposalTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalTonsForecast" source="disposalTonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMilesBudget" source="routeCustomerMilesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMilesForecast" source="routeCustomerMilesForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeDirectLaborHoursBudget" source="employeeDirectLaborHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeDirectLaborHoursForecast" source="employeeDirectLaborHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursBudget" source="routeHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursForecast" source="routeHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHoursBudget" source="equipmentHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHoursForecast" source="equipmentHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicBudget" source="routeHoursWithMechanicBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fieldName" source="fieldName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fieldValue" source="fieldValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsBudget" source="loadsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsForecast" source="loadsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitCountBudget" source="unitCountBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicForecast" source="routeHoursWithMechanicForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitCountForecast" source="unitCountForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="soldTonsBudget" source="soldTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="soldTonsForecast" source="soldTonsForecast"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="profitCenter" order="72" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="73" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Join_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="costCenter" order="74" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="fieldName" order="75" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Field Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="fieldName"/>
+      </attribute>
+      <attribute id="version" order="76" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Join_1" columnName="version"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="78" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="79" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="priorMonth" order="85" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month - For Live Projections"/>
+        <keyMapping columnObjectName="Join_1" columnName="priorMonth"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="86" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="87" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="88" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="districtDescription" order="89" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="district" order="90" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Join_1" columnName="district"/>
+      </attribute>
+      <attribute id="regionDescription" order="91" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="region" order="92" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_1" columnName="region"/>
+      </attribute>
+      <attribute id="areaDescription" order="93" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="area" order="94" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_1" columnName="area"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="payrollHoursBudget" order="1" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Payroll Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="payrollHoursBudget"/>
+      </measure>
+      <measure id="payrollHoursForecast" order="2" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Payroll Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="payrollHoursForecast"/>
+      </measure>
+      <measure id="capexCubicYardsBudget" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Cubic Yards - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="capexCubicYardsBudget"/>
+      </measure>
+      <measure id="capexCubicYardsForecast" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Cubic Yards - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="capexCubicYardsForecast"/>
+      </measure>
+      <measure id="compactorHoursBudget" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="compactorHoursBudget"/>
+      </measure>
+      <measure id="compactorHoursForecast" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="compactorHoursForecast"/>
+      </measure>
+      <measure id="processedTonsBudget" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Processed Tons - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="processedTonsBudget"/>
+      </measure>
+      <measure id="processedTonsForecast" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Processed Tons - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="processedTonsForecast"/>
+      </measure>
+      <measure id="excavationCubicYardsBudget" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavation Cubic Yards - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="excavationCubicYardsBudget"/>
+      </measure>
+      <measure id="excavationCubicYardsForecast" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavation Cubic Yards - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="excavationCubicYardsForecast"/>
+      </measure>
+      <measure id="rumpkeDirectLaborHoursBudget" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Rumpke Direct Labor Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="rumpkeDirectLaborHoursBudget"/>
+      </measure>
+      <measure id="rumpkeDirectLaborHoursForecast" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Rumpke Direct Labor Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="rumpkeDirectLaborHoursForecast"/>
+      </measure>
+      <measure id="rumpkeIndirectLaborHoursBudget" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Rumpke Indirect Labor Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="rumpkeIndirectLaborHoursBudget"/>
+      </measure>
+      <measure id="rumpkeIndirectLaborHoursForecast" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Rumpke Indirect Labor Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="rumpkeIndirectLaborHoursForecast"/>
+      </measure>
+      <measure id="excavatorLoaderHoursBudget" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavator Loader Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="excavatorLoaderHoursBudget"/>
+      </measure>
+      <measure id="excavatorLoaderHoursForecast" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavator Loader Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="excavatorLoaderHoursForecast"/>
+      </measure>
+      <measure id="excavatorLoaderTonsBudget" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavator Loader Tons - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="excavatorLoaderTonsBudget"/>
+      </measure>
+      <measure id="excavatorLoaderTonsForecast" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavator Loader Tons - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="excavatorLoaderTonsForecast"/>
+      </measure>
+      <measure id="stopsBudget" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Stops - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="stopsBudget"/>
+      </measure>
+      <measure id="stopsForecast" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Stops - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="stopsForecast"/>
+      </measure>
+      <measure id="expenseCubicYardsBudget" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Expense Cubic Yards - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="expenseCubicYardsBudget"/>
+      </measure>
+      <measure id="expenseCubicYardsForecast" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Expense Cubic Yards - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="expenseCubicYardsForecast"/>
+      </measure>
+      <measure id="tonnageBudget" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="tonnageBudget"/>
+      </measure>
+      <measure id="tonnageForecast" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="tonnageForecast"/>
+      </measure>
+      <measure id="gallonsBudget" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Gallons - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="gallonsBudget"/>
+      </measure>
+      <measure id="gallonsForecast" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Gallons - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="gallonsForecast"/>
+      </measure>
+      <measure id="truckHoursBudget" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="truckHoursBudget"/>
+      </measure>
+      <measure id="truckHoursForecast" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="truckHoursForecast"/>
+      </measure>
+      <measure id="liftsBudget" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Lifts - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="liftsBudget"/>
+      </measure>
+      <measure id="liftsForecast" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Lifts - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="liftsForecast"/>
+      </measure>
+      <measure id="truckPanHoursBudget" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Pan Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="truckPanHoursBudget"/>
+      </measure>
+      <measure id="truckPanHoursForecast" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Pan Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="truckPanHoursForecast"/>
+      </measure>
+      <measure id="rmLoadsBudget" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="rmLoadsBudget"/>
+      </measure>
+      <measure id="rmLoadsForecast" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="rmLoadsForecast"/>
+      </measure>
+      <measure id="rmUnitCountBudget" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Unit Count - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="rmUnitCountBudget"/>
+      </measure>
+      <measure id="rmUnitCountForecast" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Unit Count - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="rmUnitCountForecast"/>
+      </measure>
+      <measure id="manHoursBudget" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Man Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="manHoursBudget"/>
+      </measure>
+      <measure id="manHoursForecast" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Man Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="manHoursForecast"/>
+      </measure>
+      <measure id="unitsBudget" order="39" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Units - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="unitsBudget"/>
+      </measure>
+      <measure id="unitsForecast" order="40" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Units - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="unitsForecast"/>
+      </measure>
+      <measure id="mechanicHoursBudget" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Mechanic Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="mechanicHoursBudget"/>
+      </measure>
+      <measure id="mechanicHoursForecast" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Mechanic Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="mechanicHoursForecast"/>
+      </measure>
+      <measure id="yardsBudget" order="43" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Yards - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="yardsBudget"/>
+      </measure>
+      <measure id="yardsForecast" order="44" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Yards - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="yardsForecast"/>
+      </measure>
+      <measure id="processedTonsManHrBudget" order="45" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Processed Tons Man Hour - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="processedTonsManHrBudget"/>
+      </measure>
+      <measure id="processedTonsManHrForecast" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Processed Tons Man Hour - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="processedTonsManHrForecast"/>
+      </measure>
+      <measure id="compactorTonsBudget" order="47" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Tons - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="compactorTonsBudget"/>
+      </measure>
+      <measure id="compactorTonsForecast" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Tons - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="compactorTonsForecast"/>
+      </measure>
+      <measure id="productivityDailyCoverBudget" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Productiivity Daily Cover - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="productivityDailyCoverBudget"/>
+      </measure>
+      <measure id="productivityDailyCoverForecast" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Productiivity Daily Cover - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="productivityDailyCoverForecast"/>
+      </measure>
+      <measure id="contractLaborHoursDirectBudget" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Contract Labor Hours Direct - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="contractLaborHoursDirectBudget"/>
+      </measure>
+      <measure id="contractLaborHoursDirectForecast" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Contract Labor Hours Direct - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="contractLaborHoursDirectForecast"/>
+      </measure>
+      <measure id="recoveryRateBudget" order="53" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recovery Rate - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="recoveryRateBudget"/>
+      </measure>
+      <measure id="recoveryRateForecast" order="54" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recovery Rate - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="recoveryRateForecast"/>
+      </measure>
+      <measure id="cubicYardsConsumedBudget" order="55" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cubic Yards Consumed - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="cubicYardsConsumedBudget"/>
+      </measure>
+      <measure id="cubicYardsConsumedForecast" order="56" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cubic Yards Consumed - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="cubicYardsConsumedForecast"/>
+      </measure>
+      <measure id="recyclingTonsBudget" order="57" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Tons - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="recyclingTonsBudget"/>
+      </measure>
+      <measure id="recyclingTonsForecast" order="58" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Recycling Tons - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="recyclingTonsForecast"/>
+      </measure>
+      <measure id="directLaborHoursBudget" order="59" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Direct Labor Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="directLaborHoursBudget"/>
+      </measure>
+      <measure id="directLaborHoursForecast" order="60" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Direct Labor Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="directLaborHoursForecast"/>
+      </measure>
+      <measure id="disposalTonsBudget" order="61" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Disposal Tons - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="disposalTonsBudget"/>
+      </measure>
+      <measure id="disposalTonsForecast" order="62" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Disposal Tons - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="disposalTonsForecast"/>
+      </measure>
+      <measure id="routeCustomerMilesBudget" order="63" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Route Customer Miles - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="routeCustomerMilesBudget"/>
+      </measure>
+      <measure id="routeCustomerMilesForecast" order="64" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Route Customer Miles - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="routeCustomerMilesForecast"/>
+      </measure>
+      <measure id="employeeDirectLaborHoursBudget" order="65" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Direct Labor Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeDirectLaborHoursBudget"/>
+      </measure>
+      <measure id="employeeDirectLaborHoursForecast" order="66" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Direct Labor Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeDirectLaborHoursForecast"/>
+      </measure>
+      <measure id="routeHoursBudget" order="67" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Route Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="routeHoursBudget"/>
+      </measure>
+      <measure id="routeHoursForecast" order="68" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Route Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="routeHoursForecast"/>
+      </measure>
+      <measure id="equipmentHoursBudget" order="69" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="equipmentHoursBudget"/>
+      </measure>
+      <measure id="equipmentHoursForecast" order="70" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="equipmentHoursForecast"/>
+      </measure>
+      <measure id="routeHoursWithMechanicBudget" order="71" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Route Hours with Mechanic - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="routeHoursWithMechanicBudget"/>
+      </measure>
+      <measure id="fieldValue" order="77" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Field Value"/>
+        <measureMapping columnObjectName="Join_1" columnName="fieldValue"/>
+      </measure>
+      <measure id="loadsBudget" order="80" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="loadsBudget"/>
+      </measure>
+      <measure id="loadsForecast" order="81" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="loadsForecast"/>
+      </measure>
+      <measure id="unitCountBudget" order="82" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Unit Count - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="unitCountBudget"/>
+      </measure>
+      <measure id="routeHoursWithMechanicForecast" order="83" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Route Hours with Mechanic - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="routeHoursWithMechanicForecast"/>
+      </measure>
+      <measure id="unitCountForecast" order="84" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Unit Count - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="unitCountForecast"/>
+      </measure>
+      <measure id="soldTonsBudget" order="95" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="soldTonsBudget"/>
+        <measureMapping columnObjectName="Join_1" columnName="soldTonsBudget"/>
+      </measure>
+      <measure id="soldTonsForecast" order="96" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="soldTonsForecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="soldTonsForecast"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="221.11302679000914" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92.00000000000001" y="376.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302.00000000000006" y="376.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221.11302679000914" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

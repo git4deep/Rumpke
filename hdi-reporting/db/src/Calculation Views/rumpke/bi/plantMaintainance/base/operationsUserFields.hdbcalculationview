@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::operationsUserFields" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Plant Maintenance Operations User Fields"/>
+  <metadata changedAt="2019-12-11 07:30:08.938"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="33"/>
+  <dataSources>
+    <DataSource id="AFVU">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::AFVU</resourceUri>
+    </DataSource>
+    <DataSource id="ZPM_SYS_CODE_TXT">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::ZPM_SYS_CODE_TXT</resourceUri>
+    </DataSource>
+    <DataSource id="ZPM_SYM_CODE_TXT">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::ZPM_SYM_CODE_TXT</resourceUri>
+    </DataSource>
+    <DataSource id="ZPM_RSN_CODE_TXT">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::ZPM_RSN_CODE_TXT</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsSystemCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="AFVU">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="AUFPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="APLZL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="USR01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="USR02"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="USR00"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="language"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="ZPM_SYS_CODE_TXT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="SYSTEM_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="language" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="SYSTEM_TEXT"/>
+      </input>
+    <filter>(&quot;language&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsSystemCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="vrmsSystemCode"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="language"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="ZPM_SYM_CODE_TXT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="language" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="SYSTEM_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="SYMPTOM_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="SYMPTOM_TEXT"/>
+      </input>
+    <filter>(&quot;language&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsSystemCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="vrmsSymptomCode"/>
+    <joinAttribute name="vrmsSystemCode"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="language"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="ZPM_RSN_CODE_TXT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="REASON_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="language" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="REASON_TEXT"/>
+      </input>
+    <filter>(&quot;language&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="routingNumber"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsSystemCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="routingNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="counter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="vrmsReasonCode"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_3" columnName="client"/>
+      </attribute>
+      <attribute id="routingNumber" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Routing Number"/>
+        <keyMapping columnObjectName="Join_3" columnName="routingNumber"/>
+      </attribute>
+      <attribute id="counter" key="true" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_3" columnName="counter"/>
+      </attribute>
+      <attribute id="vrmsSystemCode" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - System Code"/>
+        <keyMapping columnObjectName="Join_3" columnName="vrmsSystemCode"/>
+      </attribute>
+      <attribute id="vrmsSystemCodeDesc" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - System Code Desc"/>
+        <keyMapping columnObjectName="Join_3" columnName="vrmsSystemCodeDesc"/>
+      </attribute>
+      <attribute id="vrmsSymptomCode" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Symptom Code"/>
+        <keyMapping columnObjectName="Join_3" columnName="vrmsSymptomCode"/>
+      </attribute>
+      <attribute id="vrmsSymptomCodeDesc" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Symptom Code Desc"/>
+        <keyMapping columnObjectName="Join_3" columnName="vrmsSymptomCodeDesc"/>
+      </attribute>
+      <attribute id="vrmsReasonCodeDesc" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Reason Code Desc"/>
+        <keyMapping columnObjectName="Join_3" columnName="vrmsReasonCodeDesc"/>
+      </attribute>
+      <attribute id="vrmsReasonCode" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Reason Code"/>
+        <keyMapping columnObjectName="Join_3" columnName="vrmsReasonCode"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="455"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="455"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="359"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="263"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="271"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

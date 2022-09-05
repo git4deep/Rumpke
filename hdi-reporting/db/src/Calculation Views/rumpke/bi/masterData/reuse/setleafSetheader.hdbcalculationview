@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.reuse::setleafSetheader" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="setleafSetheader"/>
+  <metadata changedAt="2020-06-17 11:48:04.19"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="25"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.base::valuesInSet">
+      <resourceUri>rumpke.bi.masterData.base::valuesInSet</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::setHeaderDirectory">
+      <resourceUri>rumpke.bi.masterData.base::setHeaderDirectory</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="organizationalUnitasSetSubclass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setLineCounter"/>
+        <viewAttribute id="sIGNFieldinCreation"/>
+        <viewAttribute id="oPTIONFieldinStructure"/>
+        <viewAttribute id="fromValue"/>
+        <viewAttribute id="toValue"/>
+        <viewAttribute id="sequentialNumberofSetLine"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::valuesInSet"/>
+    <filter>(&quot;setName&quot; !='LOB_ALLOC')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="organizationalunitasSetSubclass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setType"/>
+        <viewAttribute id="flagDynamicSet"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="xFlagMustBeUnique"/>
+        <viewAttribute id="representativeValueofaSet"/>
+        <viewAttribute id="createdBy"/>
+        <viewAttribute id="creationDate"/>
+        <viewAttribute id="creationTime"/>
+        <viewAttribute id="lastChangedBy"/>
+        <viewAttribute id="dateonWhichObjectWasLastChanged"/>
+        <viewAttribute id="timeofLastChange"/>
+        <viewAttribute id="releaseofSAPSystem"/>
+        <viewAttribute id="tableName"/>
+        <viewAttribute id="fieldName"/>
+        <viewAttribute id="representativeDataElementinaSet"/>
+        <viewAttribute id="originalLanguageforSets"/>
+        <viewAttribute id="noEntriesExistinTableRWSHEADERforThisSet"/>
+        <viewAttribute id="noEntriesExistinTableRWSLINEforThisSet"/>
+        <viewAttribute id="noEntriesExistinTableSETLINETforThisSet"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::setHeaderDirectory"/>
+    <filter>(&quot;setName&quot; !='LOB_ALLOC')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="leftOuter" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="setClass"/>
+        <viewAttribute id="organizationalUnitasSetSubclass"/>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="setLineCounter"/>
+        <viewAttribute id="sIGNFieldinCreation"/>
+        <viewAttribute id="oPTIONFieldinStructure"/>
+        <viewAttribute id="fromValue"/>
+        <viewAttribute id="toValue"/>
+        <viewAttribute id="sequentialNumberofSetLine"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setClass" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="organizationalUnitasSetSubclass" source="organizationalUnitasSetSubclass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setName" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setLineCounter" source="setLineCounter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sIGNFieldinCreation" source="sIGNFieldinCreation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="oPTIONFieldinStructure" source="oPTIONFieldinStructure"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fromValue" source="fromValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="toValue" source="toValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sequentialNumberofSetLine" source="sequentialNumberofSetLine"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="shortDescriptionofaSet" source="shortDescriptionofaSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setClass" source="setClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="organizationalUnitasSetSubclass" source="organizationalunitasSetSubclass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="setName" source="setName"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="setClass"/>
+    <joinAttribute name="organizationalUnitasSetSubclass"/>
+    <joinAttribute name="setName"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_1" columnName="client"/>
+      </attribute>
+      <attribute id="setClass" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Class"/>
+        <keyMapping columnObjectName="Join_1" columnName="setClass"/>
+      </attribute>
+      <attribute id="organizationalUnitasSetSubclass" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Organizational Unit as Set Subclass"/>
+        <keyMapping columnObjectName="Join_1" columnName="organizationalUnitasSetSubclass"/>
+      </attribute>
+      <attribute id="setName" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Name"/>
+        <keyMapping columnObjectName="Join_1" columnName="setName"/>
+      </attribute>
+      <attribute id="setLineCounter" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Line Counter"/>
+        <keyMapping columnObjectName="Join_1" columnName="setLineCounter"/>
+      </attribute>
+      <attribute id="sIGNFieldinCreation" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SIGN field in creation of SELECT-OPTIONS tables"/>
+        <keyMapping columnObjectName="Join_1" columnName="sIGNFieldinCreation"/>
+      </attribute>
+      <attribute id="oPTIONFieldinStructure" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OPTION field in structure of SELECT-OPTIONS tables"/>
+        <keyMapping columnObjectName="Join_1" columnName="oPTIONFieldinStructure"/>
+      </attribute>
+      <attribute id="fromValue" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="From Value"/>
+        <keyMapping columnObjectName="Join_1" columnName="fromValue"/>
+      </attribute>
+      <attribute id="toValue" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="To Value"/>
+        <keyMapping columnObjectName="Join_1" columnName="toValue"/>
+      </attribute>
+      <attribute id="sequentialNumberofSetLine" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sequential Number of Set Line"/>
+        <keyMapping columnObjectName="Join_1" columnName="sequentialNumberofSetLine"/>
+      </attribute>
+      <attribute id="languageKey" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="Join_1" columnName="languageKey"/>
+      </attribute>
+      <attribute id="shortDescriptionofaSet" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Short Description of a Set"/>
+        <keyMapping columnObjectName="Join_1" columnName="shortDescriptionofaSet"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

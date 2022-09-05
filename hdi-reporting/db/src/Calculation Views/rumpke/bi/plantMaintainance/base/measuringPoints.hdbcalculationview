@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::measuringPoints" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Measuring Point (Table)"/>
+  <metadata changedAt="2020-04-15 15:31:09.199"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="30"/>
+  <dataSources>
+    <DataSource id="IMPTT">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::IMPTT</resourceUri>
+    </DataSource>
+    <DataSource id="IMRG">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::IMRG</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="changedOnDate"/>
+        <viewAttribute id="createdOnDate"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPointDesc"/>
+        <viewAttribute id="equipmentNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="IMPTT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPoint" source="POINT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="MPOBJ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="changedOnDate" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnDate" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringType" source="PSORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointDesc" source="PTTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="ZZEQUNR"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="createdOnDate"/>
+        <viewAttribute id="mdText"/>
+        <viewAttribute id="measuringPointQuantity"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="documentTime"/>
+        <viewAttribute id="source"/>
+        <viewAttribute id="reversalFlag"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="IMRG">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringDocumentNumber" source="MDOCM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPoint" source="POINT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentDate" source="IDATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOnDate" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mdText" source="MDTXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointQuantity" source="RECDV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointUOM" source="RECDU"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentTime" source="ITIME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="ZZSOURCE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="reversalFlag" source="CANCL"/>
+      </input>
+    <filter>(not isNull(&quot;measuringDocumentNumber&quot;)) AND (&quot;reversalFlag&quot; ='')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="measuringPointQuantity"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="mdText"/>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="documentTime"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPointDesc"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="source"/>
+      <viewAttribute hidden="true" id="JOIN$client$client"/>
+      <viewAttribute hidden="true" id="JOIN$measuringPoint$measuringPoint"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="fuelGallons" length="13" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>round(IF(&quot;measuringType&quot; = 'FUEL', &quot;measuringPointQuantity&quot;, 0),2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="numberOfHours" length="13" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(in(&quot;measuringType&quot;,'MILES', 'HOURS'), &quot;measuringPointQuantity&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="fuelCostByGallon" length="13" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>round(IF(&quot;measuringType&quot; = 'FUEL', IF(&quot;mdText&quot; = '', 0, float(rightstr(&quot;mdText&quot;,15))),0),2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="VARCHAR" id="abcIndicator" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;measuringType&quot; = 'HOURS', 1, IF(&quot;measuringType&quot; = 'MILES',2,IF(&quot;measuringType&quot; = 'Hours',1,If(&quot;measuringType&quot; = 'Miles',2,0))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="BIGINT" id="truckHours" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(in(&quot;measuringType&quot;, 'HOURS'), &quot;measuringPointQuantity&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="BIGINT" id="vehicleMiles" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(in(&quot;measuringType&quot;,'MILES'), &quot;measuringPointQuantity&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="fuelLocationSpeedway" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>''</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="fuelAmount" length="13" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>round(IF(&quot;measuringType&quot; = 'FUEL', &quot;fuelGallons&quot; * &quot;fuelCostByGallon&quot;, 0),2)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentDate" source="documentDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointQuantity" source="measuringPointQuantity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointUOM" source="measuringPointUOM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mdText" source="mdText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringDocumentNumber" source="measuringDocumentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="documentTime" source="documentTime"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$client$client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$measuringPoint$measuringPoint" source="measuringPoint"/>
+      </input>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPoint" source="measuringPoint"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringType" source="measuringType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="measuringPointDesc" source="measuringPointDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$client$client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$measuringPoint$measuringPoint" source="measuringPoint"/>
+      </input>
+    <joinAttribute name="JOIN$client$client"/>
+    <joinAttribute name="JOIN$measuringPoint$measuringPoint"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_1" columnName="client"/>
+      </attribute>
+      <attribute id="measuringDocumentNumber" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="measuringDocumentNumber"/>
+      </attribute>
+      <attribute id="equipmentNumber" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="documentDate" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Date"/>
+        <keyMapping columnObjectName="Join_1" columnName="documentDate"/>
+      </attribute>
+      <attribute id="documentTime" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Time"/>
+        <keyMapping columnObjectName="Join_1" columnName="documentTime"/>
+      </attribute>
+      <attribute id="measuringType" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Point Type (FUEL, MILES, HOURS)"/>
+        <keyMapping columnObjectName="Join_1" columnName="measuringType"/>
+      </attribute>
+      <attribute id="measuringPoint" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Point"/>
+        <keyMapping columnObjectName="Join_1" columnName="measuringPoint"/>
+      </attribute>
+      <attribute id="measuringPointDesc" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Point Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="measuringPointDesc"/>
+      </attribute>
+      <attribute id="measuringPointUOM" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Point Unit Of Measure"/>
+        <keyMapping columnObjectName="Join_1" columnName="measuringPointUOM"/>
+      </attribute>
+      <attribute id="mdText" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MD Text (Fuel Cost By Gallon)"/>
+        <keyMapping columnObjectName="Join_1" columnName="mdText"/>
+      </attribute>
+      <attribute id="objectNumber" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="abcIndicator" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="abcIndicator"/>
+        <keyMapping columnObjectName="Join_1" columnName="abcIndicator"/>
+      </attribute>
+      <attribute id="source" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="source"/>
+        <keyMapping columnObjectName="Join_1" columnName="source"/>
+      </attribute>
+      <attribute id="fuelLocationSpeedway" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fuel Location - Speedway"/>
+        <keyMapping columnObjectName="Join_1" columnName="fuelLocationSpeedway"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="measuringPointQuantity" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Measuring Point Quantity"/>
+        <measureMapping columnObjectName="Join_1" columnName="measuringPointQuantity"/>
+      </measure>
+      <measure id="fuelGallons" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel in Gallons"/>
+        <measureMapping columnObjectName="Join_1" columnName="fuelGallons"/>
+      </measure>
+      <measure id="numberOfHours" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="numberOfHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="numberOfHours"/>
+      </measure>
+      <measure id="fuelCostByGallon" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Cost By Gallons"/>
+        <measureMapping columnObjectName="Join_1" columnName="fuelCostByGallon"/>
+      </measure>
+      <measure id="truckHours" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Join_1" columnName="truckHours"/>
+      </measure>
+      <measure id="vehicleMiles" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vehicle Miles"/>
+        <measureMapping columnObjectName="Join_1" columnName="vehicleMiles"/>
+      </measure>
+      <measure id="fuelAmount" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Amount"/>
+        <measureMapping columnObjectName="Join_1" columnName="fuelAmount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::orderData" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Order Data"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="28"/>
+  <dataSources>
+    <DataSource id="S4HANA::AUFK">
+      <resourceUri>S4HANA::AUFK</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="S4HANA::AUFK">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="AUFK" columnName="MANDT"/>
+      </attribute>
+      <attribute id="orderNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Number"/>
+        <keyMapping columnObjectName="AUFK" columnName="AUFNR"/>
+      </attribute>
+      <attribute id="orderType" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Type"/>
+        <keyMapping columnObjectName="AUFK" columnName="AUART"/>
+      </attribute>
+      <attribute id="orderCategory" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Category"/>
+        <keyMapping columnObjectName="AUFK" columnName="AUTYP"/>
+      </attribute>
+      <attribute id="referenceOrderNumber" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Reference Order Number"/>
+        <keyMapping columnObjectName="AUFK" columnName="REFNR"/>
+      </attribute>
+      <attribute id="enteredBy" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Entered By"/>
+        <keyMapping columnObjectName="AUFK" columnName="ERNAM"/>
+      </attribute>
+      <attribute id="createdOn" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Created On"/>
+        <keyMapping columnObjectName="AUFK" columnName="ERDAT"/>
+      </attribute>
+      <attribute id="lastChangedBy" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Last Changed By"/>
+        <keyMapping columnObjectName="AUFK" columnName="AENAM"/>
+      </attribute>
+      <attribute id="changeDateOrderMaster" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Change Date for Order Master"/>
+        <keyMapping columnObjectName="AUFK" columnName="AEDAT"/>
+      </attribute>
+      <attribute id="description" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="description"/>
+        <keyMapping columnObjectName="AUFK" columnName="KTEXT"/>
+      </attribute>
+      <attribute id="longTextExists" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Long Text Exists"/>
+        <keyMapping columnObjectName="AUFK" columnName="LTEXT"/>
+      </attribute>
+      <attribute id="companyCode" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="AUFK" columnName="BUKRS"/>
+      </attribute>
+      <attribute id="plant" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="AUFK" columnName="WERKS"/>
+      </attribute>
+      <attribute id="businessArea" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Business Area"/>
+        <keyMapping columnObjectName="AUFK" columnName="GSBER"/>
+      </attribute>
+      <attribute id="controllingArea" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area"/>
+        <keyMapping columnObjectName="AUFK" columnName="KOKRS"/>
+      </attribute>
+      <attribute id="location" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Location"/>
+        <keyMapping columnObjectName="AUFK" columnName="STORT"/>
+      </attribute>
+      <attribute id="responsibleCostCenter" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="responsibleCostCenter"/>
+        <keyMapping columnObjectName="AUFK" columnName="KOSTV"/>
+      </attribute>
+      <attribute id="functionalArea" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="AUFK" columnName="FUNC_AREA"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

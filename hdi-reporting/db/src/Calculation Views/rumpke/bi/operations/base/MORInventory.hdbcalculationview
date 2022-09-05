@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::MORInventory" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="MORBaseModel"/>
+  <localVariables>
+    <variable id="ipDateFrom" parameter="true">
+      <descriptions defaultDescription="Date From"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate('20210101')</defaultExpression>
+      </variableProperties>
+    </variable>
+    <variable id="ipDateTo" parameter="true">
+      <descriptions defaultDescription="Date To"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate(now())</defaultExpression>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="49"/>
+  <dataSources>
+    <DataSource id="S4HANA::EKKO">
+      <resourceUri>S4HANA::EKKO</resourceUri>
+    </DataSource>
+    <DataSource id="S4HANA::EKPO">
+      <resourceUri>S4HANA::EKPO</resourceUri>
+    </DataSource>
+    <DataSource id="S4HANA::EKBE">
+      <resourceUri>S4HANA::EKBE</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_7">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="BSART"/>
+        <viewAttribute id="AEDAT"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="BEDAT"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="AEDAT_Date" expressionLanguage="SQL">
+          <formula>to_date(&quot;AEDAT&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="over30Days" length="1" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(daysbetween(&quot;AEDAT_Date&quot;,&quot;inputDate&quot;)&gt;30,'Y','N')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="inputDate" expressionLanguage="COLUMN_ENGINE">
+          <formula>'$$ipDateFrom$$'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="S4HANA::EKKO"/>
+    <filter>(&quot;BSART&quot; ='NB')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_8">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="ELIKZ"/>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="AEDAT"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="30DaysBeforeInputDate" expressionLanguage="COLUMN_ENGINE">
+          <formula>adddays(&quot;InputDate&quot;,-30)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="InputDate" expressionLanguage="COLUMN_ENGINE">
+          <formula>'$$ipDateFrom$$'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="S4HANA::EKPO"/>
+    <filter>(&quot;ELIKZ&quot; !='X') AND &quot;AEDAT&quot;&lt;&quot;30DaysBeforeInputDate&quot;</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="AEDAT_Date"/>
+        <viewAttribute id="BSART"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT_Date" source="AEDAT_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+      </input>
+      <input node="Aggregation_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+      </input>
+    <joinAttribute name="EBELN"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_9">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="movementType"/>
+        <viewAttribute id="EBELN"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="S4HANA::EKBE">
+        <mapping xsi:type="Calculation:AttributeMapping" target="movementType" source="BWART"/></input>
+    <filter>(&quot;movementType&quot; !='101')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="EBELN"/>
+        <viewAttribute id="WERKS"/>
+        <viewAttribute id="AEDAT_Date"/>
+        <viewAttribute id="BSART"/>
+        <viewAttribute id="movementType"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="movementType" source="movementType"/>
+      </input>
+      <input node="Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="WERKS" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="AEDAT_Date" source="AEDAT_Date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BSART" source="BSART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EBELN" source="EBELN"/>
+      </input>
+    <joinAttribute name="EBELN"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_4">
+    <descriptions/>
+    <attributes>
+      <attribute id="EBELN" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EBELN"/>
+        <keyMapping columnObjectName="Join_4" columnName="EBELN"/>
+      </attribute>
+      <attribute id="WERKS" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WERKS"/>
+        <keyMapping columnObjectName="Join_4" columnName="WERKS"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures>
+      <measure id="CountEBELN" hidden="false" order="2" aggregationType="sum" measureType="simple" aggregatable="true" calculatedMeasureType="counter" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="CountEBELN"/>
+        <exceptionAggregation exceptionAggregationType="countDistinct">
+          <attribute attributeName="EBELN"/>
+        </exceptionAggregation>
+        <formula>1</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="137" y="129"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="431"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="431"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="164" y="271"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_7" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_8" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="403" y="271"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="347" y="112"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Aggregation_9" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Join_4" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

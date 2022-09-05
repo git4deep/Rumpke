@@ -1,0 +1,61 @@
+_schema-version: "2.1"
+ID: REPORTING
+version: 0.0.1
+modules:
+  - name: reporting_db
+    type: hdb
+    path: db
+    requires:
+    - name: REPORTING_hdi_db
+      properties:
+        TARGET_CONTAINER: ~{hdi-container-name}
+    - name: remote-grant-service
+  - name: JOBS_RUMPKE
+    type: nodejs
+    path: JOBS
+    provides:
+      - name: jobs_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: REPORTING_hdi_db
+      - name: myjobxsjs-uaa
+      - name: jobScheduler  
+    properties:
+      SAP_JWT_TRUST_ACL: '[{"clientid":"*","identityzone":"*"}]'
+  - name: RUMPKE_ODATA
+    type: nodejs
+    path: ODATA
+    provides:
+      - name: ODATA_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: REPORTING_hdi_db
+      - name: myodata-uaa
+    build-parameters:
+      memory: 256M
+resources:
+- name: REPORTING_hdi_db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service-name: HDI_REPORTING
+    config:
+      schema: REPORTING
+      makeUniqueName: false
+  properties:
+    hdi-container-name: ${service-name}
+- name: remote-grant-service
+  type: org.cloudfoundry.existing-service
+  parameters:
+    service-name: remote-grant-service
+- name: myjobxsjs-uaa
+  type: com.sap.xs.uaa-space     
+- name: myodata-uaa
+  type: com.sap.xs.uaa-space  
+  parameters:
+    path: ./ODATA/xs-security.json
+- name: jobScheduler
+  type: com.sap.xs.job-scheduler
+  parameters:
+    service-plan: standard 

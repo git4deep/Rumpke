@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.hr.base::employeeWorkCenterMapping" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+  <descriptions defaultDescription="employeeWorkCenterMapping"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="31"/>
+  <dataSources>
+    <DataSource id="HRP1001">
+      <resourceUri>rumpke.bi.hr.s4hana::HRP1001</resourceUri>
+    </DataSource>
+    <DataSource id="S4HANA::CRHD">
+      <resourceUri>S4HANA::CRHD</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="OTYPE"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="startDate"/>
+        <viewAttribute id="EndDate"/>
+        <viewAttribute id="OBJID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="HRP1001">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="SOBID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startDate" source="BEGDA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EndDate" source="ENDDA"/></input>
+    <filter>(&quot;OTYPE&quot; ='KA')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="OBJID"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="ARBPL"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="workCenter" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;plant&quot;+&quot;ARBPL&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="S4HANA::CRHD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="WERKS"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="OBJID"/>
+        <viewAttribute id="EndDate"/>
+        <viewAttribute id="startDate"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJID" source="OBJID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EndDate" source="EndDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startDate" source="startDate"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJID" source="OBJID"/>
+      </input>
+    <joinAttribute name="OBJID"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="employeeID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="employeeID"/>
+        <keyMapping columnObjectName="Join_1" columnName="employeeID"/>
+      </attribute>
+      <attribute id="workCenter" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="workCenter"/>
+        <keyMapping columnObjectName="Join_1" columnName="workCenter"/>
+      </attribute>
+      <attribute id="OBJID" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OBJID"/>
+        <keyMapping columnObjectName="Join_1" columnName="OBJID"/>
+      </attribute>
+      <attribute id="EndDate" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EndDate"/>
+        <keyMapping columnObjectName="Join_1" columnName="EndDate"/>
+      </attribute>
+      <attribute id="startDate" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="startDate"/>
+        <keyMapping columnObjectName="Join_1" columnName="startDate"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

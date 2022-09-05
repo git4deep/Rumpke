@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::landfillTransferSummaryTonsView" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="landfillTransferSummaryTons"/>
+  <metadata changedAt="2020-11-06 14:11:10.611"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.base::landfillTransferSummaryTons">
+      <resourceUri>rumpke.bi.operations.base::landfillTransferSummaryTons</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="scaleHouseCode"/>
+        <viewAttribute id="scaleHouseType"/>
+        <viewAttribute id="sourceProfitCenter"/>
+        <viewAttribute id="accountType"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="tons"/>
+        <viewAttribute id="disposal"/>
+        <viewAttribute id="surcharge"/>
+        <viewAttribute id="landfillMgmtRevenue"/>
+        <viewAttribute id="fuelSurcharge"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="sourceLineOfBusiness"/>
+        <viewAttribute id="outboundTonsFlag"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="outboundTons" length="19" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;outboundTonsFlag&quot; = 1, &quot;tons&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="outboundLoads" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;outboundTonsFlag&quot; = 1, 1, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="inboundTons" length="19" scale="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;outboundTonsFlag&quot; = 0 or isnull(&quot;outboundTonsFlag&quot;) =1, &quot;tons&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="inboundLoads" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;outboundTonsFlag&quot; = 0  or isnull(&quot;outboundTonsFlag&quot;) = 1, 1, 0)</formula>
+        </calculatedViewAttribute>
+      
+      <calculatedViewAttribute id="tonnageActual" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;tons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="tonnageForecast" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;tons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="outboundTonsForecast" datatype="DECIMAL" length="19" scale="4" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;outboundTons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="outboundTonsActual" datatype="DECIMAL" length="19" scale="4" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;outboundTons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="outboundLoadsForecast" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;outboundLoads&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="outboundLoadsActual" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;outboundLoads&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="inboundTonsForecast" datatype="DECIMAL" length="19" scale="4" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;inboundTons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="inboundTonsActual" datatype="DECIMAL" length="19" scale="4" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;inboundTons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="inboundLoadsForecast" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;inboundLoads&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="inboundLoadsActual" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;inboundLoads&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="fuelSurchargeForecast" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;fuelSurcharge&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="fuelSurchargeActual" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;fuelSurcharge&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="landfillMgmtRevenueForecast" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;landfillMgmtRevenue&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="landfillMgmtRevenueActual" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;landfillMgmtRevenue&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="disposalForecast" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;disposal&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="disposalActual" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;disposal&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="surchargeForecast" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Forecast' THEN &quot;surcharge&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="surchargeActual" datatype="DECIMAL" length="18" scale="2" expressionLanguage="SQL">
+        <formula>CASE WHEN &quot;versions&quot; = 'Actual' THEN &quot;surcharge&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+      <input node="rumpke.bi.operations.base::landfillTransferSummaryTons"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="accountType" hidden="true" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="accountType"/>
+      </attribute>
+      <attribute id="accountGroup" hidden="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Group"/>
+        <keyMapping columnObjectName="Projection_1" columnName="accountGroup"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year/Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="materialClass" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Class"/>
+        <keyMapping columnObjectName="Projection_1" columnName="materialClass"/>
+      </attribute>
+      <attribute id="profitCenter" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="scaleHouseCode" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Scale House Code"/>
+        <keyMapping columnObjectName="Projection_1" columnName="scaleHouseCode"/>
+      </attribute>
+      <attribute id="scaleHouseType" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Scale House Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="scaleHouseType"/>
+      </attribute>
+      <attribute id="sourceProfitCenter" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Source Profit Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="sourceProfitCenter"/>
+      </attribute>
+      <attribute id="sourceLineOfBusiness" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Source Line Of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="sourceLineOfBusiness"/>
+      </attribute>
+      <attribute id="versions" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Projection_1" columnName="versions"/>
+      </attribute>
+    
+      <attribute id="tonnageActual" order="68" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="tonnageActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="tonnageActual"/>
+      </attribute>
+      <attribute id="tonnageForecast" order="69" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="tonnageForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="tonnageForecast"/>
+      </attribute>
+      <attribute id="outboundTonsForecast" order="70" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="outboundTonsForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="outboundTonsForecast"/>
+      </attribute>
+      <attribute id="outboundTonsActual" order="71" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="outboundTonsActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="outboundTonsActual"/>
+      </attribute>
+      <attribute id="outboundLoadsForecast" order="72" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="outboundLoadsForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="outboundLoadsForecast"/>
+      </attribute>
+      <attribute id="outboundLoadsActual" order="73" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="outboundLoadsActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="outboundLoadsActual"/>
+      </attribute>
+      <attribute id="inboundTonsForecast" order="74" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="inboundTonsForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="inboundTonsForecast"/>
+      </attribute>
+      <attribute id="inboundTonsActual" order="75" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="inboundTonsActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="inboundTonsActual"/>
+      </attribute>
+      <attribute id="inboundLoadsForecast" order="76" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="inboundLoadsForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="inboundLoadsForecast"/>
+      </attribute>
+      <attribute id="inboundLoadsActual" order="77" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="inboundLoadsActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="inboundLoadsActual"/>
+      </attribute>
+      <attribute id="fuelSurchargeForecast" order="78" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="fuelSurchargeForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fuelSurchargeForecast"/>
+      </attribute>
+      <attribute id="fuelSurchargeActual" order="79" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="fuelSurchargeActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fuelSurchargeActual"/>
+      </attribute>
+      <attribute id="landfillMgmtRevenueForecast" order="80" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="landfillMgmtRevenueForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="landfillMgmtRevenueForecast"/>
+      </attribute>
+      <attribute id="landfillMgmtRevenueActual" order="81" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="landfillMgmtRevenueActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="landfillMgmtRevenueActual"/>
+      </attribute>
+      <attribute id="disposalForecast" order="82" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="disposalForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="disposalForecast"/>
+      </attribute>
+      <attribute id="disposalActual" order="83" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="disposalActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="disposalActual"/>
+      </attribute>
+      <attribute id="surchargeForecast" order="84" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="surchargeForecast"/>
+        <keyMapping columnObjectName="Projection_1" columnName="surchargeForecast"/>
+      </attribute>
+      <attribute id="surchargeActual" order="85" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="surchargeActual"/>
+        <keyMapping columnObjectName="Projection_1" columnName="surchargeActual"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="priorMonth" hidden="false" order="61" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month - For Live Projections"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="10">
+          <formula>leftstr(string(addmonths(now(), -1)),4) + '0' + rightstr(leftstr(string(addmonths(now(), -1)),7),2)</formula>
+        </keyCalculation>
+        </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="tons" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="tons"/>
+      </measure>
+      <measure id="disposal" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Disposal"/>
+        <measureMapping columnObjectName="Projection_1" columnName="disposal"/>
+      </measure>
+      <measure id="surcharge" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Surcharge"/>
+        <measureMapping columnObjectName="Projection_1" columnName="surcharge"/>
+      </measure>
+      <measure id="landfillMgmtRevenue" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Landfill Mgmt Revenue"/>
+        <measureMapping columnObjectName="Projection_1" columnName="landfillMgmtRevenue"/>
+      </measure>
+      <measure id="fuelSurcharge" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Surcharge"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelSurcharge"/>
+      </measure>
+      <measure id="outboundTons" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Outbound Tons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="outboundTons"/>
+      </measure>
+      <measure id="outboundLoads" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Outbound Loads"/>
+        <measureMapping columnObjectName="Projection_1" columnName="outboundLoads"/>
+      </measure>
+      <measure id="inboundTons" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Inbound Tons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="inboundTons"/>
+      </measure>
+      <measure id="inboundLoads" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Inbound Loads"/>
+        <measureMapping columnObjectName="Projection_1" columnName="inboundLoads"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="cubicYardsConsumedActual" hidden="false" order="47" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Cubic Yards Consumed - Actual"/>
+        <formula>round(round((&quot;tonnageActual&quot; / 0.8),0),2)</formula>
+      
+        </measure>
+      <measure id="cubicYardsConsumedBudget" hidden="false" order="48" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Cubic Yards Consumed - Budget"/>
+        <formula>rounD(round((&quot;tonnageBudget&quot; / 0.8),0),2)</formula>
+      
+        </measure>
+      <measure id="cubicYardsConsumedForecast" hidden="false" order="50" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Cubic Yards Consumed - Forecast"/>
+        <formula>round(round((&quot;tonnageForecast&quot; / 0.8),0),2)</formula>
+      
+        </measure>
+      <measure id="cubicYardsConsumedProjection" hidden="false" order="51" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Cubic Yards Consumed - Forecast"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;cubicYardsConsumedForecast&quot;, &quot;cubicYardsConsumedActual&quot;)</formula>
+      
+        </measure>
+      <measure id="tonnageProjection" hidden="false" order="52" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Tonnage - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;tonnageForecast&quot;, &quot;tonnageActual&quot;)</formula>
+      
+        </measure>
+      <measure id="outboundTonsProjection" hidden="false" order="53" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Outbound Tons - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;outboundTonsForecast&quot;, &quot;outboundTonsActual&quot;)</formula>
+      
+        </measure>
+      <measure id="outboundLoadsProjection" hidden="false" order="54" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Outbound Loads - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;outboundLoadsForecast&quot;, &quot;outboundLoadsActual&quot;)</formula>
+      
+        </measure>
+      <measure id="inboundTonsProjection" hidden="false" order="55" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Inbound Tons - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;inboundTonsForecast&quot;, &quot;inboundTonsActual&quot;)</formula>
+      
+        </measure>
+      <measure id="inboundLoadsProjection" hidden="false" order="56" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Inbound Loads - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;inboundLoadsForecast&quot;, &quot;inboundLoadsActual&quot;)</formula>
+      
+        </measure>
+      <measure id="fuelSurchargeProjection" hidden="false" order="57" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Fuel Surcharge - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;fuelSurchargeForecast&quot;, &quot;fuelSurchargeActual&quot;)</formula>
+      
+        </measure>
+      <measure id="landfillMgmtRevenueProjection" hidden="false" order="58" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Landfill Management Revenue - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;landfillMgmtRevenueForecast&quot;, &quot;landfillMgmtRevenueActual&quot;)</formula>
+      
+        </measure>
+      <measure id="disposalProjection" hidden="false" order="59" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Disposal - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;disposalForecast&quot;, &quot;disposalActual&quot;)</formula>
+      
+        </measure>
+      <measure id="surchargeProjection" hidden="false" order="60" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Surcharge - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;surchargeForecast&quot;, &quot;surchargeActual&quot;)</formula>
+      
+        </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="tonnageActual_1" hidden="false" order="17" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnageBudget" hidden="false" order="18" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnageForecast_1" hidden="false" order="20" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="outboundTonsActual_1" hidden="false" order="21" baseMeasure="outboundTons" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Outbound Tons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="outboundTonsBudget" hidden="false" order="22" baseMeasure="outboundTons" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Outbound Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="outboundTonsForecast_1" hidden="false" order="24" baseMeasure="outboundTons" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Outbound Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="outboundLoadsActual_1" hidden="false" order="25" baseMeasure="outboundLoads" datatype="INTEGER">
+        <descriptions defaultDescription="Outbound Loads - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="outboundLoadsBudget" hidden="false" order="26" baseMeasure="outboundLoads" datatype="INTEGER">
+        <descriptions defaultDescription="Outbound Loads - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="outboundLoadsForecast_1" hidden="false" order="27" baseMeasure="outboundLoads" datatype="INTEGER">
+        <descriptions defaultDescription="Outbound Loads - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="inboundTonsActual_1" hidden="false" order="30" baseMeasure="inboundTons" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Inbound Tons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="inboundTonsBudget" hidden="false" order="31" baseMeasure="inboundTons" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Inbound Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="inboundTonsForecast_1" hidden="false" order="32" baseMeasure="inboundTons" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Inbound Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="inboundLoadsActual_1" hidden="false" order="33" baseMeasure="inboundLoads" datatype="INTEGER">
+        <descriptions defaultDescription="Inbound Loads - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="inboundLoadsBudget" hidden="false" order="34" baseMeasure="inboundLoads" datatype="INTEGER">
+        <descriptions defaultDescription="Inbound Loads - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="inboundLoadsForecast_1" hidden="false" order="35" baseMeasure="inboundLoads" datatype="INTEGER">
+        <descriptions defaultDescription="Inbound Loads - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="fuelSurchargeActual_1" hidden="false" order="36" baseMeasure="fuelSurcharge" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Fuel Surcharge - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="fuelSurchargeBudget" hidden="false" order="37" baseMeasure="fuelSurcharge" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Fuel Surcharge - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="fuelSurchargeForecast_1" hidden="false" order="38" baseMeasure="fuelSurcharge" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Fuel Surcharge - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="landfillMgmtRevenueActual_1" hidden="false" order="39" baseMeasure="landfillMgmtRevenue" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Landfill Management Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="landfillMgmtRevenueBudget" hidden="false" order="40" baseMeasure="landfillMgmtRevenue" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Landfill Management Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="landfillMgmtRevenueForecast_1" hidden="false" order="41" baseMeasure="landfillMgmtRevenue" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Landfill Management Revenue - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="disposalActual_1" hidden="false" order="42" baseMeasure="disposal" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Disposal - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="disposalBudget" hidden="false" order="43" baseMeasure="disposal" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Disposal - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="disposalForecast_1" hidden="false" order="44" baseMeasure="disposal" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Disposal - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="surchargeActual_1" hidden="false" order="45" baseMeasure="surcharge" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Surcharge - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="surchargeBudget" hidden="false" order="46" baseMeasure="surcharge" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Surcharge - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="surchargeForecast_1" hidden="false" order="49" baseMeasure="surcharge" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Surcharge - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnage3PActual" hidden="false" order="62" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage 3rd Party - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="THIRD PARTY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnage3PBudget" hidden="false" order="63" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage 3rd Party - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="THIRD PARTY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnage3PForecast" hidden="false" order="64" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage 3rd Party - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="THIRD PARTY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnageICActual" hidden="false" order="65" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage Intercompany - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INTERCOMPANY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnageICBudget" hidden="false" order="66" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage Intercompany - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INTERCOMPANY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+      <measure id="tonnageICForecast" hidden="false" order="67" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage Intercompany - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INTERCOMPANY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+        </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="92" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

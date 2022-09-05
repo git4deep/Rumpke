@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::landfillTransferSummaryTons" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Landfill Transfer Summary Tons"/>
+  <metadata changedAt="2020-11-06 14:37:33.742"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="31"/>
+  <dataSources>
+    <DataSource id="data_LandfillTransferSummaryTons">
+      <resourceUri>rumpke.bi.operations.base.mssql::data_LandfillTransferSummaryTons</resourceUri>
+    </DataSource>
+    <DataSource id="planningTransferTons">
+      <resourceUri>rumpke.bi.operations.base::planningTransferTons</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="scaleHouseCode"/>
+        <viewAttribute id="scaleHouseType"/>
+        <viewAttribute id="sourceProfitCenter"/>
+        <viewAttribute id="sourceLineOfBusiness"/>
+        <viewAttribute id="accountType"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="tons"/>
+        <viewAttribute id="disposal"/>
+        <viewAttribute id="surcharge"/>
+        <viewAttribute id="landfillMgmtRevenue"/>
+        <viewAttribute id="fuelSurcharge"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="outboundTonsFlag" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;sourceLineOfBusiness&quot; = 'TR' and &quot;profitCenter&quot;!= &quot;sourceProfitCenter&quot;, 1, 0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="data_LandfillTransferSummaryTons">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="FiscalMonthID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="ProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="LOB_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="versions" source="Version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scaleHouseCode" source="ScaleHouseCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scaleHouseType" source="ScaleHouseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sourceProfitCenter" source="Source_ProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sourceLineOfBusiness" source="Source_LOB_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountType" source="AccountType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="AccountGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialClass" source="MaterialClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tons" source="Tons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposal" source="Disposal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="surcharge" source="Surcharge"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillMgmtRevenue" source="LandfillMgmtRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelSurcharge" source="FuelSurcharge"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="tons"/>
+        <viewAttribute id="customerProfitCenter"/>
+        <viewAttribute id="customerLineOfBusiness"/>
+        <viewAttribute id="accountType"/>
+        <viewAttribute id="outboundTonsFlag"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="planningTransferTons"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="scaleHouseCode"/>
+        <viewAttribute id="scaleHouseType"/>
+        <viewAttribute id="sourceProfitCenter"/>
+        <viewAttribute id="sourceLineOfBusiness"/>
+        <viewAttribute id="accountType"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="disposal"/>
+        <viewAttribute id="surcharge"/>
+        <viewAttribute id="landfillMgmtRevenue"/>
+        <viewAttribute id="fuelSurcharge"/>
+        <viewAttribute id="tons"/>
+        <viewAttribute id="outboundTonsFlag"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="versions" source="versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scaleHouseCode" source="scaleHouseCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scaleHouseType" source="scaleHouseType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sourceProfitCenter" source="sourceProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sourceLineOfBusiness" source="sourceLineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountType" source="accountType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="accountGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialClass" source="materialClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposal" source="disposal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="surcharge" source="surcharge"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="landfillMgmtRevenue" source="landfillMgmtRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelSurcharge" source="fuelSurcharge"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tons" source="tons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundTonsFlag" source="outboundTonsFlag"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="versions" source="versions"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="scaleHouseCode" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="scaleHouseType" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sourceProfitCenter" source="customerProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sourceLineOfBusiness" source="customerLineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountType" source="accountType"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accountGroup" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="materialClass" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="disposal" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="surcharge" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="landfillMgmtRevenue" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelSurcharge" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tons" source="tons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundTonsFlag" source="outboundTonsFlag"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="profitCenter" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="versions" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="versions"/>
+        <keyMapping columnObjectName="Union_1" columnName="versions"/>
+      </attribute>
+      <attribute id="scaleHouseCode" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="scaleHouseCode"/>
+        <keyMapping columnObjectName="Union_1" columnName="scaleHouseCode"/>
+      </attribute>
+      <attribute id="scaleHouseType" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="scaleHouseType"/>
+        <keyMapping columnObjectName="Union_1" columnName="scaleHouseType"/>
+      </attribute>
+      <attribute id="sourceProfitCenter" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sourceProfitCenter"/>
+        <keyMapping columnObjectName="Union_1" columnName="sourceProfitCenter"/>
+      </attribute>
+      <attribute id="sourceLineOfBusiness" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sourceLineOfBusiness"/>
+        <keyMapping columnObjectName="Union_1" columnName="sourceLineOfBusiness"/>
+      </attribute>
+      <attribute id="accountType" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="accountType"/>
+        <keyMapping columnObjectName="Union_1" columnName="accountType"/>
+      </attribute>
+      <attribute id="accountGroup" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="accountGroup"/>
+        <keyMapping columnObjectName="Union_1" columnName="accountGroup"/>
+      </attribute>
+      <attribute id="materialClass" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="materialClass"/>
+        <keyMapping columnObjectName="Union_1" columnName="materialClass"/>
+      </attribute>
+      <attribute id="outboundTonsFlag" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="outboundTonsFlag"/>
+        <keyMapping columnObjectName="Union_1" columnName="outboundTonsFlag"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="disposal" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="disposal"/>
+        <measureMapping columnObjectName="Union_1" columnName="disposal"/>
+      </measure>
+      <measure id="surcharge" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="surcharge"/>
+        <measureMapping columnObjectName="Union_1" columnName="surcharge"/>
+      </measure>
+      <measure id="landfillMgmtRevenue" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="landfillMgmtRevenue"/>
+        <measureMapping columnObjectName="Union_1" columnName="landfillMgmtRevenue"/>
+      </measure>
+      <measure id="fuelSurcharge" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelSurcharge"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelSurcharge"/>
+      </measure>
+      <measure id="tons" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tons"/>
+        <measureMapping columnObjectName="Union_1" columnName="tons"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="221" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="356"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="356"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

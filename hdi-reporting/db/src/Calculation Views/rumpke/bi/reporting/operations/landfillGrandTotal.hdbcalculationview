@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.operations::landfillGrandTotal" applyPrivilegeType="SQL_ANALYTIC_PRIVILEGE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Landfill Version Detail"/>
+  <metadata changedAt="2020-07-20 10:10:23.119"/>
+  <localVariables>
+    <variable id="fiscalYearPeriodFrom" parameter="true">
+      <descriptions defaultDescription="Fiscal Year / Period From"/>
+      <variableProperties datatype="NVARCHAR" defaultExpressionLanguage="COLUMN_ENGINE" length="7" mandatory="true" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeDimensionValueHelp</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalYearPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>leftstr(string(now()),4) + '001'</defaultExpression>
+      </variableProperties>
+    </variable>
+    <variable id="fiscalYearPeriodTo" parameter="true">
+      <descriptions defaultDescription="Fiscal Year / Period To"/>
+      <variableProperties datatype="NVARCHAR" defaultExpressionLanguage="COLUMN_ENGINE" length="7" mandatory="true" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeDimensionValueHelp</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalYearPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>leftstr(string(now()),4) + '0' +rightstr(leftstr(string(now()),7),2)</defaultExpression>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.operations.reuse::landfillVersionDetail">
+      <targetVariable name="fiscalYearPeriodFrom" resourceUri="rumpke.bi.operations.reuse::landfillVersionDetail"/>
+      <localVariable>fiscalYearPeriodFrom</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.operations.reuse::landfillVersionDetail">
+      <targetVariable name="fiscalYearPeriodTo" resourceUri="rumpke.bi.operations.reuse::landfillVersionDetail"/>
+      <localVariable>fiscalYearPeriodTo</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="21"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.reuse::landfillVersionDetail">
+      <resourceUri>rumpke.bi.operations.reuse::landfillVersionDetail</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="rumpke.bi.operations.reuse::landfillVersionDetail">
+    <descriptions/>
+    <attributes>
+      <attribute id="area" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="district" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line Of Business"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="region" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subdistrict"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subdistrict Description"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="version" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="version"/>
+      </attribute>
+      <attribute id="versionKey" order="50" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version Key"/>
+        <keyMapping columnObjectName="landfillVersionDetail" columnName="versionKey"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="allOtherCosts" order="14" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Other Income, Interests and Amorization"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="allOtherCosts"/>
+      </measure>
+      <measure id="capexCostsPerCapexCubicYards" order="15" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="CAPEX $ per CAPEX Cubic Yards"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="capexCostsPerCapexCubicYards"/>
+      </measure>
+      <measure id="compactorTons" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Tons"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="compactorTons"/>
+      </measure>
+      <measure id="costOfOperations" order="17" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Cost of Operations"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="costOfOperations"/>
+      </measure>
+      <measure id="coverPercentage" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Daily Cover (% of Consumed Yards Consumed)"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="coverPercentage"/>
+      </measure>
+      <measure id="cubicYardsPerLoad" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cubic Yards per Load"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="cubicYardsPerLoad"/>
+      </measure>
+      <measure id="cubicYardsConsumed" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cubic Yards Consumed"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="cubicYardsConsumed"/>
+      </measure>
+      <measure id="ebitdaTarget" order="21" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="EBITDA Target"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="ebitdaTarget"/>
+      </measure>
+      <measure id="ebitdaTargetPercentageOfTotalRevenue" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target (% of Total Revenue)"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="ebitdaTargetPercentageOfTotalRevenue"/>
+      </measure>
+      <measure id="totalRevenue" order="23" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Total Revenue"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="totalRevenue"/>
+      </measure>
+      <measure id="compactorTonsPerHour" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Tons per Hour"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="compactorTonsPerHour"/>
+      </measure>
+      <measure id="equipmentCostPerHour" order="25" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Equipment Cost per Hour"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="equipmentCostPerHour"/>
+      </measure>
+      <measure id="equipmentRepairCostPerHour" order="26" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Equip Maint $/Hr "/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="equipmentRepairCostPerHour"/>
+      </measure>
+      <measure id="equipmentRepairCost" order="27" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Equip Maint $"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="equipmentRepairCost"/>
+      </measure>
+      <measure id="expenseCubicYards" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Expense Cubic Yards"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="expenseCubicYards"/>
+      </measure>
+      <measure id="excavatorLoaderTons" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavator Loader tons"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="excavatorLoaderTons"/>
+      </measure>
+      <measure id="fuelCostPerHour" order="30" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Fuel Cost per Hour"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="fuelCostPerHour"/>
+      </measure>
+      <measure id="fuelCost" order="31" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Fuel Cost"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="fuelCost"/>
+      </measure>
+      <measure id="loadsPerHour" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads per Hour"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="loadsPerHour"/>
+      </measure>
+      <measure id="ownershipCost" order="33" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Ownership Cost"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="ownershipCost"/>
+      </measure>
+      <measure id="ownershipCostPerHour" order="34" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Ownership Cost per Hour"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="ownershipCostPerHour"/>
+      </measure>
+      <measure id="payrollHours" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Payroll Hours"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="payrollHours"/>
+      </measure>
+      <measure id="productivityDailyCover" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Productivity Daily Cover"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="productivityDailyCover"/>
+      </measure>
+      <measure id="totalNetRevenue" order="37" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Net Revenue"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="totalNetRevenue"/>
+      </measure>
+      <measure id="tonnage" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="tonnage"/>
+      </measure>
+      <measure id="totalNetLaborCost" order="39" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Net Labor Cost"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="totalNetLaborCost"/>
+      </measure>
+      <measure id="totalNetEquipmentCost" order="40" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Total Net Equipment Cost"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="totalNetEquipmentCost"/>
+      </measure>
+      <measure id="tonnagePerEquipmentHour" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage per Equipment Hour"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="tonnagePerEquipmentHour"/>
+      </measure>
+      <measure id="equipmentHours" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Hours"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="equipmentHours"/>
+      </measure>
+      <measure id="totalOtherLandfillExpenses" order="43" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Other Operating Expenses"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="totalOtherLandfillExpenses"/>
+      </measure>
+      <measure id="totalLandfillOperatingExpense" order="44" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Total Landfill Operating Expense"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="totalLandfillOperatingExpense"/>
+      </measure>
+      <measure id="compactorHours" order="45" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Hours"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="compactorHours"/>
+      </measure>
+      <measure id="excavatorLoaderHours" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavator Loader Hours"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="excavatorLoaderHours"/>
+      </measure>
+      <measure id="capexCost" order="47" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="CAPEX Cost"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="capexCost"/>
+      </measure>
+      <measure id="capexCubicYards" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Cubic Yards"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="capexCubicYards"/>
+      </measure>
+      <measure id="loads" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="loads"/>
+      </measure>
+      <measure id="equipmentHoursPercentageOfPayroll" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Hours % of Payroll Hours"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="equipmentHoursPercentageOfPayroll"/>
+      </measure>
+      <measure id="excavatedCubicYards" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavated Cubic Yards"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="excavatedCubicYards"/>
+      </measure>
+      <measure id="truckHours" order="53" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="truckHours"/>
+      </measure>
+      <measure id="operatingIncome" order="54" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Operating Income"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="operatingIncome"/>
+      </measure>
+      <measure id="equipmentCost" order="55" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Equipment Cost"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="equipmentCost"/>
+      </measure>
+      <measure id="siteandCellAmortization" order="56" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cell Amortization"/>
+        <measureMapping columnObjectName="landfillVersionDetail" columnName="siteandCellAmortization"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

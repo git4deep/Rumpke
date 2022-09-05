@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.time::timeDimensionQuarterInput" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="timeDimensionQuarterInput"/>
+  <metadata changedAt="2021-01-15 13:49:36.123"/>
+  <localVariables>
+    <variable id="ipQuarter" parameter="true">
+      <descriptions defaultDescription="ipQuarter"/>
+      <variableProperties datatype="VARCHAR" defaultValue="2020Q3" length="7" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.data.proc::timeAttributesQuarterInput" type="TABLE_FUNCTION">
+      <resourceUri>rumpke.bi.data.proc::timeAttributesQuarterInput</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="rumpke.bi.data.proc::timeAttributesQuarterInput">
+    <descriptions/>
+    <attributes>
+      <attribute id="date" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="date"/>
+      </attribute>
+      <attribute id="dateSAP" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date (SAP Format)"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="dateSAP"/>
+      </attribute>
+      <attribute id="year" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="year"/>
+      </attribute>
+      <attribute id="yearInt" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year (Integer)"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="yearInt"/>
+      </attribute>
+      <attribute id="quarter" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Quarter"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="quarter"/>
+      </attribute>
+      <attribute id="quarterInt" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Quarter (Integer)"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="quarterInt"/>
+      </attribute>
+      <attribute id="calQuarter" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="month" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="month"/>
+      </attribute>
+      <attribute id="monthInt" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month Integer"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="monthInt"/>
+      </attribute>
+      <attribute id="calMonth" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (YYYYMM)"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="calMonth"/>
+      </attribute>
+      <attribute id="calendarMonth" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (YYYY-MM)"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="calendarMonth"/>
+      </attribute>
+      <attribute id="calendarMonthDesc" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month Desc"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="calendarMonthDesc"/>
+      </attribute>
+      <attribute id="monthName" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month Name"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="monthName"/>
+      </attribute>
+      <attribute id="rollingYearNo" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Year Number (Current Year = 0)"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="rollingYearNo"/>
+      </attribute>
+      <attribute id="ytd" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year to Date"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="ytd"/>
+      </attribute>
+      <attribute id="rollingMonthNo" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Month Number (Current Month = 0)"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="rollingMonthNo"/>
+      </attribute>
+      <attribute id="QTD" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QTD"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="QTD"/>
+      </attribute>
+      <attribute id="yearQuarter" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="yearQuarter"/>
+        <keyMapping columnObjectName="timeAttributesQuarterInput" columnName="yearQuarter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

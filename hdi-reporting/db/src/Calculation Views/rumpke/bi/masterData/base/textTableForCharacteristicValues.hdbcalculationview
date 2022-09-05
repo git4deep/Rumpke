@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::textTableForCharacteristicValues" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Text Table For Characteristic Values"/>
+  <metadata changedAt="2019-10-30 12:07:01.818"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="40"/>
+  <dataSources>
+    <DataSource id="T25A3">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T25A3</resourceUri>
+    </DataSource>
+    <DataSource id="T25A4">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T25A4</resourceUri>
+    </DataSource>
+    <DataSource id="T25A5">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T25A5</resourceUri>
+    </DataSource>
+    <DataSource id="T25A6">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T25A6</resourceUri>
+    </DataSource>
+    <DataSource id="TFKBT">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::TFKBT</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="nameofCharacteristicValue"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T25A3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPa" source="WWDC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofCharacteristicValue" source="BEZEK"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="nameofCharacteristicValue"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T25A4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="WWORD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofCharacteristicValue" source="BEZEK"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="nameofCharacteristicValue"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T25A5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeMaterialGrp" source="WWMTG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofCharacteristicValue" source="BEZEK"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="nameofCharacteristicValue"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T25A6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractType" source="WWCNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofCharacteristicValue" source="BEZEK"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="TFKBT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="FKBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofTheFunctionalArea" source="FKBTX"/>
+      </input>
+    <filter>(&quot;languageKey&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="nameofCharacteristicValue"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_1">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="orderType" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="rumpkeMaterialGrp" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="contractType" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="functionalArea" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nameofTheFunctionalArea" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPa" source="distributionChannelPa"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofCharacteristicValue" source="nameofCharacteristicValue"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_2">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="distributionChannelPa" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="rumpkeMaterialGrp" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="contractType" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="functionalArea" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nameofTheFunctionalArea" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofCharacteristicValue" source="nameofCharacteristicValue"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_3">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="distributionChannelPa" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="orderType" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="contractType" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="functionalArea" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nameofTheFunctionalArea" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeMaterialGrp" source="rumpkeMaterialGrp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofCharacteristicValue" source="nameofCharacteristicValue"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_4">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="distributionChannelPa" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="orderType" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="rumpkeMaterialGrp" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="functionalArea" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nameofTheFunctionalArea" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="contractType" source="contractType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofCharacteristicValue" source="nameofCharacteristicValue"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_5">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="distributionChannelPa" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="nameofCharacteristicValue" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="orderType" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="rumpkeMaterialGrp" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="contractType" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofTheFunctionalArea" source="nameofTheFunctionalArea"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Union_1" columnName="client"/>
+      </attribute>
+      <attribute id="languageKey" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="Union_1" columnName="languageKey"/>
+      </attribute>
+      <attribute id="distributionChannelPa" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel Pa"/>
+        <keyMapping columnObjectName="Union_1" columnName="distributionChannelPa"/>
+      </attribute>
+      <attribute id="nameofCharacteristicValue" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name of Characteristic Value"/>
+        <keyMapping columnObjectName="Union_1" columnName="nameofCharacteristicValue"/>
+      </attribute>
+      <attribute id="orderType" key="true" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Type"/>
+        <keyMapping columnObjectName="Union_1" columnName="orderType"/>
+      </attribute>
+      <attribute id="rumpkeMaterialGrp" key="true" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rumpke Material Grp"/>
+        <keyMapping columnObjectName="Union_1" columnName="rumpkeMaterialGrp"/>
+      </attribute>
+      <attribute id="contractType" key="true" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Contract Type"/>
+        <keyMapping columnObjectName="Union_1" columnName="contractType"/>
+      </attribute>
+      <attribute id="functionalArea" key="true" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="Union_1" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="nameofTheFunctionalArea" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name of The Functional Area"/>
+        <keyMapping columnObjectName="Union_1" columnName="nameofTheFunctionalArea"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="350" y="60"/></shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="-50" y="350"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="150" y="370"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="350" y="370"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="540" y="340"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="730" y="340"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="350" y="160"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

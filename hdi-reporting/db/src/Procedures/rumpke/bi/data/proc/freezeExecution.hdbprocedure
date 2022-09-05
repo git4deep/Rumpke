@@ -1,0 +1,8 @@
+PROCEDURE "rumpke.bi.data.proc::freezeExecution" ( )
+    LANGUAGE SQLSCRIPT
+    SQL SECURITY INVOKER AS
+	--READS SQL DATA AS
+BEGIN
+   call "rumpke.bi.data.proc::incomeStatementFreeze_SP" (0);
+   call "rumpke.bi.data.proc::operationalDataFreeze_SP" (0);
+END

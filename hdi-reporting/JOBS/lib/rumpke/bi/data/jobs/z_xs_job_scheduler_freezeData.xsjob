@@ -1,0 +1,10 @@
+{
+    "description": "Job to create a freeze point for income statement and operational data",
+    "action": "rumpke.bi.data.proc::freezeExecution",
+    "schedules": [
+       {
+          "description": "Schedule for the freeze of data for planning",
+          "xscron": "* * * * */4 5 20"        
+       }
+    ]
+}

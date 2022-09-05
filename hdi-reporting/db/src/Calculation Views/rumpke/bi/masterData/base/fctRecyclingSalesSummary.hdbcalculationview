@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::fctRecyclingSalesSummary" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Fact Recycling Sales Summary"/>
+  <metadata changedAt="2019-09-04 13:36:37.42"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="MSSQL::FctRecyclingSalesSummary">
+      <resourceUri>MSSQL::FctRecyclingSalesSummary</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="MSSQL::FctRecyclingSalesSummary">
+    <descriptions/>
+    <attributes>
+      <attribute id="recyclingSalesSummarySK" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Recycling Sales Summary SK"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="RecyclingSalesSummarySK"/>
+      </attribute>
+      <attribute id="materialSK" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="materialSK"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="MaterialSK"/>
+      </attribute>
+      <attribute id="fiscalMonthSK" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Month SK"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="FiscalMonthSK"/>
+      </attribute>
+      <attribute id="marketSK" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Market SK"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="MarketSK"/>
+      </attribute>
+      <attribute id="lineOfBusinessSK" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line Of Business SK"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="LineOfBusinessSK"/>
+      </attribute>
+      <attribute id="version" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="Version"/>
+      </attribute>
+      <attribute id="actualInd" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Actual Ind"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="ActualInd"/>
+      </attribute>
+      <attribute id="budgetInd" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Budget Ind"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="BudgetInd"/>
+      </attribute>
+      <attribute id="reportingMarketInd" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Reporting Market Ind"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="ReportingMarketInd"/>
+      </attribute>
+      <attribute id="recyclingSales" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Recycling Sales"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="RecyclingSales"/>
+      </attribute>
+      <attribute id="recyclingTons" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Recycling Tons"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="RecyclingTons"/>
+      </attribute>
+      <attribute id="sourceSystem" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Source System"/>
+        <keyMapping columnObjectName="FctRecyclingSalesSummary" columnName="Source_System"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

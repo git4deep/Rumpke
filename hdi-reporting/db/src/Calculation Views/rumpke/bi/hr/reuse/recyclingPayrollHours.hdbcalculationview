@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.hr.reuse::recyclingPayrollHours" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="recyclingPayrollHours"/>
+  <metadata changedAt="2021-03-04 10:40:53.388"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="29"/>
+  <dataSources>
+    <DataSource id="payrollHours">
+      <resourceUri>rumpke.bi.hr.reuse::payrollHours</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::accountGroup">
+      <resourceUri>rumpke.bi.masterData.reuse::accountGroup</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="nonEmployeeLaborHoursActual"/>
+        <viewAttribute id="accrualLaborHoursIndirectActual"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectActual"/>
+        <viewAttribute id="accrualLaborCostIndirectActual"/>
+        <viewAttribute id="accrualLaborHoursDirectActual"/>
+        <viewAttribute id="accrualLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborHoursDirectActual"/>
+        <viewAttribute id="employeeLaborHoursIndirectActual"/>
+        <viewAttribute id="employeeLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborCostIndirectActual"/>
+        <viewAttribute id="employeeLaborHoursDirectBudget"/>
+        <viewAttribute id="employeeLaborHoursIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborHoursBudget"/>
+        <viewAttribute id="employeeLaborCostDirectBudget"/>
+        <viewAttribute id="employeeLaborCostIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectBudget"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="employeeLaborHoursDirectForecast"/>
+        <viewAttribute id="employeeLaborHoursIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborHoursForecast"/>
+        <viewAttribute id="employeeLaborCostDirectForecast"/>
+        <viewAttribute id="employeeLaborCostIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectForecast"/>
+        <viewAttribute id="forecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="actualSum" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;actual&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="budgetSum" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;budget&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="forecastSum" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;forecast&quot;</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="TotalEmployeeWagesActuals" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>(&quot;accrualLaborCostIndirectActual&quot;+&quot;accrualLaborCostDirectActual&quot;+&quot;employeeLaborCostDirectActual&quot;+&quot;employeeLaborCostIndirectActual&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="payrollHours"/>
+    <filter>(&quot;lineOfBusiness&quot; ='RE')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="subordinatesetID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::accountGroup">
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="fromValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroupDescription" source="shortDescriptionofaSet"/></input>
+    <filter>(&quot;subordinatesetID&quot; ='RECY-MAINTCOSTLABOR')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="nonEmployeeLaborHoursActual"/>
+        <viewAttribute id="accrualLaborHoursIndirectActual"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectActual"/>
+        <viewAttribute id="accrualLaborCostIndirectActual"/>
+        <viewAttribute id="accrualLaborHoursDirectActual"/>
+        <viewAttribute id="accrualLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborHoursDirectActual"/>
+        <viewAttribute id="employeeLaborHoursIndirectActual"/>
+        <viewAttribute id="employeeLaborCostDirectActual"/>
+        <viewAttribute id="employeeLaborCostIndirectActual"/>
+        <viewAttribute id="employeeLaborHoursDirectBudget"/>
+        <viewAttribute id="employeeLaborHoursIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborHoursBudget"/>
+        <viewAttribute id="employeeLaborCostDirectBudget"/>
+        <viewAttribute id="employeeLaborCostIndirectBudget"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectBudget"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="subordinatesetID_1"/>
+        <viewAttribute id="actualSum"/>
+        <viewAttribute id="TotalEmployeeWagesActuals"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="budgetSum"/>
+        <viewAttribute id="employeeLaborHoursDirectForecast"/>
+        <viewAttribute id="employeeLaborHoursIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborHoursForecast"/>
+        <viewAttribute id="employeeLaborCostDirectForecast"/>
+        <viewAttribute id="employeeLaborCostIndirectForecast"/>
+        <viewAttribute id="nonEmployeeLaborCostDirectForecast"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="forecastSum"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDescription" source="costCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursActual" source="nonEmployeeLaborHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHoursIndirectActual" source="accrualLaborHoursIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectActual" source="nonEmployeeLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCostIndirectActual" source="accrualLaborCostIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborHoursDirectActual" source="accrualLaborHoursDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accrualLaborCostDirectActual" source="accrualLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectActual" source="employeeLaborHoursDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectActual" source="employeeLaborHoursIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectActual" source="employeeLaborCostDirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectActual" source="employeeLaborCostIndirectActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectBudget" source="employeeLaborHoursDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectBudget" source="employeeLaborHoursIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursBudget" source="nonEmployeeLaborHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectBudget" source="employeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectBudget" source="employeeLaborCostIndirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectBudget" source="nonEmployeeLaborCostDirectBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterGroup" source="profitCenterGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualSum" source="actualSum"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalEmployeeWagesActuals" source="TotalEmployeeWagesActuals"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetSum" source="budgetSum"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursDirectForecast" source="employeeLaborHoursDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborHoursIndirectForecast" source="employeeLaborHoursIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborHoursForecast" source="nonEmployeeLaborHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostDirectForecast" source="employeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLaborCostIndirectForecast" source="employeeLaborCostIndirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonEmployeeLaborCostDirectForecast" source="nonEmployeeLaborCostDirectForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecastSum" source="forecastSum"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="accountGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroupDescription" source="accountGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID_1" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+      </input>
+    <joinAttribute name="accountNumber"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="Join_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="functionalAreaGroup" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group"/>
+        <keyMapping columnObjectName="Join_1" columnName="functionalAreaGroup"/>
+      </attribute>
+      <attribute id="functionalArea" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="Join_1" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="area" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Join_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="costCenter" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="costCenterDescription" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="costCenterDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line Of Business"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="accountNumber" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="accountNumber"/>
+        <keyMapping columnObjectName="Join_1" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="actual" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="actual"/>
+        <keyMapping columnObjectName="Join_1" columnName="actual"/>
+      </attribute>
+      <attribute id="budget" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="budget"/>
+        <keyMapping columnObjectName="Join_1" columnName="budget"/>
+      </attribute>
+      <attribute id="profitCenterGroup" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Group"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenterGroup"/>
+      </attribute>
+      <attribute id="subordinatesetID" order="38" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subordinate ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="subordinatesetID"/>
+      </attribute>
+      <attribute id="subordinatesetID_1" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subordinatesetID_RECY"/>
+        <keyMapping columnObjectName="Join_1" columnName="subordinatesetID_1"/>
+      </attribute>
+      <attribute id="forecast" order="82" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="forecast"/>
+        <keyMapping columnObjectName="Join_1" columnName="forecast"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="nonEmployeeLaborHoursActual" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Hours - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="nonEmployeeLaborHoursActual"/>
+      </measure>
+      <measure id="accrualLaborHoursIndirectActual" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual Labor Hours Indirect - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="accrualLaborHoursIndirectActual"/>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectActual" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Cost Direct - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="nonEmployeeLaborCostDirectActual"/>
+      </measure>
+      <measure id="accrualLaborCostIndirectActual" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual Labor Cost Indirect - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="accrualLaborCostIndirectActual"/>
+      </measure>
+      <measure id="accrualLaborHoursDirectActual" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual Labor Hours Direct - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="accrualLaborHoursDirectActual"/>
+      </measure>
+      <measure id="accrualLaborCostDirectActual" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Accrual Labor Cost Direct - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="accrualLaborCostDirectActual"/>
+      </measure>
+      <measure id="employeeLaborHoursDirectActual" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborHoursDirectActual"/>
+      </measure>
+      <measure id="employeeLaborHoursIndirectActual" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Indirect - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborHoursIndirectActual"/>
+      </measure>
+      <measure id="employeeLaborCostDirectActual" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Direct - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborCostDirectActual"/>
+      </measure>
+      <measure id="employeeLaborCostIndirectActual" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Indirect - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborCostIndirectActual"/>
+      </measure>
+      <measure id="employeeLaborHoursDirectBudget" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborHoursDirectBudget"/>
+      </measure>
+      <measure id="employeeLaborHoursIndirectBudget" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborHoursIndirectBudget"/>
+      </measure>
+      <measure id="nonEmployeeLaborHoursBudget" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Hours - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="nonEmployeeLaborHoursBudget"/>
+      </measure>
+      <measure id="employeeLaborCostDirectBudget" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Direct - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborCostDirectBudget"/>
+      </measure>
+      <measure id="employeeLaborCostIndirectBudget" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Indirect - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborCostIndirectBudget"/>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectBudget" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Cost Direct - Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="nonEmployeeLaborCostDirectBudget"/>
+      </measure>
+      <measure id="actualSum" order="63" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actuals"/>
+        <measureMapping columnObjectName="Join_1" columnName="actualSum"/>
+      </measure>
+      <measure id="budgetSum" order="64" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="budgetSum"/>
+      </measure>
+      <measure id="employeeLaborHoursDirectForecast" order="75" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborHoursDirectForecast"/>
+      </measure>
+      <measure id="employeeLaborHoursIndirectForecast" order="76" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Hours Direct - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborHoursIndirectForecast"/>
+      </measure>
+      <measure id="nonEmployeeLaborHoursForecast" order="77" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Hours - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="nonEmployeeLaborHoursForecast"/>
+      </measure>
+      <measure id="employeeLaborCostDirectForecast" order="78" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Direct - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborCostDirectForecast"/>
+      </measure>
+      <measure id="employeeLaborCostIndirectForecast" order="79" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Employee Labor Cost Indirect - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="employeeLaborCostIndirectForecast"/>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectForecast" order="81" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Non Employee Labor Cost - Forecast"/>
+        <measureMapping columnObjectName="Join_1" columnName="nonEmployeeLaborCostDirectForecast"/>
+      </measure>
+      <measure id="forecastSum" order="83" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="Join_1" columnName="forecastSum"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="maintenanceCostLaborActual" hidden="false" order="39" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Maintenance Cost Labor - Actual"/>
+        <formula>if( (&quot;functionalArea&quot; = 'RUOPS' and IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')  and &quot;subordinatesetID_1&quot;='RECY-MAINTCOSTLABOR'),(&quot;totalWagesActual&quot;),0)</formula>
+      </measure>
+      <measure id="maintenanceCostLaborBudget" hidden="false" order="40" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Maintenance Cost Labor - Budget"/>
+        <formula>if( (&quot;functionalArea&quot; = 'RUOPS' and IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')  and &quot;subordinatesetID_1&quot;='RECY-MAINTCOSTLABOR'),(&quot;totalWagesBudget&quot;),0)</formula>
+      </measure>
+      <measure id="totalEmployeeLaborHourDirectActual" hidden="false" order="42" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Employee Labor Hour Direct - Actual"/>
+        <formula>if( (IN(&quot;functionalAreaGroup&quot; , 'Operations','OPERATIONS') and IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')  and IN(&quot;accountNumber&quot;,'0061023200','0061103200')),(&quot;employeeLaborHoursDirectActual&quot;+&quot;accrualLaborHoursDirectActual&quot;),0)</formula>
+      </measure>
+      <measure id="totalEmployeeLaborHourDirectBudget" hidden="false" order="43" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Employee Labor Hour Direct - Budget"/>
+        <formula>if( (IN(&quot;functionalAreaGroup&quot; , 'Operations','OPERATIONS') and IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')  and IN(&quot;accountNumber&quot;,'0061023200','0061103200')),(&quot;employeeLaborHoursDirectBudget&quot;),0)</formula>
+      </measure>
+      <measure id="totalEmployeeLaborHourDirectForecast" hidden="false" order="44" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Employee Labor Hour Direct - Forecast"/>
+        <formula>if( (IN(&quot;functionalAreaGroup&quot; , 'Operations','OPERATIONS') and IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')  and IN(&quot;accountNumber&quot;,'0061023200','0061103200')),(&quot;employeeLaborHoursDirectForecast&quot;),0)</formula>
+      </measure>
+      <measure id="totalWagesActual" hidden="false" order="45" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Wages - Actual"/>
+        <formula>if( (&quot;functionalArea&quot; = 'RUOPS' and IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')),(&quot;accrualLaborCostIndirectActual&quot;+&quot;accrualLaborCostDirectActual&quot;+&quot;employeeLaborCostDirectActual&quot;+&quot;employeeLaborCostIndirectActual&quot;),0)</formula>
+      </measure>
+      <measure id="totalWagesBudget" hidden="false" order="46" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Wages - Budget"/>
+        <formula>if( (&quot;functionalArea&quot; = 'RUOPS' and IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')),(&quot;employeeLaborCostDirectBudget&quot;+&quot;employeeLaborCostIndirectBudget&quot;),0)</formula>
+      </measure>
+      <measure id="totalWagesForecast" hidden="false" order="47" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Wages - Forecast"/>
+        <formula>if( (&quot;functionalArea&quot; = 'RUOPS' and IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')),(&quot;employeeLaborCostDirectForecast&quot;+&quot;employeeLaborCostIndirectForecast&quot;),0)</formula>
+      </measure>
+      <measure id="totalBenefitRateActual" hidden="false" order="48" aggregationType="sum" measureType="simple" aggregatable="true" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="3">
+        <descriptions defaultDescription="Total Benefits Rate - Actual"/>
+        <formula>If(&quot;totalWagesActual&quot;=0,0,&quot;totalBenefitsActual&quot;/&quot;totalWagesActual&quot;)</formula>
+      </measure>
+      <measure id="totalBenefitRateBudget" hidden="false" order="49" aggregationType="sum" measureType="simple" aggregatable="true" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="3">
+        <descriptions defaultDescription="Total Benefits Rate - Budget"/>
+        <formula>If(&quot;totalWagesBudget&quot;=0,0,&quot;totalBenefitsBudget&quot;/&quot;totalWagesBudget&quot;)</formula>
+      </measure>
+      <measure id="totalBenefitRateForecast" hidden="false" order="50" aggregationType="sum" measureType="simple" aggregatable="true" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="3">
+        <descriptions defaultDescription="Total Benefits Rate - Forecast"/>
+        <formula>If(&quot;totalWagesForecast&quot;=0,0,&quot;totalBenefitsForecast&quot;/&quot;totalWagesForecast&quot;)</formula>
+      </measure>
+      <measure id="totalEmployeeLaborCostDirectActual" hidden="false" order="51" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Employee Labor Cost Direct - Actual"/>
+        <formula>(&quot;rmEmployeeDirectLaborCostActual&quot;+&quot;rmAccrualDirectLaborCostActual&quot;)</formula>
+      </measure>
+      <measure id="totalEmployeeLaborCostDirectBudget" hidden="false" order="52" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Employee Labor Cost Direct - Budget"/>
+        <formula>&quot;rmEmployeeDirectLaborCostBudget&quot;</formula>
+      </measure>
+      <measure id="totalEmployeeLaborCostDirectForecast" hidden="false" order="57" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Total Employee Labor Cost Direct - Forecast"/>
+        <formula>&quot;rmEmployeeDirectLaborCostForecast&quot;</formula>
+      </measure>
+      <measure id="directLaborCostActual" hidden="false" order="58" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Direct Labor Cost Actual"/>
+        <formula>&quot;totalEmployeeLaborCostDirectActual&quot;+&quot;nonEmployeeLaborCostDirectRecyActual&quot;</formula>
+      </measure>
+      <measure id="directLaborCostBudget" hidden="false" order="59" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Direct Labor Cost Budget"/>
+        <formula>&quot;totalEmployeeLaborCostDirectBudget&quot;+&quot;nonEmployeeLaborCostDirectRecyBudget&quot;</formula>
+      </measure>
+      <measure id="directLaborCostForecast" hidden="false" order="60" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Direct Labor Cost Forecast"/>
+        <formula>&quot;totalEmployeeLaborCostDirectForecast&quot;+&quot;nonEmployeeLaborCostDirectRecyForecast&quot;</formula>
+      </measure>
+      <measure id="directLaborHoursActual" hidden="false" order="61" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Direct Labor Hours Actual"/>
+        <formula>&quot;nonEmployeeLaborHoursRecyActual&quot;+&quot;totalEmployeeLaborHourDirectActual&quot;</formula>
+      </measure>
+      <measure id="directLaborHoursBudget" hidden="false" order="62" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Direct Labor Hours Budget"/>
+        <formula>&quot;nonEmployeeLaborHoursRecyBudget&quot;+&quot;totalEmployeeLaborHourDirectBudget&quot;</formula>
+      </measure>
+      <measure id="directLaborHoursForecast" hidden="false" order="67" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Direct Labor Hours Forecast"/>
+        <formula>&quot;nonEmployeeLaborHoursRecyForecast&quot;+&quot;totalEmployeeLaborHourDirectForecast&quot;</formula>
+      </measure>
+      <measure id="benefitRateActual" hidden="false" order="68" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Benefit Rate - Actual"/>
+        <formula>round(If(&quot;totalWagesActual&quot;=0,0,&quot;totalBenefitsActual&quot;/&quot;totalWagesActual&quot;),4)</formula>
+      </measure>
+      <measure id="benefitRateBudget" hidden="false" order="69" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Benefit Rate - Budget"/>
+        <formula>round(If(&quot;totalWagesBudget&quot;=0,0,&quot;totalBenefitsBudget&quot;/&quot;totalWagesBudget&quot;),4)</formula>
+      </measure>
+      <measure id="benefitRateForecast" hidden="false" order="87" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Benefit Rate - Forecast"/>
+        <formula>round(If(&quot;totalWagesForecast&quot;=0,0,&quot;totalBenefitsForecast&quot;/&quot;totalWagesForecast&quot;),4)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="nonEmployeeLaborHoursRecyActual" hidden="false" order="53" baseMeasure="nonEmployeeLaborHoursActual" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="23" scale="3">
+        <descriptions defaultDescription="Non Employee Labor Hours Recy Actual"/>
+        <restrictionExpression>IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')</restrictionExpression>
+      </measure>
+      <measure id="nonEmployeeLaborHoursRecyBudget" hidden="false" order="54" baseMeasure="nonEmployeeLaborHoursBudget" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Non Employe eLabor Hours Recy Budget"/>
+        <restrictionExpression>IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')</restrictionExpression>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectRecyActual" hidden="false" order="55" baseMeasure="nonEmployeeLaborCostDirectActual" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Non Employee Labor Cost Direct Recy Actual"/>
+        <restrictionExpression>IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')</restrictionExpression>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectRecyBudget" hidden="false" order="56" baseMeasure="nonEmployeeLaborCostDirectBudget" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="18" scale="3">
+        <descriptions defaultDescription="Non Employee Labor Cost Direct Recy Budget"/>
+        <restrictionExpression>IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')</restrictionExpression>
+      </measure>
+      <measure id="totalBenefitsActual" hidden="false" order="65" baseMeasure="actualSum" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Total Benefits - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-BENEFIT"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalBenefitsBudget" hidden="false" order="66" baseMeasure="budgetSum" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Total Benefits - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-BENEFIT"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="laborHoursDirect" hidden="false" order="70" baseMeasure="employeeLaborHoursDirectActual" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Labor Hours Direct"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="profitCenterGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="STDRECY_SC"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="NSRECY_SC"/>
+          </filter>
+          <attributeName>profitCenterGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="laborHoursIndirect" hidden="false" order="71" baseMeasure="employeeLaborHoursIndirectActual" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Labor Hours Direct"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="profitCenterGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="STDRECY_SC"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="NSRECY_SC"/>
+          </filter>
+          <attributeName>profitCenterGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmEmployeeDirectLaborCostActual" hidden="false" order="72" baseMeasure="employeeLaborCostDirectActual" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="rm Employee Direct Labor Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061023200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061033200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061043200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061103200"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Operations"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="profitCenterGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="NSRECY_SC"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="STDRECY_SC"/>
+          </filter>
+          <attributeName>profitCenterGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmAccrualDirectLaborCostActual" hidden="false" order="73" baseMeasure="accrualLaborCostDirectActual" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="rm Accrual Direct Labor Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061023200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061033200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061043200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061103200"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Operations"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="profitCenterGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="NSRECY_SC"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="STDRECY_SC"/>
+          </filter>
+          <attributeName>profitCenterGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmEmployeeDirectLaborCostBudget" hidden="false" order="74" baseMeasure="employeeLaborCostDirectBudget" datatype="DECIMAL" length="18" scale="3">
+        <descriptions defaultDescription="rm Employee Direct Labor Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061023200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061033200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061043200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061103200"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Operations"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="profitCenterGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="NSRECY_SC"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="STDRECY_SC"/>
+          </filter>
+          <attributeName>profitCenterGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalBenefitsForecast" hidden="false" order="80" baseMeasure="forecastSum" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Total Benefits - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-BENEFIT"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="nonEmployeeLaborHoursRecyForecast" hidden="false" order="84" baseMeasure="nonEmployeeLaborHoursForecast" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Non Employe eLabor Hours Recy Forecast"/>
+        <restrictionExpression>IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')</restrictionExpression>
+      </measure>
+      <measure id="nonEmployeeLaborCostDirectRecyForecast" hidden="false" order="85" baseMeasure="nonEmployeeLaborCostDirectForecast" restrictionExpressionLanguage="COLUMN_ENGINE" datatype="DECIMAL" length="24" scale="3">
+        <descriptions defaultDescription="Non Employee Labor Cost Direct Recy Forecast"/>
+        <restrictionExpression>IN(&quot;profitCenterGroup&quot;,  'NSRECY_SC','STDRECY_SC')</restrictionExpression>
+      </measure>
+      <measure id="rmEmployeeDirectLaborCostForecast" hidden="false" order="86" baseMeasure="employeeLaborCostDirectForecast" datatype="DECIMAL" length="24" scale="3">
+        <descriptions defaultDescription="rm Employee Direct Labor Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061023200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061033200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061043200"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061103200"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Operations"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="profitCenterGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="NSRECY_SC"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="STDRECY_SC"/>
+          </filter>
+          <attributeName>profitCenterGroup</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

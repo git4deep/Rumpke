@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::measurementPointsMaterialized" applyPrivilegeType="NONE" cacheInvalidationPeriod="DAILY" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Measurement Points - Materialized"/>
+  <metadata changedAt="2020-09-07 09:28:18.314"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.data.ddl::transactionData.measurementPoints">
+      <resourceUri>rumpke.bi.data.ddl::transactionData.measurementPoints</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="measuringPoint"/>
+        <viewAttribute id="measuringPointDesc"/>
+        <viewAttribute id="documentDate"/>
+        <viewAttribute id="documentTime"/>
+        <viewAttribute id="measuringType"/>
+        <viewAttribute id="measuringPointUOM"/>
+        <viewAttribute id="fuelCostByGallon"/>
+        <viewAttribute id="measuringDocumentNumber"/>
+        <viewAttribute id="measuringPointQuantity"/>
+        <viewAttribute id="fuelGallons"/>
+        <viewAttribute id="numberOfHours"/>
+        <viewAttribute id="mdText"/>
+        <viewAttribute id="currentLag"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="vehicleMiles"/>
+        <viewAttribute id="currentTruckLag"/>
+        <viewAttribute id="currentVehicleLag"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="priorDocumentDate"/>
+        <viewAttribute id="activityCode"/>
+        <viewAttribute id="unitCount"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.data.ddl::transactionData.measurementPoints"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Projection_1" columnName="client"/>
+      </attribute>
+      <attribute id="controllingArea" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area"/>
+        <keyMapping columnObjectName="Projection_1" columnName="controllingArea"/>
+      </attribute>
+      <attribute id="costCenter" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="documentDate" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Date"/>
+        <keyMapping columnObjectName="Projection_1" columnName="documentDate"/>
+      </attribute>
+      <attribute id="documentTime" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Document Time"/>
+        <keyMapping columnObjectName="Projection_1" columnName="documentTime"/>
+      </attribute>
+      <attribute id="activityCode" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Activity Code"/>
+        <keyMapping columnObjectName="Projection_1" columnName="activityCode"/>
+      </attribute>
+      <attribute id="equipmentCategory" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Category"/>
+        <keyMapping columnObjectName="Projection_1" columnName="equipmentCategory"/>
+      </attribute>
+      <attribute id="equipmentDescription" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="equipmentDescription"/>
+      </attribute>
+      <attribute id="equipmentNumber" order="9" attributeHierarchyActive="false" descriptionColumnName="equipmentDescription" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="fleetObjectType" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fleet Object Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fleetObjectType"/>
+      </attribute>
+      <attribute id="functionalArea" order="11" attributeHierarchyActive="false" descriptionColumnName="functionalAreaDescription" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="Projection_1" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="functionalAreaDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Desc"/>
+        <keyMapping columnObjectName="Projection_1" columnName="functionalAreaDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="mdText" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MD Text"/>
+        <keyMapping columnObjectName="Projection_1" columnName="mdText"/>
+      </attribute>
+      <attribute id="measuringDocumentNumber" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Document Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="measuringDocumentNumber"/>
+      </attribute>
+      <attribute id="measuringPointDesc" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Point Desc"/>
+        <keyMapping columnObjectName="Projection_1" columnName="measuringPointDesc"/>
+      </attribute>
+      <attribute id="measuringPoint" order="17" attributeHierarchyActive="false" descriptionColumnName="measuringPointDesc" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Point Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="measuringPoint"/>
+      </attribute>
+      <attribute id="measuringPointUOM" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Point UOM"/>
+        <keyMapping columnObjectName="Projection_1" columnName="measuringPointUOM"/>
+      </attribute>
+      <attribute id="measuringType" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Measuring Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="measuringType"/>
+      </attribute>
+      <attribute id="objectNumber" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="plant" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="Projection_1" columnName="plant"/>
+      </attribute>
+      <attribute id="priorDocumentDate" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Document Date"/>
+        <keyMapping columnObjectName="Projection_1" columnName="priorDocumentDate"/>
+      </attribute>
+      <attribute id="vehicleID" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Vehicle ID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="vehicleID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="currentLag" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours / Miles Lag"/>
+        <measureMapping columnObjectName="Projection_1" columnName="currentLag"/>
+      </measure>
+      <measure id="currentTruckLag" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Lag - Prior Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="currentTruckLag"/>
+      </measure>
+      <measure id="currentVehicleLag" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vehicle Lag - Prior Miles"/>
+        <measureMapping columnObjectName="Projection_1" columnName="currentVehicleLag"/>
+      </measure>
+      <measure id="fuelCostByGallon" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Cost By Gallon"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelCostByGallon"/>
+      </measure>
+      <measure id="fuelGallons" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Gallons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelGallons"/>
+      </measure>
+      <measure id="measuringPointQuantity" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Measuring Point Quantity"/>
+        <measureMapping columnObjectName="Projection_1" columnName="measuringPointQuantity"/>
+      </measure>
+      <measure id="numberOfHours" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Number of Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="numberOfHours"/>
+      </measure>
+      <measure id="truckHours" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="truckHours"/>
+      </measure>
+      <measure id="unitCount" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Counter"/>
+        <measureMapping columnObjectName="Projection_1" columnName="unitCount"/>
+      </measure>
+      <measure id="vehicleMiles" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Vehicle Miles"/>
+        <measureMapping columnObjectName="Projection_1" columnName="vehicleMiles"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="72" y="165"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.plantMaintenance::pmComplianceReport" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="pmComplianceReport"/>
+  <localVariables>
+    <variable id="ipDateFrom" parameter="true">
+      <descriptions defaultDescription="orderCompletionDateFrom"/>
+      <variableProperties datatype="DATE" defaultValue="2020-01-01" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipDateTo" parameter="true">
+      <descriptions defaultDescription="orderCompletionDateTo"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate(now())</defaultExpression>
+      </variableProperties>
+    </variable>
+    <variable id="ip_client" parameter="true">
+      <descriptions defaultDescription="ip_client"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="*" length="3" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.plantMaintainance.base::preventativeMaintenanceComplianceBase">
+      <targetVariable name="ip_client" resourceUri="rumpke.bi.plantMaintainance.base::preventativeMaintenanceComplianceBase"/>
+      <localVariable>ip_client</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.plantMaintainance.base::preventativeMaintenanceComplianceBase">
+      <targetVariable name="ipDateFrom" resourceUri="rumpke.bi.plantMaintainance.base::preventativeMaintenanceComplianceBase"/>
+      <localVariable>ipDateFrom</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.plantMaintainance.base::preventativeMaintenanceComplianceBase">
+      <targetVariable name="ipDateTo" resourceUri="rumpke.bi.plantMaintainance.base::preventativeMaintenanceComplianceBase"/>
+      <localVariable>ipDateTo</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.plantMaintainance.base::preventativeMaintenanceComplianceBase">
+      <resourceUri>rumpke.bi.plantMaintainance.base::preventativeMaintenanceComplianceBase</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="pmComplianceBase">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="compliantFlag"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="nonCompliantFlag"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="MOStatusDescription"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="compliantFlag_Dim"/>
+        <viewAttribute id="orderCreationYear"/>
+        <viewAttribute id="orderCreationMonth"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.plantMaintainance.base::preventativeMaintenanceComplianceBase">
+        <mapping xsi:type="Calculation:AttributeMapping" target="compliantFlag_Dim" source="compliantFlag"/></input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="pmComplianceBase">
+    <descriptions/>
+    <attributes>
+      <attribute id="plannedYear" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="plannedYear"/>
+      </attribute>
+      <attribute id="areaDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="regionDescription" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="plannedMonth" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="plannedMonth"/>
+      </attribute>
+      <attribute id="maintenancePlantDescription" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant Description"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="maintenancePlantDescription"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="MOStatusDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MOStatusDescription"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="MOStatusDescription"/>
+      </attribute>
+      <attribute id="cycleText" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="cycleText"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="cycleText"/>
+      </attribute>
+      <attribute id="compliantFlag_Dim" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="compliantFlag_Dim"/>
+      </attribute>
+      <attribute id="orderCreationYear" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Creation Year"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="orderCreationYear"/>
+      </attribute>
+      <attribute id="orderCreationMonth" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Creation Month"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="orderCreationMonth"/>
+      </attribute>
+      <attribute id="maintenancePlant" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="maintenancePlant"/>
+      </attribute>
+      <attribute id="orderCompletionYear" order="15" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Completion Year"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="orderCompletionYear"/>
+      </attribute>
+      <attribute id="orderCompletionMonth" order="16" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Completion Month"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="orderCompletionMonth"/>
+      </attribute>
+      <attribute id="orderCompletionWeek" order="17" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Completion Week"/>
+        <keyMapping columnObjectName="pmComplianceBase" columnName="orderCompletionWeek"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="compliantCount" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="compliant Count"/>
+        <measureMapping columnObjectName="pmComplianceBase" columnName="compliantFlag"/>
+      </measure>
+      <measure id="nonCompliantFlag" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="nonCompliant Count"/>
+        <measureMapping columnObjectName="pmComplianceBase" columnName="nonCompliantFlag"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions>
+      <localDimension id="pmComplianceHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">areaDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">regionDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">maintenancePlantDescription</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="pmComplianceHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED">
+            <descriptions defaultDescription="pmComplianceHierarchy"/>
+            <levels>
+              <level levelAttribute="areaDescription" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="areaDescription"/>
+              <level levelAttribute="regionDescription" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="regionDescription"/>
+              <level levelAttribute="maintenancePlantDescription" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="maintenancePlantDescription"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="pmComplianceBase" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="70" y="240"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

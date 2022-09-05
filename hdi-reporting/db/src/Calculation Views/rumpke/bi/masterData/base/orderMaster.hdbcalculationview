@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::orderMaster" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Order Data"/>
+  <metadata changedAt="2021-08-25 20:31:08.736"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="45"/>
+  <dataSources>
+    <DataSource id="S4HANA::AUFK">
+      <resourceUri>S4HANA::AUFK</resourceUri>
+    </DataSource>
+    <DataSource id="T003P">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T003P</resourceUri>
+    </DataSource>
+    <DataSource id="S4HANA::AFKO">
+      <resourceUri>S4HANA::AFKO</resourceUri>
+    </DataSource>
+    <DataSource id="S4HANA::AFVC">
+      <resourceUri>S4HANA::AFVC</resourceUri>
+    </DataSource>
+    <DataSource id="S4HANA::COBRB">
+      <resourceUri>S4HANA::COBRB</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderCategory"/>
+        <viewAttribute id="referenceOrderNumber"/>
+        <viewAttribute id="enteredBy"/>
+        <viewAttribute id="createdOn"/>
+        <viewAttribute id="lastChangedBy"/>
+        <viewAttribute id="lastChangedOnDate"/>
+        <viewAttribute id="description"/>
+        <viewAttribute id="longTextExists"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="businessArea"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="responsibleCostCenter"/>
+        <viewAttribute id="location"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="phaseOrderCreated"/>
+        <viewAttribute id="phaseOrderReleased"/>
+        <viewAttribute id="phaseOrderCompleted"/>
+        <viewAttribute id="phaseOrderClosed"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="locationPlant"/>
+        <viewAttribute id="costCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::AUFK">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCategory" source="REFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="referenceOrderNumber" source="AUTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="enteredBy" source="ERNAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOn" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedBy" source="AENAM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedOnDate" source="AEDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="description" source="KTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="longTextExists" source="LTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessArea" source="GSBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="WERKS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="KOKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenter" source="KOSTV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="location" source="STORT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="FUNC_AREA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderCreated" source="PHAS0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderReleased" source="PHAS1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderCompleted" source="PHAS2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderClosed" source="PHAS3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="PRCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="USER1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="USER2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="VAPLZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="USER3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantAssociatedWithMainWorkCenter" source="WAWRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationPlant" source="SOWRK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="KOSTL"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="language"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T003P">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="language" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="AUART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDesc" source="TXT"/>
+      </input>
+    <filter>(&quot;language&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="orderNo"/>
+        <viewAttribute id="operationTaskListNo"/>
+      
+      <viewAttribute id="AUFNR"/>
+      <viewAttribute id="AUFPL"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::AFKO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNo" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationTaskListNo" source="AUFPL"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="createdOn"/>
+        <viewAttribute id="lastChangedOnDate"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="phaseOrderClosed"/>
+        <viewAttribute id="phaseOrderCompleted"/>
+        <viewAttribute id="phaseOrderReleased"/>
+        <viewAttribute id="phaseOrderCreated"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="location"/>
+        <viewAttribute id="responsibleCostCenter"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="businessArea"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="longText"/>
+        <viewAttribute id="description"/>
+        <viewAttribute id="lastChangedBy"/>
+        <viewAttribute id="enteredBy"/>
+        <viewAttribute id="referenceOrderNumber"/>
+        <viewAttribute id="orderCategory"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="locationPlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="operationTaskListNo"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOn" source="createdOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedOnDate" source="lastChangedOnDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderClosed" source="phaseOrderClosed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderCompleted" source="phaseOrderCompleted"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderReleased" source="phaseOrderReleased"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderCreated" source="phaseOrderCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="location" source="location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenter" source="responsibleCostCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessArea" source="businessArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="longText" source="longTextExists"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="description" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedBy" source="lastChangedBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="enteredBy" source="enteredBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="referenceOrderNumber" source="referenceOrderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCategory" source="orderCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantAssociatedWithMainWorkCenter" source="plantAssociatedWithMainWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationPlant" source="locationPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="operationTaskListNo" source="operationTaskListNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNo"/>
+      </input>
+    <joinAttribute name="orderNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="AUFPL"/>
+        <viewAttribute id="OBJNR"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::AFVC"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="locationPlant"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="orderCategory"/>
+        <viewAttribute id="referenceOrderNumber"/>
+        <viewAttribute id="enteredBy"/>
+        <viewAttribute id="lastChangedBy"/>
+        <viewAttribute id="description"/>
+        <viewAttribute id="longText"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="businessArea"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="responsibleCostCenter"/>
+        <viewAttribute id="location"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="phaseOrderCreated"/>
+        <viewAttribute id="phaseOrderReleased"/>
+        <viewAttribute id="phaseOrderCompleted"/>
+        <viewAttribute id="phaseOrderClosed"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="lastChangedOnDate"/>
+        <viewAttribute id="createdOn"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="OBJNR_1"/>
+      <viewAttribute hidden="true" id="JOIN$operationTaskListNo$AUFPL"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationPlant" source="locationPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantAssociatedWithMainWorkCenter" source="plantAssociatedWithMainWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCategory" source="orderCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="referenceOrderNumber" source="referenceOrderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="enteredBy" source="enteredBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedBy" source="lastChangedBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="description" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="longText" source="longText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessArea" source="businessArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenter" source="responsibleCostCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="location" source="location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderCreated" source="phaseOrderCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderReleased" source="phaseOrderReleased"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderCompleted" source="phaseOrderCompleted"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderClosed" source="phaseOrderClosed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedOnDate" source="lastChangedOnDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOn" source="createdOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$operationTaskListNo$AUFPL" source="operationTaskListNo"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR_1" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$operationTaskListNo$AUFPL" source="AUFPL"/>
+      </input>
+    <joinAttribute name="JOIN$operationTaskListNo$AUFPL"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="KONTY"/>
+        <viewAttribute id="KOSTL"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::COBRB"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="createdOn"/>
+        <viewAttribute id="lastChangedOnDate"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="phaseOrderClosed"/>
+        <viewAttribute id="phaseOrderCompleted"/>
+        <viewAttribute id="phaseOrderReleased"/>
+        <viewAttribute id="phaseOrderCreated"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="location"/>
+        <viewAttribute id="responsibleCostCenter"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="businessArea"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="longText"/>
+        <viewAttribute id="description"/>
+        <viewAttribute id="lastChangedBy"/>
+        <viewAttribute id="enteredBy"/>
+        <viewAttribute id="referenceOrderNumber"/>
+        <viewAttribute id="orderCategory"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="locationPlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="KONTY"/>
+        <viewAttribute id="KOSTL"/>
+      <viewAttribute hidden="true" id="JOIN$OBJNR_1$OBJNR"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="costCenterDerived" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;KONTY&quot;='KS',&quot;KOSTL&quot;,if(&quot;KONTY&quot;='OR',&quot;responsibleCostCenter&quot;,''))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOn" source="createdOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedOnDate" source="lastChangedOnDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderClosed" source="phaseOrderClosed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderCompleted" source="phaseOrderCompleted"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderReleased" source="phaseOrderReleased"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderCreated" source="phaseOrderCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="location" source="location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenter" source="responsibleCostCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessArea" source="businessArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="longText" source="longText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="description" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedBy" source="lastChangedBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="enteredBy" source="enteredBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="referenceOrderNumber" source="referenceOrderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCategory" source="orderCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantAssociatedWithMainWorkCenter" source="plantAssociatedWithMainWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationPlant" source="locationPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$OBJNR_1$OBJNR" source="OBJNR_1"/>
+      </input>
+      <input node="Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="KONTY" source="KONTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KOSTL" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$OBJNR_1$OBJNR" source="OBJNR"/>
+      </input>
+    <joinAttribute name="JOIN$OBJNR_1$OBJNR"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="orderTypeDesc"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="createdOn"/>
+        <viewAttribute id="lastChangedOnDate"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="phaseOrderClosed"/>
+        <viewAttribute id="phaseOrderCompleted"/>
+        <viewAttribute id="phaseOrderReleased"/>
+        <viewAttribute id="phaseOrderCreated"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="location"/>
+        <viewAttribute id="responsibleCostCenter"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="businessArea"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="longText"/>
+        <viewAttribute id="description"/>
+        <viewAttribute id="lastChangedBy"/>
+        <viewAttribute id="enteredBy"/>
+        <viewAttribute id="referenceOrderNumber"/>
+        <viewAttribute id="orderCategory"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="plantAssociatedWithMainWorkCenter"/>
+        <viewAttribute id="locationPlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="KONTY"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="createdOn" source="createdOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedOnDate" source="lastChangedOnDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderClosed" source="phaseOrderClosed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderCompleted" source="phaseOrderCompleted"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderReleased" source="phaseOrderReleased"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="phaseOrderCreated" source="phaseOrderCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="location" source="location"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleCostCenter" source="responsibleCostCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="businessArea" source="businessArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="longText" source="longText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="description" source="description"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastChangedBy" source="lastChangedBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="enteredBy" source="enteredBy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="referenceOrderNumber" source="referenceOrderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCategory" source="orderCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OBJNR" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantAssociatedWithMainWorkCenter" source="plantAssociatedWithMainWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationPlant" source="locationPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenterDerived"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KONTY" source="KONTY"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderTypeDesc" source="orderTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+      </input>
+    <joinAttribute name="orderType"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_1" columnName="client"/>
+      </attribute>
+      <attribute id="orderNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="orderNumber"/>
+      </attribute>
+      <attribute id="createdOn" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Created On"/>
+        <keyMapping columnObjectName="Join_1" columnName="createdOn"/>
+      </attribute>
+      <attribute id="lastChangedOnDate" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Last Changed On Date"/>
+        <keyMapping columnObjectName="Join_1" columnName="lastChangedOnDate"/>
+      </attribute>
+      <attribute id="orderType" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Type"/>
+        <keyMapping columnObjectName="Join_1" columnName="orderType"/>
+      </attribute>
+      <attribute id="profitCenter" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center (Order)"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="phaseOrderClosed" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Phase &quot;Order Closed&quot;"/>
+        <keyMapping columnObjectName="Join_1" columnName="phaseOrderClosed"/>
+      </attribute>
+      <attribute id="phaseOrderCompleted" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Phase &quot;Order Completed&quot;"/>
+        <keyMapping columnObjectName="Join_1" columnName="phaseOrderCompleted"/>
+      </attribute>
+      <attribute id="phaseOrderReleased" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Phase &quot;Order released&quot;"/>
+        <keyMapping columnObjectName="Join_1" columnName="phaseOrderReleased"/>
+      </attribute>
+      <attribute id="phaseOrderCreated" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Phase &quot;Order Created&quot;"/>
+        <keyMapping columnObjectName="Join_1" columnName="phaseOrderCreated"/>
+      </attribute>
+      <attribute id="functionalArea" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area (Order)"/>
+        <keyMapping columnObjectName="Join_1" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="location" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Location (Order)"/>
+        <keyMapping columnObjectName="Join_1" columnName="location"/>
+      </attribute>
+      <attribute id="responsibleCostCenter" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Responsible Cost Center (Order)"/>
+        <keyMapping columnObjectName="Join_1" columnName="responsibleCostCenter"/>
+      </attribute>
+      <attribute id="controllingArea" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area (Order)"/>
+        <keyMapping columnObjectName="Join_1" columnName="controllingArea"/>
+      </attribute>
+      <attribute id="plant" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant (Order)"/>
+        <keyMapping columnObjectName="Join_1" columnName="plant"/>
+      </attribute>
+      <attribute id="businessArea" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Business Area (Order)"/>
+        <keyMapping columnObjectName="Join_1" columnName="businessArea"/>
+      </attribute>
+      <attribute id="companyCode" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code (Order)"/>
+        <keyMapping columnObjectName="Join_1" columnName="companyCode"/>
+      </attribute>
+      <attribute id="longText" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Long Text"/>
+        <keyMapping columnObjectName="Join_1" columnName="longText"/>
+      </attribute>
+      <attribute id="description" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="description"/>
+      </attribute>
+      <attribute id="lastChangedBy" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Last Changed By"/>
+        <keyMapping columnObjectName="Join_1" columnName="lastChangedBy"/>
+      </attribute>
+      <attribute id="enteredBy" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Created By"/>
+        <keyMapping columnObjectName="Join_1" columnName="enteredBy"/>
+      </attribute>
+      <attribute id="referenceOrderNumber" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Reference Order Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="referenceOrderNumber"/>
+      </attribute>
+      <attribute id="orderCategory" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Category"/>
+        <keyMapping columnObjectName="Join_1" columnName="orderCategory"/>
+      </attribute>
+      <attribute id="workCenter" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Center (Order)"/>
+        <keyMapping columnObjectName="Join_1" columnName="workCenter"/>
+      </attribute>
+      <attribute id="vrmsSystemCode" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - System Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="vrmsSystemCode"/>
+      </attribute>
+      <attribute id="vrmsSymptomCode" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Symptom Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="vrmsSymptomCode"/>
+      </attribute>
+      <attribute id="vrmsReasonCode" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Reason Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="vrmsReasonCode"/>
+      </attribute>
+      <attribute id="orderTypeDesc" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Ordre Type Desc"/>
+        <keyMapping columnObjectName="Join_1" columnName="orderTypeDesc"/>
+      </attribute>
+      <attribute id="objectNumber" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="OBJNR"/>
+      </attribute>
+      <attribute id="plantAssociatedWithMainWorkCenter" order="30" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant Associated With Main Work Center"/>
+        <keyMapping columnObjectName="Join_1" columnName="plantAssociatedWithMainWorkCenter"/>
+      </attribute>
+      <attribute id="locationPlant" order="31" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Location Plant"/>
+        <keyMapping columnObjectName="Join_1" columnName="locationPlant"/>
+      </attribute>
+      <attribute id="costCenter" order="32" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="costCenter"/>
+        <keyMapping columnObjectName="Join_1" columnName="costCenter"/>
+      </attribute>
+      <attribute id="KONTY" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="KONTY"/>
+        <keyMapping columnObjectName="Join_1" columnName="KONTY"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="174" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="549"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="97" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="549"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="453"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="453"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="175" y="357"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="251" y="261"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_3" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_5" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="174" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Join_5" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

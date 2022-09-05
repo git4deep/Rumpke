@@ -1,0 +1,1371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::landfillVersionDetail" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Landfill Version Detail"/>
+  <metadata changedAt="2020-07-20 10:09:24.65"/>
+  <localVariables>
+    <variable id="fiscalYearPeriodFrom" parameter="true">
+      <descriptions defaultDescription="Fiscal Year / Period From"/>
+      <variableProperties datatype="NVARCHAR" length="7" mandatory="true" defaultValue="undefined">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="fiscalYearPeriodTo" parameter="true">
+      <descriptions defaultDescription="Fiscal Year / Period To"/>
+      <variableProperties datatype="NVARCHAR" length="7" mandatory="true" defaultValue="undefined">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.reporting.operations::landfillScorecard">
+      <targetVariable name="fiscalYearPeriodFrom" resourceUri="rumpke.bi.reporting.operations::landfillScorecard"/>
+      <localVariable>fiscalYearPeriodFrom</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.reporting.operations::landfillScorecard">
+      <targetVariable name="fiscalYearPeriodTo" resourceUri="rumpke.bi.reporting.operations::landfillScorecard"/>
+      <localVariable>fiscalYearPeriodTo</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="40"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.reporting.operations::landfillScorecard">
+      <resourceUri>rumpke.bi.reporting.operations::landfillScorecard</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="allOtherCostsActual"/>
+        <viewAttribute id="allOtherCostsBudget"/>
+        <viewAttribute id="allOtherCostsPerTonActual"/>
+        <viewAttribute id="allOtherCostsPerTonBudget"/>
+        <viewAttribute id="capexCostsPerCapexCubicYardsActual"/>
+        <viewAttribute id="capexCostsPerCapexCubicYardsBudget"/>
+        <viewAttribute id="compactorTonsActual"/>
+        <viewAttribute id="compactorTonsBudget"/>
+        <viewAttribute id="compactorTonsPerHourActual"/>
+        <viewAttribute id="compactorTonsPerHourBudget"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="coverPercentageActual"/>
+        <viewAttribute id="coverPercentageBudget"/>
+        <viewAttribute id="cubicYardsPerLoadActual"/>
+        <viewAttribute id="cubicYardsConsumedActual"/>
+        <viewAttribute id="cubicYardsConsumedBudget"/>
+        <viewAttribute id="cubicYardsPerLoadBudget"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="ebitdaTargetPercentageOfTotalRevenueActual"/>
+        <viewAttribute id="ebitdaTargetPercentageOfTotalRevenueBudget"/>
+        <viewAttribute id="equipmentCostPerHourActual"/>
+        <viewAttribute id="equipmentCostPerHourBudget"/>
+        <viewAttribute id="equipmentHoursPerTonActual"/>
+        <viewAttribute id="equipmentHoursPerTonBudget"/>
+        <viewAttribute id="equipmentRepairCostPerHourActual"/>
+        <viewAttribute id="equipmentRepairCostPerHourBudget"/>
+        <viewAttribute id="equipmentRepairCostActual"/>
+        <viewAttribute id="equipmentRepairCostBudget"/>
+        <viewAttribute id="equipmentHoursBudget"/>
+        <viewAttribute id="expenseCubicYardsActual"/>
+        <viewAttribute id="excavatorLoaderTonsActual"/>
+        <viewAttribute id="excavatorLoaderTonsBudget"/>
+        <viewAttribute id="expenseCubicYardsBudget"/>
+        <viewAttribute id="fuelCostPerHourActual"/>
+        <viewAttribute id="fuelCostPerHourBudget"/>
+        <viewAttribute id="fuelCostActual"/>
+        <viewAttribute id="fuelCostBudget"/>
+        <viewAttribute id="loadsPerHourActual"/>
+        <viewAttribute id="loadsPerHourBudget"/>
+        <viewAttribute id="ownershipCostActual"/>
+        <viewAttribute id="ownershipCostBudget"/>
+        <viewAttribute id="ownershipCostPerHourActual"/>
+        <viewAttribute id="ownershipCostPerHourBudget"/>
+        <viewAttribute id="ownershipCostPerTonActual"/>
+        <viewAttribute id="ownershipCostPerTonBudget"/>
+        <viewAttribute id="payrollHoursBudget"/>
+        <viewAttribute id="payrollHoursActual"/>
+        <viewAttribute id="productivityDailyCoverActual"/>
+        <viewAttribute id="productivityDailyCoverBudget"/>
+        <viewAttribute id="siteAndCellAmortizationActual"/>
+        <viewAttribute id="siteAndCellAmortizationBudget"/>
+        <viewAttribute id="siteandCellAmortizationPerTonActual"/>
+        <viewAttribute id="siteandCellAmortizationPerTonBudget"/>
+        <viewAttribute id="totalNetRevenuePerTonActual"/>
+        <viewAttribute id="totalNetRevenuePerTonBudget"/>
+        <viewAttribute id="totalNetLaborCostPerTonActual"/>
+        <viewAttribute id="totalNetLaborCostPerTonBudget"/>
+        <viewAttribute id="totalNetEquipmentCostPerTonActual"/>
+        <viewAttribute id="totalNetEquipmentCostPerTonBudget"/>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="totalNetRevenueActual"/>
+        <viewAttribute id="totalNetRevenueBudget"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="totalNetLaborCostActual"/>
+        <viewAttribute id="totalNetLaborCostBudget"/>
+        <viewAttribute id="totalNetEquipmentCostActual"/>
+        <viewAttribute id="totalNetEquipmentCostBudget"/>
+        <viewAttribute id="tonnagePerEquipmentHourActual"/>
+        <viewAttribute id="tonnagePerEquipmentBudget"/>
+        <viewAttribute id="totalRevenuePerTonnageActual"/>
+        <viewAttribute id="totalRevenuePerTonnageBudget"/>
+        <viewAttribute id="equipmentHoursActual"/>
+        <viewAttribute id="equipmentHoursVariance"/>
+        <viewAttribute id="totalOtherLandfillExpensesActual"/>
+        <viewAttribute id="totalOtherLandfillExpensesBudget"/>
+        <viewAttribute id="totalLandfillOperatingExpenseActual"/>
+        <viewAttribute id="totalLandfillOperatingExpenseBudget"/>
+        <viewAttribute id="totalOtherLandfillExpensesPerTonActual"/>
+        <viewAttribute id="totalOtherLandfillExpensesPerTonBudget"/>
+        <viewAttribute id="totalLandfillOperatingExpensePerTonActual"/>
+        <viewAttribute id="totalLandfillOperatingExpensePerTonBudget"/>
+        <viewAttribute id="compactorHoursActual"/>
+        <viewAttribute id="compactorHoursBudget"/>
+        <viewAttribute id="excavatorLoaderHoursActual"/>
+        <viewAttribute id="excavatorLoaderHoursBudget"/>
+        <viewAttribute id="capexCostActual"/>
+        <viewAttribute id="capexCostBudget"/>
+        <viewAttribute id="capexCubicYardsActual"/>
+        <viewAttribute id="capexCubicYardsBudget"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="equipmentHoursPercentageOfPayrollActual"/>
+        <viewAttribute id="equipmentHoursPercentageOfPayrollBudget"/>
+        <viewAttribute id="percentTonnageYOYActual"/>
+        <viewAttribute id="percentTonnageYOYBudget"/>
+        <viewAttribute id="tonnageYTDVariance"/>
+        <viewAttribute id="tonnagePYTDVariance"/>
+        <viewAttribute id="ownershipCostPerHourVariance"/>
+        <viewAttribute id="ownershipCostVariance"/>
+        <viewAttribute id="loadsPerHourVariance"/>
+        <viewAttribute id="ownershipCostPerTonVariance"/>
+        <viewAttribute id="payrollHoursVariance"/>
+        <viewAttribute id="productivityDailyCoverVariance"/>
+        <viewAttribute id="cellAmortizationVariance"/>
+        <viewAttribute id="cellAmortizationperTonVariance"/>
+        <viewAttribute id="totalNetLaborCostPerTonVariance"/>
+        <viewAttribute id="totalNetEquipmentCostPerTonVariance"/>
+        <viewAttribute id="totalRevenueVariance"/>
+        <viewAttribute id="totalNetRevenueVariance"/>
+        <viewAttribute id="tonnageVariance"/>
+        <viewAttribute id="totalNetLaborCostVariance"/>
+        <viewAttribute id="totalNetEquipmentCostVariance"/>
+        <viewAttribute id="tonnagePerEquipmentHourVariance"/>
+        <viewAttribute id="totalOtherLandfillExpensesVariance"/>
+        <viewAttribute id="totalLandfillOperatingExpenseVariance"/>
+        <viewAttribute id="totalOtherLandfillExpensesPerTonVariance"/>
+        <viewAttribute id="totalLandfillOperatingExpensePerTonVariance"/>
+        <viewAttribute id="compactorHoursVariance"/>
+        <viewAttribute id="excavatorLoaderHoursVariance"/>
+        <viewAttribute id="capexCostVariance"/>
+        <viewAttribute id="capexCubicYardsVariance"/>
+        <viewAttribute id="loadsVariance"/>
+        <viewAttribute id="equipmentHoursPercentageOfPayrollVariance"/>
+        <viewAttribute id="fuelCostPerHourVariance"/>
+        <viewAttribute id="fuelCostVariance"/>
+        <viewAttribute id="excavatorLoaderTonsVariance"/>
+        <viewAttribute id="equipmentRepairCostPerHourVariance"/>
+        <viewAttribute id="equipmentRepairCostVariance"/>
+        <viewAttribute id="equipmentHoursPerTonVariance"/>
+        <viewAttribute id="equipmentCostPerHourVariance"/>
+        <viewAttribute id="ebitdaTargetPercentageOfTotalRevenueVariance"/>
+        <viewAttribute id="ebitdaTargetVariance"/>
+        <viewAttribute id="cubicYardsPerLoadVariance"/>
+        <viewAttribute id="cubicYardsConsumedVariance"/>
+        <viewAttribute id="coverPercentageVariance"/>
+        <viewAttribute id="CostofOperationsVariance"/>
+        <viewAttribute id="compactorTonsPerHourVariance"/>
+        <viewAttribute id="compactorTonsVariance"/>
+        <viewAttribute id="capexCostsPerCapexCubicYardsVariance"/>
+        <viewAttribute id="allOtherCostsperTonVariance"/>
+        <viewAttribute id="allOtherCostsVariance"/>
+        <viewAttribute id="expenseCubicYardsVariance"/>
+        <viewAttribute id="excavatedCubicYardsActual"/>
+        <viewAttribute id="excavatedCubicYardsBudget"/>
+        <viewAttribute id="excavatedCubicYardsVariance"/>
+        <viewAttribute id="truckHoursActual"/>
+        <viewAttribute id="truckHoursBudget"/>
+        <viewAttribute id="operatingIncomeActual"/>
+        <viewAttribute id="operatingIncomeBudget"/>
+        <viewAttribute id="operatingIncomeVariance"/>
+        <viewAttribute id="truckHoursVariance"/>
+        <viewAttribute id="operatingIncomePerTonActual"/>
+        <viewAttribute id="operatingIncomePerTonBudget"/>
+        <viewAttribute id="operatingIncomePerTonVariance"/>
+        <viewAttribute id="equipmentCostActual"/>
+        <viewAttribute id="equipmentCostBudget"/>
+        <viewAttribute id="equipmentCostVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.reporting.operations::landfillScorecard">
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCostsActual" source="allOthercostsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCostsBudget" source="allOthercostsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCostsPerTonActual" source="allOtherCostsperTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCostsPerTonBudget" source="allOtherCostsperTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteAndCellAmortizationActual" source="cellAmortizationActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteAndCellAmortizationBudget" source="cellAmortizationBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteandCellAmortizationPerTonActual" source="cellAmortizationPerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteandCellAmortizationPerTonBudget" source="cellAmortizationPerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnagePerEquipmentBudget" source="tonnagePerEquipmentHourBudget"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="1Actuals">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="allOtherCosts"/>
+        <viewAttribute id="capexCostsPerCapexCubicYards"/>
+        <viewAttribute id="compactorTons"/>
+        <viewAttribute id="costOfOperations"/>
+        <viewAttribute id="coverPercentage"/>
+        <viewAttribute id="cubicYardsPerLoad"/>
+        <viewAttribute id="cubicYardsConsumed"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="ebitdaTargetPercentageOfTotalRevenue"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="compactorTonsPerHour"/>
+        <viewAttribute id="equipmentCostPerHour"/>
+        <viewAttribute id="equipmentRepairCostPerHour"/>
+        <viewAttribute id="equipmentRepairCost"/>
+        <viewAttribute id="expenseCubicYards"/>
+        <viewAttribute id="excavatorLoaderTons"/>
+        <viewAttribute id="fuelCostPerHour"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="loadsPerHour"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="ownershipCostPerHour"/>
+        <viewAttribute id="payrollHours"/>
+        <viewAttribute id="productivityDailyCover"/>
+        <viewAttribute id="siteAndCellAmortization"/>
+        <viewAttribute id="totalNetRevenue"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="tonnagePerEquipmentHour"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="compactorHours"/>
+        <viewAttribute id="excavatorLoaderHours"/>
+        <viewAttribute id="capexCost"/>
+        <viewAttribute id="capexCubicYards"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="equipmentHoursPercentageOfPayroll"/>
+        <viewAttribute id="excavatedCubicYards"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="operatingIncome"/>
+        <viewAttribute id="equipmentCost"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="15" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Actual'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCostsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCostsPerCapexCubicYards" source="capexCostsPerCapexCubicYardsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTons" source="compactorTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="costOfOperationsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="coverPercentage" source="coverPercentageActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsPerLoad" source="cubicYardsPerLoadActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsConsumed" source="cubicYardsConsumedActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTargetActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageOfTotalRevenue" source="ebitdaTargetPercentageOfTotalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTonsPerHour" source="compactorTonsPerHourActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCostPerHour" source="equipmentCostPerHourActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCostPerHour" source="equipmentRepairCostPerHourActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCost" source="equipmentRepairCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCubicYards" source="expenseCubicYardsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderTons" source="excavatorLoaderTonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostPerHour" source="fuelCostPerHourActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsPerHour" source="loadsPerHourActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCostPerHour" source="ownershipCostPerHourActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payrollHours" source="payrollHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityDailyCover" source="productivityDailyCoverActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteAndCellAmortization" source="siteAndCellAmortizationActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnageActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnagePerEquipmentHour" source="tonnagePerEquipmentHourActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpensesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpenseActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHours" source="compactorHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHours" source="excavatorLoaderHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCost" source="capexCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCubicYards" source="capexCubicYardsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loadsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHoursPercentageOfPayroll" source="equipmentHoursPercentageOfPayrollActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatedCubicYards" source="excavatedCubicYardsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncomeActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCost" source="equipmentCostActual"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="2Budget">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="allOtherCosts"/>
+        <viewAttribute id="capexCostsPerCapexCubicYards"/>
+        <viewAttribute id="costOfOperations"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="compactorTons"/>
+        <viewAttribute id="compactorTonsPerHour"/>
+        <viewAttribute id="coverPercentage"/>
+        <viewAttribute id="cubicYardsConsumed"/>
+        <viewAttribute id="cubicYardsPerLoad"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="ebitdaTargetPercentageOfTotalRevenue"/>
+        <viewAttribute id="equipmentCostPerHour"/>
+        <viewAttribute id="equipmentRepairCostPerHour"/>
+        <viewAttribute id="equipmentRepairCost"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="excavatorLoaderTons"/>
+        <viewAttribute id="expenseCubicYards"/>
+        <viewAttribute id="fuelCostPerHour"/>
+        <viewAttribute id="loadsPerHour"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="ownershipCostPerHour"/>
+        <viewAttribute id="payrollHours"/>
+        <viewAttribute id="productivityDailyCover"/>
+        <viewAttribute id="siteAndCellAmortization"/>
+        <viewAttribute id="totalNetRevenue"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="tonnagePerEquipmentHour"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="compactorHours"/>
+        <viewAttribute id="excavatorLoaderHours"/>
+        <viewAttribute id="capexCost"/>
+        <viewAttribute id="capexCubicYards"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="equipmentHoursPercentageOfPayroll"/>
+        <viewAttribute id="excavatedCubicYards"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="operatingIncome"/>
+        <viewAttribute id="equipmentCost"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="15" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Budget'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCostsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCostsPerCapexCubicYards" source="capexCostsPerCapexCubicYardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="costOfOperationsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTons" source="compactorTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTonsPerHour" source="compactorTonsPerHourBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="coverPercentage" source="coverPercentageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsConsumed" source="cubicYardsConsumedBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsPerLoad" source="cubicYardsPerLoadBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageOfTotalRevenue" source="ebitdaTargetPercentageOfTotalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCostPerHour" source="equipmentCostPerHourBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCostPerHour" source="equipmentRepairCostPerHourBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCost" source="equipmentRepairCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderTons" source="excavatorLoaderTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCubicYards" source="expenseCubicYardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostPerHour" source="fuelCostPerHourBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsPerHour" source="loadsPerHourBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCostPerHour" source="ownershipCostPerHourBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payrollHours" source="payrollHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityDailyCover" source="productivityDailyCoverBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteAndCellAmortization" source="siteAndCellAmortizationBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnagePerEquipmentHour" source="tonnagePerEquipmentBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpensesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpenseBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHours" source="compactorHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHours" source="excavatorLoaderHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCost" source="capexCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCubicYards" source="capexCubicYardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loadsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHoursPercentageOfPayroll" source="equipmentHoursPercentageOfPayrollBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatedCubicYards" source="excavatedCubicYardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncomeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCost" source="equipmentCostBudget"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="3ActualsPerTon">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="allOtherCosts"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="totalNetRevenue"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="operatingIncomePerTonActual"/>
+        <viewAttribute id="siteandCellAmortizationPerTonActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="15" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Act $ / Ton'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCostsPerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHoursPerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenuePerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCostPerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCostPerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCostPerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenuePerTonnageActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpensesPerTonActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpensePerTonActual"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="4BudgetPerTon">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="allOtherCosts"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="siteAndCellAmortization"/>
+        <viewAttribute id="totalNetRevenue"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="operatingIncomePerTonBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="15" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Bud $ / Ton'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCostsPerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHoursPerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCostPerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteAndCellAmortization" source="siteandCellAmortizationPerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenuePerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCostPerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCostPerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenuePerTonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpensesPerTonBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpensePerTonBudget"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="5Variances">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="ownershipCostPerHour"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="loadsPerHour"/>
+        <viewAttribute id="payrollHours"/>
+        <viewAttribute id="productivityDailyCover"/>
+        <viewAttribute id="siteAndCellAmortization"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="totalNetRevenue"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="tonnagePerEquipmentHour"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="compactorHours"/>
+        <viewAttribute id="excavatorLoaderHours"/>
+        <viewAttribute id="capexCost"/>
+        <viewAttribute id="capexCubicYards"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="equipmentHoursPercentageOfPayroll"/>
+        <viewAttribute id="fuelCostPerHour"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="excavatorLoaderTons"/>
+        <viewAttribute id="equipmentRepairCostPerHour"/>
+        <viewAttribute id="equipmentRepairCost"/>
+        <viewAttribute id="equipmentCostPerHour"/>
+        <viewAttribute id="ebitdaTargetPercentageOfTotalRevenue"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="cubicYardsPerLoad"/>
+        <viewAttribute id="cubicYardsConsumed"/>
+        <viewAttribute id="coverPercentage"/>
+        <viewAttribute id="costOfOperations"/>
+        <viewAttribute id="compactorTonsPerHour"/>
+        <viewAttribute id="compactorTons"/>
+        <viewAttribute id="capexCostsPerCapexCubicYards"/>
+        <viewAttribute id="allOtherCosts"/>
+        <viewAttribute id="expenseCubicYards"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="excavatedCubicYardsVariance"/>
+        <viewAttribute id="operatingIncome"/>
+        <viewAttribute id="truckHoursVariance"/>
+        <viewAttribute id="equipmentCost"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="version" length="15" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Variance'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCostPerHour" source="ownershipCostPerHourVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCostVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsPerHour" source="loadsPerHourVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payrollHours" source="payrollHoursVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityDailyCover" source="productivityDailyCoverVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteAndCellAmortization" source="cellAmortizationVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenueVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenueVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnageVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCostVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCostVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnagePerEquipmentHour" source="tonnagePerEquipmentHourVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpensesVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpenseVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHours" source="compactorHoursVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHours" source="excavatorLoaderHoursVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCost" source="capexCostVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCubicYards" source="capexCubicYardsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loadsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHoursPercentageOfPayroll" source="equipmentHoursPercentageOfPayrollVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostPerHour" source="fuelCostPerHourVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCostVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderTons" source="excavatorLoaderTonsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCostPerHour" source="equipmentRepairCostPerHourVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCost" source="equipmentRepairCostVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCostPerHour" source="equipmentCostPerHourVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageOfTotalRevenue" source="ebitdaTargetPercentageOfTotalRevenueVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTargetVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsPerLoad" source="cubicYardsPerLoadVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsConsumed" source="cubicYardsConsumedVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="coverPercentage" source="coverPercentageVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="CostofOperationsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTonsPerHour" source="compactorTonsPerHourVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTons" source="compactorTonsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCostsPerCapexCubicYards" source="capexCostsPerCapexCubicYardsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCostsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCubicYards" source="expenseCubicYardsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHoursVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncomeVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCost" source="equipmentCostVariance"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="6VariancesPerTon">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="siteAndCellAmortization"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="allOtherCosts"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="operatingIncomePerTonVariance"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="version" length="15" expressionLanguage="COLUMN_ENGINE">
+          <formula>'Per Ton Variance'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteAndCellAmortization" source="cellAmortizationperTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCostPerTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCostPerTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCostPerTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpensesPerTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpensePerTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCostsperTonVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHoursPerTonVariance"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="allOtherCosts"/>
+        <viewAttribute id="capexCostsPerCapexCubicYards"/>
+        <viewAttribute id="compactorTons"/>
+        <viewAttribute id="costOfOperations"/>
+        <viewAttribute id="coverPercentage"/>
+        <viewAttribute id="cubicYardsPerLoad"/>
+        <viewAttribute id="cubicYardsConsumed"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="ebitdaTargetPercentageOfTotalRevenue"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="compactorTonsPerHour"/>
+        <viewAttribute id="equipmentCostPerHour"/>
+        <viewAttribute id="equipmentRepairCostPerHour"/>
+        <viewAttribute id="equipmentRepairCost"/>
+        <viewAttribute id="expenseCubicYards"/>
+        <viewAttribute id="excavatorLoaderTons"/>
+        <viewAttribute id="fuelCostPerHour"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="loadsPerHour"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="ownershipCostPerHour"/>
+        <viewAttribute id="payrollHours"/>
+        <viewAttribute id="productivityDailyCover"/>
+        <viewAttribute id="totalNetRevenue"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="tonnagePerEquipmentHour"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="compactorHours"/>
+        <viewAttribute id="excavatorLoaderHours"/>
+        <viewAttribute id="capexCost"/>
+        <viewAttribute id="capexCubicYards"/>
+        <viewAttribute id="loads"/>
+        <viewAttribute id="version"/>
+        <viewAttribute datatype="INTEGER" id="versionKey"/>
+        <viewAttribute id="equipmentHoursPercentageOfPayroll"/>
+        <viewAttribute id="excavatedCubicYards"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="operatingIncome"/>
+        <viewAttribute id="equipmentCost"/>
+        <viewAttribute id="siteandCellAmortizationPerTonActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="1Actuals">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCosts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCostsPerCapexCubicYards" source="capexCostsPerCapexCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTons" source="compactorTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="costOfOperations"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="coverPercentage" source="coverPercentage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsPerLoad" source="cubicYardsPerLoad"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsConsumed" source="cubicYardsConsumed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageOfTotalRevenue" source="ebitdaTargetPercentageOfTotalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTonsPerHour" source="compactorTonsPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCostPerHour" source="equipmentCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCostPerHour" source="equipmentRepairCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCost" source="equipmentRepairCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCubicYards" source="expenseCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderTons" source="excavatorLoaderTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostPerHour" source="fuelCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsPerHour" source="loadsPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCostPerHour" source="ownershipCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payrollHours" source="payrollHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityDailyCover" source="productivityDailyCover"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnagePerEquipmentHour" source="tonnagePerEquipmentHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpenses"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHours" source="compactorHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHours" source="excavatorLoaderHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCost" source="capexCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCubicYards" source="capexCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loads"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="versionKey" null="false" value="1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHoursPercentageOfPayroll" source="equipmentHoursPercentageOfPayroll"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatedCubicYards" source="excavatedCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncome"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCost" source="equipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteandCellAmortizationPerTonActual" source="siteAndCellAmortization"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="2Budget">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCosts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCostsPerCapexCubicYards" source="capexCostsPerCapexCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTons" source="compactorTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="costOfOperations"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="coverPercentage" source="coverPercentage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsPerLoad" source="cubicYardsPerLoad"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsConsumed" source="cubicYardsConsumed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageOfTotalRevenue" source="ebitdaTargetPercentageOfTotalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTonsPerHour" source="compactorTonsPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCostPerHour" source="equipmentCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCostPerHour" source="equipmentRepairCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCost" source="equipmentRepairCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCubicYards" source="expenseCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderTons" source="excavatorLoaderTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostPerHour" source="fuelCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsPerHour" source="loadsPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCostPerHour" source="ownershipCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payrollHours" source="payrollHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityDailyCover" source="productivityDailyCover"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnagePerEquipmentHour" source="tonnagePerEquipmentHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpenses"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHours" source="compactorHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHours" source="excavatorLoaderHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCost" source="capexCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCubicYards" source="capexCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loads"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="versionKey" null="false" value="2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHoursPercentageOfPayroll" source="equipmentHoursPercentageOfPayroll"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatedCubicYards" source="excavatedCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncome"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCost" source="equipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteandCellAmortizationPerTonActual" source="siteAndCellAmortization"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="3ActualsPerTon">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCosts"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="capexCostsPerCapexCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="compactorTons" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="costOfOperations" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="coverPercentage" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="cubicYardsPerLoad" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="cubicYardsConsumed" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ebitdaTarget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ebitdaTargetPercentageOfTotalRevenue" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="compactorTonsPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentRepairCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentRepairCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="expenseCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="excavatorLoaderTons" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCost"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ownershipCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="payrollHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="productivityDailyCover" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenue"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCost"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnagePerEquipmentHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpenses"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpense"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="compactorHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="excavatorLoaderHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="capexCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="capexCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loads" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="versionKey" null="false" value="4"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentHoursPercentageOfPayroll" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="excavatedCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncomePerTonActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteandCellAmortizationPerTonActual" source="siteandCellAmortizationPerTonActual"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="4BudgetPerTon">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCosts"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="capexCostsPerCapexCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="compactorTons" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="costOfOperations" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="coverPercentage" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="cubicYardsPerLoad" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="cubicYardsConsumed" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ebitdaTarget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ebitdaTargetPercentageOfTotalRevenue" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="compactorTonsPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentRepairCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentRepairCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="expenseCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="excavatorLoaderTons" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCost"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ownershipCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="payrollHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="productivityDailyCover" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenue"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCost"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnagePerEquipmentHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpenses"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpense"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="compactorHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="excavatorLoaderHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="capexCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="capexCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loads" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="versionKey" null="false" value="5"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentHoursPercentageOfPayroll" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="excavatedCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncomePerTonBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteandCellAmortizationPerTonActual" source="siteAndCellAmortization"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="5Variances">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCosts"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCostsPerCapexCubicYards" source="capexCostsPerCapexCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTons" source="compactorTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperations" source="costOfOperations"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="coverPercentage" source="coverPercentage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsPerLoad" source="cubicYardsPerLoad"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cubicYardsConsumed" source="cubicYardsConsumed"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTarget" source="ebitdaTarget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetPercentageOfTotalRevenue" source="ebitdaTargetPercentageOfTotalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenue" source="totalRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorTonsPerHour" source="compactorTonsPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCostPerHour" source="equipmentCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCostPerHour" source="equipmentRepairCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentRepairCost" source="equipmentRepairCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="expenseCubicYards" source="expenseCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderTons" source="excavatorLoaderTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostPerHour" source="fuelCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCost" source="fuelCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsPerHour" source="loadsPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCostPerHour" source="ownershipCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payrollHours" source="payrollHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityDailyCover" source="productivityDailyCover"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetRevenue" source="totalNetRevenue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="tonnage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnagePerEquipmentHour" source="tonnagePerEquipmentHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpenses"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpense"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compactorHours" source="compactorHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatorLoaderHours" source="excavatorLoaderHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCost" source="capexCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="capexCubicYards" source="capexCubicYards"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loads" source="loads"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="versionKey" null="false" value="3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHoursPercentageOfPayroll" source="equipmentHoursPercentageOfPayroll"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavatedCubicYards" source="excavatedCubicYardsVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHours" source="truckHoursVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncome"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCost" source="equipmentCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteandCellAmortizationPerTonActual" source="siteAndCellAmortization"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="6VariancesPerTon">
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCosts" source="allOtherCosts"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="capexCostsPerCapexCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="compactorTons" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="costOfOperations" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="coverPercentage" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="cubicYardsPerLoad" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="cubicYardsConsumed" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ebitdaTarget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ebitdaTargetPercentageOfTotalRevenue" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalRevenue" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="compactorTonsPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentRepairCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentRepairCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="expenseCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="excavatorLoaderTons" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ownershipCost" source="ownershipCost"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="ownershipCostPerHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="payrollHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="productivityDailyCover" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalNetRevenue" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetLaborCost" source="totalNetLaborCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalNetEquipmentCost" source="totalNetEquipmentCost"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnagePerEquipmentHour" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOtherLandfillExpenses" source="totalOtherLandfillExpenses"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalLandfillOperatingExpense" source="totalLandfillOperatingExpense"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="compactorHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="excavatorLoaderHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="capexCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="capexCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loads" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="versionKey" null="false" value="6"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentHoursPercentageOfPayroll" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="excavatedCubicYards" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncome" source="operatingIncomePerTonVariance"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentCost" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="siteandCellAmortizationPerTonActual" source="siteAndCellAmortization"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="area" order="1" attributeHierarchyActive="false" descriptionColumnName="areaDescription" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Union_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="district" order="3" attributeHierarchyActive="false" descriptionColumnName="districtDescription" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Union_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="5" attributeHierarchyActive="false" descriptionColumnName="lineofBusinessDescription" displayAttribute="false">
+        <descriptions defaultDescription="Line Of Business"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="7" attributeHierarchyActive="false" descriptionColumnName="profitCenterDescription" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="region" order="9" attributeHierarchyActive="false" descriptionColumnName="regionDescription" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Union_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="11" attributeHierarchyActive="false" descriptionColumnName="subDistrictDescription" displayAttribute="false">
+        <descriptions defaultDescription="Subdistrict"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subdistrict Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="version" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Union_1" columnName="version"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="allOtherCosts" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Other Income, Interests and Amorization"/>
+        <measureMapping columnObjectName="Union_1" columnName="allOtherCosts"/>
+      </measure>
+      <measure id="capexCostsPerCapexCubicYards" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX $ per CAPEX Cubic Yards"/>
+        <measureMapping columnObjectName="Union_1" columnName="capexCostsPerCapexCubicYards"/>
+      </measure>
+      <measure id="compactorTons" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Tons"/>
+        <measureMapping columnObjectName="Union_1" columnName="compactorTons"/>
+      </measure>
+      <measure id="costOfOperations" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cost of Operations"/>
+        <measureMapping columnObjectName="Union_1" columnName="costOfOperations"/>
+      </measure>
+      <measure id="coverPercentage" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Daily Cover (% of Consumed Yards Consumed)"/>
+        <measureMapping columnObjectName="Union_1" columnName="coverPercentage"/>
+      </measure>
+      <measure id="cubicYardsPerLoad" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cubic Yards per Load"/>
+        <measureMapping columnObjectName="Union_1" columnName="cubicYardsPerLoad"/>
+      </measure>
+      <measure id="cubicYardsConsumed" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cubic Yards Consumed"/>
+        <measureMapping columnObjectName="Union_1" columnName="cubicYardsConsumed"/>
+      </measure>
+      <measure id="ebitdaTarget" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target"/>
+        <measureMapping columnObjectName="Union_1" columnName="ebitdaTarget"/>
+      </measure>
+      <measure id="ebitdaTargetPercentageOfTotalRevenue" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target (% of Total Revenue)"/>
+        <measureMapping columnObjectName="Union_1" columnName="ebitdaTargetPercentageOfTotalRevenue"/>
+      </measure>
+      <measure id="totalRevenue" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Revenue"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalRevenue"/>
+      </measure>
+      <measure id="compactorTonsPerHour" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Tons per Hour"/>
+        <measureMapping columnObjectName="Union_1" columnName="compactorTonsPerHour"/>
+      </measure>
+      <measure id="equipmentCostPerHour" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Cost per Hour"/>
+        <measureMapping columnObjectName="Union_1" columnName="equipmentCostPerHour"/>
+      </measure>
+      <measure id="equipmentRepairCostPerHour" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equip Maint $/Hr "/>
+        <measureMapping columnObjectName="Union_1" columnName="equipmentRepairCostPerHour"/>
+      </measure>
+      <measure id="equipmentRepairCost" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equip Maint $"/>
+        <measureMapping columnObjectName="Union_1" columnName="equipmentRepairCost"/>
+      </measure>
+      <measure id="expenseCubicYards" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Expense Cubic Yards"/>
+        <measureMapping columnObjectName="Union_1" columnName="expenseCubicYards"/>
+      </measure>
+      <measure id="excavatorLoaderTons" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavator Loader tons"/>
+        <measureMapping columnObjectName="Union_1" columnName="excavatorLoaderTons"/>
+      </measure>
+      <measure id="fuelCostPerHour" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Cost per Hour"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelCostPerHour"/>
+      </measure>
+      <measure id="fuelCost" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel Cost"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelCost"/>
+      </measure>
+      <measure id="loadsPerHour" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads per Hour"/>
+        <measureMapping columnObjectName="Union_1" columnName="loadsPerHour"/>
+      </measure>
+      <measure id="ownershipCost" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Ownership Cost"/>
+        <measureMapping columnObjectName="Union_1" columnName="ownershipCost"/>
+      </measure>
+      <measure id="ownershipCostPerHour" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Ownership Cost per Hour"/>
+        <measureMapping columnObjectName="Union_1" columnName="ownershipCostPerHour"/>
+      </measure>
+      <measure id="payrollHours" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Payroll Hours"/>
+        <measureMapping columnObjectName="Union_1" columnName="payrollHours"/>
+      </measure>
+      <measure id="productivityDailyCover" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Productivity Daily Cover"/>
+        <measureMapping columnObjectName="Union_1" columnName="productivityDailyCover"/>
+      </measure>
+      <measure id="totalNetRevenue" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Revenue"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalNetRevenue"/>
+      </measure>
+      <measure id="tonnage" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnage"/>
+      </measure>
+      <measure id="totalNetLaborCost" order="39" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Labor Cost"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalNetLaborCost"/>
+      </measure>
+      <measure id="totalNetEquipmentCost" order="40" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Net Equipment Cost"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalNetEquipmentCost"/>
+      </measure>
+      <measure id="tonnagePerEquipmentHour" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage per Equipment Hour"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnagePerEquipmentHour"/>
+      </measure>
+      <measure id="equipmentHours" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Hours"/>
+        <measureMapping columnObjectName="Union_1" columnName="equipmentHours"/>
+      </measure>
+      <measure id="totalOtherLandfillExpenses" order="43" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Other Operating Expenses"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalOtherLandfillExpenses"/>
+      </measure>
+      <measure id="totalLandfillOperatingExpense" order="44" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Landfill Operating Expense"/>
+        <measureMapping columnObjectName="Union_1" columnName="totalLandfillOperatingExpense"/>
+      </measure>
+      <measure id="compactorHours" order="45" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Compactor Hours"/>
+        <measureMapping columnObjectName="Union_1" columnName="compactorHours"/>
+      </measure>
+      <measure id="excavatorLoaderHours" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavator Loader Hours"/>
+        <measureMapping columnObjectName="Union_1" columnName="excavatorLoaderHours"/>
+      </measure>
+      <measure id="capexCost" order="47" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Cost"/>
+        <measureMapping columnObjectName="Union_1" columnName="capexCost"/>
+      </measure>
+      <measure id="capexCubicYards" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="CAPEX Cubic Yards"/>
+        <measureMapping columnObjectName="Union_1" columnName="capexCubicYards"/>
+      </measure>
+      <measure id="loads" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads"/>
+        <measureMapping columnObjectName="Union_1" columnName="loads"/>
+      </measure>
+      <measure id="versionKey" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Version Key"/>
+        <measureMapping columnObjectName="Union_1" columnName="versionKey"/>
+      </measure>
+      <measure id="equipmentHoursPercentageOfPayroll" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Hours % of Payroll Hours"/>
+        <measureMapping columnObjectName="Union_1" columnName="equipmentHoursPercentageOfPayroll"/>
+      </measure>
+      <measure id="excavatedCubicYards" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Excavated Cubic Yards"/>
+        <measureMapping columnObjectName="Union_1" columnName="excavatedCubicYards"/>
+      </measure>
+      <measure id="truckHours" order="53" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Union_1" columnName="truckHours"/>
+      </measure>
+      <measure id="operatingIncome" order="54" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operating Income"/>
+        <measureMapping columnObjectName="Union_1" columnName="operatingIncome"/>
+      </measure>
+      <measure id="equipmentCost" order="55" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Equipment Cost"/>
+        <measureMapping columnObjectName="Union_1" columnName="equipmentCost"/>
+      </measure>
+      <measure id="siteandCellAmortization" order="56" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cell Amortization"/>
+        <measureMapping columnObjectName="Union_1" columnName="siteandCellAmortizationPerTonActual"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="407" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="431"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="1Actuals" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="353"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="2Budget" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="353"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="3ActualsPerTon" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="353"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="4BudgetPerTon" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="353"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="5Variances" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="353"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="6VariancesPerTon" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="353"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

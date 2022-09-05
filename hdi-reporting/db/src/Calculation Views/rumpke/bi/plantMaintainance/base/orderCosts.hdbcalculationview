@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::orderCosts" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Maintenance Costs"/>
+  <metadata changedAt="2019-12-04 08:27:39.016"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="S4HANA::PMCO_OP">
+      <resourceUri>S4HANA::PMCO_OP</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="currency"/>
+        <viewAttribute id="debitType"/>
+        <viewAttribute id="valueType"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="valueCategory"/>
+        <viewAttribute id="planningBudgetingVersion"/>
+        <viewAttribute id="periodBlock"/>
+        <viewAttribute id="budgetType"/>
+        <viewAttribute id="accountingIndicator"/>
+        <viewAttribute id="varianceCategory"/>
+        <viewAttribute id="period0Value"/>
+        <viewAttribute id="period1Value"/>
+        <viewAttribute id="period2Value"/>
+        <viewAttribute id="period3Value"/>
+        <viewAttribute id="period4Value"/>
+        <viewAttribute id="period5Value"/>
+        <viewAttribute id="period6Value"/>
+        <viewAttribute id="period7Value"/>
+        <viewAttribute id="period8Value"/>
+        <viewAttribute id="period9Value"/>
+        <viewAttribute id="period10Value"/>
+        <viewAttribute id="period11Value"/>
+        <viewAttribute id="period12Value"/>
+        <viewAttribute id="period13Value"/>
+        <viewAttribute id="period14Value"/>
+        <viewAttribute id="period15Value"/>
+        <viewAttribute id="period16Value"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::PMCO_OP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currency" source="COCUR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="debitType" source="BELTP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueType" source="WRTTP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="GJAHR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="valueCategory" source="ACPOS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="planningBudgetingVersion" source="VERSN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodBlock" source="PERBL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budgetType" source="VORGA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountingIndicator" source="BEMOT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="varianceCategory" source="ABKAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period0Value" source="WRT00"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period1Value" source="WRT01"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period2Value" source="WRT02"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period3Value" source="WRT03"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period4Value" source="WRT04"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period5Value" source="WRT05"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period6Value" source="WRT06"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period7Value" source="WRT07"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period8Value" source="WRT08"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period9Value" source="WRT09"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period10Value" source="WRT10"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period11Value" source="WRT11"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period12Value" source="WRT12"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period13Value" source="WRT13"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period14Value" source="WRT14"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period15Value" source="WRT15"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="period16Value" source="WRT16"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Projection_1" columnName="client"/>
+      </attribute>
+      <attribute id="objectNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="currency" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="currency"/>
+      </attribute>
+      <attribute id="debitType" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Debit Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="debitType"/>
+      </attribute>
+      <attribute id="valueType" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Value Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="valueType"/>
+      </attribute>
+      <attribute id="fiscalYear" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="valueCategory" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Value Category"/>
+        <keyMapping columnObjectName="Projection_1" columnName="valueCategory"/>
+      </attribute>
+      <attribute id="planningBudgetingVersion" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Planning/Budgeting Version"/>
+        <keyMapping columnObjectName="Projection_1" columnName="planningBudgetingVersion"/>
+      </attribute>
+      <attribute id="periodBlock" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period Block"/>
+        <keyMapping columnObjectName="Projection_1" columnName="periodBlock"/>
+      </attribute>
+      <attribute id="budgetType" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Budget Type"/>
+        <keyMapping columnObjectName="Projection_1" columnName="budgetType"/>
+      </attribute>
+      <attribute id="accountingIndicator" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Accounting Indicator"/>
+        <keyMapping columnObjectName="Projection_1" columnName="accountingIndicator"/>
+      </attribute>
+      <attribute id="varianceCategory" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Variance Category"/>
+        <keyMapping columnObjectName="Projection_1" columnName="varianceCategory"/>
+      </attribute>
+      <attribute id="period0Value" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 0 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period0Value"/>
+      </attribute>
+      <attribute id="period1Value" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 1 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period1Value"/>
+      </attribute>
+      <attribute id="period2Value" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 2 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period2Value"/>
+      </attribute>
+      <attribute id="period3Value" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 3 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period3Value"/>
+      </attribute>
+      <attribute id="period4Value" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 4 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period4Value"/>
+      </attribute>
+      <attribute id="period5Value" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 5 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period5Value"/>
+      </attribute>
+      <attribute id="period6Value" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 6 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period6Value"/>
+      </attribute>
+      <attribute id="period7Value" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 7 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period7Value"/>
+      </attribute>
+      <attribute id="period8Value" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 8 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period8Value"/>
+      </attribute>
+      <attribute id="period9Value" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 9 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period9Value"/>
+      </attribute>
+      <attribute id="period10Value" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 10 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period10Value"/>
+      </attribute>
+      <attribute id="period11Value" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 11 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period11Value"/>
+      </attribute>
+      <attribute id="period12Value" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 12 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period12Value"/>
+      </attribute>
+      <attribute id="period13Value" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 13 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period13Value"/>
+      </attribute>
+      <attribute id="period14Value" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 14 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period14Value"/>
+      </attribute>
+      <attribute id="period15Value" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 15 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period15Value"/>
+      </attribute>
+      <attribute id="period16Value" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Period 16 value in ledger currency"/>
+        <keyMapping columnObjectName="Projection_1" columnName="period16Value"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

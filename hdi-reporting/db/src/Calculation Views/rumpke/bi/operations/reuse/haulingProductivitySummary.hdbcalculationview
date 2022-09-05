@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::haulingProductivitySummary" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="test"/>
+  <metadata changedAt="2020-09-29 22:45:40.69"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="46"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.base::haulingProductivitySummary">
+      <resourceUri>rumpke.bi.operations.base::haulingProductivitySummary</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.operations.base::productivityMetrics">
+      <resourceUri>rumpke.bi.operations.base::productivityMetrics</resourceUri>
+    </DataSource>
+    <DataSource id="Actuals$$$$rumpke.bi.operations.base::haulingProductivitySummary$$">
+      <resourceUri>rumpke.bi.operations.base::haulingProductivitySummary</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.operations.base::haulingScorecardHistory">
+      <resourceUri>rumpke.bi.operations.base::haulingScorecardHistory</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Budget_Forecast_2020">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="stopsBudget"/>
+        <viewAttribute id="stopsForecast"/>
+        <viewAttribute id="extraStopsBudget"/>
+        <viewAttribute id="extraStopsForecast"/>
+        <viewAttribute id="liftsBudget"/>
+        <viewAttribute id="liftsForecast"/>
+        <viewAttribute id="extraLiftsBudget"/>
+        <viewAttribute id="extraLiftsForecast"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="loadsForecast"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="tonnageForecast"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="yardsForecast"/>
+        <viewAttribute id="extraYardsBudget"/>
+        <viewAttribute id="extraYardsForecast"/>
+        <viewAttribute id="routeHoursBudget"/>
+        <viewAttribute id="routeHoursForecast"/>
+        <viewAttribute id="mechanicHoursBudget"/>
+        <viewAttribute id="mechanicHoursForecast"/>
+        <viewAttribute id="disposalCostBudget"/>
+        <viewAttribute id="disposalCostForecast"/>
+        <viewAttribute id="laborCostBudget"/>
+        <viewAttribute id="laborCostForecast"/>
+        <viewAttribute id="fuelCostBudget"/>
+        <viewAttribute id="fuelCostForecast"/>
+        <viewAttribute id="vehicleCostBudget"/>
+        <viewAttribute id="vehicleCostForecast"/>
+        <viewAttribute id="mechanicCostBudget"/>
+        <viewAttribute id="mechanicCostForecast"/>
+        <viewAttribute id="grossRevenueBudget"/>
+        <viewAttribute id="grossRevenueForecast"/>
+        <viewAttribute id="extraRevenueBudget"/>
+        <viewAttribute id="extraRevenueForecast"/>
+        <viewAttribute id="routeCustomerMilesBudget"/>
+        <viewAttribute id="routeCustomerMilesForecast"/>
+        <viewAttribute id="downMilesBudget"/>
+        <viewAttribute id="downMilesForecast"/>
+        <viewAttribute id="gallonsBudget"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="unitsForecast"/>
+        <viewAttribute id="totalMechanicHoursBudget"/>
+        <viewAttribute id="totalMechanicHoursForecast"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="gallonsForecast"/>
+        <viewAttribute id="routeHoursWithMechanicForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.operations.base::haulingProductivitySummary"/>
+    <filter>(&quot;fiscalYearPeriod&quot; &lt;='2020012') AND (in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Budget_forecast_2021above">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="stopsBudget"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="liftsBudget"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="mechanicHoursBudget"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="routeCustomerMilesBudget"/>
+        <viewAttribute id="routeHoursBudget"/>
+        <viewAttribute id="equipmentHoursBudget"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="stopsForecast"/>
+        <viewAttribute id="tonnageForecast"/>
+        <viewAttribute id="liftsForecast"/>
+        <viewAttribute id="unitsForecast"/>
+        <viewAttribute id="mechanicHoursForecast"/>
+        <viewAttribute id="yardsForecast"/>
+        <viewAttribute id="routeCustomerMilesForecast"/>
+        <viewAttribute id="routeHoursForecast"/>
+        <viewAttribute id="equipmentHoursForecast"/>
+        <viewAttribute id="routeHoursWithMechanicForecast"/>
+        <viewAttribute id="loadsForecast"/>
+        <viewAttribute id="truckHoursForecast"/>
+        <viewAttribute id="truckHoursBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.operations.base::productivityMetrics">
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursForecast" source="truckHoursForecast1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursBudget" source="truckHoursBudget1"/>
+      </input>
+    <filter>(&quot;fiscalYearPeriod&quot; &gt;='2021001') AND (in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Actuals" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="stopsActual"/>
+        <viewAttribute id="extraStopsActual"/>
+        <viewAttribute id="liftsActual"/>
+        <viewAttribute id="extraLiftsActual"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="yardsActual"/>
+        <viewAttribute id="extraYardsActual"/>
+        <viewAttribute id="routeHoursActual"/>
+        <viewAttribute id="mechanicHoursActual"/>
+        <viewAttribute id="disposalCostActual"/>
+        <viewAttribute id="laborCostActual"/>
+        <viewAttribute id="fuelCostActual"/>
+        <viewAttribute id="vehicleCostActual"/>
+        <viewAttribute id="mechanicCostActual"/>
+        <viewAttribute id="grossRevenueActual"/>
+        <viewAttribute id="extraRevenueActual"/>
+        <viewAttribute id="routeCustomerMilesActual"/>
+        <viewAttribute id="downMilesActual"/>
+        <viewAttribute id="gallonsActual"/>
+        <viewAttribute id="unitsActual"/>
+        <viewAttribute id="totalMechanicHoursActual"/>
+        <viewAttribute id="routeHoursWithMechanicActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Actuals$$$$rumpke.bi.operations.base::haulingProductivitySummary$$"/>
+    <filter>(in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT')) AND (&quot;fiscalYearPeriod&quot; &gt;='2020001')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="HaulingHistory2020Forecast">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="equipmentHoursForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.operations.base::haulingScorecardHistory"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="stopsBudget"/>
+        <viewAttribute id="stopsForecast"/>
+        <viewAttribute id="extraStopsBudget"/>
+        <viewAttribute id="extraLiftsBudget"/>
+        <viewAttribute id="extraYardsBudget"/>
+        <viewAttribute id="disposalCostBudget"/>
+        <viewAttribute id="laborCostBudget"/>
+        <viewAttribute id="fuelCostBudget"/>
+        <viewAttribute id="vehicleCostBudget"/>
+        <viewAttribute id="mechanicCostBudget"/>
+        <viewAttribute id="grossRevenueBudget"/>
+        <viewAttribute id="extraRevenueBudget"/>
+        <viewAttribute id="downMilesBudget"/>
+        <viewAttribute id="totalMechanicHoursBudget"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="liftsBudget"/>
+        <viewAttribute id="unitsBudget"/>
+        <viewAttribute id="mechanicHoursBudget"/>
+        <viewAttribute id="yardsBudget"/>
+        <viewAttribute id="routeCustomerMilesBudget"/>
+        <viewAttribute id="routeHoursBudget"/>
+        <viewAttribute id="equipmentHoursBudget"/>
+        <viewAttribute id="routeHoursWithMechanicBudget"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="loadsBudget"/>
+        <viewAttribute id="extraStopsForecast"/>
+        <viewAttribute id="liftsForecast"/>
+        <viewAttribute id="extraLiftsForecast"/>
+        <viewAttribute id="loadsForecast"/>
+        <viewAttribute id="tonnageForecast"/>
+        <viewAttribute id="yardsForecast"/>
+        <viewAttribute id="extraYardsForecast"/>
+        <viewAttribute id="routeHoursForecast"/>
+        <viewAttribute id="mechanicHoursForecast"/>
+        <viewAttribute id="disposalCostForecast"/>
+        <viewAttribute id="laborCostForecast"/>
+        <viewAttribute id="fuelCostForecast"/>
+        <viewAttribute id="vehicleCostForecast"/>
+        <viewAttribute id="mechanicCostForecast"/>
+        <viewAttribute id="grossRevenueForecast"/>
+        <viewAttribute id="extraRevenueForecast"/>
+        <viewAttribute id="routeCustomerMilesForecast"/>
+        <viewAttribute id="downMilesForecast"/>
+        <viewAttribute id="unitsForecast"/>
+        <viewAttribute id="totalMechanicHoursForecast"/>
+        <viewAttribute id="gallonsForecast"/>
+        <viewAttribute id="routeHoursWithMechanicForecast"/>
+        <viewAttribute id="stopsActual"/>
+        <viewAttribute id="extraStopsActual"/>
+        <viewAttribute id="liftsActual"/>
+        <viewAttribute id="extraLiftsActual"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="yardsActual"/>
+        <viewAttribute id="extraYardsActual"/>
+        <viewAttribute id="routeHoursActual"/>
+        <viewAttribute id="mechanicHoursActual"/>
+        <viewAttribute id="disposalCostActual"/>
+        <viewAttribute id="laborCostActual"/>
+        <viewAttribute id="fuelCostActual"/>
+        <viewAttribute id="vehicleCostActual"/>
+        <viewAttribute id="mechanicCostActual"/>
+        <viewAttribute id="grossRevenueActual"/>
+        <viewAttribute id="extraRevenueActual"/>
+        <viewAttribute id="routeCustomerMilesActual"/>
+        <viewAttribute id="downMilesActual"/>
+        <viewAttribute id="gallonsActual"/>
+        <viewAttribute id="unitsActual"/>
+        <viewAttribute id="totalMechanicHoursActual"/>
+        <viewAttribute id="routeHoursWithMechanicActual"/>
+        <viewAttribute id="gallonsBudget"/>
+        <viewAttribute id="truckHoursForecast"/>
+        <viewAttribute id="truckHoursBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Budget_Forecast_2020">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stopsBudget" source="stopsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stopsForecast" source="stopsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraStopsBudget" source="extraStopsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraLiftsBudget" source="extraLiftsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraYardsBudget" source="extraYardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalCostBudget" source="disposalCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborCostBudget" source="laborCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostBudget" source="fuelCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleCostBudget" source="vehicleCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicCostBudget" source="mechanicCostBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossRevenueBudget" source="grossRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraRevenueBudget" source="extraRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="downMilesBudget" source="downMilesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMechanicHoursBudget" source="totalMechanicHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageBudget" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="liftsBudget" source="liftsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsBudget" source="unitsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicHoursBudget" source="mechanicHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsBudget" source="yardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMilesBudget" source="routeCustomerMilesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursBudget" source="routeHoursBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicBudget" source="routeHoursWithMechanicBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsBudget" source="loadsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraStopsForecast" source="extraStopsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="liftsForecast" source="liftsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraLiftsForecast" source="extraLiftsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsForecast" source="loadsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageForecast" source="tonnageForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsForecast" source="yardsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraYardsForecast" source="extraYardsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursForecast" source="routeHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicHoursForecast" source="mechanicHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalCostForecast" source="disposalCostForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborCostForecast" source="laborCostForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostForecast" source="fuelCostForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleCostForecast" source="vehicleCostForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicCostForecast" source="mechanicCostForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossRevenueForecast" source="grossRevenueForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraRevenueForecast" source="extraRevenueForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMilesForecast" source="routeCustomerMilesForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="downMilesForecast" source="downMilesForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsForecast" source="unitsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMechanicHoursForecast" source="totalMechanicHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="gallonsForecast" source="gallonsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicForecast" source="routeHoursWithMechanicForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="stopsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraStopsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="liftsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraLiftsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="yardsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraYardsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicHoursActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="disposalCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="laborCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vehicleCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="grossRevenueActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraRevenueActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeCustomerMilesActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="downMilesActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="gallonsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="unitsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMechanicHoursActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursWithMechanicActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="gallonsBudget" source="gallonsBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHoursBudget" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Budget_forecast_2021above">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stopsBudget" source="stopsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stopsForecast" source="stopsForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraStopsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraLiftsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraYardsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="disposalCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="laborCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vehicleCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="grossRevenueBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraRevenueBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="downMilesBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMechanicHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageBudget" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="liftsBudget" source="liftsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsBudget" source="unitsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicHoursBudget" source="mechanicHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsBudget" source="yardsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMilesBudget" source="routeCustomerMilesBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursBudget" source="routeHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHoursBudget" source="equipmentHoursBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicBudget" source="routeHoursWithMechanicBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsBudget" source="loadsBudget"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraStopsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="liftsForecast" source="liftsForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraLiftsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsForecast" source="loadsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageForecast" source="tonnageForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsForecast" source="yardsForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraYardsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursForecast" source="routeHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicHoursForecast" source="mechanicHoursForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="disposalCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="laborCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vehicleCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="grossRevenueForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraRevenueForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMilesForecast" source="routeCustomerMilesForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="downMilesForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsForecast" source="unitsForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMechanicHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="gallonsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicForecast" source="routeHoursWithMechanicForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="stopsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraStopsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="liftsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraLiftsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="yardsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraYardsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicHoursActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="disposalCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="laborCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vehicleCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="grossRevenueActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraRevenueActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeCustomerMilesActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="downMilesActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="gallonsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="unitsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMechanicHoursActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursWithMechanicActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="gallonsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursForecast" source="truckHoursForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursBudget" source="truckHoursBudget"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Actuals">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="stopsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="stopsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraStopsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraLiftsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraYardsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="disposalCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="laborCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vehicleCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="grossRevenueBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraRevenueBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="downMilesBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMechanicHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="liftsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="unitsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="yardsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeCustomerMilesBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursWithMechanicBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraStopsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="liftsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraLiftsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="yardsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraYardsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="disposalCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="laborCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vehicleCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="grossRevenueForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraRevenueForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeCustomerMilesForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="downMilesForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="unitsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMechanicHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="gallonsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursWithMechanicForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="stopsActual" source="stopsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraStopsActual" source="extraStopsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="liftsActual" source="liftsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraLiftsActual" source="extraLiftsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsActual" source="loadsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageActual" source="tonnageActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yardsActual" source="yardsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraYardsActual" source="extraYardsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursActual" source="routeHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicHoursActual" source="mechanicHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="disposalCostActual" source="disposalCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="laborCostActual" source="laborCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelCostActual" source="fuelCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleCostActual" source="vehicleCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicCostActual" source="mechanicCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossRevenueActual" source="grossRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="extraRevenueActual" source="extraRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeCustomerMilesActual" source="routeCustomerMilesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="downMilesActual" source="downMilesActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="gallonsActual" source="gallonsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitsActual" source="unitsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalMechanicHoursActual" source="totalMechanicHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routeHoursWithMechanicActual" source="routeHoursWithMechanicActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="gallonsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHoursBudget" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="HaulingHistory2020Forecast">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="stopsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="stopsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraStopsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraLiftsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraYardsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="disposalCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="laborCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vehicleCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicCostBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="grossRevenueBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraRevenueBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="downMilesBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMechanicHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="liftsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="unitsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="yardsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeCustomerMilesBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="equipmentHoursBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursWithMechanicBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraStopsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="liftsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraLiftsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="yardsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraYardsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="disposalCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="laborCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vehicleCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicCostForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="grossRevenueForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraRevenueForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeCustomerMilesForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="downMilesForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="unitsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMechanicHoursForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="gallonsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursWithMechanicForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="stopsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraStopsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="liftsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraLiftsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="loadsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="yardsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraYardsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicHoursActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="disposalCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="laborCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="fuelCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="vehicleCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="mechanicCostActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="grossRevenueActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="extraRevenueActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeCustomerMilesActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="downMilesActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="gallonsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="unitsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="totalMechanicHoursActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="routeHoursWithMechanicActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="gallonsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursForecast" source="equipmentHoursForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="truckHoursBudget" null="true" value=""/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="profitCenter" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="priorMonth" hidden="false" order="88" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month - For Live Projections"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="10">
+          <formula>leftstr(string(addmonths(now(), -1)),4) + '0' + rightstr(leftstr(string(addmonths(now(), -1)),7),2)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="stopsActual" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="stops - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="stopsActual"/>
+      </measure>
+      <measure id="stopsBudget" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Stops - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="stopsBudget"/>
+      </measure>
+      <measure id="stopsForecast" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Stops - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="stopsForecast"/>
+      </measure>
+      <measure id="extraStopsActual" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraStops - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraStopsActual"/>
+      </measure>
+      <measure id="extraStopsBudget" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraStops - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraStopsBudget"/>
+      </measure>
+      <measure id="extraStopsForecast" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Extra Stops - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraStopsForecast"/>
+      </measure>
+      <measure id="liftsActual" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="lifts - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="liftsActual"/>
+      </measure>
+      <measure id="liftsBudget" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Lifts - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="liftsBudget"/>
+      </measure>
+      <measure id="liftsForecast" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Lifts - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="liftsForecast"/>
+      </measure>
+      <measure id="extraLiftsActual" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraLifts - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraLiftsActual"/>
+      </measure>
+      <measure id="extraLiftsBudget" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraLifts - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraLiftsBudget"/>
+      </measure>
+      <measure id="extraLiftsForecast" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Extra Lifts - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraLiftsForecast"/>
+      </measure>
+      <measure id="loadsActual" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="loads - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="loadsActual"/>
+      </measure>
+      <measure id="loadsBudget" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="loadsBudget"/>
+      </measure>
+      <measure id="loadsForecast" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Loads - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="loadsForecast"/>
+      </measure>
+      <measure id="tonnageActual" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tonnage - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnageActual"/>
+      </measure>
+      <measure id="tonnageBudget" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tonnage - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnageBudget"/>
+      </measure>
+      <measure id="tonnageForecast" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tonnage - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnageForecast"/>
+      </measure>
+      <measure id="yardsActual" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="yards - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="yardsActual"/>
+      </measure>
+      <measure id="yardsBudget" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Yards - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="yardsBudget"/>
+      </measure>
+      <measure id="yardsForecast" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Yards - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="yardsForecast"/>
+      </measure>
+      <measure id="extraYardsActual" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraYards - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraYardsActual"/>
+      </measure>
+      <measure id="extraYardsBudget" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraYards - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraYardsBudget"/>
+      </measure>
+      <measure id="extraYardsForecast" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extra Yards - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraYardsForecast"/>
+      </measure>
+      <measure id="routeHoursActual" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeHours - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeHoursActual"/>
+      </measure>
+      <measure id="routeHoursBudget" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Route Hours - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeHoursBudget"/>
+      </measure>
+      <measure id="routeHoursForecast" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="route Hours - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeHoursForecast"/>
+      </measure>
+      <measure id="mechanicHoursActual" order="40" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="mechanicHours - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="mechanicHoursActual"/>
+      </measure>
+      <measure id="mechanicHoursBudget" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="mechanic Hours - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="mechanicHoursBudget"/>
+      </measure>
+      <measure id="mechanicHoursForecast" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="mechanicHours - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="mechanicHoursForecast"/>
+      </measure>
+      <measure id="disposalCostActual" order="44" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="disposalCost - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="disposalCostActual"/>
+      </measure>
+      <measure id="disposalCostBudget" order="45" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="disposalCost - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="disposalCostBudget"/>
+      </measure>
+      <measure id="disposalCostForecast" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="disposalCost - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="disposalCostForecast"/>
+      </measure>
+      <measure id="laborCostActual" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="laborCost - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="laborCostActual"/>
+      </measure>
+      <measure id="laborCostBudget" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="laborCost - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="laborCostBudget"/>
+      </measure>
+      <measure id="laborCostForecast" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="laborCost - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="laborCostForecast"/>
+      </measure>
+      <measure id="fuelCostActual" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelCost - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelCostActual"/>
+      </measure>
+      <measure id="fuelCostBudget" order="53" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelCost - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelCostBudget"/>
+      </measure>
+      <measure id="fuelCostForecast" order="54" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelCost - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelCostForecast"/>
+      </measure>
+      <measure id="vehicleCostActual" order="56" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="vehicleCost - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="vehicleCostActual"/>
+      </measure>
+      <measure id="vehicleCostBudget" order="57" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="vehicleCost - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="vehicleCostBudget"/>
+      </measure>
+      <measure id="vehicleCostForecast" order="58" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="vehicleCost - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="vehicleCostForecast"/>
+      </measure>
+      <measure id="mechanicCostActual" order="60" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="mechanicCost - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="mechanicCostActual"/>
+      </measure>
+      <measure id="mechanicCostBudget" order="61" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="mechanicCost - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="mechanicCostBudget"/>
+      </measure>
+      <measure id="mechanicCostForecast" order="62" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="mechanicCost - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="mechanicCostForecast"/>
+      </measure>
+      <measure id="grossRevenueActual" order="64" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="grossRevenue - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="grossRevenueActual"/>
+      </measure>
+      <measure id="grossRevenueBudget" order="65" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="grossRevenue - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="grossRevenueBudget"/>
+      </measure>
+      <measure id="grossRevenueForecast" order="66" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="grossRevenue - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="grossRevenueForecast"/>
+      </measure>
+      <measure id="extraRevenueActual" order="68" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraRevenue - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraRevenueActual"/>
+      </measure>
+      <measure id="extraRevenueBudget" order="69" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraRevenue - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraRevenueBudget"/>
+      </measure>
+      <measure id="extraRevenueForecast" order="70" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="extraRevenue - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="extraRevenueForecast"/>
+      </measure>
+      <measure id="routeCustomerMilesActual" order="72" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeCustomerMiles - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeCustomerMilesActual"/>
+      </measure>
+      <measure id="routeCustomerMilesBudget" order="73" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeCustomer Miles - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeCustomerMilesBudget"/>
+      </measure>
+      <measure id="routeCustomerMilesForecast" order="74" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeCustomer Miles - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeCustomerMilesForecast"/>
+      </measure>
+      <measure id="downMilesActual" order="76" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="downMiles - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="downMilesActual"/>
+      </measure>
+      <measure id="downMilesBudget" order="77" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="downMiles - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="downMilesBudget"/>
+      </measure>
+      <measure id="downMilesForecast" order="78" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="downMiles - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="downMilesForecast"/>
+      </measure>
+      <measure id="unitsActual" order="80" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="units - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="unitsActual"/>
+      </measure>
+      <measure id="unitsBudget" order="81" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="units - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="unitsBudget"/>
+      </measure>
+      <measure id="unitsForecast" order="82" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="units - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="unitsForecast"/>
+      </measure>
+      <measure id="routeHoursWithMechanicActual" order="84" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeHoursWithMechanic - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeHoursWithMechanicActual"/>
+      </measure>
+      <measure id="routeHoursWithMechanicBudget" order="85" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeHourswithMechanic - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeHoursWithMechanicBudget"/>
+      </measure>
+      <measure id="routeHoursWithMechanicForecast" order="86" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="routeHoursWithMechanic - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="routeHoursWithMechanicForecast"/>
+      </measure>
+      <measure id="truckHoursForecast" order="89" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="truckHoursForecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="truckHoursForecast"/>
+      </measure>
+      <measure id="truckHoursBudget" order="90" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="truckHoursBudget"/>
+        <measureMapping columnObjectName="Union_1" columnName="truckHoursBudget"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="stopsProjection" hidden="false" order="7" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Stops - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;stopsForecast&quot;, &quot;stopsActual&quot;)</formula>
+      </measure>
+      <measure id="extraStopProjection" hidden="false" order="11" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Extra Stop - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;extraStopsForecast&quot;, &quot;extraStopsActual&quot;)</formula>
+      </measure>
+      <measure id="liftsProjection" hidden="false" order="15" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Extra Stop - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;liftsForecast&quot; , &quot;liftsActual&quot;)</formula>
+      </measure>
+      <measure id="extraLiftsProjection" hidden="false" order="19" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Extra Lifts - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;extraLiftsForecast&quot;, &quot;extraLiftsActual&quot;)</formula>
+      </measure>
+      <measure id="loadsProjection" hidden="false" order="23" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Loads - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;loadsForecast&quot;, &quot;loadsActual&quot;)</formula>
+      </measure>
+      <measure id="tonnageProjection" hidden="false" order="27" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="tonnage - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;tonnageForecast&quot;,&quot;tonnageActual&quot; )</formula>
+      </measure>
+      <measure id="yardsProjection" hidden="false" order="31" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Yards - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;yardsForecast&quot;,&quot;yardsActual&quot; )</formula>
+      </measure>
+      <measure id="extraYardsProjection" hidden="false" order="35" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="extra Yards - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;extraYardsForecast&quot; ,&quot;extraYardsActual&quot; )</formula>
+      </measure>
+      <measure id="routeHoursProjection" hidden="false" order="39" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="route Hours - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;routeHoursForecast&quot;, &quot;routeHoursActual&quot;)</formula>
+      </measure>
+      <measure id="mechanicHoursProjection" hidden="false" order="43" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="mechanicHours - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;mechanicHoursForecast&quot;, &quot;mechanicHoursActual&quot;)</formula>
+      </measure>
+      <measure id="disposalCostProjection" hidden="false" order="47" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="disposalCost - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;disposalCostForecast&quot;,&quot;disposalCostActual&quot; )</formula>
+      </measure>
+      <measure id="laborCostProjection" hidden="false" order="51" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="labourCost - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;laborCostForecast&quot; , &quot;laborCostActual&quot;)</formula>
+      </measure>
+      <measure id="fuelCostProjection" hidden="false" order="55" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="fuelCost - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;fuelCostForecast&quot; ,&quot;fuelCostActual&quot; )</formula>
+      </measure>
+      <measure id="vehicleCostProjection" hidden="false" order="59" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="vehicleCost - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;vehicleCostForecast&quot; , &quot;vehicleCostActual&quot;)</formula>
+      </measure>
+      <measure id="mechanicCostProjection" hidden="false" order="63" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="mechanicCost - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;mechanicCostForecast&quot; , &quot;mechanicCostActual&quot;)</formula>
+      </measure>
+      <measure id="grossRevenueProjection" hidden="false" order="67" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="grossRevenue - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;grossRevenueForecast&quot;, &quot;grossRevenueActual&quot;) </formula>
+      </measure>
+      <measure id="extraRevenueProjection" hidden="false" order="71" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="extraRevenue - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;grossRevenueForecast&quot;, &quot;grossRevenueActual&quot;) </formula>
+      </measure>
+      <measure id="routeCustomerMilesProjection" hidden="false" order="75" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="routeCustomer Miles - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;, &quot;routeCustomerMilesForecast&quot;, &quot;routeCustomerMilesActual&quot;) </formula>
+      </measure>
+      <measure id="downMilesProjection" hidden="false" order="79" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="downMiles - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;downMilesForecast&quot; , &quot;downMilesActual&quot;) </formula>
+      </measure>
+      <measure id="unitsProjection" hidden="false" order="83" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="units - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;unitsForecast&quot; , &quot;unitsActual&quot;) </formula>
+      </measure>
+      <measure id="routeHoursWithMechanicProjection" hidden="false" order="87" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="routeHoursWithMechanic - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;routeHoursWithMechanicForecast&quot; , &quot;routeHoursWithMechanicActual&quot;) </formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="243" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Budget_Forecast_2020" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="299"/>
+        <rectangleSize height="64" width="180"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Budget_forecast_2021above" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="216" y="299"/>
+        <rectangleSize height="64" width="195"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Actuals" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="425" y="299"/>
+        <rectangleSize height="64" width="161"/>
+      </shape>
+      <shape expanded="true" modelObjectName="HaulingHistory2020Forecast" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="600" y="305"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="243" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

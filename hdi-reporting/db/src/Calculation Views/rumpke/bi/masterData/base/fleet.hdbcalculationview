@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::fleet" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Fleet"/>
+  <metadata changedAt="2020-06-01 00:19:17.239"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="42"/>
+  <dataSources>
+    <DataSource id="FLEET">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::FLEET</resourceUri>
+    </DataSource>
+    <DataSource id="T370FLT">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T370FLT</resourceUri>
+    </DataSource>
+    <DataSource id="T370K_T">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T370K_T</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="fleetCategory"/>
+        <viewAttribute id="fleetNumber"/>
+        <viewAttribute id="fleetVin"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="objectGroup"/>
+        <viewAttribute id="totalWeight"/>
+        <viewAttribute id="totalWeightUoM"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="FLEET">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetCategory" source="FLEET_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetNumber" source="FLEET_NUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetVin" source="FLEET_VIN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="ZZEQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="licensePlateNumber" source="LICENSE_NUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectGroup" source="OBJECT_GRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeight" source="GROSS_WGT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeightUoM" source="WGT_UNIT"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="fleetCategory"/>
+        <viewAttribute id="objectGroup"/>
+        <viewAttribute id="profile"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T370FLT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetCategory" source="FLEET_CAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectGroup" source="OBJECT_GRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profile" source="PROFILE"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="fleetCategory"/>
+        <viewAttribute id="fleetNumber"/>
+        <viewAttribute id="fleetVin"/>
+        <viewAttribute id="objectGroup"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="totalWeight"/>
+        <viewAttribute id="totalWeightUoM"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetCategory" source="fleetCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetNumber" source="fleetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetVin" source="fleetVin"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="licensePlateNumber" source="licensePlateNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeight" source="totalWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeightUoM" source="totalWeightUoM"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectGroup" source="objectGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetCategory" source="fleetCategory"/>
+      </input>
+    <joinAttribute name="fleetCategory"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="language"/>
+        <viewAttribute id="fleetCategory"/>
+        <viewAttribute id="fleetCategoryDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T370K_T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="language" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetCategory" source="EQART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetCategoryDesc" source="EARTX"/>
+      </input>
+    <filter>(&quot;language&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fleetVin"/>
+        <viewAttribute id="fleetNumber"/>
+        <viewAttribute id="fleetCategory"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectGroup"/>
+        <viewAttribute id="fleetCategoryDesc"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="totalWeight"/>
+        <viewAttribute id="totalWeightUoM"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetVin" source="fleetVin"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetNumber" source="fleetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetCategory" source="fleetCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectGroup" source="objectGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="licensePlateNumber" source="licensePlateNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeight" source="totalWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeightUoM" source="totalWeightUoM"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetCategoryDesc" source="fleetCategoryDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetCategory" source="fleetCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+    <joinAttribute name="fleetCategory"/>
+    <joinAttribute name="client"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="client"/>
+        <keyMapping columnObjectName="Join_2" columnName="client"/>
+      </attribute>
+      <attribute id="equipmentNumber" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="fleetVin" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fleet VIN"/>
+        <keyMapping columnObjectName="Join_2" columnName="fleetVin"/>
+      </attribute>
+      <attribute id="fleetNumber" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fleet Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="fleetNumber"/>
+      </attribute>
+      <attribute id="fleetCategory" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fleet Category"/>
+        <keyMapping columnObjectName="Join_2" columnName="fleetCategory"/>
+      </attribute>
+      <attribute id="objectNumber" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="fleetCategoryDesc" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fleet Category Desc"/>
+        <keyMapping columnObjectName="Join_2" columnName="fleetCategoryDesc"/>
+      </attribute>
+      <attribute id="licensePlateNumber" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="License Plate Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="licensePlateNumber"/>
+      </attribute>
+      <attribute id="totalWeight" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="totalWeight"/>
+        <keyMapping columnObjectName="Join_2" columnName="totalWeight"/>
+      </attribute>
+      <attribute id="totalWeightUoM" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="totalWeightUoM"/>
+        <keyMapping columnObjectName="Join_2" columnName="totalWeightUoM"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="261"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.reuse::utmEmployeeHours" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="UTM EmployeeHours"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="55"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.hr.base::employeeHours">
+      <resourceUri>rumpke.bi.hr.base::employeeHours</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::costCenter">
+      <resourceUri>rumpke.bi.masterData.base::costCenter</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::profitCenter">
+      <resourceUri>rumpke.bi.masterData.base::profitCenter</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.hr.base::employee">
+      <resourceUri>rumpke.bi.hr.base::employee</resourceUri>
+    </DataSource>
+    <DataSource id="Aggregation_2$$$$rumpke.bi.masterData.base::costCenter$$">
+      <resourceUri>rumpke.bi.masterData.base::costCenter</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.hr.base::employeeWorkCenterMapping">
+      <resourceUri>rumpke.bi.hr.base::employeeWorkCenterMapping</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="workedHoursCalc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.hr.base::employeeHours"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::costCenter"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute id="costCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="inPunch" source="inPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outPunch" source="outPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="payCodeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scheduledHours" source="scheduledHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHours" source="workedHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="workDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+      </input>
+    <joinAttribute name="costCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::profitCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="department"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute id="costCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="workDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHours" source="workedHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scheduledHours" source="scheduledHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="payCodeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outPunch" source="outPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inPunch" source="inPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="employeeFirstName"/>
+        <viewAttribute id="employeeLastName"/>
+        <viewAttribute id="residenceLocationZipCode"/>
+        <viewAttribute id="currentWageCode"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="currentPositionTitle"/>
+        <viewAttribute id="eepDateTimeCreated"/>
+        <viewAttribute id="eepDateTimeChanged"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="dateTermination"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.hr.base::employee"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="costCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Aggregation_2$$$$rumpke.bi.masterData.base::costCenter$$"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" cardinality="CN_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="employeeFirstName"/>
+        <viewAttribute id="employeeLastName"/>
+        <viewAttribute id="residenceLocationZipCode"/>
+        <viewAttribute id="currentWageCode"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="currentPositionTitle"/>
+        <viewAttribute id="eepDateTimeCreated"/>
+        <viewAttribute id="eepDateTimeChanged"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode_1"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullName" source="employeeFullName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFirstName" source="employeeFirstName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLastName" source="employeeLastName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="residenceLocationZipCode" source="residenceLocationZipCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentWageCode" source="currentWageCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentJobCode" source="currentJobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentPositionTitle" source="currentPositionTitle"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="eepDateTimeCreated" source="eepDateTimeCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="eepDateTimeChanged" source="eepDateTimeChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+      </input>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode_1" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+      </input>
+    <joinAttribute name="costCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="employeeFirstName"/>
+        <viewAttribute id="employeeLastName"/>
+        <viewAttribute id="residenceLocationZipCode"/>
+        <viewAttribute id="currentWageCode"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="currentPositionTitle"/>
+        <viewAttribute id="eepDateTimeCreated"/>
+        <viewAttribute id="eepDateTimeChanged"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode_1"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute id="employeeID"/>
+      <viewAttribute hidden="true" id="JOIN$costCenter$costCenter"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="workDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHours" source="workedHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scheduledHours" source="scheduledHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="payCodeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outPunch" source="outPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inPunch" source="inPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$costCenter$costCenter" source="costCenter"/>
+      </input>
+      <input node="Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullName" source="employeeFullName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFirstName" source="employeeFirstName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLastName" source="employeeLastName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="residenceLocationZipCode" source="residenceLocationZipCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentWageCode" source="currentWageCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentJobCode" source="currentJobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentPositionTitle" source="currentPositionTitle"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="eepDateTimeCreated" source="eepDateTimeCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="eepDateTimeChanged" source="eepDateTimeChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode_1" source="companyCode_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$costCenter$costCenter" source="costCenter"/>
+      </input>
+    <joinAttribute name="employeeID"/>
+    <joinAttribute name="JOIN$costCenter$costCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.hr.base::employeeWorkCenterMapping"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_5" cardinality="CN_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeFullName"/>
+        <viewAttribute id="employeeFirstName"/>
+        <viewAttribute id="employeeLastName"/>
+        <viewAttribute id="residenceLocationZipCode"/>
+        <viewAttribute id="currentWageCode"/>
+        <viewAttribute id="currentJobCode"/>
+        <viewAttribute id="currentPositionTitle"/>
+        <viewAttribute id="eepDateTimeCreated"/>
+        <viewAttribute id="eepDateTimeChanged"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="Company"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute id="workCenter"/>
+        <viewAttribute id="employeeID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFullName" source="employeeFullName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeFirstName" source="employeeFirstName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeLastName" source="employeeLastName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="residenceLocationZipCode" source="residenceLocationZipCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentWageCode" source="currentWageCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentJobCode" source="currentJobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentPositionTitle" source="currentPositionTitle"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="eepDateTimeCreated" source="eepDateTimeCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="eepDateTimeChanged" source="eepDateTimeChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inPunch" source="inPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outPunch" source="outPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="workDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="payCodeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="Company" source="companyCode_1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scheduledHours" source="scheduledHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHours" source="workedHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+      </input>
+      <input node="Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="workCenter" source="workCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+      </input>
+    <joinAttribute name="employeeID"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_5">
+    <descriptions/>
+    <attributes>
+      <attribute id="employeeFullName" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee Full Name"/>
+        <keyMapping columnObjectName="Join_5" columnName="employeeFullName"/>
+      </attribute>
+      <attribute id="employeeFirstName" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee First Name"/>
+        <keyMapping columnObjectName="Join_5" columnName="employeeFirstName"/>
+      </attribute>
+      <attribute id="employeeLastName" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee Last Name"/>
+        <keyMapping columnObjectName="Join_5" columnName="employeeLastName"/>
+      </attribute>
+      <attribute id="residenceLocationZipCode" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Residence Location Zip Code"/>
+        <keyMapping columnObjectName="Join_5" columnName="residenceLocationZipCode"/>
+      </attribute>
+      <attribute id="currentWageCode" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Wage Code"/>
+        <keyMapping columnObjectName="Join_5" columnName="currentWageCode"/>
+      </attribute>
+      <attribute id="currentJobCode" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Job Code"/>
+        <keyMapping columnObjectName="Join_5" columnName="currentJobCode"/>
+      </attribute>
+      <attribute id="currentPositionTitle" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Position Title"/>
+        <keyMapping columnObjectName="Join_5" columnName="currentPositionTitle"/>
+      </attribute>
+      <attribute id="eepDateTimeCreated" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EEP Date Time Created"/>
+        <keyMapping columnObjectName="Join_5" columnName="eepDateTimeCreated"/>
+      </attribute>
+      <attribute id="eepDateTimeChanged" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EEP Date Time Changed"/>
+        <keyMapping columnObjectName="Join_5" columnName="eepDateTimeChanged"/>
+      </attribute>
+      <attribute id="inPunch" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="In Punch"/>
+        <keyMapping columnObjectName="Join_5" columnName="inPunch"/>
+      </attribute>
+      <attribute id="outPunch" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Out Punch"/>
+        <keyMapping columnObjectName="Join_5" columnName="outPunch"/>
+      </attribute>
+      <attribute id="workDate" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Work Date"/>
+        <keyMapping columnObjectName="Join_5" columnName="workDate"/>
+      </attribute>
+      <attribute id="payCodeNumber" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Pay Code Number"/>
+        <keyMapping columnObjectName="Join_5" columnName="payCodeNumber"/>
+      </attribute>
+      <attribute id="costCenter" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_5" columnName="costCenter"/>
+      </attribute>
+      <attribute id="jobCode" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Job Code"/>
+        <keyMapping columnObjectName="Join_5" columnName="jobCode"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_5" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="profitCenter" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_5" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="Company" order="18" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="Join_5" columnName="Company"/>
+      </attribute>
+      <attribute id="workCenter" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="workCenter"/>
+        <keyMapping columnObjectName="Join_5" columnName="workCenter"/>
+      </attribute>
+      <attribute id="employeeID" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="employeeID"/>
+        <keyMapping columnObjectName="Join_5" columnName="employeeID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="scheduledHours" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Scheduled Hours"/>
+        <measureMapping columnObjectName="Join_5" columnName="scheduledHours"/>
+      </measure>
+      <measure id="regularHours" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Regular Hours"/>
+        <measureMapping columnObjectName="Join_5" columnName="regularHours"/>
+      </measure>
+      <measure id="overtimeHours" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Overtime Hours"/>
+        <measureMapping columnObjectName="Join_5" columnName="overtimeHours"/>
+      </measure>
+      <measure id="workedHours" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Worked Hours"/>
+        <measureMapping columnObjectName="Join_5" columnName="workedHours"/>
+      </measure>
+      <measure id="workedHoursCalc" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="workedHoursCalc"/>
+        <measureMapping columnObjectName="Join_5" columnName="workedHoursCalc"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="537.3515727560097" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="856.9999952316284"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="856.9999952316284"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118.66666666666663" y="696.9999964237213"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="405.6367340363654" y="696.9999964237213"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="378.9700673696987" y="536.9999976158142"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="615.6367340363654" y="696.9999964237213"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="825.6367340363654" y="696.9999964237213"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="644.1938568065755" y="536.9999976158142"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="617.5271901399088" y="376.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_3" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Join_4" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407.52719013990884" y="376.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="537.3515727560097" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_6" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

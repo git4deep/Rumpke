@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::MORBaseModel_L2" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+  <descriptions defaultDescription="MORBaseModel_L2"/>
+  <metadata changedAt="2022-02-14 10:22:05.297"/>
+  <localVariables>
+    <variable id="ipDateFrom" parameter="true">
+      <descriptions defaultDescription="Date From"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate('20210101')</defaultExpression>
+      </variableProperties>
+    </variable>
+    <variable id="ipDateTo" parameter="true">
+      <descriptions defaultDescription="Date To"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate('20210131')</defaultExpression>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="MORBaseModel_L1">
+      <targetVariable name="ipDateFrom" resourceUri="rumpke.bi.operations.base::MORBaseModel_L1"/>
+      <localVariable>ipDateFrom</localVariable>
+    </mapping>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="MORBaseModel_L1">
+      <targetVariable name="ipDateTo" resourceUri="rumpke.bi.operations.base::MORBaseModel_L1"/>
+      <localVariable>ipDateTo</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.reporting.plantMaintenance::measurementScorecardBreakdown">
+      <resourceUri>rumpke.bi.reporting.plantMaintenance::measurementScorecardBreakdown</resourceUri>
+    </DataSource>
+    <DataSource id="MORBaseModel_L1">
+      <resourceUri>rumpke.bi.operations.base::MORBaseModel_L1</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute aggregationType="sum" id="tireCostPerHour"/>
+        <viewAttribute aggregationType="sum" id="maintenanceCostActual"/>
+        <viewAttribute aggregationType="sum" id="mechanicHoursActual"/>
+        <viewAttribute aggregationType="sum" id="fuelGallons"/>
+        <viewAttribute aggregationType="sum" id="tireCostActual"/>
+        <viewAttribute aggregationType="sum" id="maintenanceTireCostActual"/>
+      
+      <viewAttribute keepFlag="true" id="lineOfBusiness"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="msbCount" expressionLanguage="COLUMN_ENGINE">
+          <formula>1</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.reporting.plantMaintenance::measurementScorecardBreakdown">
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicHoursActual" source="utilizationHours"/></input>
+    <filter>(&quot;fiscalYearPeriod&quot;&gt;=leftstr(string('$$ipDateFrom$$'),4)+'0'+midstr(string('$$ipDateFrom$$'),6,2) )
+AND
+(&quot;fiscalYearPeriod&quot;&lt;=leftstr(string('$$ipDateTo$$'),4)+'0'+midstr(string('$$ipDateTo$$'),6,2) )</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="roCount"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="abuse"/>
+        <viewAttribute id="accident"/>
+        <viewAttribute id="roadCall"/>
+        <viewAttribute id="spillRoadCall"/>
+        <viewAttribute id="tiresRoadCall"/>
+        <viewAttribute id="morningDriveInRepair"/>
+        <viewAttribute id="roadCallsTotal"/>
+        <viewAttribute id="downTimeEvents"/>
+        <viewAttribute id="haulingScorecardRowCount"/>
+        <viewAttribute id="productivityHours_Inflated2"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="MORBaseModel_L1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityHours_Inflated2" source="productivityHours"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="roCount"/>
+        <viewAttribute id="vrmsReasonCode"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="vrmsReasonCodeDesc"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="vrmsSystemCodeDesc"/>
+        <viewAttribute id="vrmsSystemCode"/>
+        <viewAttribute id="vrmsSymptomCodeDesc"/>
+        <viewAttribute id="vrmsSymptomCode"/>
+        <viewAttribute id="abuse"/>
+        <viewAttribute id="accident"/>
+        <viewAttribute id="roadCall"/>
+        <viewAttribute id="spillRoadCall"/>
+        <viewAttribute id="tiresRoadCall"/>
+        <viewAttribute id="morningDriveInRepair"/>
+        <viewAttribute id="roadCallsTotal"/>
+        <viewAttribute id="downTimeEvents"/>
+        <viewAttribute id="haulingScorecardRowCount"/>
+        <viewAttribute id="productivityHours_Inflated2"/>
+        <viewAttribute id="tireCostPerHour"/>
+        <viewAttribute id="maintenanceCostActual"/>
+        <viewAttribute id="mechanicHoursActual"/>
+        <viewAttribute id="fuelGallons"/>
+        <viewAttribute id="msbCount"/>
+        <viewAttribute id="tireCostActual"/>
+        <viewAttribute id="maintenanceTireCostActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="roCount" source="roCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCode" source="vrmsReasonCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsReasonCodeDesc" source="vrmsReasonCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCodeDesc" source="vrmsSystemCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSystemCode" source="vrmsSystemCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCodeDesc" source="vrmsSymptomCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vrmsSymptomCode" source="vrmsSymptomCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abuse" source="abuse"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accident" source="accident"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="roadCall" source="roadCall"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="spillRoadCall" source="spillRoadCall"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tiresRoadCall" source="tiresRoadCall"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="morningDriveInRepair" source="morningDriveInRepair"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="roadCallsTotal" source="roadCallsTotal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="downTimeEvents" source="downTimeEvents"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="haulingScorecardRowCount" source="haulingScorecardRowCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="productivityHours_Inflated2" source="productivityHours_Inflated2"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="tireCostPerHour" source="tireCostPerHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceCostActual" source="maintenanceCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="mechanicHoursActual" source="mechanicHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelGallons" source="fuelGallons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="msbCount" source="msbCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tireCostActual" source="tireCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceTireCostActual" source="maintenanceTireCostActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+    <joinAttribute name="vehicleID"/>
+    <joinAttribute name="fiscalYearPeriod"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="vrmsReasonCode" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Reason Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="vrmsReasonCode"/>
+      </attribute>
+      <attribute id="profitCenter" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="region" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Join_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="area" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="fiscalYear" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Join_1" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Join_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="equipmentNumber" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="equipmentNumber"/>
+        <keyMapping columnObjectName="Join_1" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="vrmsReasonCodeDesc" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Reason Code Desc"/>
+        <keyMapping columnObjectName="Join_1" columnName="vrmsReasonCodeDesc"/>
+      </attribute>
+      <attribute id="orderNumber" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="orderNumber"/>
+      </attribute>
+      <attribute id="vehicleID" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Vehicle ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="vehicleID"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="vrmsSystemCodeDesc" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - System Code Desc"/>
+        <keyMapping columnObjectName="Join_1" columnName="vrmsSystemCodeDesc"/>
+      </attribute>
+      <attribute id="vrmsSystemCode" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - System Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="vrmsSystemCode"/>
+      </attribute>
+      <attribute id="vrmsSymptomCodeDesc" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Symptom Code Desc"/>
+        <keyMapping columnObjectName="Join_1" columnName="vrmsSymptomCodeDesc"/>
+      </attribute>
+      <attribute id="vrmsSymptomCode" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VRMS - Symptom Code"/>
+        <keyMapping columnObjectName="Join_1" columnName="vrmsSymptomCode"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="roCount" order="1" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="roCount"/>
+        <measureMapping columnObjectName="Join_1" columnName="roCount"/>
+      </measure>
+      <measure id="abuse" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="abuse"/>
+        <measureMapping columnObjectName="Join_1" columnName="abuse"/>
+      </measure>
+      <measure id="accident" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="accident"/>
+        <measureMapping columnObjectName="Join_1" columnName="accident"/>
+      </measure>
+      <measure id="roadCall" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="roadCall"/>
+        <measureMapping columnObjectName="Join_1" columnName="roadCall"/>
+      </measure>
+      <measure id="spillRoadCall" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="spillRoadCall"/>
+        <measureMapping columnObjectName="Join_1" columnName="spillRoadCall"/>
+      </measure>
+      <measure id="tiresRoadCall" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tiresRoadCall"/>
+        <measureMapping columnObjectName="Join_1" columnName="tiresRoadCall"/>
+      </measure>
+      <measure id="morningDriveInRepair" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="morningDriveInRepair"/>
+        <measureMapping columnObjectName="Join_1" columnName="morningDriveInRepair"/>
+      </measure>
+      <measure id="roadCallsTotal" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="roadCallsTotal"/>
+        <measureMapping columnObjectName="Join_1" columnName="roadCallsTotal"/>
+      </measure>
+      <measure id="downTimeEvents" order="31" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Join_1" columnName="downTimeEvents"/>
+      </measure>
+      <measure id="haulingScorecardRowCount" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="count"/>
+        <measureMapping columnObjectName="Join_1" columnName="haulingScorecardRowCount"/>
+      </measure>
+      <measure id="productivityHours_Inflated2" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="productivityHours"/>
+        <measureMapping columnObjectName="Join_1" columnName="productivityHours_Inflated2"/>
+      </measure>
+      <measure id="tireCostPerHour" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tire Cost Per Hour"/>
+        <measureMapping columnObjectName="Join_1" columnName="tireCostPerHour"/>
+      </measure>
+      <measure id="mechanicHoursActual" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Join_1" columnName="mechanicHoursActual"/>
+      </measure>
+      <measure id="fuelGallons" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Fuel in Gallons"/>
+        <measureMapping columnObjectName="Join_1" columnName="fuelGallons"/>
+      </measure>
+      <measure id="maintenanceCostActual" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance Total Cost $ - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceCostActual"/>
+      </measure>
+      <measure id="msbCount" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="msbCount"/>
+        <measureMapping columnObjectName="Join_1" columnName="msbCount"/>
+      </measure>
+      <measure id="tireCostActual" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tire Cost $ - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="tireCostActual"/>
+      </measure>
+      <measure id="maintenanceTireCostActual" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Maintenance &amp; Tire Cost - Actual"/>
+        <measureMapping columnObjectName="Join_1" columnName="maintenanceTireCostActual"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="productivityHours" hidden="false" order="39" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="productivityHours"/>
+        <formula>if(&quot;msbCount&quot;=0,0,&quot;productivityHours_Inflated2&quot;/&quot;msbCount&quot;)</formula>
+      </measure>
+      <measure id="aaCPH" hidden="false" order="40" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="3" scale="2">
+        <descriptions defaultDescription="aaCPH"/>
+        <formula>if(&quot;productivityHours&quot;=0,0,(&quot;abuse&quot;+&quot;accident&quot;)/&quot;productivityHours&quot;)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="221" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

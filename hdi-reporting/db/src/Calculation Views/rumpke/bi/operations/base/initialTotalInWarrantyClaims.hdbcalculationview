@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.base::initialTotalInWarrantyClaims" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+  <descriptions defaultDescription="initialTotalInWarrantyClaims"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="33"/>
+  <dataSources>
+    <DataSource id="PNWTYH">
+      <resourceUri>rumpke.bi.operations.base.s4hana::PNWTYH</resourceUri>
+    </DataSource>
+    <DataSource id="PNWTYV">
+      <resourceUri>rumpke.bi.operations.base.s4hana::PNWTYV</resourceUri>
+    </DataSource>
+    <DataSource id="PVWTY">
+      <resourceUri>rumpke.bi.operations.base.s4hana::PVWTY</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="CLMNO"/>
+        <viewAttribute id="internalNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="PNWTYH">
+        <mapping xsi:type="Calculation:AttributeMapping" target="internalNumber" source="PNGUID"/>
+      </input>
+    <filter>(&quot;CLMNO&quot; ='000010106591')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="HEADER_GUID"/>
+        <viewAttribute id="PNGUID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="PNWTYV"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="internalNumber"/>
+        <viewAttribute id="CLMNO"/>
+        <viewAttribute id="PNGUID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="internalNumber" source="internalNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLMNO" source="CLMNO"/>
+      </input>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PNGUID" source="PNGUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="internalNumber" source="HEADER_GUID"/>
+      </input>
+    <joinAttribute name="internalNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="VERSION_GUID"/>
+        <viewAttribute aggregationType="sum" id="VALIC"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="PVWTY"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="CLMNO"/>
+        <viewAttribute id="internalNumber"/>
+        <viewAttribute id="VALIC"/>
+      <viewAttribute hidden="true" id="JOIN$PNGUID$VERSION_GUID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLMNO" source="CLMNO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="internalNumber" source="internalNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PNGUID$VERSION_GUID" source="PNGUID"/>
+      </input>
+      <input node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="VALIC" source="VALIC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PNGUID$VERSION_GUID" source="VERSION_GUID"/>
+      </input>
+    <joinAttribute name="JOIN$PNGUID$VERSION_GUID"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="CLMNO" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CLMNO"/>
+        <keyMapping columnObjectName="Join_2" columnName="CLMNO"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="VALIC" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="VALIC"/>
+        <measureMapping columnObjectName="Join_2" columnName="VALIC"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="tes" hidden="false" order="1" aggregationType="sum" measureType="simple" aggregatable="true" calculatedMeasureType="counter" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="tes"/>
+        <exceptionAggregation exceptionAggregationType="countDistinct">
+          <attribute attributeName="CLMNO"/>
+        </exceptionAggregation>
+        <formula>1</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

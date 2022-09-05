@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::pMObjectLocationAccountAssignment" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="PM Object Location and Account Assignment"/>
+  <metadata changedAt="2020-12-18 06:48:02.942"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="36"/>
+  <dataSources>
+    <DataSource id="ILOA">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::ILOA</resourceUri>
+    </DataSource>
+    <DataSource id="companyCodes">
+      <resourceUri>rumpke.bi.masterData.base::companyCodes</resourceUri>
+    </DataSource>
+    <DataSource id="T370C_T">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::T370C_T</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="controllingArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="ILOA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="ILOAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="TPLNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="EQFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="SWERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="KOSTL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="BUKRS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="ABCKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="KOKRS"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="nameCompanyCode"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="companyCodes"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="nameCompanyCode"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="controllingArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameCompanyCode" source="nameCompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+    <joinAttribute name="companyCode"/>
+    <joinAttribute name="client"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="language"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T370C_T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="language" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="ABCKZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="ABCTX"/>
+      </input>
+    <filter>(&quot;language&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="nameCompanyCode"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="controllingArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameCompanyCode" source="nameCompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="abcIndicator"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_2" columnName="client"/>
+      </attribute>
+      <attribute id="locationAccountAssignment" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Location Account Assignment"/>
+        <keyMapping columnObjectName="Join_2" columnName="locationAccountAssignment"/>
+      </attribute>
+      <attribute id="functionalLocation" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Location"/>
+        <keyMapping columnObjectName="Join_2" columnName="functionalLocation"/>
+      </attribute>
+      <attribute id="maintenancePlant" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant"/>
+        <keyMapping columnObjectName="Join_2" columnName="maintenancePlant"/>
+      </attribute>
+      <attribute id="costCenter" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="costCenter"/>
+      </attribute>
+      <attribute id="companyCode" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="companyCode"/>
+        <keyMapping columnObjectName="Join_2" columnName="companyCode"/>
+      </attribute>
+      <attribute id="nameCompanyCode" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code Desc"/>
+        <keyMapping columnObjectName="Join_2" columnName="nameCompanyCode"/>
+      </attribute>
+      <attribute id="abcIndicator" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABC Indicator"/>
+        <keyMapping columnObjectName="Join_2" columnName="abcIndicator"/>
+      </attribute>
+      <attribute id="abcIndicatorDesc" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABC Indicator Desc"/>
+        <keyMapping columnObjectName="Join_2" columnName="abcIndicatorDesc"/>
+      </attribute>
+      <attribute id="vehicleID" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Vehicle ID (VIN)"/>
+        <keyMapping columnObjectName="Join_2" columnName="vehicleID"/>
+      </attribute>
+      <attribute id="controllingArea" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area"/>
+        <keyMapping columnObjectName="Join_2" columnName="controllingArea"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

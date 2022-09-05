@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.sales.reuse::recyclingMaterialsSalesReuse" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Recycling Materials Sales Reuse"/>
+  <metadata changedAt="2019-12-23 19:32:14.803"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="recyclingMaterialsSales">
+      <resourceUri>rumpke.bi.sales.base::recyclingMaterialsSales</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalMonthID"/>
+        <viewAttribute id="material"/>
+        <viewAttribute id="materialCategory"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="lobCode"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="recyclingSales"/>
+        <viewAttribute id="recyclingTons"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="recyclingMaterialsSales"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="profitCenter" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="fiscalMonthID" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalMonthID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalMonthID"/>
+      </attribute>
+      <attribute id="material" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="material"/>
+        <keyMapping columnObjectName="Projection_1" columnName="material"/>
+      </attribute>
+      <attribute id="materialCategory" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="materialCategory"/>
+        <keyMapping columnObjectName="Projection_1" columnName="materialCategory"/>
+      </attribute>
+      <attribute id="materialClass" key="true" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="materialClass"/>
+        <keyMapping columnObjectName="Projection_1" columnName="materialClass"/>
+      </attribute>
+      <attribute id="processingType" key="true" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="processingType"/>
+        <keyMapping columnObjectName="Projection_1" columnName="processingType"/>
+      </attribute>
+      <attribute id="lobCode" key="true" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lobCode"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lobCode"/>
+      </attribute>
+      <attribute id="versions" key="true" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="versions"/>
+        <keyMapping columnObjectName="Projection_1" columnName="versions"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="recyclingSales" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="recyclingSales"/>
+        <measureMapping columnObjectName="Projection_1" columnName="recyclingSales"/>
+      </measure>
+      <measure id="recyclingTons" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="recyclingTons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="recyclingTons"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="disposalTons" hidden="false" order="11" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="disposalTons"/>
+        <formula>if(&quot;processingType&quot; = 'DISPOSAL',&quot;recyclingTons&quot;,0)</formula>
+      </measure>
+      <measure id="soldTons" hidden="false" order="12" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="soldTons"/>
+        <formula>if(&quot;processingType&quot; = 'BROKERAGE' or &quot;processingType&quot; = 'PROCESSED' ,&quot;recyclingTons&quot;, 0)</formula>
+      </measure>
+      <measure id="inventoryAdjustment" hidden="false" order="13" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="inventoryAdjustment"/>
+        <formula>if(&quot;processingType&quot; = 'INVENTORY ADJ' ,&quot;recyclingTons&quot;, 0)</formula>
+      </measure>
+      <measure id="processedTons" hidden="false" order="14" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Processed Tons"/>
+        <formula>if(&quot;processingType&quot; = 'PROCESSED' or &quot;processingType&quot; = 'PROCESSING' or &quot;processingType&quot; = 'COMMINGLED' or &quot;processingType&quot; = 'DISPOSAL' or &quot;processingType&quot; = 'INTERCO' or &quot;processingType&quot; = 'INVENTORY ADJ',&quot;recyclingTons&quot;, 0)</formula>
+      </measure>
+      <measure id="recyclingMaterialSales" hidden="false" order="15" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="recyclingMaterialSales"/>
+        <formula>if(&quot;processingType&quot; = 'BROKERAGE' or &quot;processingType&quot; = 'PROCESSED' ,&quot;recyclingTons&quot;, 0)</formula>
+      </measure>
+      <measure id="recoveryRate" hidden="false" order="16" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="recoveryRate"/>
+        <formula>if(&quot;processedTons&quot;=0,0,(&quot;soldTons&quot;/&quot;processedTons&quot;) / 100)</formula>
+      </measure>
+      <measure id="averageSellingPricePerTon" hidden="false" order="17" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="averageSellingPricePerTon"/>
+        <formula>if(&quot;soldTons&quot;=0,0,&quot;recyclingMaterialSales&quot;/&quot;soldTons&quot;)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="50" y="250"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

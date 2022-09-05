@@ -1,0 +1,24 @@
+PROCEDURE "rumpke.bi.data.proc::sacplanning_productive_metrics_export" ( )
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER AS
+	--READS SQL DATA AS
+BEGIN
+/***************************** 
+	Write your procedure logic 
+ *****************************/
+ Call "rumpke.bi.dp.flatfile.rep::REP_SACPlanning_MetricsExport.START_REPLICATION"();
+ Call "rumpke.bi.dp.flatfile.fg::FG_SACPlanning_MetricsExport_SP"();
+  
+ Call "rumpke.bi.dp.flatfile.fg::FG_SACPlanning_CSVArchive"();
+
+--temporarily adding back budget that is getting deleted by the ETL process.
+insert into "rumpke.bi.data.ddl::transactionData.productivityMetrics" (
+	"fiscalYearPeriod","profitCenter","costCenter","account","version","value"
+)
+select b."fiscalYearPeriod",b."profitCenter",b."costCenter",b."account",b."version",b."value"
+from "RUMPKEADM::BAK_productivityMetrics_BUDGET_20210504" b
+left join (select distinct "fiscalYearPeriod", "version" from "rumpke.bi.data.ddl::transactionData.productivityMetrics") pm on 
+	pm."fiscalYearPeriod" = b."fiscalYearPeriod" and pm."version" = b."version"
+where pm."version" is null;
+
+END;

@@ -1,0 +1,119 @@
+service {
+    "rumpke.bi.odata::COMPANYCODES" as "CompanyCodes" 
+    keys("client","companyCode")
+    
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.odata::COSTCENTERS" as "CostCenters"
+    keys("client","costCenter")
+    
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.odata::EQUIPMENT" as "Equipment"
+    keys("equipmentNumber")
+    
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.odata::FUNCLOCATION" as "FunctionalLocations"
+    keys("client","functionalLocation")
+    
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.odata::LINEOFBUSINESS" as "LineOfBusinesses"
+    keys("lineofBusinessCode")
+    
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.odata::ORGHIERARCHY" as "OrgHierarchy"
+    keys("client","costCenter","profitCenter")
+    
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.odata::PLANTS" as "PlantsBranches"
+    keys("client","plant")
+    
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.odata::PROFITCENTER" as "ProfitCenters"
+    keys("client","profitCenter","controllingArea","validToDate")
+    
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.plantMaintainance.base::haulingProductivitySummary" as "ProfitCenter" 
+    keys("ProfitCenter")
+   
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.plantMaintainance.base::haulingProductivitySummary" as "LOB_Code" 
+    keys("LOB_Code")
+   
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.plantMaintainance.base::haulingProductivitySummary" as "Versions" 
+    keys("Versions")
+   
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.plantMaintainance.base::haulingProductivitySummary" as "Record_Type" 
+    keys("Record_Type")
+   
+    create forbidden
+    update forbidden
+    delete forbidden;
+  
+    "rumpke.bi.operations.base::haulingProductivitySummary" as "fiscalYearPeriod" 
+    keys("fiscalYearPeriod")
+   
+    create forbidden
+    update forbidden
+    delete forbidden;
+
+    "rumpke.bi.operations.base::haulingProductivitySummary" as "profitCenter" 
+    keys("profitCenter")
+   
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.operations.base::haulingProductivitySummary" as "versions" 
+    keys("versions")
+   
+    create forbidden
+    update forbidden
+    delete forbidden;
+    
+    "rumpke.bi.odata::PRODUCTIVITY_SUMMARY" as "productivitySummary" 
+    keys("fiscalYearPeriod", "profitCenter", "weekInt")
+   
+    create forbidden
+    update forbidden
+    delete forbidden;
+}
+settings {  
+  
+  limits 
+      max_records = 100000, 
+      max_expanded_records = 100000; 
+}

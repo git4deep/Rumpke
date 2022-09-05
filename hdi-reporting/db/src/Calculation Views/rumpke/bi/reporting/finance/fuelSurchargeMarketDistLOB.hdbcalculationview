@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.finance::fuelSurchargeMarketDistLOB" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="fuelSurchargeMarketDistLOB"/>
+  <metadata changedAt="2021-03-24 16:23:17.343"/>
+  <localVariables>
+    <variable id="ip_calMonth" parameter="true">
+      <descriptions defaultDescription="Cal Month"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="2020012" length="7" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipArea" parameter="true">
+      <descriptions defaultDescription="Area"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="*" length="24" mandatory="false" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>area</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipRegion" parameter="true">
+      <descriptions defaultDescription="Region"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="*" length="40" mandatory="false" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>region</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipDistrict" parameter="true">
+      <descriptions defaultDescription="District"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="*" length="24" mandatory="false" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>district</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipSubDistrict" parameter="true">
+      <descriptions defaultDescription="Sub District"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="*" length="40" mandatory="false" scale="0">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>subDistrict</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="ipLOB" parameter="true">
+      <descriptions defaultDescription="Line of Business"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="*" length="12" mandatory="false" scale="0">
+        <valueDomain type="AttributeValue">
+          <attribute name="lineOfBusiness"/>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod">
+      <targetVariable name="ip_calMonth" resourceUri="rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod"/>
+      <localVariable>ip_calMonth</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="34"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.finance.reuse::fuelSurcharge">
+      <resourceUri>rumpke.bi.finance.reuse::fuelSurcharge</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="fscActual"/>
+        <viewAttribute id="fscBudget"/>
+        <viewAttribute id="fuelExpActual"/>
+        <viewAttribute id="fscVariance"/>
+        <viewAttribute id="fuelOverageShortage"/>
+        <viewAttribute id="fuelExpVariance"/>
+        <viewAttribute id="hedgeImpact"/>
+        <viewAttribute id="netFuelImpact"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="fuelExpBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.finance.reuse::fuelSurcharge"/>
+    <filter>(&quot;area&quot; = '$$ipArea$$' OR  '$$ipArea$$' = '*') AND (&quot;region&quot; = '$$ipRegion$$' OR  '$$ipRegion$$' = '*') AND (&quot;district&quot; = '$$ipDistrict$$' OR  '$$ipDistrict$$' = '*') AND (&quot;subDistrict&quot; = '$$ipSubDistrict$$' OR  '$$ipSubDistrict$$' = '*') AND (&quot;lineOfBusiness&quot; = '$$ipLOB$$' OR  '$$ipLOB$$' = '*')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="calMonth"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod"/>
+    <filter>(&quot;rollingYearNo&quot; ='0') AND (&quot;ytd&quot; ='Y')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="fscActual"/>
+        <viewAttribute id="fscBudget"/>
+        <viewAttribute id="fuelExpActual"/>
+        <viewAttribute id="fscVariance"/>
+        <viewAttribute id="fuelOverageShortage"/>
+        <viewAttribute id="fuelExpVariance"/>
+        <viewAttribute id="hedgeImpact"/>
+        <viewAttribute id="netFuelImpact"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="fuelExpBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fscActual" source="fscActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fscBudget" source="fscBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelExpActual" source="fuelExpActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fscVariance" source="fscVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelOverageShortage" source="fuelOverageShortage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelExpVariance" source="fuelExpVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hedgeImpact" source="hedgeImpact"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netFuelImpact" source="netFuelImpact"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelExpBudget" source="fuelExpBudget"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+      </input>
+    <joinAttribute name="calMonth"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="YTD">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="fscActual"/>
+        <viewAttribute id="fscBudget"/>
+        <viewAttribute id="fuelExpActual"/>
+        <viewAttribute id="fscVariance"/>
+        <viewAttribute id="fuelOverageShortage"/>
+        <viewAttribute id="fuelExpVariance"/>
+        <viewAttribute id="hedgeImpact"/>
+        <viewAttribute id="netFuelImpact"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="fuelExpBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="periodType" length="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>'YTD'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="CM">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="fscActual"/>
+        <viewAttribute id="fscBudget"/>
+        <viewAttribute id="fuelExpActual"/>
+        <viewAttribute id="fscVariance"/>
+        <viewAttribute id="fuelOverageShortage"/>
+        <viewAttribute id="fuelExpVariance"/>
+        <viewAttribute id="hedgeImpact"/>
+        <viewAttribute id="netFuelImpact"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="fuelExpBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="periodType" length="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>'CM'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1"/>
+    <filter>(&quot;rollingMonthNo&quot; ='0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="fscActual"/>
+        <viewAttribute id="fscBudget"/>
+        <viewAttribute id="fuelExpActual"/>
+        <viewAttribute id="fscVariance"/>
+        <viewAttribute id="fuelOverageShortage"/>
+        <viewAttribute id="fuelExpVariance"/>
+        <viewAttribute id="hedgeImpact"/>
+        <viewAttribute id="netFuelImpact"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="periodType"/>
+        <viewAttribute id="fuelExpBudget"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="YTD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fscActual" source="fscActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fscBudget" source="fscBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelExpActual" source="fuelExpActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fscVariance" source="fscVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelOverageShortage" source="fuelOverageShortage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelExpVariance" source="fuelExpVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hedgeImpact" source="hedgeImpact"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netFuelImpact" source="netFuelImpact"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodType" source="periodType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelExpBudget" source="fuelExpBudget"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="CM">
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fscActual" source="fscActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fscBudget" source="fscBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelExpActual" source="fuelExpActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fscVariance" source="fscVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelOverageShortage" source="fuelOverageShortage"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelExpVariance" source="fuelExpVariance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hedgeImpact" source="hedgeImpact"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netFuelImpact" source="netFuelImpact"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="periodType" source="periodType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelExpBudget" source="fuelExpBudget"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="region" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="region"/>
+        <keyMapping columnObjectName="Union_1" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="regionDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="district"/>
+        <keyMapping columnObjectName="Union_1" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="districtDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineofBusinessDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="lineOfBusinessGroup" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusinessGroup"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusinessGroup"/>
+      </attribute>
+      <attribute id="area" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="area"/>
+        <keyMapping columnObjectName="Union_1" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="areaDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrict"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrictDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="year" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="year"/>
+        <keyMapping columnObjectName="Union_1" columnName="year"/>
+      </attribute>
+      <attribute id="calMonth" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="calMonth"/>
+        <keyMapping columnObjectName="Union_1" columnName="calMonth"/>
+      </attribute>
+      <attribute id="periodType" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="periodType"/>
+        <keyMapping columnObjectName="Union_1" columnName="periodType"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="fscActual" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fscActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="fscActual"/>
+      </measure>
+      <measure id="fscBudget" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fscBudget"/>
+        <measureMapping columnObjectName="Union_1" columnName="fscBudget"/>
+      </measure>
+      <measure id="fuelExpActual" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelExpActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelExpActual"/>
+      </measure>
+      <measure id="fscVariance" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fscVariance"/>
+        <measureMapping columnObjectName="Union_1" columnName="fscVariance"/>
+      </measure>
+      <measure id="fuelOverageShortage" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelOverageShortage"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelOverageShortage"/>
+      </measure>
+      <measure id="fuelExpVariance" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelExpVariance"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelExpVariance"/>
+      </measure>
+      <measure id="hedgeImpact" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="hedgeImpact"/>
+        <measureMapping columnObjectName="Union_1" columnName="hedgeImpact"/>
+      </measure>
+      <measure id="netFuelImpact" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="netFuelImpact"/>
+        <measureMapping columnObjectName="Union_1" columnName="netFuelImpact"/>
+      </measure>
+      <measure id="fuelExpBudget" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelExpBudget"/>
+        <measureMapping columnObjectName="Union_1" columnName="fuelExpBudget"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="455"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="455"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="YTD" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="CM" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="281"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

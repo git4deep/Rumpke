@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::landfillTransferSummaryTonnage" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="landfillTransferSummaryTonnage"/>
+  <metadata changedAt="2020-10-28 10:57:41.834"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="45"/>
+  <dataSources>
+    <DataSource id="landfillTransferSummaryTonsView">
+      <resourceUri>rumpke.bi.operations.reuse::landfillTransferSummaryTonsView</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.operations.base::planningTransferTons">
+      <resourceUri>rumpke.bi.operations.base::planningTransferTons</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="scaleHouseCode"/>
+        <viewAttribute id="scaleHouseType"/>
+        <viewAttribute id="sourceProfitCenter"/>
+        <viewAttribute id="sourceLineOfBusiness"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="tons"/>
+        <viewAttribute id="disposal"/>
+        <viewAttribute id="surcharge"/>
+        <viewAttribute id="landfillMgmtRevenue"/>
+        <viewAttribute id="fuelSurcharge"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="outboundTons"/>
+        <viewAttribute id="tonnageForecast"/>
+        <viewAttribute id="outboundTonsActual"/>
+        <viewAttribute id="outboundTonsBudget"/>
+        <viewAttribute id="outboundLoads"/>
+        <viewAttribute id="outboundTonsForecast"/>
+        <viewAttribute id="outboundLoadsActual"/>
+        <viewAttribute id="outboundLoadsBudget"/>
+        <viewAttribute id="outboundLoadsForecast"/>
+        <viewAttribute id="inboundTons"/>
+        <viewAttribute id="inboundLoads"/>
+        <viewAttribute id="inboundTonsActual"/>
+        <viewAttribute id="inboundTonsBudget"/>
+        <viewAttribute id="inboundTonsForecast"/>
+        <viewAttribute id="inboundLoadsActual"/>
+        <viewAttribute id="inboundLoadsBudget"/>
+        <viewAttribute id="inboundLoadsForecast"/>
+        <viewAttribute id="fuelSurchargeActual"/>
+        <viewAttribute id="fuelSurchargeBudget"/>
+        <viewAttribute id="fuelSurchargeForecast"/>
+        <viewAttribute id="landfillMgmtRevenueActual"/>
+        <viewAttribute id="landfillMgmtRevenueBudget"/>
+        <viewAttribute id="landfillMgmtRevenueForecast"/>
+        <viewAttribute id="disposalActual"/>
+        <viewAttribute id="disposalBudget"/>
+        <viewAttribute id="disposalForecast"/>
+        <viewAttribute id="surchargeActual"/>
+        <viewAttribute id="surchargeBudget"/>
+        <viewAttribute id="cubicYardsConsumedActual"/>
+        <viewAttribute id="cubicYardsConsumedBudget"/>
+        <viewAttribute id="surchargeForecast"/>
+        <viewAttribute id="cubicYardsConsumedForecast"/>
+        <viewAttribute id="cubicYardsConsumedProjection"/>
+        <viewAttribute id="tonnageProjection"/>
+        <viewAttribute id="outboundTonsProjection"/>
+        <viewAttribute id="outboundLoadsProjection"/>
+        <viewAttribute id="inboundTonsProjection"/>
+        <viewAttribute id="inboundLoadsProjection"/>
+        <viewAttribute id="fuelSurchargeProjection"/>
+        <viewAttribute id="landfillMgmtRevenueProjection"/>
+        <viewAttribute id="disposalProjection"/>
+        <viewAttribute id="surchargeProjection"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="tonnage3PActual"/>
+        <viewAttribute id="tonnage3PBudget"/>
+        <viewAttribute id="tonnage3PForecast"/>
+        <viewAttribute id="tonnageICActual"/>
+        <viewAttribute id="tonnageICBudget"/>
+        <viewAttribute id="tonnageICForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="landfillTransferSummaryTonsView"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Actuals">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="tonnageActual"/>
+        <viewAttribute id="outboundTonsActual"/>
+        <viewAttribute id="outboundLoadsActual"/>
+        <viewAttribute id="inboundTonsActual"/>
+        <viewAttribute id="inboundLoadsActual"/>
+        <viewAttribute id="tonnage3PActual"/>
+        <viewAttribute id="tonnageICActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1"/>
+    <filter>(&quot;lineOfBusiness&quot; ='TR') AND (&quot;versions&quot; ='Actual') AND (&quot;fiscalYearPeriod&quot; &gt;='2020001')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="2020Budget_and_Forecast" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="tonnageForecast"/>
+        <viewAttribute id="outboundTonsBudget"/>
+        <viewAttribute id="outboundTonsForecast"/>
+        <viewAttribute id="outboundLoadsBudget"/>
+        <viewAttribute id="outboundLoadsForecast"/>
+        <viewAttribute id="inboundTonsBudget"/>
+        <viewAttribute id="inboundTonsForecast"/>
+        <viewAttribute id="inboundLoadsBudget"/>
+        <viewAttribute id="inboundLoadsForecast"/>
+        <viewAttribute id="tonnage3PBudget"/>
+        <viewAttribute id="tonnage3PForecast"/>
+        <viewAttribute id="tonnageICBudget"/>
+        <viewAttribute id="tonnageICForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1"/>
+    <filter>(&quot;fiscalYearPeriod&quot; &gt;='2020001' AND &quot;fiscalYearPeriod&quot;&lt;='2020012') AND (&quot;lineOfBusiness&quot; ='TR') AND (in (&quot;versions&quot;,'Budget','Forecast'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="budget_fcst_2021">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="tonnage3PBudget"/>
+        <viewAttribute id="tonnageICBudget"/>
+        <viewAttribute id="tonnageBudget"/>
+        <viewAttribute id="tonnage3PForecast"/>
+        <viewAttribute id="tonnageICForecast"/>
+        <viewAttribute id="tonnageForecast"/>
+        <viewAttribute id="isActive"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.operations.base::planningTransferTons"/>
+    <filter>(&quot;fiscalYearPeriod&quot; &gt;='2021001') AND (&quot;isActive&quot; ='1')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute datatype="DECIMAL" id="tonnageActual" length="28" scale="6"/>
+        <viewAttribute datatype="DECIMAL" id="tonnageBudget" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="tonnageForecast" length="18" scale="2"/>
+        <viewAttribute datatype="DECIMAL" id="outboundTonsActual" length="19" scale="4"/>
+        <viewAttribute datatype="DECIMAL" id="outboundTonsBudget" length="19" scale="4"/>
+        <viewAttribute datatype="DECIMAL" id="outboundTonsForecast" length="19" scale="4"/>
+        <viewAttribute datatype="INTEGER" id="outboundLoadsActual" length="10"/>
+        <viewAttribute datatype="INTEGER" id="outboundLoadsBudget" length="10"/>
+        <viewAttribute datatype="INTEGER" id="outboundLoadsForecast" length="10"/>
+        <viewAttribute datatype="DECIMAL" id="inboundTonsActual" length="19" scale="4"/>
+        <viewAttribute datatype="DECIMAL" id="inboundTonsBudget" length="19" scale="4"/>
+        <viewAttribute datatype="DECIMAL" id="inboundTonsForecast" length="19" scale="4"/>
+        <viewAttribute datatype="INTEGER" id="inboundLoadsActual" length="10"/>
+        <viewAttribute datatype="INTEGER" id="inboundLoadsBudget" length="10"/>
+        <viewAttribute datatype="INTEGER" id="inboundLoadsForecast" length="10"/>
+        <viewAttribute id="tonnage3PActual"/>
+        <viewAttribute id="tonnageICActual"/>
+        <viewAttribute id="tonnage3PBudget"/>
+        <viewAttribute id="tonnage3PForecast"/>
+        <viewAttribute id="tonnageICBudget"/>
+        <viewAttribute id="tonnageICForecast"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Actuals">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="versions" source="versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageActual" source="tonnageActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageForecast" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundTonsActual" source="outboundTonsActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundTonsBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundTonsForecast" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundLoadsActual" source="outboundLoadsActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundLoadsBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundLoadsForecast" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inboundTonsActual" source="inboundTonsActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundTonsBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundTonsForecast" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inboundLoadsActual" source="inboundLoadsActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundLoadsBudget" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundLoadsForecast" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3PActual" source="tonnage3PActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageICActual" source="tonnageICActual"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage3PBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage3PForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageICBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageICForecast" null="true" value=""/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="2020Budget_and_Forecast">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="versions" source="versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageBudget" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageForecast" source="tonnageForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundTonsActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundTonsBudget" source="outboundTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundTonsForecast" source="outboundTonsForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundLoadsActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundLoadsBudget" source="outboundLoadsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundLoadsForecast" source="outboundLoadsForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundTonsActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inboundTonsBudget" source="inboundTonsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inboundTonsForecast" source="inboundTonsForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundLoadsActual" null="false" value="0"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inboundLoadsBudget" source="inboundLoadsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inboundLoadsForecast" source="inboundLoadsForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage3PActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageICActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3PBudget" source="tonnage3PBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3PForecast" source="tonnage3PForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageICBudget" source="tonnageICBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageICForecast" source="tonnageICForecast"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="budget_fcst_2021">
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="lineOfBusiness" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="versions" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageBudget" source="tonnageBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageForecast" source="tonnageForecast"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundTonsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundTonsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundTonsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundLoadsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundLoadsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="outboundLoadsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundTonsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundTonsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundTonsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundLoadsActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundLoadsBudget" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="inboundLoadsForecast" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnage3PActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="tonnageICActual" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3PBudget" source="tonnage3PBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3PForecast" source="tonnage3PForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageICBudget" source="tonnageICBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageICForecast" source="tonnageICForecast"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="lineOfBusiness" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="versions" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="versions"/>
+        <keyMapping columnObjectName="Union_1" columnName="versions"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="profitCenter" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="priorMonth" hidden="false" order="25" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="priorMonth"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="7">
+          <formula>leftstr(string(addmonths(now(), -1)),4) + '0' + rightstr(leftstr(string(addmonths(now(), -1)),7),2)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="tonnageActual" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tonnageActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnageActual"/>
+      </measure>
+      <measure id="tonnageBudget" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnageBudget"/>
+      </measure>
+      <measure id="tonnageForecast" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnageForecast"/>
+      </measure>
+      <measure id="outboundTonsActual" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="outboundTonsActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="outboundTonsActual"/>
+      </measure>
+      <measure id="outboundTonsBudget" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Outbound Tons - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="outboundTonsBudget"/>
+      </measure>
+      <measure id="outboundTonsForecast" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Outbound Tons - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="outboundTonsForecast"/>
+      </measure>
+      <measure id="outboundLoadsActual" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="outboundLoadsActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="outboundLoadsActual"/>
+      </measure>
+      <measure id="outboundLoadsBudget" order="14" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Outbound Loads - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="outboundLoadsBudget"/>
+      </measure>
+      <measure id="outboundLoadsForecast" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Outbound Loads - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="outboundLoadsForecast"/>
+      </measure>
+      <measure id="inboundTonsActual" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="inboundTonsActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="inboundTonsActual"/>
+      </measure>
+      <measure id="inboundTonsBudget" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Inbound Tons - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="inboundTonsBudget"/>
+      </measure>
+      <measure id="inboundTonsForecast" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Inbound Tons - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="inboundTonsForecast"/>
+      </measure>
+      <measure id="inboundLoadsActual" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="inboundLoadsActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="inboundLoadsActual"/>
+      </measure>
+      <measure id="inboundLoadsBudget" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Inbound Loads - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="inboundLoadsBudget"/>
+      </measure>
+      <measure id="inboundLoadsForecast" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Inbound Loads - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="inboundLoadsForecast"/>
+      </measure>
+      <measure id="tonnage3PActual" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage 3rd Party - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnage3PActual"/>
+      </measure>
+      <measure id="tonnage3PBudget" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage 3rd Party - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnage3PBudget"/>
+      </measure>
+      <measure id="tonnage3PForecast" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage 3rd Party - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnage3PForecast"/>
+      </measure>
+      <measure id="tonnageICActual" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage Intercompany - Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnageICActual"/>
+      </measure>
+      <measure id="tonnageICBudget" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage Intercompany - Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnageICBudget"/>
+      </measure>
+      <measure id="tonnageICForecast" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Tonnage Intercompany - Forecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="tonnageICForecast"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="tonnageProjection" hidden="false" order="8" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="tonnageProjection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;tonnageForecast&quot;,&quot;tonnageActual&quot;)</formula>
+      </measure>
+      <measure id="outboundTonsProjection" hidden="false" order="12" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="19" scale="4">
+        <descriptions defaultDescription="outboundTonsProjection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;outboundTonsForecast&quot;,&quot;outboundTonsActual&quot;)</formula>
+      </measure>
+      <measure id="outboundLoadsProjection" hidden="false" order="16" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="outboundLoadsProjection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;outboundLoadsForecast&quot;,&quot;outboundLoadsActual&quot;)</formula>
+      </measure>
+      <measure id="inboundTonsProjection" hidden="false" order="20" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="19" scale="4">
+        <descriptions defaultDescription="inboundTonsProjection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;inboundTonsForecast&quot;,&quot;inboundTonsActual&quot;)</formula>
+      </measure>
+      <measure id="inboundLoadsProjection" hidden="false" order="24" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="inboundLoadsProjection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;inboundLoadsForecast&quot;,&quot;inboundLoadsActual&quot;)</formula>
+      </measure>
+      <measure id="tonnage3PProjection" hidden="false" order="29" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage 3rd Party - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;tonnage3PForecast&quot;,&quot;tonnage3PActual&quot;)</formula>
+      </measure>
+      <measure id="tonnageICProjection" hidden="false" order="33" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage Intercompany - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;tonnageICForecast&quot;,&quot;tonnageICActual&quot;)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="191" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="106" y="377"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Actuals" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="2020Budget_and_Forecast" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="299"/>
+        <rectangleSize height="64" width="171"/>
+      </shape>
+      <shape expanded="true" modelObjectName="budget_fcst_2021" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="361" y="299"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="191" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

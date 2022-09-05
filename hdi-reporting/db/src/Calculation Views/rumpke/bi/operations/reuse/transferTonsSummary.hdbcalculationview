@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::transferTonsSummary" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="transferTonsSummary"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="42"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.base::landfillTransferSummaryTons">
+      <resourceUri>rumpke.bi.operations.base::landfillTransferSummaryTons</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.operations.base::transferOutboundTonsSummary">
+      <resourceUri>rumpke.bi.operations.base::transferOutboundTonsSummary</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::profitCenter">
+      <resourceUri>rumpke.bi.masterData.base::profitCenter</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="inboundTons">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="accountType"/>
+        <viewAttribute id="outboundTonsFlag"/>
+        <viewAttribute aggregationType="sum" id="tons"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="caOutboundTonsFlag" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isnull(&quot;outboundTonsFlag&quot;), 0, &quot;outboundTonsFlag&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.operations.base::landfillTransferSummaryTons"/>
+    <filter>(&quot;lineOfBusiness&quot; ='TR') AND 
+((isNull(&quot;outboundTonsFlag&quot;) or &quot;outboundTonsFlag&quot; = 0) OR (&quot;versions&quot;='Budget' AND &quot;outboundTonsFlag&quot;=1))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="transferOutboundTons">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="version"/>
+        <viewAttribute aggregationType="sum" id="outboundTons"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.operations.base::transferOutboundTonsSummary"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="profitCenter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="department"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::profitCenter"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="outboudTons" cardinality="CN_1" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="version"/>
+        <viewAttribute id="outboundTons_1"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="caOutboundTonsFlag" expressionLanguage="COLUMN_ENGINE">
+          <formula>int(1)</formula>
+        </calculatedViewAttribute>
+      
+      <calculatedViewAttribute id="outboundTons" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+      
+        <formula>TO_DECIMAL(&quot;outboundTons_1&quot;)</formula>
+      
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+      <input node="transferOutboundTons">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="version" source="version"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundTons_1" source="outboundTons"/>
+      </input>
+      <input node="profitCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="department"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="accountType"/>
+        <viewAttribute id="tons"/>
+        <viewAttribute id="outboundTonsFlag"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="thirdPartyTonsActual" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;accountType&quot; = 'THIRD PARTY' AND &quot;outboundTonsFlag&quot; = '0' AND &quot;versions&quot; = 'Actual') 
+THEN &quot;tons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="intercompanyTonsActual" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;accountType&quot; = 'INTERCOMPANY' AND &quot;outboundTonsFlag&quot; = '0' AND &quot;versions&quot; = 'Actual') 
+THEN &quot;tons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="intercompanyTonsForecast" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;accountType&quot; = 'INTERCOMPANY' AND &quot;outboundTonsFlag&quot; = '0' AND &quot;versions&quot; = 'Forecast') 
+THEN &quot;tons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="thirdPartyTonsForeacst" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;accountType&quot; = 'THIRD PARTY' AND &quot;outboundTonsFlag&quot; = '0' AND &quot;versions&quot; = 'Forecast') 
+THEN &quot;tons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="inboundTonsForecast" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;outboundTonsFlag&quot; = '0' AND &quot;versions&quot; = 'Forecast') 
+THEN &quot;tons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="inboundTonsActual" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;outboundTonsFlag&quot; = '0' AND &quot;versions&quot; = 'Actual') 
+THEN &quot;tons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="outboundTonsForecast" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;outboundTonsFlag&quot; = '1'  AND &quot;versions&quot; = 'Forecast') 
+THEN &quot;tons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="outboundTonsActual" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+        <formula>CASE WHEN (&quot;outboundTonsFlag&quot; = '1' AND &quot;versions&quot; = 'Actual') 
+THEN &quot;tons&quot; ELSE 0 END</formula>
+      </calculatedViewAttribute>
+    
+      <calculatedViewAttribute id="outboundTonsBudget" datatype="DECIMAL" length="28" scale="6" expressionLanguage="SQL">
+    
+        <formula>CASE WHEN (&quot;outboundTonsFlag&quot; = '0' AND &quot;versions&quot; = 'Budget') 
+THEN &quot;tons&quot; ELSE 0 END</formula>
+    
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+      <input emptyUnionBehavior="NO_ROW" node="inboundTons">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="versions" source="versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountType" source="accountType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tons" source="tons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundTonsFlag" source="caOutboundTonsFlag"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="outboudTons">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="versions" source="version"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="accountType" null="true" value=""/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tons" source="outboundTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundTonsFlag" source="caOutboundTonsFlag"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="profitCenter" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Union_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Union_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="versions" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="versions"/>
+        <keyMapping columnObjectName="Union_1" columnName="versions"/>
+      </attribute>
+      <attribute id="accountType" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="accountType"/>
+        <keyMapping columnObjectName="Union_1" columnName="accountType"/>
+      </attribute>
+      <attribute id="outboundTonsFlag" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="outboundTonsFlag"/>
+        <keyMapping columnObjectName="Union_1" columnName="outboundTonsFlag"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="priorMonth" hidden="false" order="24" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="7">
+          <formula>leftstr(string(addmonths(now(), -1)),4) + '0' + rightstr(leftstr(string(addmonths(now(), -1)),7),2)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="tons" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tons"/>
+        <measureMapping columnObjectName="Union_1" columnName="tons"/>
+      </measure>
+    
+      <measure id="thirdPartyTonsActual" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="thirdPartyTonsActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="thirdPartyTonsActual"/>
+      </measure>
+      <measure id="intercompanyTonsActual" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="intercompanyTonsActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="intercompanyTonsActual"/>
+      </measure>
+      <measure id="intercompanyTonsForecast" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="intercompanyTonsForecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="intercompanyTonsForecast"/>
+      </measure>
+      <measure id="thirdPartyTonsForeacst" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="thirdPartyTonsForeacst"/>
+        <measureMapping columnObjectName="Union_1" columnName="thirdPartyTonsForeacst"/>
+      </measure>
+      <measure id="inboundTonsForecast" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="inboundTonsForecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="inboundTonsForecast"/>
+      </measure>
+      <measure id="inboundTonsActual" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="inboundTonsActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="inboundTonsActual"/>
+      </measure>
+      <measure id="outboundTonsForecast" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="outboundTonsForecast"/>
+        <measureMapping columnObjectName="Union_1" columnName="outboundTonsForecast"/>
+      </measure>
+      <measure id="outboundTonsActual" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="outboundTonsActual"/>
+        <measureMapping columnObjectName="Union_1" columnName="outboundTonsActual"/>
+      </measure>
+    
+      <measure id="outboundTonsBudget" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="outboundTonsBudget"/>
+        <measureMapping columnObjectName="Union_1" columnName="outboundTonsBudget"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="tonnageActual" hidden="false" order="20" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="28" scale="6">
+        <descriptions defaultDescription="tonnageActual"/>
+        <formula>&quot;thirdPartyTonsActual&quot;+&quot;intercompanyTonsActual&quot;</formula>
+      
+        
+        </measure>
+      <measure id="tonnageBudget" hidden="false" order="21" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage Budget"/>
+        <formula>&quot;intercompanyTonsBudget&quot;+&quot;thirdPartyTonsBudget&quot;</formula>
+      
+        
+        </measure>
+      <measure id="tonnageForecast" hidden="false" order="22" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage Forecast"/>
+        <formula>&quot;intercompanyTonsForecast&quot;+&quot;thirdPartyTonsForeacst&quot;</formula>
+      
+        
+        </measure>
+      <measure id="tonnageprojection" hidden="false" order="23" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="28" scale="6">
+        <descriptions defaultDescription="Tonnage Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;tonnageForecast&quot;,&quot;tonnageActual&quot;)
+</formula>
+      
+        
+        </measure>
+      <measure id="inboundTonsProjection" hidden="false" order="25" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="28" scale="6">
+        <descriptions defaultDescription="Inbound Tons Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;inboundTonsForecast&quot;,&quot;inboundTonsActual&quot;)</formula>
+      
+        
+        </measure>
+      <measure id="intercompanyTonsProjection" hidden="false" order="26" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="28" scale="6">
+        <descriptions defaultDescription="Intercompany Tons Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;intercompanyTonsForecast&quot;,&quot;intercompanyTonsActual&quot;)</formula>
+      
+        
+        </measure>
+      <measure id="thirdPartyTonsProjection" hidden="false" order="27" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="28" scale="6">
+        <descriptions defaultDescription="ThirdParty Tons Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;thirdPartyTonsForeacst&quot;,&quot;thirdPartyTonsActual&quot;)</formula>
+      
+        
+        </measure>
+      <measure id="outboundTonsProjection" hidden="false" order="28" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="28" scale="6">
+        <descriptions defaultDescription="Outbound Tons - Projection"/>
+        <formula>IF(&quot;fiscalYearPeriod&quot; &gt; &quot;priorMonth&quot;,&quot;outboundTonsForecast&quot;,&quot;outboundTonsActual&quot;)</formula>
+      
+        
+        </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="inboundTonsActual_1" hidden="true" order="8" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Inbound Tons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="inboundTonsBudget" hidden="false" order="9" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Inbound Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="inboundTonsForecast_1" hidden="true" order="10" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Inbound Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="outboundTonsActual_1" hidden="true" order="11" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Outbound Tons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="1"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="outboundTonsBudget_1" hidden="true" order="12" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Outbound Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="outboundTonsForecast_1" hidden="true" order="13" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Outbound Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="1"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="intercompanyTonsActual_1" hidden="true" order="14" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Intercompany Tons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INTERCOMPANY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="intercompanyTonsBudget" hidden="false" order="15" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Intercompany Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INTERCOMPANY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="intercompanyTonsForecast_1" hidden="true" order="16" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Intercompany Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INTERCOMPANY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="thirdPartyTonsActual_1" hidden="true" order="17" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Third Party Tons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="THIRD PARTY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="thirdPartyTonsBudget" hidden="false" order="18" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Third Party Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="THIRD PARTY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="thirdPartyTonsForeacst_1" hidden="true" order="19" baseMeasure="tons" datatype="DECIMAL" length="28" scale="6">
+        <descriptions defaultDescription="Third Party Tons - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountType">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="THIRD PARTY"/>
+          </filter>
+          <attributeName>accountType</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="outboundTonsFlag">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>outboundTonsFlag</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Forecast"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="328" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="inboundTons" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="395" y="356"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="transferOutboundTons" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="516"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="profitCenter" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="516"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="outboudTons" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118" y="356"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="transferOutboundTons" modelObjectNameSpace="outboudTons" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="profitCenter" modelObjectNameSpace="outboudTons" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="328" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

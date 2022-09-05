@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.sales.base::recyclingMaterialsSales" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Recycling Materials Sales"/>
+  <metadata changedAt="2019-11-06 14:20:24.762" createdAt="2019-11-06 14:20:23.733"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="28"/>
+  <dataSources>
+    <DataSource id="MSSQL::data_RecyclingMaterialSales">
+      <resourceUri>MSSQL::data_RecyclingMaterialSales</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalMonthID"/>
+        <viewAttribute id="material"/>
+        <viewAttribute id="materialCategory"/>
+        <viewAttribute id="materialClass"/>
+        <viewAttribute id="processingType"/>
+        <viewAttribute id="lobCode"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="recyclingSales"/>
+        <viewAttribute id="recyclingTons"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="MSSQL::data_RecyclingMaterialSales">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="ProfitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalMonthID" source="FiscalMonthID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="material" source="Material"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialCategory" source="MaterialCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialClass" source="MaterialClass"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="processingType" source="ProcessingType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lobCode" source="LOB_Code"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="versions" source="Versions"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingSales" source="RecyclingSales"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="recyclingTons" source="RecyclingTons"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="profitCenter" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="fiscalMonthID" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalMonthID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalMonthID"/>
+      </attribute>
+      <attribute id="material" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="material"/>
+        <keyMapping columnObjectName="Projection_1" columnName="material"/>
+      </attribute>
+      <attribute id="materialCategory" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="materialCategory"/>
+        <keyMapping columnObjectName="Projection_1" columnName="materialCategory"/>
+      </attribute>
+      <attribute id="materialClass" key="true" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="materialClass"/>
+        <keyMapping columnObjectName="Projection_1" columnName="materialClass"/>
+      </attribute>
+      <attribute id="processingType" key="true" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="processingType"/>
+        <keyMapping columnObjectName="Projection_1" columnName="processingType"/>
+      </attribute>
+      <attribute id="lobCode" key="true" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lobCode"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lobCode"/>
+      </attribute>
+      <attribute id="versions" key="true" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="versions"/>
+        <keyMapping columnObjectName="Projection_1" columnName="versions"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="recyclingSales" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="recyclingSales"/>
+        <measureMapping columnObjectName="Projection_1" columnName="recyclingSales"/>
+      </measure>
+      <measure id="recyclingTons" order="10" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="recyclingTons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="recyclingTons"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="100"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="52" y="190"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

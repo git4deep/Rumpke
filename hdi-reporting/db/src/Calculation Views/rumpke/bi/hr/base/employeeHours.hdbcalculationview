@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.hr.base::employeeHours" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Employee Hours"/>
+  <metadata changedAt="2021-12-10 09:15:31.238"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="40"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.hr.ultipro::EMPLOYEE_HOURS">
+      <resourceUri>rumpke.bi.hr.ultipro::EMPLOYEE_HOURS</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="SQL">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeId"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="costCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="employeeID" length="9" expressionLanguage="COLUMN_ENGINE">
+          <formula>rightstr (leftstr(&quot;employeeId&quot;,9),8)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="inPunchDate" expressionLanguage="SQL">
+          <formula>to_date(&quot;inPunch&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="outPunchDate" expressionLanguage="SQL">
+          <formula>to_date(&quot;outPunch&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.hr.ultipro::EMPLOYEE_HOURS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeId" source="EMPLOYEE_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="WORK_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inPunch" source="IN_PUNCH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outPunch" source="OUT_PUNCH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="PAY_CODE_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="scheduledHours" source="SCHEDULED_HOURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="REGULAR_HOURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="OVERTIME_HOURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHours" source="WORKED_HOURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="JOB_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="COST_CENTER"/>
+      </input>
+    <filter>(to_date(&quot;outPunch&quot;) !='1900-01-01 00:00:00.0') AND not(isNull(&quot;outPunch&quot;))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="sameDay" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeId"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="inPunchDate"/>
+        <viewAttribute id="outPunchDate"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="workedHoursCalc" length="7" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>decfloat(decfloat((secondsbetween(&quot;inPunch&quot;,&quot;outPunch&quot;)/60))/60)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="workDate_calc" expressionLanguage="SQL">
+          <formula>to_date(&quot;inPunch&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1"/>
+    <filter>&quot;inPunchDate&quot;=&quot;outPunchDate&quot;</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="differentDays" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeId"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="inPunchDate"/>
+        <viewAttribute id="outPunchDate"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="TIMESTAMP" id="sameDayLastSecond" expressionLanguage="COLUMN_ENGINE">
+          <formula>longdate(format(&quot;inPunchDate&quot;,'YYYYMMDD')+'235959')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="TIMESTAMP" id="nextDayFirstSecond" expressionLanguage="COLUMN_ENGINE">
+          <formula>longdate(string(format(&quot;outPunchDate&quot;,'YYYYMMDD'))+'000001')
+
+
+</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="workedHoursSameDayCalc" length="7" scale="3" expressionLanguage="COLUMN_ENGINE">
+          <formula>decfloat(decfloat(((secondsbetween(&quot;inPunch&quot;,&quot;sameDayLastSecond&quot;)+1)/60))/60)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="workedHoursNextDayCalc" length="7" scale="5" expressionLanguage="COLUMN_ENGINE">
+          <formula>decfloat(decfloat(((secondsbetween(&quot;nextDayFirstSecond&quot;,&quot;outPunch&quot;)+1)/60))/60)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_1"/>
+    <filter>&quot;inPunchDate&quot;!=&quot;outPunchDate&quot;</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="day1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeId"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="inPunchDate"/>
+        <viewAttribute id="outPunchDate"/>
+        <viewAttribute id="workedHoursSameDayCalc"/>
+        <viewAttribute id="sameDayLastSecond"/>
+        <viewAttribute id="nextDayFirstSecond"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="differentDays"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="nextDay">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeId"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="scheduledHours"/>
+        <viewAttribute id="regularHours"/>
+        <viewAttribute id="overtimeHours"/>
+        <viewAttribute id="workedHours"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="inPunchDate"/>
+        <viewAttribute id="outPunchDate"/>
+        <viewAttribute id="workedHoursNextDayCalc"/>
+        <viewAttribute id="sameDayLastSecond"/>
+        <viewAttribute id="nextDayFirstSecond"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="inPunchDateCalc" expressionLanguage="COLUMN_ENGINE">
+          <formula>adddays(&quot;inPunchDate&quot;,1)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="differentDays"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeId"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="workedHoursNextDayCalc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="day1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeId" source="employeeId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="inPunchDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inPunch" source="inPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outPunch" source="sameDayLastSecond"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="payCodeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursNextDayCalc" source="workedHoursSameDayCalc"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="nextDay">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeId" source="employeeId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="inPunchDateCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inPunch" source="nextDayFirstSecond"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outPunch" source="outPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="payCodeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursNextDayCalc" source="workedHoursNextDayCalc"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="employeeId"/>
+        <viewAttribute id="workDate"/>
+        <viewAttribute id="inPunch"/>
+        <viewAttribute id="outPunch"/>
+        <viewAttribute id="jobCode"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="employeeID"/>
+        <viewAttribute id="payCodeNumber"/>
+        <viewAttribute id="workedHoursCalc"/>
+        <viewAttribute datatype="DECIMAL" id="regularHours" length="38" scale="5"/>
+        <viewAttribute datatype="DECIMAL" id="overtimeHours" length="38" scale="5"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="sameDay">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeId" source="employeeId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="workDate_calc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inPunch" source="inPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outPunch" source="outPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="payCodeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursCalc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regularHours" source="regularHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="overtimeHours" source="overtimeHours"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Union_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeId" source="employeeId"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workDate" source="workDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inPunch" source="inPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outPunch" source="outPunch"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="jobCode" source="jobCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="employeeID" source="employeeID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="payCodeNumber" source="payCodeNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="workedHoursCalc" source="workedHoursNextDayCalc"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="regularHours" null="false" value="0"/>
+        <mapping xsi:type="Calculation:ConstantAttributeMapping" target="overtimeHours" null="false" value="0"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="employeeId" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="employeeId"/>
+        <keyMapping columnObjectName="Union_2" columnName="employeeId"/>
+      </attribute>
+      <attribute id="employeeID" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="employeeID"/>
+        <keyMapping columnObjectName="Union_2" columnName="employeeID"/>
+      </attribute>
+      <attribute id="workDate" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="workDate"/>
+        <keyMapping columnObjectName="Union_2" columnName="workDate"/>
+      </attribute>
+      <attribute id="inPunch" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="IN_PUNCH"/>
+        <keyMapping columnObjectName="Union_2" columnName="inPunch"/>
+      </attribute>
+      <attribute id="outPunch" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="OUT_PUNCH"/>
+        <keyMapping columnObjectName="Union_2" columnName="outPunch"/>
+      </attribute>
+      <attribute id="jobCode" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="JOB_CODE"/>
+        <keyMapping columnObjectName="Union_2" columnName="jobCode"/>
+      </attribute>
+      <attribute id="payCodeNumber" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PAY_CODE_NUMBER"/>
+        <keyMapping columnObjectName="Union_2" columnName="payCodeNumber"/>
+      </attribute>
+      <attribute id="costCenter" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COST_CENTER"/>
+        <keyMapping columnObjectName="Union_2" columnName="costCenter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="workedHoursCalc" order="11" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="workedHoursCalc"/>
+        <measureMapping columnObjectName="Union_2" columnName="workedHoursCalc"/>
+      </measure>
+      <measure id="regularHours" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="regularHours"/>
+        <measureMapping columnObjectName="Union_2" columnName="regularHours"/>
+      </measure>
+      <measure id="overtimeHours" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="overtimeHours"/>
+        <measureMapping columnObjectName="Union_2" columnName="overtimeHours"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="scheduledHours" hidden="false" order="9" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="38" scale="5">
+        <descriptions defaultDescription="scheduledHours"/>
+        <formula>0</formula>
+      </measure>
+      <measure id="workedHours" hidden="false" order="10" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="38" scale="5">
+        <descriptions defaultDescription="workedHours"/>
+        <formula>0</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="205" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118" y="766"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="sameDay" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="91" y="621"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="differentDays" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="307" y="621"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="day1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="415" y="496"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="nextDay" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="205" y="496"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="231" y="356"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="205" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

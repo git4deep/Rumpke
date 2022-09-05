@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::orderHeader" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Order Header "/>
+  <metadata changedAt="2020-01-23 21:13:03.842"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="38"/>
+  <dataSources>
+    <DataSource id="AFIH">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::AFIH</resourceUri>
+    </DataSource>
+    <DataSource id="T353I_T">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::T353I_T</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="objectTypeOfCIMResourcesForWorkCenter"/>
+        <viewAttribute id="objectIDOfTheWorkCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="AFIH">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="ILOAN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="IWERK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerNumber" source="KUNUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleParty" source="ANING"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="serialNumber" source="SERIALNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="SERMAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="ILART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectTypeOfCIMResourcesForWorkCenter" source="PM_OBJTY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfTheWorkCenter" source="GEWRK"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="language"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="T353I_T">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="language" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="ILART"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityTypeDesc" source="ILATX"/>
+      </input>
+    <filter>(&quot;language&quot; ='E')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="customerNumber"/>
+        <viewAttribute id="responsibleParty"/>
+        <viewAttribute id="serialNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="maintenanceActivityType"/>
+        <viewAttribute id="objectTypeOfCIMResourcesForWorkCenter"/>
+        <viewAttribute id="objectIDOfTheWorkCenter"/>
+        <viewAttribute id="maintenanceActivityTypeDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="customerNumber" source="customerNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="responsibleParty" source="responsibleParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="serialNumber" source="serialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectTypeOfCIMResourcesForWorkCenter" source="objectTypeOfCIMResourcesForWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDOfTheWorkCenter" source="objectIDOfTheWorkCenter"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityTypeDesc" source="maintenanceActivityTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenanceActivityType" source="maintenanceActivityType"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="maintenanceActivityType"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_1" columnName="client"/>
+      </attribute>
+      <attribute id="orderNumber" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="orderNumber"/>
+      </attribute>
+      <attribute id="equipmentNumber" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="locationAccountAssignment" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Location Account Assignment"/>
+        <keyMapping columnObjectName="Join_1" columnName="locationAccountAssignment"/>
+      </attribute>
+      <attribute id="maintenancePlanningPlant" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Planning Plant"/>
+        <keyMapping columnObjectName="Join_1" columnName="maintenancePlanningPlant"/>
+      </attribute>
+      <attribute id="customerNumber" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Customer Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="customerNumber"/>
+      </attribute>
+      <attribute id="responsibleParty" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Responsible Party"/>
+        <keyMapping columnObjectName="Join_1" columnName="responsibleParty"/>
+      </attribute>
+      <attribute id="serialNumber" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Serial Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="serialNumber"/>
+      </attribute>
+      <attribute id="materialNumber" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Number"/>
+        <keyMapping columnObjectName="Join_1" columnName="materialNumber"/>
+      </attribute>
+      <attribute id="maintenanceActivityType" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Activity Type"/>
+        <keyMapping columnObjectName="Join_1" columnName="maintenanceActivityType"/>
+      </attribute>
+      <attribute id="maintenanceActivityTypeDesc" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Activity Type Description"/>
+        <keyMapping columnObjectName="Join_1" columnName="maintenanceActivityTypeDesc"/>
+      </attribute>
+      <attribute id="objectTypeOfCIMResourcesForWorkCenter" order="13" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="objectTypeOfCIMResourcesForWorkCenter"/>
+        <keyMapping columnObjectName="Join_1" columnName="objectTypeOfCIMResourcesForWorkCenter"/>
+      </attribute>
+      <attribute id="objectIDOfTheWorkCenter" order="14" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="objectIDOfTheWorkCenter"/>
+        <keyMapping columnObjectName="Join_1" columnName="objectIDOfTheWorkCenter"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures>
+      <measure id="orderCounter" hidden="false" order="1" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Number of Orders "/>
+        <formula>1</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="221.11302679000914" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92.00000000000001" y="376.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302.00000000000006" y="376.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221.11302679000914" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

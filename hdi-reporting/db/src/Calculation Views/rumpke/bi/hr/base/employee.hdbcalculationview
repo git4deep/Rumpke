@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.hr.base::employee" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Employee"/>
+  <metadata changedAt="2021-08-25 20:27:44.36"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="30"/>
+  <dataSources>
+    <DataSource id="ULTIPRO::EMPLOYEE">
+      <resourceUri>ULTIPRO::EMPLOYEE</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="EMPLOYEE_ID"/>
+      <viewAttribute id="EMPLOYEE_FULL_NAME"/>
+      <viewAttribute id="EMPLOYEE_FIRST_NAME"/>
+      <viewAttribute id="EMPLOYEE_LAST_NAME"/>
+      <viewAttribute id="RESIDENCE_LOCATION_ZIP_CODE"/>
+      <viewAttribute id="DATE_HIRE"/>
+      <viewAttribute id="DATE_HIRE_ADJUSTED"/>
+      <viewAttribute id="DATE_START"/>
+      <viewAttribute id="DATE_START_ADJUSTED"/>
+      <viewAttribute id="DATE_TERMINATION"/>
+      <viewAttribute id="TERMINATION_CODE"/>
+      <viewAttribute id="TERMINATION_DESCRIPTION"/>
+      <viewAttribute id="CURRENT_LOCATION"/>
+      <viewAttribute id="CURRENT_LOCATION_CODE"/>
+      <viewAttribute id="CURRENT_WAGE_CODE"/>
+      <viewAttribute id="ORG_CODE_1"/>
+      <viewAttribute id="ORG_CODE_2"/>
+      <viewAttribute id="ORG_CODE_3"/>
+      <viewAttribute id="ORG_CODE_4"/>
+      <viewAttribute id="CURRENT_JOB_CODE"/>
+      <viewAttribute id="CURRENT_POSITION_TITLE"/>
+      <viewAttribute id="CURRENT_MANAGER_ID"/>
+      <viewAttribute id="CURRENT_MANAGER_NAME"/>
+      <viewAttribute id="COMPANY_CODE"/>
+      <viewAttribute id="COMPANY"/>
+      <viewAttribute id="EEP_DATETIME_CREATED"/>
+      <viewAttribute id="EEP_DATETIME_CHANGED"/>
+      <viewAttribute id="EMPLOYMENT_BUILDING"/>
+      <viewAttribute id="EMPLOYMENT_DRUG_TEST_REQUIRED"/>
+      <viewAttribute id="EMPLOYMENT_OPERATE_COMPANY_VEHICLE"/>
+      <viewAttribute id="EMPLOYMENT_TYPE_OF_VEHICLE_USER"/>
+      <viewAttribute id="EMPLOYEE_MIDDLE_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="key" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>1</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="ULTIPRO::EMPLOYEE"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="employeeId" hidden="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EmployeeId"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EMPLOYEE_ID"/>
+      </attribute>
+      <attribute id="employeeFullName" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee Full Name"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EMPLOYEE_FULL_NAME"/>
+      </attribute>
+      <attribute id="employeeFirstName" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee First Name"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EMPLOYEE_FIRST_NAME"/>
+      </attribute>
+      <attribute id="employeeLastName" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee Last Name"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EMPLOYEE_LAST_NAME"/>
+      </attribute>
+      <attribute id="residenceLocationZipCode" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Residence Location Zip Code"/>
+        <keyMapping columnObjectName="Projection_1" columnName="RESIDENCE_LOCATION_ZIP_CODE"/>
+      </attribute>
+      <attribute id="dateHire" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Hire"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DATE_HIRE"/>
+      </attribute>
+      <attribute id="dateHireAdjusted" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Hire Adjusted"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DATE_HIRE_ADJUSTED"/>
+      </attribute>
+      <attribute id="dateStart" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Start"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DATE_START"/>
+      </attribute>
+      <attribute id="dateStartAdjusted" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Start Adjusted"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DATE_START_ADJUSTED"/>
+      </attribute>
+      <attribute id="dateTermination" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date Termination"/>
+        <keyMapping columnObjectName="Projection_1" columnName="DATE_TERMINATION"/>
+      </attribute>
+      <attribute id="terminationCode" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Termination Code"/>
+        <keyMapping columnObjectName="Projection_1" columnName="TERMINATION_CODE"/>
+      </attribute>
+      <attribute id="terminationDescription" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Termination Description"/>
+        <keyMapping columnObjectName="Projection_1" columnName="TERMINATION_DESCRIPTION"/>
+      </attribute>
+      <attribute id="currentLocation" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Location"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CURRENT_LOCATION"/>
+      </attribute>
+      <attribute id="currentLocationCode" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="currentLocationCode"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CURRENT_LOCATION_CODE"/>
+      </attribute>
+      <attribute id="currentWageCode" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Wage Code"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CURRENT_WAGE_CODE"/>
+      </attribute>
+      <attribute id="orgCode1" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Org Code1"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ORG_CODE_1"/>
+      </attribute>
+      <attribute id="orgCode2" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Org Code2"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ORG_CODE_2"/>
+      </attribute>
+      <attribute id="orgCode3" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Org Code3"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ORG_CODE_3"/>
+      </attribute>
+      <attribute id="orgCode4" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Org Code4"/>
+        <keyMapping columnObjectName="Projection_1" columnName="ORG_CODE_4"/>
+      </attribute>
+      <attribute id="currentJobCode" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Job Code"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CURRENT_JOB_CODE"/>
+      </attribute>
+      <attribute id="currentPositionTitle" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Position Title"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CURRENT_POSITION_TITLE"/>
+      </attribute>
+      <attribute id="currentManagerID" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Manager ID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CURRENT_MANAGER_ID"/>
+      </attribute>
+      <attribute id="currentManagerName" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Current Manager Name"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CURRENT_MANAGER_NAME"/>
+      </attribute>
+      <attribute id="companyCode" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code"/>
+        <keyMapping columnObjectName="Projection_1" columnName="COMPANY_CODE"/>
+      </attribute>
+      <attribute id="company" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company"/>
+        <keyMapping columnObjectName="Projection_1" columnName="COMPANY"/>
+      </attribute>
+      <attribute id="eepDateTimeCreated" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EEP Date Time Created"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EEP_DATETIME_CREATED"/>
+      </attribute>
+      <attribute id="eepDateTimeChanged" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EEP Date Time Changed"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EEP_DATETIME_CHANGED"/>
+      </attribute>
+      <attribute id="employmentBuilding" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employment Building"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EMPLOYMENT_BUILDING"/>
+      </attribute>
+      <attribute id="employmentDrugTestRequired" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employment Drug Test Required"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EMPLOYMENT_DRUG_TEST_REQUIRED"/>
+      </attribute>
+      <attribute id="employmentOperateCompanyVehicle" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employment Operate Company Vehicle"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EMPLOYMENT_OPERATE_COMPANY_VEHICLE"/>
+      </attribute>
+      <attribute id="employmentTypeOfVehicleUsed" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employment Type Of Vehicle Used"/>
+        <keyMapping columnObjectName="Projection_1" columnName="EMPLOYMENT_TYPE_OF_VEHICLE_USER"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="employeeID" hidden="false" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Employee ID"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="8">
+          <formula>rpad ('0', 8, &quot;employeeId&quot;)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="costCenter" hidden="false" order="33" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="10">
+          <formula>&quot;orgCode2&quot;+&quot;orgCode4&quot;</formula>
+        </keyCalculation>
+      </calculatedAttribute></calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="key" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="key"/>
+        <measureMapping columnObjectName="Projection_1" columnName="key"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="92" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

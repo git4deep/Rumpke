@@ -1,0 +1,2543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::haulingScorecardFinancials" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Hauling Scorecard Financials "/>
+  <metadata changedAt="2020-11-04 10:40:57.524"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="29"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated">
+      <resourceUri>rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::accountGroup">
+      <resourceUri>rumpke.bi.masterData.reuse::accountGroup</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="contractType"/>
+        <viewAttribute id="contractTypeText"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="distributionChannelPaText"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupText"/>
+        <viewAttribute id="gLAccountLongText"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="orderTypeText"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterText"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="rumpkeMaterialGrpDescription"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="postingPeriod_1"/>
+        <viewAttribute id="postingPeriod_2"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaForecast" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA',&quot;forecast&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaProjection" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA',&quot;projection&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="grossProfitActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Gross Profit',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="grossProfitBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Gross Profit',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="grossProfitForecast" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Gross Profit',&quot;forecast&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="grossProfitProjection" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Gross Profit',&quot;projection&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="costOfOperationsActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Cost of Operations', &quot;actual&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="costOfOperationsBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Cost of Operations', &quot;budget&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="costOfOperationsForecast" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Cost of Operations', &quot;forecast&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="costOfOperationsProjection" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Cost of Operations', &quot;projection&quot;, 0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="operatingIncomeActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Operating Income',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="operatingIncomeBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Operating Income',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="operatingIncomeForecast" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Operating Income',&quot;forecast&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="operatingIncomeProjection" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Operating Income',&quot;projection&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaTargetActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA TARGET',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaTargetBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA TARGET',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaTargetForecast" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA TARGET',&quot;forecast&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="ebitdaTargetProjection" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'EBITDA TARGET',&quot;projection&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeForecast" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income',&quot;forecast&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeProjection" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income',&quot;projection&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeBeforeTaxActual" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income Before Tax',&quot;actual&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeBeforeTaxBudget" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income Before Tax',&quot;budget&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeBeforeTaxForecast" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income Before Tax',&quot;forecast&quot;,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="netIncomeBeforeTaxProjection" length="23" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>IF(&quot;functionalAreaGroup&quot; = 'Net Income Before Tax',&quot;projection&quot;,0)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated">
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod_1" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod_2" source="postingPeriod"/></input>
+    <filter>(in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT')) AND (&quot;postingPeriod&quot; !='000')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupText"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterText"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="ebitdaActual"/>
+        <viewAttribute id="ebitdaBudget"/>
+        <viewAttribute id="grossProfitActual"/>
+        <viewAttribute id="grossProfitBudget"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="operatingIncomeActual"/>
+        <viewAttribute id="operatingIncomeBudget"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="netIncomeActual"/>
+        <viewAttribute id="netIncomeBudget"/>
+        <viewAttribute id="netIncomeBeforeTaxActual"/>
+        <viewAttribute id="netIncomeBeforeTaxBudget"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="rumpkeMaterialGrpDescription"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="ebitdaForecast"/>
+        <viewAttribute id="grossProfitForecast"/>
+        <viewAttribute id="costOfOperationsForecast"/>
+        <viewAttribute id="operatingIncomeForecast"/>
+        <viewAttribute id="ebitdaTargetForecast"/>
+        <viewAttribute id="netIncomeForecast"/>
+        <viewAttribute id="netIncomeBeforeTaxForecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="netIncomeBeforeTaxProjection"/>
+        <viewAttribute id="netIncomeProjection"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="operatingIncomeProjection"/>
+        <viewAttribute id="costOfOperationsProjection"/>
+        <viewAttribute id="grossProfitProjection"/>
+        <viewAttribute id="ebitdaProjection"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Projection_1"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="accountGroup">
+    <descriptions defaultDescription=""/>
+    <viewAttributes>
+        <viewAttribute id="setName"/>
+        <viewAttribute id="fromValue"/>
+        <viewAttribute id="shortDescriptionofaSet"/>
+        <viewAttribute id="subordinatesetID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::accountGroup"/>
+    <filter>(in (&quot;setName&quot;,'INCOME_STMT','OTHER_GROUPS'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner" optimizeJoinColumns="false">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupText"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterText"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="ebitdaActual"/>
+        <viewAttribute id="ebitdaBudget"/>
+        <viewAttribute id="grossProfitActual"/>
+        <viewAttribute id="grossProfitBudget"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="operatingIncomeActual"/>
+        <viewAttribute id="operatingIncomeBudget"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="netIncomeActual"/>
+        <viewAttribute id="netIncomeBudget"/>
+        <viewAttribute id="netIncomeBeforeTaxActual"/>
+        <viewAttribute id="netIncomeBeforeTaxBudget"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="rumpkeMaterialGrpDescription"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="ebitdaForecast"/>
+        <viewAttribute id="grossProfitForecast"/>
+        <viewAttribute id="costOfOperationsForecast"/>
+        <viewAttribute id="operatingIncomeForecast"/>
+        <viewAttribute id="ebitdaTargetForecast"/>
+        <viewAttribute id="netIncomeForecast"/>
+        <viewAttribute id="netIncomeBeforeTaxForecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="ebitdaProjection"/>
+        <viewAttribute id="grossProfitProjection"/>
+        <viewAttribute id="costOfOperationsProjection"/>
+        <viewAttribute id="operatingIncomeProjection"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="netIncomeProjection"/>
+        <viewAttribute id="netIncomeBeforeTaxProjection"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterName" source="costCenterName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupText" source="functionalAreaGroupText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofTheFunctionalArea" source="nameofTheFunctionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterText" source="profitCenterText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="quantity" source="quantity"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaActual" source="ebitdaActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaBudget" source="ebitdaBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitActual" source="grossProfitActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitBudget" source="grossProfitBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsActual" source="costOfOperationsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsBudget" source="costOfOperationsBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncomeActual" source="operatingIncomeActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncomeBudget" source="operatingIncomeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetActual" source="ebitdaTargetActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetBudget" source="ebitdaTargetBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeActual" source="netIncomeActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBudget" source="netIncomeBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBeforeTaxActual" source="netIncomeBeforeTaxActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBeforeTaxBudget" source="netIncomeBeforeTaxBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="distributionChannelPa" source="distributionChannelPa"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderType" source="orderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeMaterialGrp" source="rumpkeMaterialGrp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rumpkeMaterialGrpDescription" source="rumpkeMaterialGrpDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="revenueCategory" source="revenueCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaForecast" source="ebitdaForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitForecast" source="grossProfitForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsForecast" source="costOfOperationsForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncomeForecast" source="operatingIncomeForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetForecast" source="ebitdaTargetForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeForecast" source="netIncomeForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBeforeTaxForecast" source="netIncomeBeforeTaxForecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaProjection" source="ebitdaProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="grossProfitProjection" source="grossProfitProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costOfOperationsProjection" source="costOfOperationsProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingIncomeProjection" source="operatingIncomeProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ebitdaTargetProjection" source="ebitdaTargetProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeProjection" source="netIncomeProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="netIncomeBeforeTaxProjection" source="netIncomeBeforeTaxProjection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="accountGroup">
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroup" source="setName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountGroupDescription" source="shortDescriptionofaSet"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subordinatesetID" source="subordinatesetID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="fromValue"/>
+      </input>
+    <joinAttribute name="accountNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="financials">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="costCenterName"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupText"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterText"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="quantity"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="ebitdaActual"/>
+        <viewAttribute id="ebitdaBudget"/>
+        <viewAttribute id="grossProfitActual"/>
+        <viewAttribute id="grossProfitBudget"/>
+        <viewAttribute id="costOfOperationsActual"/>
+        <viewAttribute id="costOfOperationsBudget"/>
+        <viewAttribute id="operatingIncomeActual"/>
+        <viewAttribute id="operatingIncomeBudget"/>
+        <viewAttribute id="ebitdaTargetActual"/>
+        <viewAttribute id="ebitdaTargetBudget"/>
+        <viewAttribute id="netIncomeActual"/>
+        <viewAttribute id="netIncomeBudget"/>
+        <viewAttribute id="netIncomeBeforeTaxActual"/>
+        <viewAttribute id="netIncomeBeforeTaxBudget"/>
+        <viewAttribute id="accountGroup"/>
+        <viewAttribute id="accountGroupDescription"/>
+        <viewAttribute id="distributionChannelPa"/>
+        <viewAttribute id="orderType"/>
+        <viewAttribute id="rumpkeMaterialGrp"/>
+        <viewAttribute id="rumpkeMaterialGrpDescription"/>
+        <viewAttribute id="subordinatesetID"/>
+        <viewAttribute id="ebitdaForecast"/>
+        <viewAttribute id="grossProfitForecast"/>
+        <viewAttribute id="costOfOperationsForecast"/>
+        <viewAttribute id="operatingIncomeForecast"/>
+        <viewAttribute id="ebitdaTargetForecast"/>
+        <viewAttribute id="netIncomeForecast"/>
+        <viewAttribute id="netIncomeBeforeTaxForecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="netIncomeBeforeTaxProjection"/>
+        <viewAttribute id="netIncomeProjection"/>
+        <viewAttribute id="ebitdaTargetProjection"/>
+        <viewAttribute id="operatingIncomeProjection"/>
+        <viewAttribute id="costOfOperationsProjection"/>
+        <viewAttribute id="grossProfitProjection"/>
+        <viewAttribute id="ebitdaProjection"/>
+        <viewAttribute id="revenueCategory"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1"/>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="financials">
+    <descriptions/>
+    <attributes>
+      <attribute id="accountNumber" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Number"/>
+        <keyMapping columnObjectName="financials" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="area" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="financials" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="financials" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="costCenter" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="financials" columnName="costCenter"/>
+      </attribute>
+      <attribute id="costCenterName" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center Text"/>
+        <keyMapping columnObjectName="financials" columnName="costCenterName"/>
+      </attribute>
+      <attribute id="district" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="financials" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="financials" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="functionalArea" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="financials" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="functionalAreaGroup" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group"/>
+        <keyMapping columnObjectName="financials" columnName="functionalAreaGroup"/>
+      </attribute>
+      <attribute id="functionalAreaGroupText" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group Text"/>
+        <keyMapping columnObjectName="financials" columnName="functionalAreaGroupText"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="financials" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="financials" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="nameofTheFunctionalArea" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Text"/>
+        <keyMapping columnObjectName="financials" columnName="nameofTheFunctionalArea"/>
+      </attribute>
+      <attribute id="profitCenter" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="financials" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterText" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Text"/>
+        <keyMapping columnObjectName="financials" columnName="profitCenterText"/>
+      </attribute>
+      <attribute id="region" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="financials" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="financials" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="financials" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="financials" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="fiscalYear" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="financials" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="calMonth" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cal Month"/>
+        <keyMapping columnObjectName="financials" columnName="calMonth"/>
+      </attribute>
+      <attribute id="calQuarter" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter"/>
+        <keyMapping columnObjectName="financials" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="accountGroup" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Group"/>
+        <keyMapping columnObjectName="financials" columnName="accountGroup"/>
+      </attribute>
+      <attribute id="accountGroupDescription" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Group Description"/>
+        <keyMapping columnObjectName="financials" columnName="accountGroupDescription"/>
+      </attribute>
+      <attribute id="distributionChannelPa" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel PA"/>
+        <keyMapping columnObjectName="financials" columnName="distributionChannelPa"/>
+      </attribute>
+      <attribute id="orderType" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Type"/>
+        <keyMapping columnObjectName="financials" columnName="orderType"/>
+      </attribute>
+      <attribute id="rumpkeMaterialGrp" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rumpke Material Group"/>
+        <keyMapping columnObjectName="financials" columnName="rumpkeMaterialGrp"/>
+      </attribute>
+      <attribute id="rumpkeMaterialGrpDescription" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rumpke Material Group Description"/>
+        <keyMapping columnObjectName="financials" columnName="rumpkeMaterialGrpDescription"/>
+      </attribute>
+      <attribute id="subordinatesetID" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subordinatesetID"/>
+        <keyMapping columnObjectName="financials" columnName="subordinatesetID"/>
+      </attribute>
+      <attribute id="priorMonth" order="172" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month - For Live Projection ONLY"/>
+        <keyMapping columnObjectName="financials" columnName="priorMonth"/>
+      </attribute>
+      <attribute id="revenueCategory" order="175" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Revenue Category"/>
+        <keyMapping columnObjectName="financials" columnName="revenueCategory"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="177" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="financials" columnName="fiscalYearPeriod"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="quantity" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Quantity"/>
+        <measureMapping columnObjectName="financials" columnName="quantity"/>
+      </measure>
+      <measure id="actual" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual"/>
+        <measureMapping columnObjectName="financials" columnName="actual"/>
+      </measure>
+      <measure id="budget" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="financials" columnName="budget"/>
+      </measure>
+      <measure id="forecast" order="33" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Forecast"/>
+        <measureMapping columnObjectName="financials" columnName="forecast"/>
+      </measure>
+      <measure id="projection" order="34" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="projection"/>
+        <measureMapping columnObjectName="financials" columnName="projection"/>
+      </measure>
+      <measure id="ebitdaActual" order="35" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaActual"/>
+      </measure>
+      <measure id="ebitdaBudget" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaBudget"/>
+      </measure>
+      <measure id="ebitdaForecast" order="37" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA - Forecast"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaForecast"/>
+      </measure>
+      <measure id="ebitdaProjection" order="38" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA - Projection"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaProjection"/>
+      </measure>
+      <measure id="grossProfitActual" order="39" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Gross Profit - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="grossProfitActual"/>
+      </measure>
+      <measure id="grossProfitBudget" order="40" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Gross Profit - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="grossProfitBudget"/>
+      </measure>
+      <measure id="grossProfitForecast" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Gross Profit - Forecast"/>
+        <measureMapping columnObjectName="financials" columnName="grossProfitForecast"/>
+      </measure>
+      <measure id="grossProfitProjection" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Gross Profit - Projection"/>
+        <measureMapping columnObjectName="financials" columnName="grossProfitProjection"/>
+      </measure>
+      <measure id="costOfOperationsActual" order="43" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cost of Operations - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="costOfOperationsActual"/>
+      </measure>
+      <measure id="costOfOperationsBudget" order="44" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cost of Operations - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="costOfOperationsBudget"/>
+      </measure>
+      <measure id="costOfOperationsForecast" order="45" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cost of Operations - Forecast"/>
+        <measureMapping columnObjectName="financials" columnName="costOfOperationsForecast"/>
+      </measure>
+      <measure id="costOfOperationsProjection" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cost of Operations - Projection"/>
+        <measureMapping columnObjectName="financials" columnName="costOfOperationsProjection"/>
+      </measure>
+      <measure id="operatingIncomeActual" order="47" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operating Income - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="operatingIncomeActual"/>
+      </measure>
+      <measure id="operatingIncomeBudget" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operating Income - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="operatingIncomeBudget"/>
+      </measure>
+      <measure id="operatingIncomeForecast" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operating Income - Forecast"/>
+        <measureMapping columnObjectName="financials" columnName="operatingIncomeForecast"/>
+      </measure>
+      <measure id="operatingIncomeProjection" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Operating Income - Projection"/>
+        <measureMapping columnObjectName="financials" columnName="operatingIncomeProjection"/>
+      </measure>
+      <measure id="ebitdaTargetActual" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaTargetActual"/>
+      </measure>
+      <measure id="ebitdaTargetBudget" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaTargetBudget"/>
+      </measure>
+      <measure id="ebitdaTargetForecast" order="53" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target - Forecast"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaTargetForecast"/>
+      </measure>
+      <measure id="ebitdaTargetProjection" order="54" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target - Projection"/>
+        <measureMapping columnObjectName="financials" columnName="ebitdaTargetProjection"/>
+      </measure>
+      <measure id="netIncomeActual" order="55" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeActual"/>
+      </measure>
+      <measure id="netIncomeBudget" order="56" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeBudget"/>
+      </measure>
+      <measure id="netIncomeForecast" order="57" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income - Forecast"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeForecast"/>
+      </measure>
+      <measure id="netIncomeProjection" order="58" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income - Projection"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeProjection"/>
+      </measure>
+      <measure id="netIncomeBeforeTaxActual" order="59" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income Before Tax - Actual"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeBeforeTaxActual"/>
+      </measure>
+      <measure id="netIncomeBeforeTaxBudget" order="60" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income Before Tax - Budget"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeBeforeTaxBudget"/>
+      </measure>
+      <measure id="netIncomeBeforeTaxForecast" order="61" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income Before Tax - Forecast"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeBeforeTaxForecast"/>
+      </measure>
+      <measure id="netIncomeBeforeTaxProjection" order="138" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Net Income Before Tax - Projection"/>
+        <measureMapping columnObjectName="financials" columnName="netIncomeBeforeTaxProjection"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="ebitdaTargetasPercentofTotalRevenueActual" hidden="false" order="62" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="EBITDA Target (% of Total Revenue) - Actual"/>
+        <formula>If(&quot;totalRevenueActual&quot;&gt;0,&quot;ebitdaTargetActual&quot;/&quot;totalRevenueActual&quot;,0)</formula>
+      </measure>
+      <measure id="ebitdaTargetasPercentofTotalRevenueBudget" hidden="false" order="63" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="EBITDA Target (% of Total Revenue) - Budget"/>
+        <formula>If(&quot;totalRevenueBudget&quot;&gt;0,&quot;ebitdaTargetBudget&quot;/&quot;totalRevenueBudget&quot;,0)</formula>
+      </measure>
+      <measure id="ebitdaTargetasPercentofTotalRevenueForecast" hidden="false" order="64" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="EBITDA Target (% of Total Revenue) - Forecast"/>
+        <formula>If(&quot;totalRevenueForecast&quot;&gt;0,&quot;ebitdaTargetForecast&quot;/&quot;totalRevenueForecast&quot;,0)</formula>
+      </measure>
+      <measure id="caWageEligibleForBenefitsWeightedActual" hidden="false" order="165" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Wage Eligible for Benefits Weighted - Actual"/>
+        <formula>round(((&quot;rmWageEligibleForBenefitsActual&quot; * (1+&quot;caBenefitsRateActual&quot;)) + &quot;rmCommissionsActual&quot; + &quot;rmSubContractingActual&quot;),2)</formula>
+      </measure>
+      <measure id="caWageEligibleForBenefitsWeightedBudget" hidden="false" order="166" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Wage Eligible for Benefits Weighted - Budget"/>
+        <formula>round(((&quot;rmWageEligibleForBenefitsBudget&quot; * (1+&quot;caBenefitsRateBudget&quot;)) + &quot;rmCommissionsBudget&quot; + &quot;rmSubContractingBudget&quot;),2)</formula>
+      </measure>
+      <measure id="caWageEligibleForBenefitsWeightedForecast" hidden="false" order="167" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Wage Eligible for Benefits Weighted - Forecast"/>
+        <formula>round(((&quot;rmWageEligibleForBenefitsForecast&quot; * (1+&quot;caBenefitsRateForecast&quot;)) + &quot;rmCommissionsForecast&quot; + &quot;rmSubContractingForecast&quot;),2)</formula>
+      </measure>
+      <measure id="caWageEligibleForBenefitsWeightedProjection" hidden="false" order="168" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Wage Eligible for Benefits Weighted - Projection"/>
+        <formula>round(((&quot;rmWageEligibleForBenefitsProjection&quot; * (1+&quot;caBenefitsRateProjection&quot;)) + &quot;rmCommissionsProjection&quot; + &quot;rmSubContractingProjection&quot;),2)</formula>
+      </measure>
+      <measure id="caBenefitsRateActual" hidden="false" order="169" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Benefits Rate - Actual"/>
+        <formula>round(IF((&quot;rmDirectLaborActual&quot; + &quot;rmIndirectLaborActual&quot;) &gt; 0, &quot;rmEmployeeExpensesActual&quot; / (&quot;rmDirectLaborActual&quot; + &quot;rmIndirectLaborActual&quot;), 0),4)</formula>
+      </measure>
+      <measure id="caBenefitsRateBudget" hidden="false" order="170" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Benefits Rate - Budget"/>
+        <formula>round(IF((&quot;rmDirectLaborBudget&quot; + &quot;rmIndirectLaborBudget&quot;) &gt; 0, &quot;rmEmployeeExpensesBudget&quot; / (&quot;rmDirectLaborBudget&quot; + &quot;rmIndirectLaborBudget&quot;), 0),4)</formula>
+      </measure>
+      <measure id="caBenefitsRateForecast" hidden="false" order="171" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Benefits Rate - Forecast"/>
+        <formula>round(IF((&quot;rmDirectLaborForecast&quot; + &quot;rmIndirectLaborForecast&quot;) &gt; 0, &quot;rmEmployeeExpensesForecast&quot; / (&quot;rmDirectLaborForecast&quot; + &quot;rmIndirectLaborForecast&quot;), 0),4)</formula>
+      </measure>
+      <measure id="caBenefitsRateProjection" hidden="false" order="173" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="4">
+        <descriptions defaultDescription="Benefits Rate - Projection"/>
+        <formula>round(IF((&quot;rmDirectLaborProjection&quot; + &quot;rmIndirectLaborProjection&quot;) &gt; 0, &quot;rmEmployeeExpensesProjection&quot; / (&quot;rmDirectLaborProjection&quot; + &quot;rmIndirectLaborProjection&quot;), 0),4)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="depreciationActual" hidden="false" order="65" baseMeasure="actual">
+        <descriptions defaultDescription="Depreciation - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-DEPR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="depreciationBudget" hidden="false" order="66" baseMeasure="budget">
+        <descriptions defaultDescription="Depreciation - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-DEPR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="depreciationForecast" hidden="false" order="67" baseMeasure="forecast">
+        <descriptions defaultDescription="Depreciation - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-DEPR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="depreciationProjection" hidden="false" order="68" baseMeasure="projection">
+        <descriptions defaultDescription="Depreciation - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-DEPR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintLaborExclCapActual" hidden="false" order="69" baseMeasure="actual">
+        <descriptions defaultDescription="Maintenance Labor Exclude CAPEX - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR-CAPEX"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintLaborExclCapBudget" hidden="false" order="70" baseMeasure="budget">
+        <descriptions defaultDescription="Maintenance Labor Non CAPEX - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR-CAPEX"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintLaborExclCapForecast" hidden="false" order="71" baseMeasure="forecast">
+        <descriptions defaultDescription="Maintenance Labor Non CAPEX - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR-CAPEX"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintLaborExclCapProjection" hidden="false" order="72" baseMeasure="projection">
+        <descriptions defaultDescription="Maintenance Labor Non CAPEX - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR-CAPEX"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalWagesActual" hidden="false" order="73" baseMeasure="actual">
+        <descriptions defaultDescription="Total Wages - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="SGARUMGOF"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="SGARUSELL"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalWagesBudget" hidden="false" order="74" baseMeasure="budget">
+        <descriptions defaultDescription="Total Wages - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="SGARUMGOF"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="SGARUSELL"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalWagesForecast" hidden="false" order="75" baseMeasure="forecast">
+        <descriptions defaultDescription="Total Wages - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="SGARUMGOF"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="SGARUSELL"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="commodityRevenueActual" hidden="false" order="76" baseMeasure="actual">
+        <descriptions defaultDescription="Commodity Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041000000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041001500"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="revenueCategory">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING TRANSACTIONAL "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RECYCLINGMATERIAL SUBSCRIPTION RECYCLING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING TRANSACTIONAL RECYCLING"/>
+          </filter>
+          <attributeName>revenueCategory</attributeName>
+        </restriction>
+      </measure>
+      <measure id="commodityRevenueBudget" hidden="false" order="77" baseMeasure="budget">
+        <descriptions defaultDescription="Commodity Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041000000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041001500"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="revenueCategory">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING TRANSACTIONAL "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RECYCLINGMATERIAL SUBSCRIPTION RECYCLING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING TRANSACTIONAL RECYCLING"/>
+          </filter>
+          <attributeName>revenueCategory</attributeName>
+        </restriction>
+      </measure>
+      <measure id="commodityRevenueForecast" hidden="false" order="78" baseMeasure="forecast">
+        <descriptions defaultDescription="Commodity Revenue - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041000000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041001500"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="revenueCategory">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING TRANSACTIONAL "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RECYCLINGMATERIAL SUBSCRIPTION RECYCLING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING TRANSACTIONAL RECYCLING"/>
+          </filter>
+          <attributeName>revenueCategory</attributeName>
+        </restriction>
+      </measure>
+      <measure id="commodityRevenueProjection" hidden="false" order="79" baseMeasure="projection">
+        <descriptions defaultDescription="Commodity Revenue - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041000000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041001500"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="revenueCategory">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING TRANSACTIONAL "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RECYCLINGMATERIAL SUBSCRIPTION RECYCLING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="PROCESSING TRANSACTIONAL RECYCLING"/>
+          </filter>
+          <attributeName>revenueCategory</attributeName>
+        </restriction>
+      </measure>
+      <measure id="discountsActual" hidden="false" order="80" baseMeasure="actual">
+        <descriptions defaultDescription="Discounts - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0044020000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="discountsBudget" hidden="false" order="81" baseMeasure="budget">
+        <descriptions defaultDescription="Discounts - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0044020000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="discountsForecast" hidden="false" order="82" baseMeasure="forecast">
+        <descriptions defaultDescription="Discounts - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0044020000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelSurchargeRevenueActual" hidden="false" order="83" baseMeasure="actual">
+        <descriptions defaultDescription="Fuel Surcharge Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041091000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelSurchargeRevenueBudget" hidden="false" order="84" baseMeasure="budget">
+        <descriptions defaultDescription="Fuel Surcharge Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041091000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelSurchargeRevenueForecast" hidden="false" order="85" baseMeasure="forecast">
+        <descriptions defaultDescription="Fuel Surcharge Revenue - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041091000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelSurchargeRevenueProjection" hidden="false" order="86" baseMeasure="projection">
+        <descriptions defaultDescription="Fuel Surcharge Revenue - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041091000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="otherRevenueActual" hidden="false" order="87" baseMeasure="actual">
+        <descriptions defaultDescription="Other Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041090000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="otherRevenueBudget" hidden="false" order="88" baseMeasure="budget">
+        <descriptions defaultDescription="Other Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041090000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="otherRevenueForecast" hidden="false" order="89" baseMeasure="forecast">
+        <descriptions defaultDescription="Other Revenue - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041090000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="otherRevenueProjection" hidden="false" order="90" baseMeasure="projection">
+        <descriptions defaultDescription="Other Revenue - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041090000"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalRevenueActual" hidden="false" order="91" baseMeasure="actual">
+        <descriptions defaultDescription="Total Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalRevenueBudget" hidden="false" order="92" baseMeasure="budget">
+        <descriptions defaultDescription="Total Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalRevenueForecast" hidden="false" order="93" baseMeasure="forecast">
+        <descriptions defaultDescription="Total Revenue - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalRevenueProjection" hidden="false" order="94" baseMeasure="projection">
+        <descriptions defaultDescription="Total Revenue - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="accidentsActual" hidden="false" order="95" baseMeasure="actual">
+        <descriptions defaultDescription="Accidents - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-ACCIDENT"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="accidentsBudget" hidden="false" order="96" baseMeasure="budget">
+        <descriptions defaultDescription="Accidents - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-ACCIDENT"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="accidentsForecast" hidden="false" order="97" baseMeasure="forecast">
+        <descriptions defaultDescription="Accidents - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-ACCIDENT"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="accidentsProjection" hidden="false" order="98" baseMeasure="projection">
+        <descriptions defaultDescription="Accidents - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-ACCIDENT"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OPERATIONS"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelCostActual" hidden="false" order="99" baseMeasure="actual">
+        <descriptions defaultDescription="Fuel Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-FUELCOST"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelCostBudget" hidden="false" order="100" baseMeasure="budget">
+        <descriptions defaultDescription="Fuel Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-FUELCOST"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelCostForecast" hidden="false" order="101" baseMeasure="forecast">
+        <descriptions defaultDescription="Fuel Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-FUELCOST"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelCostProjection" hidden="false" order="102" baseMeasure="projection">
+        <descriptions defaultDescription="Fuel Cost - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-FUELCOST"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="laborCostBenefitsDriverActual" hidden="false" order="103" baseMeasure="actual">
+        <descriptions defaultDescription="Labor Cost Benefits Driver - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-DRVR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="laborCostBenefitsDriverBudget" hidden="false" order="104" baseMeasure="budget" restrictionExpressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Labor Cost Benefits Driver - Budget"/>
+        <restrictionExpression>(&quot;subordinatesetID&quot; = 'HAUL-DRVR')</restrictionExpression>
+      </measure>
+      <measure id="laborCostBenefitsDriverForecast" hidden="false" order="105" baseMeasure="forecast" restrictionExpressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Labor Cost Benefits Driver - Forecast"/>
+        <restrictionExpression>(&quot;subordinatesetID&quot; = 'HAUL-DRVR')</restrictionExpression>
+      </measure>
+      <measure id="laborCostOtherDriverActual" hidden="false" order="106" baseMeasure="actual">
+        <descriptions defaultDescription="Labor Cost Other Driver - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-DRVROTHER"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="laborCostOtherDriverBudget" hidden="false" order="107" baseMeasure="budget">
+        <descriptions defaultDescription="Labor Cost Other Driver - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-DRVROTHER"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="laborCostOtherDriverForecast" hidden="false" order="108" baseMeasure="forecast">
+        <descriptions defaultDescription="Labor Cost Other Driver - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAUL-DRVROTHER"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostCapitalizedRepairActual" hidden="false" order="109" baseMeasure="actual">
+        <descriptions defaultDescription="Maintenance CAPEX Repair Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS-CAPEX"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR-CAPEX"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostCapitalizedRepairBudget" hidden="false" order="110" baseMeasure="budget">
+        <descriptions defaultDescription="Maintenance CAPEX Repair Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS-CAPEX"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR-CAPEX"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostCapitalizedRepairForecast" hidden="false" order="111" baseMeasure="forecast">
+        <descriptions defaultDescription="Maintenance CAPEX Repair Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS-CAPEX"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR-CAPEX"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostPartsActual" hidden="false" order="112" baseMeasure="actual">
+        <descriptions defaultDescription="Maintenance Parts Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostPartsBudget" hidden="false" order="113" baseMeasure="budget">
+        <descriptions defaultDescription="Maintenance Parts Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostPartsForecast" hidden="false" order="114" baseMeasure="forecast">
+        <descriptions defaultDescription="Maintenance Parts Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostTiresActual" hidden="false" order="115" baseMeasure="actual">
+        <descriptions defaultDescription="Maintenance Tires Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTTIRES"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostTiresBudget" hidden="false" order="116" baseMeasure="budget">
+        <descriptions defaultDescription="Maintenance Tires Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTTIRES"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostTiresForecast" hidden="false" order="117" baseMeasure="forecast">
+        <descriptions defaultDescription="Maintenance Tires Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTTIRES"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostTiresProjection" hidden="false" order="118" baseMeasure="projection">
+        <descriptions defaultDescription="Maintenance Tires Cost - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTTIRES"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostWarrantyActual" hidden="false" order="119" baseMeasure="actual">
+        <descriptions defaultDescription="Maintenance Warranty Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTWARNTY"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostWarrantyBudget" hidden="false" order="120" baseMeasure="budget" restrictionExpressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Maintenance Warranty Cost - Budget"/>
+        <restrictionExpression>(&quot;subordinatesetID&quot; = 'ALL-MNTWARNTY') AND (&quot;functionalArea&quot; = 'RUFLET')</restrictionExpression>
+      </measure>
+      <measure id="maintCostWarrantyForecast" hidden="false" order="121" baseMeasure="forecast" restrictionExpressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Maintenance Warranty Cost - Forecast"/>
+        <restrictionExpression>(&quot;subordinatesetID&quot; = 'ALL-MNTWARNTY') AND (&quot;functionalArea&quot; = 'RUFLET')</restrictionExpression>
+      </measure>
+      <measure id="maintCostWarrantyProjection" hidden="false" order="122" baseMeasure="projection" restrictionExpressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Maintenance Warranty Cost - Projection"/>
+        <restrictionExpression>(&quot;subordinatesetID&quot; = 'ALL-MNTWARNTY') AND (&quot;functionalArea&quot; = 'RUFLET')</restrictionExpression>
+      </measure>
+      <measure id="maintCostLaborOtherActual" hidden="false" order="123" baseMeasure="actual">
+        <descriptions defaultDescription="Maintenance Labor (Other) Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostLaborOtherBudget" hidden="false" order="124" baseMeasure="budget">
+        <descriptions defaultDescription="Maintenance Labor (Other) Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostLaborOtherForecast" hidden="false" order="125" baseMeasure="forecast">
+        <descriptions defaultDescription="Maintenance Labor (Other) Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTLBR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="partsCostExclCapActual" hidden="false" order="126" baseMeasure="actual">
+        <descriptions defaultDescription="Parts Cost (Exclude CAPEX) - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS-CAPEX"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="partsCostExclCapBudget" hidden="false" order="127" baseMeasure="budget">
+        <descriptions defaultDescription="Parts Cost (Exclude CAPEX) - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS-CAPEX"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="partsCostExclCapForecast" hidden="false" order="128" baseMeasure="forecast">
+        <descriptions defaultDescription="Parts Cost (Exclude CAPEX) - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS-CAPEX"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="partsCostExclCapProjection" hidden="false" order="129" baseMeasure="projection">
+        <descriptions defaultDescription="Parts Cost (Exclude CAPEX) - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS-CAPEX"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTPARTS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalBenefitsActual" hidden="false" order="130" baseMeasure="actual">
+        <descriptions defaultDescription="Total Benefits - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-BENEFIT"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalBenefitsBudget" hidden="false" order="131" baseMeasure="budget">
+        <descriptions defaultDescription="Total Benefits - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-BENEFIT"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalBenefitsForecast" hidden="false" order="132" baseMeasure="forecast">
+        <descriptions defaultDescription="Total Benefits - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-BENEFIT"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostWreckerActual" hidden="false" order="133" baseMeasure="actual">
+        <descriptions defaultDescription="Maintenance Wrecker Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTTOWING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostWreckerBudget" hidden="false" order="134" baseMeasure="budget">
+        <descriptions defaultDescription="Maintenance Wrecker Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTTOWING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostWreckerForecast" hidden="false" order="135" baseMeasure="forecast">
+        <descriptions defaultDescription="Maintenance Wrecker Cost - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTTOWING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="maintCostWreckerProjection" hidden="false" order="136" baseMeasure="projection">
+        <descriptions defaultDescription="Maintenance Wrecker Cost - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="ALL-MNTTOWING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUFLET"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="baseRevenueActual" hidden="false" order="137" baseMeasure="actual">
+        <descriptions defaultDescription="Base Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041000000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041001500"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="revenueCategory">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING MUNICIPAL MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION RECYCLING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION SPECIALWASTE"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OTHER SUBSCRIPTION "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OTHER SUBSCRIPTION LIQUID"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LEASE SUBSCRIPTION "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DISPOSAL SUBSCRIPTION MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING MUNICIPAL RECYCLING"/>
+          </filter>
+          <attributeName>revenueCategory</attributeName>
+        </restriction>
+      </measure>
+      <measure id="baseRevenueBudget" hidden="false" order="139" baseMeasure="budget">
+        <descriptions defaultDescription="Base Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041000000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041001500"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="revenueCategory">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING MUNICIPAL MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION RECYCLING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION SPECIALWASTE"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OTHER SUBSCRIPTION "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OTHER SUBSCRIPTION LIQUID"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LEASE SUBSCRIPTION "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DISPOSAL SUBSCRIPTION MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING MUNICIPAL RECYCLING"/>
+          </filter>
+          <attributeName>revenueCategory</attributeName>
+        </restriction>
+      </measure>
+      <measure id="baseRevenueForecast" hidden="false" order="140" baseMeasure="forecast">
+        <descriptions defaultDescription="Base Revenue - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041000000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041001500"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="revenueCategory">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING MUNICIPAL MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION RECYCLING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OTHER SUBSCRIPTION "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OTHER SUBSCRIPTION LIQUID"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LEASE SUBSCRIPTION "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DISPOSAL SUBSCRIPTION MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING MUNICIPAL RECYCLING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION SPECIALWASTE"/>
+          </filter>
+          <attributeName>revenueCategory</attributeName>
+        </restriction>
+      </measure>
+      <measure id="baseRevenueProjection" hidden="false" order="141" baseMeasure="projection">
+        <descriptions defaultDescription="Base Revenue - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalAreaGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="TOTAL_REV"/>
+          </filter>
+          <attributeName>functionalAreaGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041000000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0041001500"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="revenueCategory">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING MUNICIPAL MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION RECYCLING"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING SUBSCRIPTION SPECIALWASTE"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OTHER SUBSCRIPTION "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="OTHER SUBSCRIPTION LIQUID"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="LEASE SUBSCRIPTION "/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DISPOSAL SUBSCRIPTION MSW"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="HAULING MUNICIPAL RECYCLING"/>
+          </filter>
+          <attributeName>revenueCategory</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmDirectLaborActual" hidden="false" order="142" baseMeasure="actual">
+        <descriptions defaultDescription="Direct Labor - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmDirectLaborBudget" hidden="false" order="143" baseMeasure="budget">
+        <descriptions defaultDescription="Direct Labor - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmDirectLaborForecast" hidden="false" order="144" baseMeasure="forecast">
+        <descriptions defaultDescription="Direct Labor - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmDirectLaborProjection" hidden="false" order="145" baseMeasure="projection">
+        <descriptions defaultDescription="Direct Labor - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRMAINTLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIROPSLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmIndirectLaborActual" hidden="false" order="146" baseMeasure="actual">
+        <descriptions defaultDescription="Indirect Labor - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmIndirectLaborBudget" hidden="false" order="147" baseMeasure="budget">
+        <descriptions defaultDescription="Indirect Labor - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmIndirectLaborForecast" hidden="false" order="148" baseMeasure="forecast">
+        <descriptions defaultDescription="Indirect Labor - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmIndirectLaborProjection" hidden="false" order="149" baseMeasure="projection">
+        <descriptions defaultDescription="Indirect Labor - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDDRIVLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDOPSLAB"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INDSGALAB"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmEmployeeExpensesActual" hidden="false" order="150" baseMeasure="actual">
+        <descriptions defaultDescription="Employee Expenses - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061060000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061061000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061062000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061102000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061201000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0065001200"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmEmployeeExpensesBudget" hidden="false" order="151" baseMeasure="budget">
+        <descriptions defaultDescription="Employee Expenses - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061060000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061061000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061062000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061102000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061201000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0065001200"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmEmployeeExpensesForecast" hidden="false" order="152" baseMeasure="forecast">
+        <descriptions defaultDescription="Employee Expenses - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061060000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061061000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061062000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061102000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061201000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0065001200"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmEmployeeExpensesProjection" hidden="false" order="153" baseMeasure="projection">
+        <descriptions defaultDescription="Employee Expenses - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountNumber">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061060000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061061000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061062000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061102000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0061201000"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0065001200"/>
+          </filter>
+          <attributeName>accountNumber</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="accountGroup">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="INCOME_STMT"/>
+          </filter>
+          <attributeName>accountGroup</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmWageEligibleForBenefitsActual" hidden="false" order="154" baseMeasure="actual">
+        <descriptions defaultDescription="Wage Eligible for Benefits - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmWageEligibleForBenefitsBudget" hidden="false" order="155" baseMeasure="budget">
+        <descriptions defaultDescription="Wage Eligible for Benefits - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmWageEligibleForBenefitsForecast" hidden="false" order="156" baseMeasure="forecast">
+        <descriptions defaultDescription="Wage Eligible for Benefits - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmWageEligibleForBenefitsProjection" hidden="false" order="157" baseMeasure="projection">
+        <descriptions defaultDescription="Wage Eligible for Benefits - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRHELPERLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmCommissionsActual" hidden="false" order="158" baseMeasure="actual">
+        <descriptions defaultDescription="Commissions - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="COMMISIONS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmCommissionsBudget" hidden="false" order="159" baseMeasure="budget">
+        <descriptions defaultDescription="Commissions - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="COMMISIONS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmCommissionsForecast" hidden="false" order="160" baseMeasure="forecast">
+        <descriptions defaultDescription="Commissions - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="COMMISIONS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmCommissionsProjection" hidden="false" order="161" baseMeasure="projection">
+        <descriptions defaultDescription="Commissions - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="COMMISIONS"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmSubContractingActual" hidden="false" order="162" baseMeasure="actual">
+        <descriptions defaultDescription="Subcontracting - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="SUBCONTRACTING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmSubContractingBudget" hidden="false" order="163" baseMeasure="budget">
+        <descriptions defaultDescription="Subcontracting - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="SUBCONTRACTING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmSubContractingForecast" hidden="false" order="164" baseMeasure="forecast">
+        <descriptions defaultDescription="Subcontracting - Forecast"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="SUBCONTRACTING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="rmSubContractingProjection" hidden="false" order="174" baseMeasure="projection">
+        <descriptions defaultDescription="Subcontracting - Projection"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="SUBCONTRACTING"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+      <measure id="DriverlaborActual" hidden="false" order="176" baseMeasure="actual">
+        <descriptions defaultDescription="DriverlaborActual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="subordinatesetID">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="DIRDRIVERSLABOR"/>
+          </filter>
+          <attributeName>subordinatesetID</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="functionalArea">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="false" value="RUOPS"/>
+          </filter>
+          <attributeName>functionalArea</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="221.53201266144765" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="626.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="511.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="accountGroup" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="501.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="216.5994748401753" y="341.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="accountGroup" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="financials" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="216.5994748401753" y="236.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

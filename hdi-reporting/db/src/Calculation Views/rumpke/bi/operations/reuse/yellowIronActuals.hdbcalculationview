@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::yellowIronActuals" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Yellow Iron Actuals"/>
+  <metadata changedAt="2020-06-22 15:15:14.924"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="41"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.time::timeDimension">
+      <resourceUri>rumpke.bi.masterData.time::timeDimension</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::profitCenter">
+      <resourceUri>rumpke.bi.masterData.base::profitCenter</resourceUri>
+    </DataSource>
+    <DataSource id="FLATFILE::current_combined">
+      <resourceUri>FLATFILE::current_combined</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calMonth"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeDimension"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::profitCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="department"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="date"/>
+        <viewAttribute id="excavationType"/>
+        <viewAttribute id="excavationFrom"/>
+        <viewAttribute id="placementTo"/>
+        <viewAttribute id="roadRock"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="operatorHour"/>
+        <viewAttribute id="operatorRate"/>
+        <viewAttribute id="operatorTotal"/>
+        <viewAttribute id="cyLoad"/>
+        <viewAttribute id="cy"/>
+        <viewAttribute id="crusherTons"/>
+        <viewAttribute id="total"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="equipmentTotal"/>
+        <viewAttribute id="monthlyDepreciation"/>
+        <viewAttribute id="hrDepRate"/>
+        <viewAttribute id="hrDepreciation"/>
+        <viewAttribute id="totalEQ"/>
+        <viewAttribute id="hrEQRate"/>
+        <viewAttribute id="fuelGallon"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="FLATFILE::current_combined">
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationType" source="EXCAVATION_TYPE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationFrom" source="EXCAVATION_FROM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="placementTo" source="PLACEMENT_TO"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="roadRock" source="ROAD_ROCK"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsActual" source="LOADS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorHour" source="OPERATOR_HR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorRate" source="OPERATOR_RATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorTotal" source="OPERATOR_TOTAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cyLoad" source="CYLOAD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cy" source="CY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="crusherTons" source="CRUSHER_TONS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="total" source="TOTAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="EQUIPMENT_HOURS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentTotal" source="EQUIPMENT_TOTAL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthlyDepreciation" source="MONTHLY_DEPRECIATION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrDepRate" source="HR_DEP_RATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrDepreciation" source="HR_DEPRECIATION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEQ" source="TOTAL_EQ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrEQRate" source="HR_EQ_RATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelGallon" source="FUEL_GALLON"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="PROFIT_CENTER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="PERIOD"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="date"/>
+        <viewAttribute id="excavationType"/>
+        <viewAttribute id="excavationFrom"/>
+        <viewAttribute id="placementTo"/>
+        <viewAttribute id="roadRock"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="operatorHour"/>
+        <viewAttribute id="operatorRate"/>
+        <viewAttribute id="operatorTotal"/>
+        <viewAttribute id="cyLoad"/>
+        <viewAttribute id="cy"/>
+        <viewAttribute id="crusherTons"/>
+        <viewAttribute id="total"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="equipmentTotal"/>
+        <viewAttribute id="monthlyDepreciation"/>
+        <viewAttribute id="hrDepRate"/>
+        <viewAttribute id="hrDepreciation"/>
+        <viewAttribute id="totalEQ"/>
+        <viewAttribute id="hrEQRate"/>
+        <viewAttribute id="fuelGallon"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      <viewAttribute hidden="true" id="JOIN$fiscalYearPeriod$calMonth"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationType" source="excavationType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationFrom" source="excavationFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="placementTo" source="placementTo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="roadRock" source="roadRock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsActual" source="loadsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorHour" source="operatorHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorRate" source="operatorRate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorTotal" source="operatorTotal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cyLoad" source="cyLoad"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cy" source="cy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="crusherTons" source="crusherTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="total" source="total"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentTotal" source="equipmentTotal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthlyDepreciation" source="monthlyDepreciation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrDepRate" source="hrDepRate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrDepreciation" source="hrDepreciation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEQ" source="totalEQ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrEQRate" source="hrEQRate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelGallon" source="fuelGallon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$fiscalYearPeriod$calMonth" source="fiscalYearPeriod"/>
+      </input>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$fiscalYearPeriod$calMonth" source="calMonth"/>
+      </input>
+    <joinAttribute name="JOIN$fiscalYearPeriod$calMonth"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="date"/>
+        <viewAttribute id="excavationType"/>
+        <viewAttribute id="excavationFrom"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="placementTo"/>
+        <viewAttribute id="roadRock"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="operatorHour"/>
+        <viewAttribute id="operatorRate"/>
+        <viewAttribute id="operatorTotal"/>
+        <viewAttribute id="cyLoad"/>
+        <viewAttribute id="cy"/>
+        <viewAttribute id="crusherTons"/>
+        <viewAttribute id="total"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="equipmentTotal"/>
+        <viewAttribute id="monthlyDepreciation"/>
+        <viewAttribute id="hrDepRate"/>
+        <viewAttribute id="hrDepreciation"/>
+        <viewAttribute id="totalEQ"/>
+        <viewAttribute id="hrEQRate"/>
+        <viewAttribute id="fuelGallon"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationType" source="excavationType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationFrom" source="excavationFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="placementTo" source="placementTo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="roadRock" source="roadRock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsActual" source="loadsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorHour" source="operatorHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorRate" source="operatorRate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorTotal" source="operatorTotal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cyLoad" source="cyLoad"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cy" source="cy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="crusherTons" source="crusherTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="total" source="total"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentTotal" source="equipmentTotal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthlyDepreciation" source="monthlyDepreciation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrDepRate" source="hrDepRate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrDepreciation" source="hrDepreciation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEQ" source="totalEQ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrEQRate" source="hrEQRate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelGallon" source="fuelGallon"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="date"/>
+        <viewAttribute id="excavationType"/>
+        <viewAttribute id="excavationFrom"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="placementTo"/>
+        <viewAttribute id="roadRock"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="loadsActual"/>
+        <viewAttribute id="operatorHour"/>
+        <viewAttribute id="operatorRate"/>
+        <viewAttribute id="operatorTotal"/>
+        <viewAttribute id="cyLoad"/>
+        <viewAttribute id="cy"/>
+        <viewAttribute id="crusherTons"/>
+        <viewAttribute id="total"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="equipmentTotal"/>
+        <viewAttribute id="monthlyDepreciation"/>
+        <viewAttribute id="hrDepRate"/>
+        <viewAttribute id="hrDepreciation"/>
+        <viewAttribute id="totalEQ"/>
+        <viewAttribute id="hrEQRate"/>
+        <viewAttribute id="fuelGallon"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="date" source="date"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationType" source="excavationType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="excavationFrom" source="excavationFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="placementTo" source="placementTo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="roadRock" source="roadRock"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="loadsActual" source="loadsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorHour" source="operatorHour"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorRate" source="operatorRate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatorTotal" source="operatorTotal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cyLoad" source="cyLoad"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cy" source="cy"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="crusherTons" source="crusherTons"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="total" source="total"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentHours" source="equipmentHours"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentTotal" source="equipmentTotal"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthlyDepreciation" source="monthlyDepreciation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrDepRate" source="hrDepRate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrDepreciation" source="hrDepreciation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalEQ" source="totalEQ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="hrEQRate" source="hrEQRate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fuelGallon" source="fuelGallon"/>
+      </input>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_7">
+    <descriptions/>
+    <attributes>
+      <attribute id="date" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="date"/>
+        <keyMapping columnObjectName="Join_7" columnName="date"/>
+      </attribute>
+      <attribute id="excavationType" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="excavationType"/>
+        <keyMapping columnObjectName="Join_7" columnName="excavationType"/>
+      </attribute>
+      <attribute id="excavationFrom" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="excavationFrom"/>
+        <keyMapping columnObjectName="Join_7" columnName="excavationFrom"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Join_7" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="placementTo" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="placementTo"/>
+        <keyMapping columnObjectName="Join_7" columnName="placementTo"/>
+      </attribute>
+      <attribute id="roadRock" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="roadRock"/>
+        <keyMapping columnObjectName="Join_7" columnName="roadRock"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrictDescription"/>
+        <keyMapping columnObjectName="Join_7" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="subDistrict"/>
+        <keyMapping columnObjectName="Join_7" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="profitCenter" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Join_7" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="area" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="area"/>
+        <keyMapping columnObjectName="Join_7" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="areaDescription"/>
+        <keyMapping columnObjectName="Join_7" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lineOfBusiness"/>
+        <keyMapping columnObjectName="Join_7" columnName="lineOfBusiness"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="loadsActual" order="17" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="loadsActual"/>
+        <measureMapping columnObjectName="Join_7" columnName="loadsActual"/>
+      </measure>
+      <measure id="operatorHour" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="operatorHour"/>
+        <measureMapping columnObjectName="Join_7" columnName="operatorHour"/>
+      </measure>
+      <measure id="operatorRate" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="operatorRate"/>
+        <measureMapping columnObjectName="Join_7" columnName="operatorRate"/>
+      </measure>
+      <measure id="operatorTotal" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="operatorTotal"/>
+        <measureMapping columnObjectName="Join_7" columnName="operatorTotal"/>
+      </measure>
+      <measure id="cyLoad" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="cyLoad"/>
+        <measureMapping columnObjectName="Join_7" columnName="cyLoad"/>
+      </measure>
+      <measure id="cy" order="22" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="cy"/>
+        <measureMapping columnObjectName="Join_7" columnName="cy"/>
+      </measure>
+      <measure id="crusherTons" order="23" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="crusherTons"/>
+        <measureMapping columnObjectName="Join_7" columnName="crusherTons"/>
+      </measure>
+      <measure id="total" order="24" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="total"/>
+        <measureMapping columnObjectName="Join_7" columnName="total"/>
+      </measure>
+      <measure id="equipmentHours" order="25" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="equipmentHours"/>
+        <measureMapping columnObjectName="Join_7" columnName="equipmentHours"/>
+      </measure>
+      <measure id="equipmentTotal" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="equipmentTotal"/>
+        <measureMapping columnObjectName="Join_7" columnName="equipmentTotal"/>
+      </measure>
+      <measure id="monthlyDepreciation" order="27" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="monthlyDepreciation"/>
+        <measureMapping columnObjectName="Join_7" columnName="monthlyDepreciation"/>
+      </measure>
+      <measure id="hrDepRate" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="hrDepRate"/>
+        <measureMapping columnObjectName="Join_7" columnName="hrDepRate"/>
+      </measure>
+      <measure id="hrDepreciation" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="hrDepreciation"/>
+        <measureMapping columnObjectName="Join_7" columnName="hrDepreciation"/>
+      </measure>
+      <measure id="totalEQ" order="30" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalEQ"/>
+        <measureMapping columnObjectName="Join_7" columnName="totalEQ"/>
+      </measure>
+      <measure id="hrEQRate" order="31" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="hrEQRate"/>
+        <measureMapping columnObjectName="Join_7" columnName="hrEQRate"/>
+      </measure>
+      <measure id="fuelGallon" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelGallon"/>
+        <measureMapping columnObjectName="Join_7" columnName="fuelGallon"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="productivityDailyCoverActual" hidden="false" order="1" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="20" scale="2">
+        <descriptions defaultDescription="Productivity Daily Cover - Actual"/>
+        <formula>round(IF(UPPER(&quot;placementTo&quot;) = 'DAILY/INTERMEDIATE COVER' AND UPPER(&quot;excavationFrom&quot;) != 'COVER STRIPPING' AND UPPER(&quot;excavationFrom&quot;) != 'ADC/SOLIDIFICATION STOCKPILE', &quot;cy&quot;, 0),2)</formula>
+      </measure>
+      <measure id="excavatedCubicYardsActual" hidden="false" order="2" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Excavated Cubic Yards - Actual"/>
+        <formula>round(IF(&quot;excavationFrom&quot; != '', &quot;cy&quot;, 0),2)</formula>
+      </measure>
+      <measure id="expenseCubicYardsActual" hidden="false" order="3" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="Expense Cubic Yards - Actual"/>
+        <formula>round(IF(in(&quot;placementTo&quot;,'Soil Stockpile','Transitional/Long Term Cover','Trash Relocation-Expense','Roadway Aggregate'), &quot;cy&quot;,0),2)</formula>
+      </measure>
+      <measure id="capexCubicYardsActual" hidden="false" order="4" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="CAPEX Cubic Yards - Actual"/>
+        <formula>round(IF(&quot;excavationFrom&quot; = 'New Landfill Cell' AND &quot;subDistrict&quot; != 'BARTHOL_SD' OR  in(&quot;placementTo&quot;, 'Structural Fill','Final Cap','Clay Liner','Drainage Layer Aggregate','Drainage Layer Aggreate','Crusher/Screener Feed Stockpile','Clay Stockpile','Trash Relocation-CAPEX') AND &quot;subDistrict&quot; != 'BARTHOL_SD', &quot;cy&quot;,0),2)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="422" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="696"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="384" y="536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="489" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="696"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="118" y="536"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="145" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_5" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="422" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    
+    <shape modelObjectName="Join_6" modelObjectNameSpace="Join_7" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_7" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

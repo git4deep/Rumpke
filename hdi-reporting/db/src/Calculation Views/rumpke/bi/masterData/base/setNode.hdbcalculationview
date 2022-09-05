@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::setNode" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Set Node"/>
+  <metadata changedAt="2019-12-19 17:18:32.065"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="23"/>
+  <dataSources>
+    <DataSource id="SETNODE">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::SETNODE</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="SETNODE">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="SETNODE" columnName="MANDT"/>
+      </attribute>
+      <attribute id="setClass" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Class"/>
+        <keyMapping columnObjectName="SETNODE" columnName="SETCLASS"/>
+      </attribute>
+      <attribute id="organizationalUnitasSetSubclass" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Organizational Unit as Set Subclass"/>
+        <keyMapping columnObjectName="SETNODE" columnName="SUBCLASS"/>
+      </attribute>
+      <attribute id="setName" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set Name"/>
+        <keyMapping columnObjectName="SETNODE" columnName="SETNAME"/>
+      </attribute>
+      <attribute id="setLineCounter" key="true" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Set line counter"/>
+        <keyMapping columnObjectName="SETNODE" columnName="LINEID"/>
+      </attribute>
+      <attribute id="classofSubordinateSet" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Class of a subordinate set"/>
+        <keyMapping columnObjectName="SETNODE" columnName="SUBSETCLS"/>
+      </attribute>
+      <attribute id="subclassofSubordinateSet" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subclass of a subordinate set"/>
+        <keyMapping columnObjectName="SETNODE" columnName="SUBSETSCLS"/>
+      </attribute>
+      <attribute id="subordinatesetID" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Subordinate set ID"/>
+        <keyMapping columnObjectName="SETNODE" columnName="SUBSETNAME"/>
+      </attribute>
+      <attribute id="sequentialNumberofSetLine" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sequential number of set line"/>
+        <keyMapping columnObjectName="SETNODE" columnName="SEQNR"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

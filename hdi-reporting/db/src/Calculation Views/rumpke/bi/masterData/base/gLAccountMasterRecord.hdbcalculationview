@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::gLAccountMasterRecord" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="G/L Account Master Record"/>
+  <metadata changedAt="2019-08-29 08:30:10.032"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="SKAT">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::SKAT</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="SKAT">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="SKAT" columnName="MANDT"/>
+      </attribute>
+      <attribute id="languageKey" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="SKAT" columnName="SPRAS"/>
+      </attribute>
+      <attribute id="chartOfAccounts" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Chart of Accounts"/>
+        <keyMapping columnObjectName="SKAT" columnName="KTOPL"/>
+      </attribute>
+      <attribute id="gLAccountNumber" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="G/L Account Number"/>
+        <keyMapping columnObjectName="SKAT" columnName="SAKNR"/>
+      </attribute>
+      <attribute id="gLAccountShortText" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="G/L account short text"/>
+        <keyMapping columnObjectName="SKAT" columnName="TXT20"/>
+      </attribute>
+      <attribute id="gLAccountLongText" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="G/L Account Long Text"/>
+        <keyMapping columnObjectName="SKAT" columnName="TXT50"/>
+      </attribute>
+      <attribute id="searchTermForMatchcode" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Search Term for Matchcode "/>
+        <keyMapping columnObjectName="SKAT" columnName="MCOD1"/>
+      </attribute>
+      <attribute id="utcTimeStampInShortForm" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UTC Time Stamp in Short Form "/>
+        <keyMapping columnObjectName="SKAT" columnName="LAST_CHANGED_TS"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

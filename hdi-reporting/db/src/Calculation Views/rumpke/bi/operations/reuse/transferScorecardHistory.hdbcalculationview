@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="3.0" id="rumpke.bi.operations.reuse::transferScorecardHistory" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="transferScorecardHistoryView"/>
+  <metadata changedAt="2020-10-15 04:32:45.071"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="37"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.operations.base::transferScorecardHistory">
+      <resourceUri>rumpke.bi.operations.base::transferScorecardHistory</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="versions"/>
+        <viewAttribute id="totalRevenue"/>
+        <viewAttribute id="costOfOperations"/>
+        <viewAttribute id="ebitdaTarget"/>
+        <viewAttribute id="totalNetRevenueThirdParty"/>
+        <viewAttribute id="totalNetRevenueIntercompany"/>
+        <viewAttribute id="totalNetRevenueOther"/>
+        <viewAttribute id="totalNetRevenuePerTon"/>
+        <viewAttribute id="totalNetLaborCost"/>
+        <viewAttribute id="totalNetLaborCostPerTon"/>
+        <viewAttribute id="totalNetEquipmentCost"/>
+        <viewAttribute id="totalNetEquipmentCostPerTon"/>
+        <viewAttribute id="totalDisposalExpense"/>
+        <viewAttribute id="totalHaulingExpense"/>
+        <viewAttribute id="totalOtherLandfillExpenses"/>
+        <viewAttribute id="totalOtherLandfillExpensesPerTon"/>
+        <viewAttribute id="totalLandfillOperatingExpense"/>
+        <viewAttribute id="totalLandfillOperatingExpensePerTon"/>
+        <viewAttribute id="operatingProfit"/>
+        <viewAttribute id="operatingProfitPerTon"/>
+        <viewAttribute id="allOtherCost"/>
+        <viewAttribute id="tonnage"/>
+        <viewAttribute id="tonnage3P"/>
+        <viewAttribute id="tonnageIC"/>
+        <viewAttribute id="outboundTons"/>
+        <viewAttribute id="payrollHours"/>
+        <viewAttribute id="equipmentCost"/>
+        <viewAttribute id="ownershipCost"/>
+        <viewAttribute id="maintenanceCost"/>
+        <viewAttribute id="fuelCost"/>
+        <viewAttribute id="equipmentCostPerHour"/>
+        <viewAttribute id="ownershipCostPerHour"/>
+        <viewAttribute id="maintenanceCostPerHour"/>
+        <viewAttribute id="fuelCostPerHour"/>
+        <viewAttribute id="equipmentHours"/>
+        <viewAttribute id="outboundLoads"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="caOutboundLoadINT" expressionLanguage="COLUMN_ENGINE">
+          <formula>int(&quot;outboundLoads&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.operations.base::transferScorecardHistory">
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingProfit" source="landfillOperatingProfit"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="operatingProfitPerTon" source="landfillOperatingProfitPerTon"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="allOtherCost" source="landfillAllOtherCost"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage" source="landfillTons_CM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnage3P" source="landfillTons_CM_3P"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="tonnageIC" source="landfillTons_CM_IC"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundTons" source="outboundTons_CM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="outboundLoads" source="outboundLoads_CM"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="fiscalYearPeriod" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Projection_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Projection_1" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="profitCenter" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Projection_1" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="versions" hidden="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Version"/>
+        <keyMapping columnObjectName="Projection_1" columnName="versions"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="totalRevenue" hidden="true" order="41" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Revenue"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalRevenue"/>
+      </measure>
+      <measure id="costOfOperations" hidden="true" order="42" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Cost of Operations"/>
+        <measureMapping columnObjectName="Projection_1" columnName="costOfOperations"/>
+      </measure>
+      <measure id="ebitdaTarget" hidden="true" order="43" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="EBITDA Target"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ebitdaTarget"/>
+      </measure>
+      <measure id="totalNetRevenueThirdParty" hidden="true" order="44" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Net Revenue 3rd Party"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetRevenueThirdParty"/>
+      </measure>
+      <measure id="totalNetRevenueIntercompany" hidden="true" order="45" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalNetRevenueIntercompany"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetRevenueIntercompany"/>
+      </measure>
+      <measure id="totalNetRevenueOther" hidden="true" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalNetRevenueOther"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetRevenueOther"/>
+      </measure>
+      <measure id="totalNetRevenuePerTon" hidden="true" order="47" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalNetRevenuePerTon"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetRevenuePerTon"/>
+      </measure>
+      <measure id="totalNetLaborCost" hidden="true" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalNetLaborCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetLaborCost"/>
+      </measure>
+      <measure id="totalNetLaborCostPerTon" hidden="true" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalNetLaborCostPerTon"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetLaborCostPerTon"/>
+      </measure>
+      <measure id="totalNetEquipmentCost" hidden="true" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalNetEquipmentCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetEquipmentCost"/>
+      </measure>
+      <measure id="totalNetEquipmentCostPerTon" hidden="true" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalNetEquipmentCostPerTon"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalNetEquipmentCostPerTon"/>
+      </measure>
+      <measure id="totalDisposalExpense" hidden="true" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalDisposalExpense"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalDisposalExpense"/>
+      </measure>
+      <measure id="totalHaulingExpense" hidden="true" order="53" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalHaulingExpense"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalHaulingExpense"/>
+      </measure>
+      <measure id="totalOtherLandfillExpenses" hidden="true" order="54" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalOtherLandfillExpenses"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalOtherLandfillExpenses"/>
+      </measure>
+      <measure id="totalOtherLandfillExpensesPerTon" hidden="true" order="55" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalOtherLandfillExpensesPerTon"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalOtherLandfillExpensesPerTon"/>
+      </measure>
+      <measure id="totalLandfillOperatingExpense" hidden="true" order="56" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalLandfillOperatingExpense"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalLandfillOperatingExpense"/>
+      </measure>
+      <measure id="totalLandfillOperatingExpensePerTon" hidden="true" order="57" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="totalLandfillOperatingExpensePerTon"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalLandfillOperatingExpensePerTon"/>
+      </measure>
+      <measure id="operatingProfit" hidden="true" order="58" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="operatingProfit"/>
+        <measureMapping columnObjectName="Projection_1" columnName="operatingProfit"/>
+      </measure>
+      <measure id="operatingProfitPerTon" hidden="true" order="59" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="operatingProfitPerTon"/>
+        <measureMapping columnObjectName="Projection_1" columnName="operatingProfitPerTon"/>
+      </measure>
+      <measure id="allOtherCost" hidden="true" order="60" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="allOtherCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="allOtherCost"/>
+      </measure>
+      <measure id="tonnage" hidden="true" order="61" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tonnage"/>
+        <measureMapping columnObjectName="Projection_1" columnName="tonnage"/>
+      </measure>
+      <measure id="tonnage3P" hidden="true" order="62" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tonnage3P"/>
+        <measureMapping columnObjectName="Projection_1" columnName="tonnage3P"/>
+      </measure>
+      <measure id="tonnageIC" hidden="true" order="63" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="tonnageIC"/>
+        <measureMapping columnObjectName="Projection_1" columnName="tonnageIC"/>
+      </measure>
+      <measure id="outboundTons" hidden="true" order="64" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="outboundTons"/>
+        <measureMapping columnObjectName="Projection_1" columnName="outboundTons"/>
+      </measure>
+      <measure id="payrollHours" order="65" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="payrollHours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="payrollHours"/>
+      </measure>
+      <measure id="equipmentCost" hidden="true" order="66" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="equipmentCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="equipmentCost"/>
+      </measure>
+      <measure id="ownershipCost" hidden="true" order="67" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="ownershipCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ownershipCost"/>
+      </measure>
+      <measure id="maintenanceCost" hidden="true" order="68" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintenanceCost"/>
+      </measure>
+      <measure id="fuelCost" hidden="true" order="69" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelCost"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelCost"/>
+      </measure>
+      <measure id="equipmentCostPerHour" hidden="true" order="70" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="equipmentCostPerHour"/>
+        <measureMapping columnObjectName="Projection_1" columnName="equipmentCostPerHour"/>
+      </measure>
+      <measure id="ownershipCostPerHour" hidden="true" order="71" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="ownershipCostPerHour"/>
+        <measureMapping columnObjectName="Projection_1" columnName="ownershipCostPerHour"/>
+      </measure>
+      <measure id="maintenanceCostPerHour" hidden="true" order="72" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="maintenanceCostPerHour"/>
+        <measureMapping columnObjectName="Projection_1" columnName="maintenanceCostPerHour"/>
+      </measure>
+      <measure id="fuelCostPerHour" hidden="true" order="73" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="fuelCostPerHour"/>
+        <measureMapping columnObjectName="Projection_1" columnName="fuelCostPerHour"/>
+      </measure>
+      <measure id="equipmentHours" hidden="true" order="74" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="equipmentHours"/>
+        <measureMapping columnObjectName="Projection_1" columnName="equipmentHours"/>
+      </measure>
+      <measure id="outboundLoads" order="87" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="outboundLoads"/>
+        <measureMapping columnObjectName="Projection_1" columnName="outboundLoads"/>
+      </measure>
+      <measure id="caOutboundLoadINT" order="96" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="caOutboundLoadINT"/>
+        <measureMapping columnObjectName="Projection_1" columnName="caOutboundLoadINT"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="totalNetRevenueActual" hidden="false" order="11" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="19" scale="4">
+        <descriptions defaultDescription="Total Net Revenue - Actual"/>
+        <formula>&quot;totalRevenueIntercompanyActual&quot; + &quot;totalNetRevenue3rdPartyActual&quot;</formula>
+      </measure>
+      <measure id="totalNetRevenueBudget" hidden="false" order="12" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="19" scale="4">
+        <descriptions defaultDescription="Total Net Revenue - Budget"/>
+        <formula>&quot;totalRevenueIntercompanyBudget&quot; + &quot;totalNetRevenue3rdPartyBudget&quot;</formula>
+      </measure>
+      <measure id="ebitdaTargetActualAsPercentageofTotalRevenue" hidden="true" order="39" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="19" scale="4">
+        <descriptions defaultDescription="EBITDA Target (% of Total Revenue)"/>
+        <formula>if(&quot;totalRevenueActual&quot;= 0 , 0 ,&quot;ebitdaTargetActual&quot;/&quot;totalRevenueActual&quot;)</formula>
+      </measure>
+      <measure id="ebitdaTargetBudgetAsPercentageofTotalRevenue" hidden="true" order="40" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="19" scale="4">
+        <descriptions defaultDescription="EBITDA Target (% of Total Revenue)"/>
+        <formula>if(&quot;totalRevenueBudget&quot;= 0 , 0 ,&quot;ebitdaTargetBudget&quot;/&quot;totalRevenueBudget&quot;)</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="totalRevenueActual" hidden="false" order="5" baseMeasure="totalRevenue" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalRevenueBudget" hidden="false" order="6" baseMeasure="totalRevenue" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalRevenueIntercompanyActual" hidden="false" order="7" baseMeasure="totalNetRevenueIntercompany" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Revenue Intercompany - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalRevenueIntercompanyBudget" hidden="false" order="8" baseMeasure="totalNetRevenueIntercompany" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Revenue Intercompany -  Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalNetRevenue3rdPartyActual" hidden="false" order="9" baseMeasure="totalNetRevenueThirdParty" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Net Revenue 3rd Party - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalNetRevenue3rdPartyBudget" hidden="false" order="10" baseMeasure="totalNetRevenueThirdParty" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Net Revenue 3rd Party - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalOtherRevActual" hidden="false" order="13" baseMeasure="totalNetRevenueOther" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Other Revenue - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalOtherRevBudget" hidden="false" order="14" baseMeasure="totalNetRevenueOther" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Other Revenue - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="disposalExpenseActual" hidden="false" order="15" baseMeasure="totalDisposalExpense" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Disposal Expense - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="disposalExpenseBudget" hidden="false" order="16" baseMeasure="totalDisposalExpense" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Disposal Expense - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelCostActual" hidden="false" order="17" baseMeasure="fuelCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Fuel Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="fuelCostBudget" hidden="false" order="18" baseMeasure="fuelCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Fuel Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="haulingExpenseActual" hidden="false" order="19" baseMeasure="totalHaulingExpense" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Hauling Expense - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="haulingExpenseBudget" hidden="false" order="20" baseMeasure="totalHaulingExpense" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Hauling Expense - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="ownershipCostActual" hidden="false" order="21" baseMeasure="ownershipCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Ownership Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="ownershipCostBudget" hidden="false" order="22" baseMeasure="ownershipCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Ownership Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalNetLaborCostActual" hidden="false" order="23" baseMeasure="totalNetLaborCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Net Labor Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalNetLaborCostBudget" hidden="false" order="24" baseMeasure="totalNetLaborCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Net Labor Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalNetEquipmentCostActual" hidden="false" order="25" baseMeasure="totalNetEquipmentCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="totalNetEquipmentCostActual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalNetEquipmentCostBudget" hidden="false" order="26" baseMeasure="totalNetEquipmentCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="totalNetEquipmentCostBudget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="ownershipCostPerHourActual" hidden="false" order="27" baseMeasure="ownershipCostPerHour" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Ownership Cost Per Hour - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="ownershipCostPerHourBudget" hidden="false" order="28" baseMeasure="ownershipCostPerHour" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Ownership Cost Per Hour - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="equipRepairCostActual" hidden="false" order="29" baseMeasure="maintenanceCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Equipment Repair Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="equipRepairCostBudget" hidden="false" order="30" baseMeasure="maintenanceCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Equipment Repair Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="equipmentHoursActual" hidden="false" order="31" baseMeasure="equipmentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Equipment Hours - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="equipmentHoursBudget" hidden="false" order="32" baseMeasure="equipmentHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Equipment Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="costOfOperationsActual" hidden="false" order="33" baseMeasure="costOfOperations" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Cost of Operations - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="costOfOperationsBudget" hidden="false" order="34" baseMeasure="costOfOperations" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Cost of Operations - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="ebitdaTargetActual" hidden="false" order="35" baseMeasure="ebitdaTarget" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="EBITDA Target - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="ebitdaTargetBudget" hidden="false" order="36" baseMeasure="ebitdaTarget" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="EBITDA Target - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="tonnageActual" hidden="false" order="37" baseMeasure="tonnage" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="tonnageBudget" hidden="false" order="38" baseMeasure="tonnage" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="tonnage3PActual" hidden="false" order="75" baseMeasure="tonnage3P" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage 3rd Party - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="tonnage3PBudget" hidden="false" order="76" baseMeasure="tonnage3P" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage 3rd Party - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="tonnageICActual" hidden="false" order="77" baseMeasure="tonnageIC" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage Interco - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="tonnageICBudget" hidden="false" order="78" baseMeasure="tonnageIC" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Tonnage Interco - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="outboundTonsActual" hidden="false" order="79" baseMeasure="outboundTons" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Outbound Tons - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="outboundTonsBudget" hidden="false" order="80" baseMeasure="outboundTons" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Outbound Tons - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="payrollHoursActual" hidden="false" order="81" baseMeasure="payrollHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Payroll Hours - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="payrollHoursBudget" hidden="false" order="82" baseMeasure="payrollHours" datatype="DECIMAL" length="18" scale="2">
+        <descriptions defaultDescription="Payroll Hours - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="allOtherCostsActual" hidden="false" order="83" baseMeasure="allOtherCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="All Other Costs - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="allOtherCostsBudget" hidden="false" order="84" baseMeasure="allOtherCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="All Other Costs - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalOtherTransferExpenseActual" hidden="false" order="85" baseMeasure="totalOtherLandfillExpenses" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Other Transfer Expense - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalOtherTransferExpenseBudget" hidden="false" order="86" baseMeasure="totalOtherLandfillExpenses" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Other Transfer Expense - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="outboundLoadsActual" hidden="false" order="88" baseMeasure="caOutboundLoadINT" datatype="INTEGER">
+        <descriptions defaultDescription="Outbound Loads - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="outboundLoadsBudget" hidden="false" order="89" baseMeasure="caOutboundLoadINT" datatype="INTEGER">
+        <descriptions defaultDescription="Outbound Loads - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalTransferOpExpenseActual" hidden="false" order="90" baseMeasure="totalLandfillOperatingExpense" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Transfer Operating Expense - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalTransferOpExpenseBudget" hidden="false" order="91" baseMeasure="totalLandfillOperatingExpense" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Transfer Operating Expense - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalEquipmentCostActual" hidden="false" order="92" baseMeasure="equipmentCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Equipment Cost - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Actual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="totalEquipmentCostBudget" hidden="false" order="93" baseMeasure="equipmentCost" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Total Equipment Cost - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="transferOpProfitActual" hidden="false" order="94" baseMeasure="operatingProfit" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Transfer Operating Profit - Actual"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Acual"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+      <measure id="transferOpProfitBudget" hidden="false" order="95" baseMeasure="operatingProfit" datatype="DECIMAL" length="19" scale="4">
+        <descriptions defaultDescription="Transfer Operating Profit - Budget"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="versions">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Budget"/>
+          </filter>
+          <attributeName>versions</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

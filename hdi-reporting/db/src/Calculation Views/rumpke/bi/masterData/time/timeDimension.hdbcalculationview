@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.time::timeDimension" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Time Dimension"/>
+  <metadata changedAt="2020-01-29 17:10:31.634"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="M_TIME_DIMENSION">
+      <resourceUri>M_TIME_DIMENSION</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+  <logicalModel id="M_TIME_DIMENSION">
+    <descriptions/>
+    <attributes>
+      <attribute id="year" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="M_TIME_DIMENSION" columnName="YEAR"/>
+      </attribute>
+      <attribute id="quarter" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Quarter"/>
+        <keyMapping columnObjectName="M_TIME_DIMENSION" columnName="QUARTER"/>
+      </attribute>
+      <attribute id="month" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month"/>
+        <keyMapping columnObjectName="M_TIME_DIMENSION" columnName="MONTH"/>
+      </attribute>
+      <attribute id="calQuarter" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter (YYYYQQ)"/>
+        <keyMapping columnObjectName="M_TIME_DIMENSION" columnName="CALQUARTER"/>
+      </attribute>
+      <attribute id="calMonth" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (YYYYMM)"/>
+        <keyMapping columnObjectName="M_TIME_DIMENSION" columnName="CALMONTH"/>
+      </attribute>
+      <attribute id="calWeek" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Week (YYYYWW)"/>
+        <keyMapping columnObjectName="M_TIME_DIMENSION" columnName="CALWEEK"/>
+      </attribute>
+      <attribute id="dateSQL" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date (SQL Format)"/>
+        <keyMapping columnObjectName="M_TIME_DIMENSION" columnName="DATE_SQL"/>
+      </attribute>
+      <attribute id="dateSAP" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date (SAP Format)"/>
+        <keyMapping columnObjectName="M_TIME_DIMENSION" columnName="DATE_SAP"/>
+      </attribute>
+      <attribute id="lastDayOfMonth" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Last Day of Month"/>
+        <keyMapping columnObjectName="M_TIME_DIMENSION" columnName="MONTH_LAST_DAY"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="fiscalYearPeriod" hidden="false" order="9" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="7">
+          <formula>&quot;year&quot; + '0' +  &quot;month&quot;</formula>
+        </keyCalculation>
+        </calculatedAttribute>
+      <calculatedAttribute id="calMonthInput" hidden="false" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Year Month (YYYY-MM)"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="7">
+          <formula>&quot;year&quot; + '-' + &quot;month&quot;</formula>
+        </keyCalculation>
+        </calculatedAttribute>
+      <calculatedAttribute id="calQuarterDisplay" hidden="false" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter (2019 QN)"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="8">
+          <formula>leftstr(&quot;calQuarter&quot;, 4) + ' ' + 'Q' + rightstr(&quot;calQuarter&quot;,1)</formula>
+        </keyCalculation>
+        </calculatedAttribute>
+      <calculatedAttribute id="calMonthDisplay" hidden="false" order="12" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Year Month (MM-YYYY)"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="7">
+          <formula>&quot;month&quot; + '-' + &quot;year&quot;</formula>
+        </keyCalculation>
+        </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="92" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,1229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.operations::damageClaimsPerTruckHour" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="damageClaimsPerTruckHour"/>
+  <metadata changedAt="2021-06-30 14:09:25.954"/>
+  <localVariables>
+    <variable id="varFiscalPeriodMeasurementEnd" parameter="true">
+      <descriptions defaultDescription="End of Fiscal Period for Goal Measurement"/>
+      <variableProperties datatype="NVARCHAR" length="7" mandatory="true" scale="0" defaultValue="undefined">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeDimension</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalYearPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="inputStartFiscalPeriod" parameter="true">
+      <descriptions defaultDescription="Fiscal Period Start"/>
+      <variableProperties datatype="NVARCHAR" length="7" mandatory="true" scale="0" defaultValue="undefined">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeDimension</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalYearPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="inputEndFiscalPeriod" parameter="true">
+      <descriptions defaultDescription="Fiscal Period End"/>
+      <variableProperties datatype="NVARCHAR" length="7" mandatory="true" scale="0" defaultValue="undefined">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.time::timeDimension</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>fiscalYearPeriod</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="55"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::profitCenter">
+      <resourceUri>rumpke.bi.masterData.base::profitCenter</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.operations.base::haulingScorecardHistory">
+      <resourceUri>rumpke.bi.operations.base::haulingScorecardHistory</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.plantMaintainance.reuse::measuringPointsDetail">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::measuringPointsDetail</resourceUri>
+    </DataSource>
+    <DataSource id="Projection_5$$$$rumpke.bi.operations.base::haulingScorecardHistory$$">
+      <resourceUri>rumpke.bi.operations.base::haulingScorecardHistory</resourceUri>
+    </DataSource>
+    <DataSource id="Projection_7$$$$rumpke.bi.plantMaintainance.reuse::measuringPointsDetail$$">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::measuringPointsDetail</resourceUri>
+    </DataSource>
+    <DataSource id="Projection_8$$$$rumpke.bi.operations.base::haulingScorecardHistory$$">
+      <resourceUri>rumpke.bi.operations.base::haulingScorecardHistory</resourceUri>
+    </DataSource>
+    <DataSource id="Projection_9$$$$rumpke.bi.plantMaintainance.reuse::measuringPointsDetail$$">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::measuringPointsDetail</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated">
+      <resourceUri>rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated</resourceUri>
+    </DataSource>
+    <DataSource id="Year1DamageClaims$$$$rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated$$">
+      <resourceUri>rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated</resourceUri>
+    </DataSource>
+    <DataSource id="Year2DamageClaims$$$$rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated$$">
+      <resourceUri>rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated</resourceUri>
+    </DataSource>
+    <DataSource id="Projection_10$$$$rumpke.bi.operations.base::haulingScorecardHistory$$">
+      <resourceUri>rumpke.bi.operations.base::haulingScorecardHistory</resourceUri>
+    </DataSource>
+    <DataSource id="Projection_11$$$$rumpke.bi.plantMaintainance.reuse::measuringPointsDetail$$">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::measuringPointsDetail</resourceUri>
+    </DataSource>
+    <DataSource id="ActualsDamageClaims$$$$rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated$$">
+      <resourceUri>rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="profitCenterGroup"/>
+        <viewAttribute id="department"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::profitCenter"/>
+    <filter>&quot;languageKey&quot; = 'E' and in (&quot;department&quot;,'FL','RL','RO','PT','TT')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="equipmentHoursActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="truckHoursYear1" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;equipmentHoursActual&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.operations.base::haulingScorecardHistory"/>
+    <filter>&quot;fiscalYearPeriod&quot; &lt; 2020001 and (in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="truckHoursYear1" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;truckHours&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.plantMaintainance.reuse::measuringPointsDetail"/>
+    <filter>(in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT')) AND (&quot;fiscalYearPeriod&quot; &gt;='2020001')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="truckHoursYear1"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear1" source="truckHoursYear1"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear1" source="truckHoursYear1"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Year1TruckHours" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="truckHoursYear1"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="measurementFiscalPeriodEnd" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr('$$varFiscalPeriodMeasurementEnd$$', 4) + rightstr('$$varFiscalPeriodMeasurementEnd$$', 2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="endFiscalPeriodYear1" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-2) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)),1))
++'0'+
+lpad(string(component(
+daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-2) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="startOfFiscalPeriod" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-3) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 1)) 
++ '0' + 
+lpad(string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-3) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Union_1"/>
+    <filter>&quot;fiscalYearPeriod&quot; &gt;  &quot;startOfFiscalPeriod&quot; and &quot;fiscalYearPeriod&quot; &lt;=&quot;endFiscalPeriodYear1&quot;</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute aggregationType="sum" id="truckHoursYear1"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Year1TruckHours"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="truckHoursYear1"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear1" source="truckHoursYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="equipmentHoursActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="truckHoursYear2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;equipmentHoursActual&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_5$$$$rumpke.bi.operations.base::haulingScorecardHistory$$"/>
+    <filter>&quot;fiscalYearPeriod&quot; &lt; 2020001 and (in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="truckHoursYear2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;truckHours&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_7$$$$rumpke.bi.plantMaintainance.reuse::measuringPointsDetail$$"/>
+    <filter>(in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT')) AND (&quot;fiscalYearPeriod&quot; &gt;='2020001')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="truckHoursYear2"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear2" source="truckHoursYear2"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear2" source="truckHoursYear2"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Year2TruckHours" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="truckHoursYear2"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="measurementFiscalPeriodEnd" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr('$$varFiscalPeriodMeasurementEnd$$', 4) + rightstr('$$varFiscalPeriodMeasurementEnd$$', 2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="endFiscalPeriodYear2" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-1) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 1)) 
++ '0' + 
+lpad(string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-1) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="startOfFiscalPeriod" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-2) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 1)) 
++ '0' + 
+lpad(string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-2) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Union_2"/>
+    <filter>&quot;fiscalYearPeriod&quot; &gt;  &quot;startOfFiscalPeriod&quot; and &quot;fiscalYearPeriod&quot; &lt;=&quot;endFiscalPeriodYear2&quot;</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute aggregationType="sum" id="truckHoursYear2"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Year2TruckHours"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="truckHoursYear1"/>
+        <viewAttribute id="truckHoursYear2"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear1" source="truckHoursYear1"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear2" source="truckHoursYear2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="equipmentHoursActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="truckHoursYear3" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;equipmentHoursActual&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_8$$$$rumpke.bi.operations.base::haulingScorecardHistory$$"/>
+    <filter>&quot;fiscalYearPeriod&quot; &lt; 2020001 and (in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="truckHoursYear3" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;truckHours&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_9$$$$rumpke.bi.plantMaintainance.reuse::measuringPointsDetail$$"/>
+    <filter>(in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT')) AND (&quot;fiscalYearPeriod&quot; &gt;='2020001')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="truckHoursYear3"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear3" source="truckHoursYear3"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear3" source="truckHoursYear3"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Year3TruckHours" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="truckHoursYear3"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="measurementFiscalPeriodEnd" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr('$$varFiscalPeriodMeasurementEnd$$', 4) + rightstr('$$varFiscalPeriodMeasurementEnd$$', 2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="endFiscalPeriodYear3" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(&quot;measurementFiscalPeriodEnd&quot;), 1)) 
++ '0' + 
+lpad(string(component(daydate(&quot;measurementFiscalPeriodEnd&quot;), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="startOfFiscalPeriod" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-1) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 1))
++ '0' + 
+lpad(string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-1) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Union_3"/>
+    <filter>&quot;fiscalYearPeriod&quot; &gt;  &quot;startOfFiscalPeriod&quot; and &quot;fiscalYearPeriod&quot; &lt;=&quot;endFiscalPeriodYear3&quot;</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute aggregationType="sum" id="truckHoursYear3"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Year3TruckHours"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="truckHoursYear1"/>
+        <viewAttribute id="truckHoursYear2"/>
+        <viewAttribute id="truckHoursYear3"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear1" source="truckHoursYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear2" source="truckHoursYear2"/>
+      </input>
+      <input node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear3" source="truckHoursYear3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Year3DamageClaims" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="damageClaimsYear3"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="measurementFiscalPeriodEnd" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr('$$varFiscalPeriodMeasurementEnd$$', 4) + rightstr('$$varFiscalPeriodMeasurementEnd$$', 2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="endFiscalPeriodClaimsYear3" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(&quot;measurementFiscalPeriodEnd&quot;), 1)) + '0' + lpad(string(component(daydate(&quot;measurementFiscalPeriodEnd&quot;), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="startOfFiscalPeriod" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-1) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 1))
++ '0' + 
+lpad(string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-1) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear3" source="actual"/></input>
+    <filter>&quot;fiscalYearPeriod&quot; &gt;  &quot;startOfFiscalPeriod&quot; and &quot;fiscalYearPeriod&quot; &lt;=&quot;endFiscalPeriodClaimsYear3&quot; and &quot;accountNumber&quot; = '0065900000'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Year1DamageClaims" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="DamageClaimsYear1"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="measurementFiscalPeriodEnd" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr('$$varFiscalPeriodMeasurementEnd$$', 4) + rightstr('$$varFiscalPeriodMeasurementEnd$$', 2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="endFiscalPeriodClaimsYear1" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-2) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 1)) 
++ '0' + 
+lpad(string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-2) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="startOfFiscalPeriod" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-3) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 1)) 
++ '0' + 
+lpad(string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-3) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Year1DamageClaims$$$$rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DamageClaimsYear1" source="actual"/></input>
+    <filter>&quot;fiscalYearPeriod&quot; &gt;  &quot;startOfFiscalPeriod&quot; and &quot;fiscalYearPeriod&quot; &lt;=&quot;endFiscalPeriodClaimsYear1&quot; and &quot;accountNumber&quot; = '0065900000'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute aggregationType="sum" id="damageClaimsYear1"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Year1DamageClaims">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear1" source="DamageClaimsYear1"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="damageClaimsYear1"/>
+        <viewAttribute id="truckHoursYear1"/>
+        <viewAttribute id="truckHoursYear2"/>
+        <viewAttribute id="truckHoursYear3"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear1" source="truckHoursYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear2" source="truckHoursYear2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear3" source="truckHoursYear3"/>
+      </input>
+      <input node="Aggregation_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear1" source="damageClaimsYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Year2DamageClaims" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="damageClaimsYear2"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="measurementFiscalPeriodEnd" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>leftstr('$$varFiscalPeriodMeasurementEnd$$', 4) + rightstr('$$varFiscalPeriodMeasurementEnd$$', 2)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="endFiscalPeriodClaimsYear2" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-1) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 1)) 
++ '0' + 
+lpad(string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-1) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="startOfFiscalPeriod" length="7" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-2) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 1)) 
++ '0' +
+lpad(string(component(daydate(string(int(leftstr(&quot;measurementFiscalPeriodEnd&quot;,4))-2) + rightstr(&quot;measurementFiscalPeriodEnd&quot;, 2)), 2)), 2, '0')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Year2DamageClaims$$$$rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear2" source="actual"/></input>
+    <filter>&quot;fiscalYearPeriod&quot; &gt;  &quot;startOfFiscalPeriod&quot; and &quot;fiscalYearPeriod&quot; &lt;=&quot;endFiscalPeriodClaimsYear2&quot; and &quot;accountNumber&quot; = '0065900000'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute aggregationType="sum" id="damageClaimsYear2"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Year2DamageClaims"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="damageClaimsYear1"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="damageClaimsYear2"/>
+        <viewAttribute id="truckHoursYear1"/>
+        <viewAttribute id="truckHoursYear2"/>
+        <viewAttribute id="truckHoursYear3"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear1" source="damageClaimsYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear1" source="truckHoursYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear2" source="truckHoursYear2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear3" source="truckHoursYear3"/>
+      </input>
+      <input node="Aggregation_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear2" source="damageClaimsYear2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_6">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute aggregationType="sum" id="damageClaimsYear3"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Year3DamageClaims"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="damageClaimsYear1"/>
+        <viewAttribute id="damageClaimsYear2"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="damageClaimsYear3"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="truckHoursYear1"/>
+        <viewAttribute id="truckHoursYear2"/>
+        <viewAttribute id="truckHoursYear3"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear1" source="damageClaimsYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear2" source="damageClaimsYear2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear1" source="truckHoursYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear2" source="truckHoursYear2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear3" source="truckHoursYear3"/>
+      </input>
+      <input node="Aggregation_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear3" source="damageClaimsYear3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="equipmentHoursActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="truckHoursActual" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;equipmentHoursActual&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_10$$$$rumpke.bi.operations.base::haulingScorecardHistory$$"/>
+    <filter>&quot;fiscalYearPeriod&quot; &lt; 2020001 and (in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_11" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="truckHours"/>
+        <viewAttribute id="lineOfBusiness"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="truckHoursActual" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;truckHours&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_11$$$$rumpke.bi.plantMaintainance.reuse::measuringPointsDetail$$"/>
+    <filter>(in (&quot;lineOfBusiness&quot;,'FL','RL','RO','PT','TT')) AND (&quot;fiscalYearPeriod&quot; &gt;='2020001')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="truckHoursActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual" source="truckHoursActual"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="Projection_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual" source="truckHoursActual"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ActualTruckHours" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="truckHoursActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Union_4"/>
+    <filter>&quot;fiscalYearPeriod&quot; &gt;='$$inputStartFiscalPeriod$$' and &quot;fiscalYearPeriod&quot; &lt;='$$inputEndFiscalPeriod$$'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_7">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute aggregationType="sum" id="truckHoursActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="ActualTruckHours"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_8" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="damageClaimsYear1"/>
+        <viewAttribute id="damageClaimsYear2"/>
+        <viewAttribute id="damageClaimsYear3"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="truckHoursYear1"/>
+        <viewAttribute id="truckHoursYear2"/>
+        <viewAttribute id="truckHoursYear3"/>
+        <viewAttribute id="truckHoursActual"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear1" source="damageClaimsYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear2" source="damageClaimsYear2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear3" source="damageClaimsYear3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear1" source="truckHoursYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear2" source="truckHoursYear2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear3" source="truckHoursYear3"/>
+      </input>
+      <input node="Aggregation_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual" source="truckHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="ActualsDamageClaims" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="damageClaimsActual"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="ActualsDamageClaims$$$$rumpke.bi.finance.reuse::universalJournalEntryLineItemAggregated$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsActual" source="actual"/></input>
+    <filter>&quot;fiscalYearPeriod&quot; &gt;=  '$$inputStartFiscalPeriod$$' and &quot;fiscalYearPeriod&quot; &lt;='$$inputEndFiscalPeriod$$' and &quot;accountNumber&quot; = '0065900000'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_9">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute aggregationType="sum" id="damageClaimsActual"/>
+        <viewAttribute id="profitCenter"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="ActualsDamageClaims"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_9" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="damageClaimsYear3"/>
+        <viewAttribute id="damageClaimsYear2"/>
+        <viewAttribute id="damageClaimsYear1"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="damageClaimsActual"/>
+        <viewAttribute id="truckHoursYear1"/>
+        <viewAttribute id="truckHoursYear2"/>
+        <viewAttribute id="truckHoursYear3"/>
+        <viewAttribute id="truckHoursActual"/>
+      <viewAttribute hidden="true" id="JOIN$profitCenter$profitCenter"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear3" source="damageClaimsYear3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear2" source="damageClaimsYear2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsYear1" source="damageClaimsYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear1" source="truckHoursYear1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear2" source="truckHoursYear2"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursYear3" source="truckHoursYear3"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="truckHoursActual" source="truckHoursActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$profitCenter$profitCenter" source="profitCenter"/>
+      </input>
+      <input node="Aggregation_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="damageClaimsActual" source="damageClaimsActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$profitCenter$profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="JOIN$profitCenter$profitCenter"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_9">
+    <descriptions/>
+    <attributes>
+      <attribute id="lineofBusinessDescription" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_9" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="subDistrictDescription" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_9" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="districtDescription" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <keyMapping columnObjectName="Join_9" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="regionDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_9" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="areaDescription" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_9" columnName="areaDescription"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="damageClaimsYear3" order="5" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Damage Claims - Year 3"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="Join_9" columnName="damageClaimsYear3"/>
+      </measure>
+      <measure id="damageClaimsYear2" order="6" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Damage Claims - Year 2"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="Join_9" columnName="damageClaimsYear2"/>
+      </measure>
+      <measure id="damageClaimsYear1" order="7" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Damage Claims - Year 1"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="Join_9" columnName="damageClaimsYear1"/>
+      </measure>
+      <measure id="truckHoursYear1" order="15" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours - Year 1"/>
+        <measureMapping columnObjectName="Join_9" columnName="truckHoursYear1"/>
+      </measure>
+      <measure id="truckHoursYear2" order="16" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours - Year 2"/>
+        <measureMapping columnObjectName="Join_9" columnName="truckHoursYear2"/>
+      </measure>
+      <measure id="damageClaimsActual" order="17" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Damage Claims"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <measureMapping columnObjectName="Join_9" columnName="damageClaimsActual"/>
+      </measure>
+      <measure id="truckHoursYear3" order="18" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours - Year 3"/>
+        <measureMapping columnObjectName="Join_9" columnName="truckHoursYear3"/>
+      </measure>
+      <measure id="truckHoursActual" order="19" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Truck Hours"/>
+        <measureMapping columnObjectName="Join_9" columnName="truckHoursActual"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="totalDamageClaims" hidden="false" order="1" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="34">
+        <descriptions defaultDescription="3-Year Damage Claims"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <formula>&quot;damageClaimsYear1&quot;+&quot;damageClaimsYear2&quot;+&quot;damageClaimsYear3&quot;</formula>
+      </measure>
+      <measure id="damageClaimsPerTruckHour" hidden="false" order="2" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="10" scale="3">
+        <descriptions defaultDescription="3-Year Damage Claims per Truck Hour"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <formula> if(&quot;totalTruckHours&quot; != 0, &quot;totalDamageClaims&quot;/&quot;totalTruckHours&quot; , 0)</formula>
+      </measure>
+      <measure id="damageClaimsPerTruckHourGoal" hidden="false" order="3" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="10" scale="3">
+        <descriptions defaultDescription="Damage Claims per Truck Hour Goal"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <formula>&quot;damageClaimsPerTruckHour&quot; * 0.97</formula>
+      </measure>
+      <measure id="totalTruckHours" hidden="false" order="4" aggregationType="sum" measureType="simple" datatype="BIGINT" expressionLanguage="COLUMN_ENGINE">
+        <descriptions defaultDescription="Total Truck Hours"/>
+        <formula>&quot;truckHoursYear1&quot;+&quot;truckHoursYear2&quot;+&quot;truckHoursYear3&quot;</formula>
+      </measure>
+      <measure id="damageClaimsPerTruckHourActual" hidden="false" order="13" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="10" scale="3">
+        <descriptions defaultDescription="Damage Claim per Truck Hour - Actual"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <formula>&quot;damageClaimsActual&quot;/if(&quot;truckHoursActual&quot; = 0, 1, &quot;truckHoursActual&quot;)</formula>
+      </measure>
+      <measure id="goalVariance" hidden="false" order="14" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="10" scale="3">
+        <descriptions defaultDescription="Variance"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <formula> &quot;damageClaimsPerTruckHourActual&quot; - &quot;damageClaimsPerTruckHourGoal&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures/>
+    <localDimensions>
+      <localDimension id="OrganizationHierarchy">
+        <attributeRef xsi:type="DataFoundation:Attribute">areaDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">regionDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">districtDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">subDistrictDescription</attributeRef>
+        <attributeRef xsi:type="DataFoundation:Attribute">lineofBusinessDescription</attributeRef>
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="OrganizationHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED">
+            <descriptions defaultDescription="Organization Hierarchy"/>
+            <levels>
+              <level levelAttribute="areaDescription" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="areaDescription"/>
+              <level levelAttribute="regionDescription" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="regionDescription"/>
+              <level levelAttribute="districtDescription" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="districtDescription"/>
+              <level levelAttribute="subDistrictDescription" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="subDistrictDescription"/>
+              <level levelAttribute="lineofBusinessDescription" levelType="MDLEVEL_TYPE_REGULAR" order="5" orderAttribute="lineofBusinessDescription"/>
+            </levels>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="1023" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="1069"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="1069"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="953"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="1301"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="407" y="1301"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="1185"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Year1TruckHours" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="1069"/>
+        <rectangleSize height="30" width="140"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="953"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="330" y="857"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="1185"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="1185"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="1069"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Year2TruckHours" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="953"/>
+        <rectangleSize height="30" width="140"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="857"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="761"/>
+        <rectangleSize height="12" width="140"/>
+      </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="1069"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="1069"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="953"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Year3TruckHours" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="857"/>
+        <rectangleSize height="30" width="140"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="761"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="665"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Join_3" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_3" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Year3DamageClaims" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="549"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Year1DamageClaims" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="761"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="665"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="549"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_4" modelObjectNameSpace="Join_7" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_4" modelObjectNameSpace="Join_7" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Year2DamageClaims" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="665"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="484" y="549"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="638" y="453"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_7" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_5" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="453"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="792" y="357"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_6" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_6" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="946" y="665"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1100" y="665"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="946" y="549"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="ActualTruckHours" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="946" y="453"/>
+        <rectangleSize height="30" width="140"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="946" y="357"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="946" y="261"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_5" modelObjectNameSpace="Join_8" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_7" modelObjectNameSpace="Join_8" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="false" modelObjectName="ActualsDamageClaims" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1100" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1100" y="261"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1023" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+    <shape modelObjectName="Join_8" modelObjectNameSpace="Join_9" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_9" modelObjectNameSpace="Join_9" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

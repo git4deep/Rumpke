@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.finance::incomeStatementPYCY" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="incomeStatementPYCY"/>
+  <metadata changedAt="2021-03-30 10:11:02.838"/>
+  <localVariables>
+    <variable id="ipQuarter" parameter="true">
+      <descriptions defaultDescription="Fiscal Quarter Selection"/>
+      <variableProperties datatype="NVARCHAR" length="7" mandatory="true" defaultValue="undefined">
+        <valueDomain type="StaticList">
+          <listEntry id="2019Q3">
+            <descriptions defaultDescription="2019Q3"/>
+          </listEntry>
+          <listEntry id="2019Q4">
+            <descriptions defaultDescription="2019Q4"/>
+          </listEntry>
+          <listEntry id="2020Q1">
+            <descriptions defaultDescription="2020Q1"/>
+          </listEntry>
+          <listEntry id="2020Q2">
+            <descriptions defaultDescription="2020Q2"/>
+          </listEntry>
+          <listEntry id="2020Q3">
+            <descriptions defaultDescription="2020Q3"/>
+          </listEntry>
+          <listEntry id="2020Q4">
+            <descriptions defaultDescription="2020Q4"/>
+          </listEntry>
+          <listEntry id="2021Q1">
+            <descriptions defaultDescription="2021Q1"/>
+          </listEntry>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="varArea">
+      <descriptions defaultDescription="Area"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>area</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="Interval"/>
+        <defaultRange operator="BT" including="true"/>
+      </variableProperties>
+    </variable>
+    <variable id="varRegion">
+      <descriptions defaultDescription="Region"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>region</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="true" type="Interval"/>
+      </variableProperties>
+    </variable>
+    <variable id="varDistrict">
+      <descriptions defaultDescription="District"/>
+      <variableProperties datatype="VARCHAR" mandatory="false">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>rumpke.bi.masterData.reuse::organizationalHierarchy</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>district</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="Interval"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.masterData.time::timeAttributesQuarterInput">
+      <targetVariable name="ipQuarter" resourceUri="rumpke.bi.masterData.time::timeAttributesQuarterInput"/>
+      <localVariable>ipQuarter</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="incomeStatement">
+      <resourceUri>rumpke.bi.reporting.finance::incomeStatement</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.reporting.finance::incomeStatement">
+      <resourceUri>rumpke.bi.reporting.finance::incomeStatement</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributesQuarterInput">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributesQuarterInput</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute aggregationType="sum" id="totalRevenueActual"/>
+        <viewAttribute aggregationType="sum" id="totalRevenueBudget"/>
+        <viewAttribute id="rollingYearNo"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="incomeStatement">
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueActual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="budget"/></input>
+    <filter>(&quot;functionalAreaGroupDescription&quot; ='Total Revenue')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions defaultDescription="incomeStatement"/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute aggregationType="sum" id="actual"/>
+        <viewAttribute aggregationType="sum" id="budget"/>
+        <viewAttribute aggregationType="sum" id="forecast"/>
+        <viewAttribute aggregationType="sum" id="projection"/>
+        <viewAttribute aggregationType="sum" id="variance"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="sortOrderforArea" expressionLanguage="COLUMN_ENGINE">
+          <formula>CASE(&quot;area&quot;,
+'EAST',1,
+'WEST',2,
+'CORPORATE',3,
+' ', 99,98
+)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.reporting.finance::incomeStatement"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_N" joinType="rightOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="sortOrderforArea"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+      <viewAttribute hidden="true" id="JOIN$profitCenter$profitCenter"/>
+      <viewAttribute hidden="true" id="JOIN$fiscalYearPeriod$fiscalYearPeriod"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueActual" source="totalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$profitCenter$profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$fiscalYearPeriod$fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortOrderforArea" source="sortOrderforArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofTheFunctionalArea" source="nameofTheFunctionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$profitCenter$profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$fiscalYearPeriod$fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="JOIN$profitCenter$profitCenter"/>
+    <joinAttribute name="JOIN$fiscalYearPeriod$fiscalYearPeriod"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="year"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributesQuarterInput"/>
+    <filter>(in (&quot;rollingYearNo&quot;,'0','-1'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroup"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="profitCenterDescription"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="sortOrderforArea"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="district"/>
+        <viewAttribute id="districtDescription"/>
+        <viewAttribute id="subDistrict"/>
+        <viewAttribute id="subDistrictDescription"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="lineOfBusinessGroup"/>
+        <viewAttribute id="fiscalYear"/>
+        <viewAttribute id="postingPeriod"/>
+        <viewAttribute id="calMonth"/>
+        <viewAttribute id="priorMonth"/>
+        <viewAttribute id="fiscYearPer"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="calQuarter"/>
+        <viewAttribute id="yearQuarter"/>
+        <viewAttribute id="year"/>
+        <viewAttribute id="calMonthDisplay"/>
+        <viewAttribute id="monthName"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="accountNumber"/>
+        <viewAttribute id="nameofTheFunctionalArea"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="forecast"/>
+        <viewAttribute id="projection"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="totalRevenueActual"/>
+        <viewAttribute id="totalRevenueBudget"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="QTD"/>
+        <viewAttribute id="ytd"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroup" source="functionalAreaGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDescription" source="profitCenterDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="sortOrderforArea" source="sortOrderforArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="district" source="district"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="districtDescription" source="districtDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrict" source="subDistrict"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="subDistrictDescription" source="subDistrictDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusinessGroup" source="lineOfBusinessGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYear" source="fiscalYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="postingPeriod" source="postingPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonth" source="calMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="priorMonth" source="priorMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscYearPer" source="fiscYearPer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearQuarter" source="yearQuarter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="year" source="year"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calMonthDisplay" source="calMonthDisplay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthName" source="monthName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="accountNumber" source="accountNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofTheFunctionalArea" source="nameofTheFunctionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="forecast" source="forecast"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="projection" source="projection"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueActual" source="totalRevenueActual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalRevenueBudget" source="totalRevenueBudget"/>
+      </input>
+      <input node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="calQuarter" source="calQuarter"/>
+      </input>
+    <joinAttribute name="calQuarter"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_2">
+    <descriptions/>
+    <attributes>
+      <attribute id="functionalAreaGroup" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group"/>
+        <keyMapping columnObjectName="Join_2" columnName="functionalAreaGroup"/>
+      </attribute>
+      <attribute id="functionalAreaGroupDescription" hidden="true" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="functionalAreaGroupDescription"/>
+      </attribute>
+      <attribute id="profitCenter" order="18" attributeHierarchyActive="false" descriptionColumnName="profitCenterDescription" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="profitCenterDescription" hidden="true" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="profitCenterDescription"/>
+      </attribute>
+      <attribute id="area" order="20" attributeHierarchyActive="false" descriptionColumnName="areaDescription" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <localVariable>varArea</localVariable>
+        <keyMapping columnObjectName="Join_2" columnName="area"/>
+      </attribute>
+      <attribute id="sortOrderforArea" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sort Order for Area"/>
+        <keyMapping columnObjectName="Join_2" columnName="sortOrderforArea"/>
+      </attribute>
+      <attribute id="areaDescription_1" hidden="true" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="region" order="23" attributeHierarchyActive="false" descriptionColumnName="regionDescription" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <localVariable>varRegion</localVariable>
+        <keyMapping columnObjectName="Join_2" columnName="region"/>
+      </attribute>
+      <attribute id="regionDescription_1" hidden="true" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="district" order="25" attributeHierarchyActive="false" descriptionColumnName="districtDescription" displayAttribute="false">
+        <descriptions defaultDescription="District"/>
+        <localVariable>varDistrict</localVariable>
+        <keyMapping columnObjectName="Join_2" columnName="district"/>
+      </attribute>
+      <attribute id="districtDescription" hidden="true" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="District Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="districtDescription"/>
+      </attribute>
+      <attribute id="subDistrict" order="27" attributeHierarchyActive="false" descriptionColumnName="subDistrictDescription" displayAttribute="false">
+        <descriptions defaultDescription="Sub District"/>
+        <keyMapping columnObjectName="Join_2" columnName="subDistrict"/>
+      </attribute>
+      <attribute id="subDistrictDescription" hidden="true" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sub District Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="subDistrictDescription"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="29" attributeHierarchyActive="false" descriptionColumnName="lineofBusinessDescription" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_2" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" hidden="true" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="lineOfBusinessGroup" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Group"/>
+        <keyMapping columnObjectName="Join_2" columnName="lineOfBusinessGroup"/>
+      </attribute>
+      <attribute id="fiscalYear" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year"/>
+        <keyMapping columnObjectName="Join_2" columnName="fiscalYear"/>
+      </attribute>
+      <attribute id="postingPeriod" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Posting Period"/>
+        <keyMapping columnObjectName="Join_2" columnName="postingPeriod"/>
+      </attribute>
+      <attribute id="calMonth" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cal Month"/>
+        <keyMapping columnObjectName="Join_2" columnName="calMonth"/>
+      </attribute>
+      <attribute id="priorMonth" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Prior Month"/>
+        <keyMapping columnObjectName="Join_2" columnName="priorMonth"/>
+      </attribute>
+      <attribute id="fiscYearPer" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year Period"/>
+        <keyMapping columnObjectName="Join_2" columnName="fiscYearPer"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fiscal Year / Period"/>
+        <keyMapping columnObjectName="Join_2" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="calQuarter" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Quarter"/>
+        <keyMapping columnObjectName="Join_2" columnName="calQuarter"/>
+      </attribute>
+      <attribute id="yearQuarter" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year-Quarter"/>
+        <keyMapping columnObjectName="Join_2" columnName="yearQuarter"/>
+      </attribute>
+      <attribute id="year" order="40" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year"/>
+        <keyMapping columnObjectName="Join_2" columnName="year"/>
+      </attribute>
+      <attribute id="calMonthDisplay" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Calendar Month (MM-YYYY)"/>
+        <keyMapping columnObjectName="Join_2" columnName="calMonthDisplay"/>
+      </attribute>
+      <attribute id="monthName" order="42" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month Name"/>
+        <keyMapping columnObjectName="Join_2" columnName="monthName"/>
+      </attribute>
+      <attribute id="rollingMonthNo" order="43" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Rolling Month Number (Current Month = 0)"/>
+        <keyMapping columnObjectName="Join_2" columnName="rollingMonthNo"/>
+      </attribute>
+      <attribute id="accountNumber" order="44" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Account Number"/>
+        <keyMapping columnObjectName="Join_2" columnName="accountNumber"/>
+      </attribute>
+      <attribute id="nameofTheFunctionalArea" order="45" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Description"/>
+        <keyMapping columnObjectName="Join_2" columnName="nameofTheFunctionalArea"/>
+      </attribute>
+      <attribute id="QTD" order="53" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="QTD"/>
+        <keyMapping columnObjectName="Join_2" columnName="QTD"/>
+      </attribute>
+      <attribute id="ytd" order="54" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ytd"/>
+        <keyMapping columnObjectName="Join_2" columnName="ytd"/>
+      </attribute>
+      <attribute id="rollingYearNo" order="55" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="rollingYearNo"/>
+        <keyMapping columnObjectName="Join_2" columnName="rollingYearNo"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="functionalAreaGroup_calc" hidden="false" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Group"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="24">
+          <formula>if(&quot;functionalAreaGroupDescription&quot;='EBITDA TARGET','EBITDA Target',&quot;functionalAreaGroupDescription&quot;)</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="sortOrderforRevenue" hidden="false" order="15" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="sortOrderforRevenue"/>
+        <keyCalculation datatype="VARCHAR" expressionLanguage="COLUMN_ENGINE" length="4">
+          <formula>Case(&quot;functionalAreaGroup&quot;, 
+'TOTAL_REV',1,
+'COGS',2,
+'Gross Profit',3,
+'MAINTNCE',31,
+'OPERATIONS',4,
+'CELL_AMRT',5,
+'OPSALLOC',6,
+'TAXES',7,
+'OTH_OPS',71,
+'SGA',8,
+'CORPALLOC',9,
+'DEPRECIATN',91,
+'Cost of Operations',92,
+'Operating Income',93,
+'OTHERINC',94,
+'INTEREST',96,
+'AMORTZTN',97,
+'Net Income Before Tax',98,
+'INCOME_TAX',99,
+'Net Income',991,
+'EBITDA',992,
+'EBITDA TARGET',993,' ' ,995,994)
+</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="areaDescription" hidden="false" order="56" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="40">
+          <formula>replace(&quot;areaDescription_1&quot;,' Area','')</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+      <calculatedAttribute id="regionDescription" hidden="false" order="57" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="40">
+          <formula>replace(&quot;regionDescription_1&quot;,' Region','')</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="actual" hidden="true" order="46" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="actual"/>
+      </measure>
+      <measure id="budget" hidden="true" order="47" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="budget"/>
+      </measure>
+      <measure id="forecast" hidden="true" order="48" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Forecast"/>
+        <measureMapping columnObjectName="Join_2" columnName="forecast"/>
+      </measure>
+      <measure id="projection" hidden="true" order="49" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Projection"/>
+        <measureMapping columnObjectName="Join_2" columnName="projection"/>
+      </measure>
+      <measure id="variance" hidden="true" order="50" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Variance"/>
+        <measureMapping columnObjectName="Join_2" columnName="variance"/>
+      </measure>
+      <measure id="totalRevenueActual" hidden="true" order="51" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="TOTAL Actual"/>
+        <measureMapping columnObjectName="Join_2" columnName="totalRevenueActual"/>
+      </measure>
+      <measure id="totalRevenueBudget" hidden="true" order="52" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="TOTAL Budget"/>
+        <measureMapping columnObjectName="Join_2" columnName="totalRevenueBudget"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="actualQTDbudgetVarianceCY" hidden="false" order="7" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="QTD Actual/Budget Variance CurYear"/>
+        <formula>&quot;actualQTDcy&quot;-&quot;budgetQTDcy&quot;</formula>
+      </measure>
+      <measure id="actualYTDbudgetVarianceCY" hidden="false" order="8" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="YTD Actual/Budget Variance CurYear"/>
+        <formula>&quot;actualYTDcy&quot;-&quot;budgetYTDcy&quot;</formula>
+      </measure>
+      <measure id="actualQTDpercentRevenue" hidden="false" order="9" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="QTD Actual % of Revenue"/>
+        <formula>if((&quot;actualQTDtotalRevenue&quot;) = 0 , 0 ,(&quot;actualQTDcy&quot;)/(&quot;actualQTDtotalRevenue&quot;))</formula>
+      </measure>
+      <measure id="budgetQTDpercentRevenue" hidden="false" order="10" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="QTD Budget % of Revenue"/>
+        <formula>if((&quot;actualQTDtotalRevenue&quot;) = 0 , 0 ,(&quot;budgetQTDcy&quot;)/(&quot;actualQTDtotalRevenue&quot;))</formula>
+      </measure>
+      <measure id="actualYTDpercentRevenue" hidden="false" order="11" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="YTD Actual % of Revenue"/>
+        <formula>if((&quot;actualYTDtotalRevenue&quot;) = 0 , 0 ,(&quot;actualYTDcy&quot;)/(&quot;actualYTDtotalRevenue&quot;))</formula>
+      </measure>
+      <measure id="budgetYTDpercentRevenue" hidden="false" order="12" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="23" scale="2">
+        <descriptions defaultDescription="YTD Budget % of Revenue"/>
+        <formula>if((&quot;actualYTDtotalRevenue&quot;) = 0 , 0 ,(&quot;budgetYTDcy&quot;)/(&quot;actualYTDtotalRevenue&quot;))</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="actualQTDcy" hidden="false" order="2" baseMeasure="actual" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Actual QTD CurYear"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="QTD">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Y"/>
+          </filter>
+          <attributeName>QTD</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="rollingYearNo">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>rollingYearNo</attributeName>
+        </restriction>
+      </measure>
+      <measure id="actualQTDpy" hidden="false" order="3" baseMeasure="actual" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Actual QTD PriorYear"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="QTD">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Y"/>
+          </filter>
+          <attributeName>QTD</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="rollingYearNo">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="-1"/>
+          </filter>
+          <attributeName>rollingYearNo</attributeName>
+        </restriction>
+      </measure>
+      <measure id="actualYTDcy" hidden="false" order="4" baseMeasure="actual" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Actual YTD CurYear"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="ytd">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Y"/>
+          </filter>
+          <attributeName>ytd</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="rollingYearNo">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>rollingYearNo</attributeName>
+        </restriction>
+      </measure>
+      <measure id="budgetQTDcy" hidden="false" order="5" baseMeasure="budget" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Budget QTD CurYear"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="QTD">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Y"/>
+          </filter>
+          <attributeName>QTD</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="rollingYearNo">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>rollingYearNo</attributeName>
+        </restriction>
+      </measure>
+      <measure id="budgetYTDcy" hidden="false" order="6" baseMeasure="budget" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Budget YTD CurYear"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="ytd">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Y"/>
+          </filter>
+          <attributeName>ytd</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="rollingYearNo">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>rollingYearNo</attributeName>
+        </restriction>
+      </measure>
+      <measure id="actualQTDtotalRevenue" hidden="false" order="13" baseMeasure="totalRevenueActual" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Actual QTD Total Revenue"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="QTD">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Y"/>
+          </filter>
+          <attributeName>QTD</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="rollingYearNo">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>rollingYearNo</attributeName>
+        </restriction>
+      </measure>
+      <measure id="actualYTDtotalRevenue" hidden="false" order="14" baseMeasure="totalRevenueActual" datatype="DECIMAL" length="23" scale="2">
+        <descriptions defaultDescription="Actual YTD Total Revenue"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="ytd">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Y"/>
+          </filter>
+          <attributeName>ytd</attributeName>
+        </restriction>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="rollingYearNo">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="0"/>
+          </filter>
+          <attributeName>rollingYearNo</attributeName>
+        </restriction>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions>
+      <localDimension id="orgHierarchy">
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="orgHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="Organizational Hierarchy"/>
+            <levels/>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+      <localDimension id="dateHierarchy">
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="dateHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="Date Hierarchy"/>
+            <levels/>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+      <localDimension id="lobHierarchy">
+        <hierarchies>
+          <hierarchy xsi:type="Dimension:LeveledHierarchy" id="lobHierarchy" aggregateAllNodes="true" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY_ENFORCED">
+            <descriptions defaultDescription="LOB Hierarchy"/>
+            <levels/>
+          </hierarchy>
+        </hierarchies>
+      </localDimension>
+    </localDimensions>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="176" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="357"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

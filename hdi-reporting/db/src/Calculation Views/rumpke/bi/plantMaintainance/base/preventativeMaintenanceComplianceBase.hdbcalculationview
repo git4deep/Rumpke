@@ -1,0 +1,1784 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::preventativeMaintenanceComplianceBase" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="true" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="preventativeMaintenanceComplianceReport"/>
+  <metadata changedAt="2022-05-20 14:56:22.202"/>
+  <localVariables>
+    <variable id="ipDateFrom" parameter="true">
+      <descriptions defaultDescription="orderCompletionDateFrom"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate(now())</defaultExpression>
+      </variableProperties>
+    </variable>
+    <variable id="ipDateTo" parameter="true">
+      <descriptions defaultDescription="orderCompletionDateTo"/>
+      <variableProperties datatype="DATE" defaultExpressionLanguage="COLUMN_ENGINE" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultExpression>daydate(now())</defaultExpression>
+      </variableProperties>
+    </variable>
+    <variable id="ip_client" parameter="true">
+      <descriptions defaultDescription="ip_client"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="*" length="3" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="57"/>
+  <dataSources>
+    <DataSource id="S4HANA::EQKT">
+      <resourceUri>S4HANA::EQKT</resourceUri>
+    </DataSource>
+    <DataSource id="S4HANA::EQUI">
+      <resourceUri>S4HANA::EQUI</resourceUri>
+    </DataSource>
+    <DataSource id="orderCostsDetails">
+      <resourceUri>rumpke.bi.plantMaintainance.reuse::orderCostsDetails</resourceUri>
+    </DataSource>
+    <DataSource id="ZPM_METER">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::ZPM_METER</resourceUri>
+    </DataSource>
+    <DataSource id="IMPTT">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::IMPTT</resourceUri>
+    </DataSource>
+    <DataSource id="IMRG">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::IMRG</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::fleet">
+      <resourceUri>rumpke.bi.masterData.base::fleet</resourceUri>
+    </DataSource>
+    <DataSource id="AFIH">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::AFIH</resourceUri>
+    </DataSource>
+    <DataSource id="MHIO">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::MHIO</resourceUri>
+    </DataSource>
+    <DataSource id="S4HANA::AUFK">
+      <resourceUri>S4HANA::AUFK</resourceUri>
+    </DataSource>
+    <DataSource id="MHIS">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::MHIS</resourceUri>
+    </DataSource>
+    <DataSource id="MMPT">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::MMPT</resourceUri>
+    </DataSource>
+    <DataSource id="JEST">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::JEST</resourceUri>
+    </DataSource>
+    <DataSource id="TJ02T">
+      <resourceUri>rumpke.bi.plantMaintainance.s4hana::TJ02T</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.reuse::organizationalHierarchy">
+      <resourceUri>rumpke.bi.masterData.reuse::organizationalHierarchy</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::EQKT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="EQKTX"/></input>
+    <filter>&quot;MANDT&quot;='$$ip_client$$' OR '$$ip_client$$'='*'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="S4HANA::EQUI">
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="WARPL"/></input>
+    <filter>&quot;MANDT&quot;='$$ip_client$$' OR '$$ip_client$$'='*'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="createdOnRO"/>
+        <viewAttribute id="orderNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="orderCreationYear" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(&quot;createdOnRO&quot;,'YYYY')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="orderCreationMonth" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(&quot;createdOnRO&quot;,'MM')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="orderCostsDetails">
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="mdVehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="mdFunctionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="mdProfitCenter"/></input>
+    <filter>(&quot;client&quot;='$$ip_client$$' OR '$$ip_client$$'='*') AND (&quot;equipmentNumber&quot; != '')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_10">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute id="MILES_READ"/>
+        <viewAttribute aggregationType="sum" id="currentMeterReading"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="MP_READ"/>
+        <viewAttribute id="FAIL_FLAG"/>
+        <viewAttribute id="USER_NAME"/>
+        <viewAttribute id="LAST_READ"/>
+        <viewAttribute id="ENTRY_DATE"/>
+        <viewAttribute id="ENTRY_TIME"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="milesRead" length="16" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MILES_READ&quot;='',0,decfloat(replace(&quot;MILES_READ&quot;,' ','')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="lastRead" length="16" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;LAST_READ&quot;='',0,decfloat(replace(&quot;LAST_READ&quot;,' ','')))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="SECONDDATE" id="ENTRY_DATE_TIME" expressionLanguage="COLUMN_ENGINE">
+          <formula>seconddate(string(&quot;ENTRY_DATE&quot;) +string(' ')+ string(&quot;ENTRY_TIME&quot;))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="ENTRY_DATE_TEXT" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>string(&quot;ENTRY_DATE&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="ZPM_METER">
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentMeterReading" source="NEW_METER_READ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="EQFNR"/></input>
+    <filter>&quot;FAIL_FLAG&quot; != 'X'
+AND (&quot;USER_NAME&quot; != '' OR &quot;MP_READ&quot; != '')
+AND &quot;ENTRY_DATE_TEXT&quot; !=''
+AND (&quot;MANDT&quot;='$$ip_client$$' OR '$$ip_client$$'='*')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_9">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="EQUNR"/>
+        <viewAttribute aggregationType="max" id="ENTRY_DATE_TIME"/>
+        <viewAttribute id="vehicleID"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Aggregation_10"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_14" cardinality="CN_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="currentMeterReading"/>
+        <viewAttribute id="EQUNR"/>
+      <viewAttribute hidden="true" id="JOIN$ENTRY_DATE_TIME$ENTRY_DATE_TIME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentMeterReading" source="currentMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ENTRY_DATE_TIME$ENTRY_DATE_TIME" source="ENTRY_DATE_TIME"/>
+      </input>
+      <input node="Aggregation_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EQUNR" source="EQUNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ENTRY_DATE_TIME$ENTRY_DATE_TIME" source="ENTRY_DATE_TIME"/>
+      </input>
+    <joinAttribute name="EQUNR"/>
+    <joinAttribute name="vehicleID"/>
+    <joinAttribute name="JOIN$ENTRY_DATE_TIME$ENTRY_DATE_TIME"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_12">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute aggregationType="sum" id="currentMeterReading"/>
+        <viewAttribute id="EQUNR"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="Join_14"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" cardinality="CN_1" dynamic="false" joinType="leftOuter" optimizeJoinColumns="false">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="currentMeterReading"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+      </input>
+      <input node="Aggregation_12">
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentMeterReading" source="currentMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="EQUNR"/>
+      </input>
+    <joinAttribute name="equipmentNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_12" cardinality="CN_1" dynamic="false" joinType="inner" optimizeJoinColumns="false">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="currentMeterReading"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="orderCreationYear"/>
+        <viewAttribute id="orderCreationMonth"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="abcIndicatorDesc_UpperCase" length="20" expressionLanguage="COLUMN_ENGINE">
+          <formula>upper(&quot;abcIndicatorDesc&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentMeterReading" source="currentMeterReading"/>
+      </input>
+      <input node="Aggregation_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationYear" source="orderCreationYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationMonth" source="orderCreationMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+      </input>
+    <joinAttribute name="equipmentNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_8">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MPOBJ"/>
+        <viewAttribute id="POINT"/>
+        <viewAttribute id="PSORT"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="cc_equipmentNumber" length="18" expressionLanguage="COLUMN_ENGINE">
+          <formula>rightstr(&quot;MPOBJ&quot;,strlen(&quot;MPOBJ&quot;)-2)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="IMPTT"/>
+    <filter>&quot;MANDT&quot;='$$ip_client$$' OR '$$ip_client$$'='*'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_10" cardinality="CN_1" joinType="leftOuter" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="currentMeterReading"/>
+        <viewAttribute id="POINT"/>
+        <viewAttribute id="abcIndicatorDesc_UpperCase"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="orderCreationYear"/>
+        <viewAttribute id="orderCreationMonth"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_12">
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentMeterReading" source="currentMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc_UpperCase" source="abcIndicatorDesc_UpperCase"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationYear" source="orderCreationYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationMonth" source="orderCreationMonth"/>
+      </input>
+      <input node="Aggregation_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="POINT" source="POINT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="cc_equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc_UpperCase" source="PSORT"/>
+      </input>
+    <joinAttribute name="equipmentNumber"/>
+    <joinAttribute name="abcIndicatorDesc_UpperCase"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:RankView" id="Rank_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MDOCM"/>
+        <viewAttribute id="POINT"/>
+        <viewAttribute id="lifetimeMeterReading"/>
+        <viewAttribute id="lastMeterReadDate"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="IMRG">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifetimeMeterReading" source="RECDV"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastMeterReadDate" source="IDATE"/>
+      </input>
+    <windowFunction dynamicPartitionAttributes="false">
+      <partitionViewAttributeName>POINT</partitionViewAttributeName>
+      <order byViewAttributeName="MDOCM" direction="DESC"/>
+      <rankThreshold>
+        <value>1</value>
+      </rankThreshold>
+    </windowFunction>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_13" cardinality="CN_1" joinType="leftOuter" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="currentMeterReading"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="POINT"/>
+        <viewAttribute id="lifetimeMeterReading"/>
+        <viewAttribute id="lastMeterReadDate"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="orderCreationYear"/>
+        <viewAttribute id="orderCreationMonth"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentMeterReading" source="currentMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POINT" source="POINT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationYear" source="orderCreationYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationMonth" source="orderCreationMonth"/>
+      </input>
+      <input node="Rank_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifetimeMeterReading" source="lifetimeMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastMeterReadDate" source="lastMeterReadDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="POINT" source="POINT"/>
+      </input>
+    <joinAttribute name="POINT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" dynamic="false" joinType="leftOuter" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="currentMeterReading"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="lifetimeMeterReading"/>
+        <viewAttribute id="lastMeterReadDate"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="orderCreationYear"/>
+        <viewAttribute id="orderCreationMonth"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_13">
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentMeterReading" source="currentMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifetimeMeterReading" source="lifetimeMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastMeterReadDate" source="lastMeterReadDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationYear" source="orderCreationYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationMonth" source="orderCreationMonth"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+      </input>
+    <joinAttribute name="equipmentNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_10" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="unitType"/>
+        <viewAttribute id="client"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::fleet">
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitType" source="fleetCategory"/></input>
+    <filter>&quot;client&quot;='$$ip_client$$' OR '$$ip_client$$'='*'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="j_equipmentDetails" cardinality="CN_1" joinType="leftOuter" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="currentMeterReading"/>
+        <viewAttribute id="lifetimeMeterReading"/>
+        <viewAttribute id="lastMeterReadDate"/>
+        <viewAttribute id="unitType"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="orderCreationYear"/>
+        <viewAttribute id="orderCreationMonth"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentMeterReading" source="currentMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifetimeMeterReading" source="lifetimeMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastMeterReadDate" source="lastMeterReadDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationYear" source="orderCreationYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationMonth" source="orderCreationMonth"/>
+      </input>
+      <input node="Projection_10">
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitType" source="unitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+      </input>
+    <joinAttribute name="equipmentNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_6">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="AFIH">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="EQUNR"/></input>
+    <filter>&quot;MANDT&quot;='$$ip_client$$' OR '$$ip_client$$'='*'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="MHIO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="WARPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="ABNUM"/></input>
+    <filter>&quot;MANDT&quot;='$$ip_client$$' OR '$$ip_client$$'='*'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="orderDescription"/>
+        <viewAttribute id="orderCreatedOn"/>
+        <viewAttribute id="actualCompletionDate_1"/>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="AUART"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::AUFK">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderDescription" source="KTEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreatedOn" source="ERDAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualCompletionDate_1" source="IDAT3"/></input>
+    <filter>(&quot;MANDT&quot;='$$ip_client$$' OR '$$ip_client$$'='*') AND &quot;AUART&quot; = 'PMMO' AND
+((&quot;actualCompletionDate_1&quot;&gt;='$$ipDateFrom$$' AND &quot;actualCompletionDate_1&quot;&lt;='$$ipDateTo$$'))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_11" cardinality="CN_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+      </input>
+      <input node="Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+      </input>
+    <joinAttribute name="orderNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_8" cardinality="CN_1" joinType="leftOuter" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="equipmentNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_11">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+      </input>
+      <input node="Aggregation_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="callNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+      </input>
+    <joinAttribute name="orderNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="WARPL"/>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="PMMeterDue"/>
+        <viewAttribute aggregationType="sum" id="interval"/>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="orderCompletionDate"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="plannedYear" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(&quot;plannedDate&quot;,'YYYY')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="plannedMonth" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(&quot;plannedDate&quot;,'MM')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="plannedWeek" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(&quot;plannedDate&quot;,'WW')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="orderCompletionYear" length="4" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(&quot;orderCompletionDate&quot;,'YYYY')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="orderCompletionMonth" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(&quot;orderCompletionDate&quot;,'MM')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="orderCompletionWeek" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(&quot;orderCompletionDate&quot;,'WW')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="MHIS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="completedMeterReading" source="RZAEH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PMMeterDue" source="NZAEH"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="interval" source="ADCYCLE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedDate" source="NPLDA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="ABNUM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionDate" source="LRMDT"/></input>
+    <filter>(&quot;orderCompletionDate&quot;&gt;='$$ipDateFrom$$' AND &quot;orderCompletionDate&quot;&lt;='$$ipDateTo$$') AND(&quot;MANDT&quot;='$$ip_client$$' OR '$$ip_client$$'='*')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="ADCYCLE_MMPT"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="WARPL"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="cycleText" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;ADUNIT_MMPT&quot;='H','Hours',
+if(&quot;ADUNIT_MMPT&quot;='M','Minutes',
+if(&quot;ADUNIT_MMPT&quot;='MI','Miles',
+if(&quot;ADUNIT_MMPT&quot;='STD','Hours',
+if(&quot;ADUNIT_MMPT&quot;='TAG','Day','')))))
+
+</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="MMPT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADCYCLE_MMPT" source="ZYKL1"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADUNIT_MMPT" source="ZEIEH"/></input>
+    <filter>&quot;MANDT&quot;='$$ip_client$$' OR '$$ip_client$$'='*'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="PMMeterDue"/>
+        <viewAttribute id="interval"/>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="plannedWeek"/>
+        <viewAttribute id="WARPL"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="ADCYCLE_MMPT"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="orderCompletionDate"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Aggregation_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="completedMeterReading" source="completedMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PMMeterDue" source="PMMeterDue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="interval" source="interval"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedDate" source="plannedDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedYear" source="plannedYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedMonth" source="plannedMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedWeek" source="plannedWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WARPL" source="WARPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="callNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionDate" source="orderCompletionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionYear" source="orderCompletionYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionMonth" source="orderCompletionMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionWeek" source="orderCompletionWeek"/>
+      </input>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADCYCLE_MMPT" source="ADCYCLE_MMPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADUNIT_MMPT" source="ADUNIT_MMPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cycleText" source="cycleText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WARPL" source="WARPL"/>
+      </input>
+    <joinAttribute name="WARPL"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="PMMeterDue"/>
+        <viewAttribute id="interval"/>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="plannedWeek"/>
+        <viewAttribute id="ADCYCLE_MMPT"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="orderCompletionDate"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="callNumber"/>
+      </input>
+      <input node="Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="completedMeterReading" source="completedMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PMMeterDue" source="PMMeterDue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="interval" source="interval"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedDate" source="plannedDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedYear" source="plannedYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedMonth" source="plannedMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedWeek" source="plannedWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADCYCLE_MMPT" source="ADCYCLE_MMPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADUNIT_MMPT" source="ADUNIT_MMPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cycleText" source="cycleText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionDate" source="orderCompletionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionYear" source="orderCompletionYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionMonth" source="orderCompletionMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionWeek" source="orderCompletionWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="WARPL"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="callNumber"/>
+      </input>
+    <joinAttribute name="maintenancePlan"/>
+    <joinAttribute name="callNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="OBJNR"/>
+        <viewAttribute id="STAT"/>
+        <viewAttribute id="INACT"/>
+        <viewAttribute id="MANDT"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="ordernumber" length="12" expressionLanguage="COLUMN_ENGINE">
+          <formula>rightstr(&quot;OBJNR&quot;,12)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+    <restrictedViewAttributes/>
+      <input node="JEST"/>
+    <filter>(&quot;INACT&quot; ='') AND (&quot;MANDT&quot;='$$ip_client$$' OR '$$ip_client$$'='*')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="plannedWeek"/>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="PMMeterDue"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="orderCompletionDate"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_6"/>
+    <filter>(not isNull(&quot;orderCompletionMonth&quot;))</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_7" cardinality="CN_1" joinType="leftOuter" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="STAT"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="plannedWeek"/>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="PMMeterDue"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="orderCompletionDate"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="MOStatusSequence" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;STAT&quot;='I0002',1,
+if(&quot;STAT&quot;='I0045', 2,
+if(&quot;STAT&quot;='I0046', 3,-999)))
+</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionWeek" source="orderCompletionWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionMonth" source="orderCompletionMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionYear" source="orderCompletionYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionDate" source="orderCompletionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cycleText" source="cycleText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADUNIT_MMPT" source="ADUNIT_MMPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="completedMeterReading" source="completedMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="callNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PMMeterDue" source="PMMeterDue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedDate" source="plannedDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedWeek" source="plannedWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedMonth" source="plannedMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedYear" source="plannedYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+      </input>
+      <input node="Aggregation_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="STAT" source="STAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="ordernumber"/>
+      </input>
+    <joinAttribute name="orderNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_7">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="ISTAT"/>
+        <viewAttribute id="SPRAS"/>
+        <viewAttribute id="TXT04"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+      <input node="TJ02T"/>
+    <filter>(&quot;SPRAS&quot; ='E') AND (&quot;TXT04&quot;='CLSD')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:RankView" id="Rank_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="PMMeterDue"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="plannedWeek"/>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="STAT"/>
+        <viewAttribute id="MOStatusSequence"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="orderCompletionDate"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_7"/>
+    <windowFunction dynamicPartitionAttributes="false">
+      <partitionViewAttributeName>orderNumber</partitionViewAttributeName>
+      <partitionViewAttributeName>plannedDate</partitionViewAttributeName>
+      <order byViewAttributeName="MOStatusSequence" direction="DESC"/>
+      <rankThreshold>
+        <value>1</value>
+      </rankThreshold>
+    </windowFunction>
+  </calculationView>
+  <calculationView xsi:type="Calculation:RankView" id="Rank_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="STAT"/>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="plannedWeek"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="PMMeterDue"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="orderCompletionDate"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Rank_3"/>
+    <windowFunction dynamicPartitionAttributes="false">
+      <partitionViewAttributeName>orderNumber</partitionViewAttributeName>
+      <order byViewAttributeName="plannedDate" direction="DESC"/>
+      <rankThreshold>
+        <value>1</value>
+      </rankThreshold>
+    </windowFunction>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_9" cardinality="CN_1" dynamic="false" joinType="leftOuter" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="MOStatusDescription"/>
+        <viewAttribute id="STAT"/>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="plannedWeek"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="PMMeterDue"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="orderCompletionDate"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="INTEGER" id="pmCount" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(format(&quot;orderCompletionDate&quot;,'YYYY')&gt;'2019',1,0)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DATE" id="actualCompletionDate" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(isNull(&quot;orderCompletionDate&quot;) ,daydate(now()),&quot;orderCompletionDate&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="actualCompletionMonth" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(&quot;orderCompletionDate&quot;,'MM')</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="actualCompletionWeekNum" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>format(&quot;orderCompletionDate&quot;,'WW')</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Rank_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="STAT" source="STAT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedDate" source="plannedDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedWeek" source="plannedWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedMonth" source="plannedMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedYear" source="plannedYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PMMeterDue" source="PMMeterDue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="callNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="completedMeterReading" source="completedMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADUNIT_MMPT" source="ADUNIT_MMPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cycleText" source="cycleText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionDate" source="orderCompletionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionYear" source="orderCompletionYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionMonth" source="orderCompletionMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionWeek" source="orderCompletionWeek"/>
+      </input>
+      <input node="Aggregation_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MOStatusDescription" source="TXT04"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STAT" source="ISTAT"/>
+      </input>
+    <joinAttribute name="STAT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="j_MODetails" cardinality="CN_1" joinType="leftOuter" optimizeJoinColumns="false">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="plannedWeek"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="MOStatusDescription"/>
+        <viewAttribute id="PMMeterDue"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="orderDescription"/>
+        <viewAttribute id="orderCreatedOn"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="orderCompletionDate"/>
+        <viewAttribute id="pmCount"/>
+        <viewAttribute id="actualCompletionDate"/>
+        <viewAttribute id="actualCompletionMonth"/>
+        <viewAttribute id="actualCompletionWeekNum"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedDate" source="plannedDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedWeek" source="plannedWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedMonth" source="plannedMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedYear" source="plannedYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MOStatusDescription" source="MOStatusDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PMMeterDue" source="PMMeterDue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="callNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="completedMeterReading" source="completedMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADUNIT_MMPT" source="ADUNIT_MMPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cycleText" source="cycleText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionDate" source="orderCompletionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="pmCount" source="pmCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualCompletionDate" source="actualCompletionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualCompletionMonth" source="actualCompletionMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualCompletionWeekNum" source="actualCompletionWeekNum"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionYear" source="orderCompletionYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionMonth" source="orderCompletionMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionWeek" source="orderCompletionWeek"/>
+      </input>
+      <input node="Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderDescription" source="orderDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreatedOn" source="orderCreatedOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+      </input>
+    <joinAttribute name="orderNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_1" dynamic="false" joinType="leftOuter" optimizeJoinColumns="true">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="currentMeterReading"/>
+        <viewAttribute id="lifetimeMeterReading"/>
+        <viewAttribute id="lastMeterReadDate"/>
+        <viewAttribute id="unitType"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="plannedWeek"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="MOStatusDescription"/>
+        <viewAttribute id="PMMeterDue"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="orderDescription"/>
+        <viewAttribute id="orderCreatedOn"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="orderCompletionDate"/>
+        <viewAttribute id="pmCount"/>
+        <viewAttribute id="actualCompletionDate"/>
+        <viewAttribute id="actualCompletionMonth"/>
+        <viewAttribute id="actualCompletionWeekNum"/>
+        <viewAttribute id="orderNumber_1"/>
+        <viewAttribute id="orderCreationYear"/>
+        <viewAttribute id="orderCreationMonth"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="variance" length="15" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;MOStatusDescription&quot; = 'CLSD',
+
+if(&quot;ADUNIT_MMPT&quot;='STD' OR &quot;ADUNIT_MMPT&quot;='MI' OR &quot;ADUNIT_MMPT&quot;='H',
+if(&quot;completedMeterReading&quot;=0 ,&quot;currentMeterReading&quot;-&quot;cc_PMMeterDue&quot;, &quot;cc_completedMeterReading&quot;-&quot;cc_PMMeterDue&quot;),
+if(&quot;ADUNIT_MMPT&quot;='TAG',daysbetween(&quot;plannedDate&quot;,&quot;orderCompletionDate&quot;),0)),
+
+if(&quot;ADUNIT_MMPT&quot;='STD' OR &quot;ADUNIT_MMPT&quot;='MI' OR &quot;ADUNIT_MMPT&quot;='M',
+&quot;lifetimeMeterReading&quot;-&quot;cc_PMMeterDue&quot;,
+if(&quot;ADUNIT_MMPT&quot;='TAG',daysbetween(&quot;plannedDate&quot;,daydate(now())),0))
+)
+</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="compliantFlag" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;cycleText&quot;='Day' AND &quot;variance&quot;&lt;=5 AND &quot;variance&quot;&gt;=-5,1,
+if(&quot;cycleText&quot;='Hours'  AND &quot;variance&quot;&lt;=20 AND &quot;variance&quot;&gt;=-50,1,
+if(&quot;cycleText&quot;='Miles' AND &quot;variance&quot;&lt;=500 AND &quot;variance&quot;&gt;=-500,1,0)))
+</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DOUBLE" id="cc_PMMeterDue" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;abcIndicatorDesc&quot;='Hours',&quot;PMMeterDue&quot;/3600,
+if(&quot;abcIndicatorDesc&quot;='Days',&quot;PMMeterDue&quot;/(3600*24),
+if(&quot;abcIndicatorDesc&quot;='Miles',(&quot;PMMeterDue&quot;/201168)*125,&quot;PMMeterDue&quot;)))
+</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DOUBLE" id="cc_completedMeterReading" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;abcIndicatorDesc&quot;='Hours',&quot;completedMeterReading&quot;/3600,
+if(&quot;abcIndicatorDesc&quot;='Days',&quot;completedMeterReading&quot;/(3600*24),
+if(&quot;abcIndicatorDesc&quot;='Miles',(&quot;completedMeterReading&quot;/201168)*125,&quot;completedMeterReading&quot;)))
+</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="INTEGER" id="nonCompliantFlag" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;compliantFlag&quot;=1,0,1)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="j_equipmentDetails">
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentMeterReading" source="currentMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifetimeMeterReading" source="lifetimeMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastMeterReadDate" source="lastMeterReadDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitType" source="unitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber_1" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationYear" source="orderCreationYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationMonth" source="orderCreationMonth"/>
+      </input>
+      <input node="j_MODetails">
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedDate" source="plannedDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedWeek" source="plannedWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedMonth" source="plannedMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedYear" source="plannedYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MOStatusDescription" source="MOStatusDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PMMeterDue" source="PMMeterDue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="callNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="completedMeterReading" source="completedMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderDescription" source="orderDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreatedOn" source="orderCreatedOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADUNIT_MMPT" source="ADUNIT_MMPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cycleText" source="cycleText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionDate" source="orderCompletionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="pmCount" source="pmCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualCompletionDate" source="actualCompletionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualCompletionMonth" source="actualCompletionMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualCompletionWeekNum" source="actualCompletionWeekNum"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionYear" source="orderCompletionYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionMonth" source="orderCompletionMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionWeek" source="orderCompletionWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber_1" source="orderNumber"/>
+      </input>
+    <joinAttribute name="equipmentNumber"/>
+    <joinAttribute name="orderNumber_1"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9" filterExpressionLanguage="COLUMN_ENGINE">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="client"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.reuse::organizationalHierarchy"/>
+    <filter>&quot;client&quot;='$$ip_client$$' OR '$$ip_client$$'='*'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_5" cardinality="CN_1" dynamic="false" joinType="inner" optimizeJoinColumns="false">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="orderDescription"/>
+        <viewAttribute id="orderCreatedOn"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="maintenancePlan"/>
+        <viewAttribute id="plannedYear"/>
+        <viewAttribute id="plannedMonth"/>
+        <viewAttribute id="plannedWeek"/>
+        <viewAttribute id="plannedDate"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="region"/>
+        <viewAttribute id="area"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="MOStatusDescription"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="currentMeterReading"/>
+        <viewAttribute id="lifetimeMeterReading"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="compliantFlag"/>
+        <viewAttribute id="lastMeterReadDate"/>
+        <viewAttribute id="unitType"/>
+        <viewAttribute id="callNumber"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="cc_PMMeterDue"/>
+        <viewAttribute id="cc_completedMeterReading"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="nonCompliantFlag"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="ADUNIT_MMPT"/>
+        <viewAttribute id="cycleText"/>
+        <viewAttribute id="pmCount"/>
+        <viewAttribute id="actualCompletionDate"/>
+        <viewAttribute id="actualCompletionMonth"/>
+        <viewAttribute id="actualCompletionWeekNum"/>
+        <viewAttribute id="completedMeterReading"/>
+        <viewAttribute id="orderCreationYear"/>
+        <viewAttribute id="orderCreationMonth"/>
+        <viewAttribute id="orderCompletionYear"/>
+        <viewAttribute id="orderCompletionMonth"/>
+        <viewAttribute id="orderCompletionWeek"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="orderNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderDescription" source="orderDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreatedOn" source="orderCreatedOn"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlan" source="maintenancePlan"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedYear" source="plannedYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedMonth" source="plannedMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedWeek" source="plannedWeek"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plannedDate" source="plannedDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="MOStatusDescription" source="MOStatusDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currentMeterReading" source="currentMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lifetimeMeterReading" source="lifetimeMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="compliantFlag" source="compliantFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lastMeterReadDate" source="lastMeterReadDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="unitType" source="unitType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="callNumber" source="callNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cc_PMMeterDue" source="cc_PMMeterDue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cc_completedMeterReading" source="cc_completedMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nonCompliantFlag" source="nonCompliantFlag"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ADUNIT_MMPT" source="ADUNIT_MMPT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="cycleText" source="cycleText"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="pmCount" source="pmCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualCompletionDate" source="actualCompletionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualCompletionMonth" source="actualCompletionMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actualCompletionWeekNum" source="actualCompletionWeekNum"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="completedMeterReading" source="completedMeterReading"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationYear" source="orderCreationYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCreationMonth" source="orderCreationMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionYear" source="orderCompletionYear"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionMonth" source="orderCompletionMonth"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderCompletionWeek" source="orderCompletionWeek"/>
+      </input>
+      <input node="Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="region" source="region"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="area" source="area"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_5">
+    <descriptions/>
+    <attributes>
+      <attribute id="orderCreatedOn" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="orderCreatedOn"/>
+        <keyMapping columnObjectName="Join_5" columnName="orderCreatedOn"/>
+      </attribute>
+      <attribute id="orderDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="orderDescription"/>
+        <keyMapping columnObjectName="Join_5" columnName="orderDescription"/>
+      </attribute>
+      <attribute id="equipmentDescription" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="equipmentDescription"/>
+        <keyMapping columnObjectName="Join_5" columnName="equipmentDescription"/>
+      </attribute>
+      <attribute id="orderNumber" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="orderNumber"/>
+        <keyMapping columnObjectName="Join_5" columnName="orderNumber"/>
+      </attribute>
+      <attribute id="equipmentNumber" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="equipmentNumber"/>
+        <keyMapping columnObjectName="Join_5" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="maintenancePlan" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="maintenancePlan"/>
+        <keyMapping columnObjectName="Join_5" columnName="maintenancePlan"/>
+      </attribute>
+      <attribute id="plannedYear" order="7" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_5" columnName="plannedYear"/>
+      </attribute>
+      <attribute id="plannedMonth" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_5" columnName="plannedMonth"/>
+      </attribute>
+      <attribute id="plannedWeek" order="9" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_5" columnName="plannedWeek"/>
+      </attribute>
+      <attribute id="plannedDate" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Planned Date"/>
+        <keyMapping columnObjectName="Join_5" columnName="plannedDate"/>
+      </attribute>
+      <attribute id="regionDescription" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="region" order="12" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region"/>
+        <keyMapping columnObjectName="Join_5" columnName="region"/>
+      </attribute>
+      <attribute id="area" order="13" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area"/>
+        <keyMapping columnObjectName="Join_5" columnName="area"/>
+      </attribute>
+      <attribute id="areaDescription" order="14" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="MOStatusDescription" order="15" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MO Status Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="MOStatusDescription"/>
+      </attribute>
+      <attribute id="vehicleID" order="16" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="vehicleID"/>
+        <keyMapping columnObjectName="Join_5" columnName="vehicleID"/>
+      </attribute>
+      <attribute id="functionalLocation" order="17" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="functionalLocation"/>
+        <keyMapping columnObjectName="Join_5" columnName="functionalLocation"/>
+      </attribute>
+      <attribute id="abcIndicator" order="18" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="abcIndicator"/>
+        <keyMapping columnObjectName="Join_5" columnName="abcIndicator"/>
+      </attribute>
+      <attribute id="abcIndicatorDesc" order="19" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="abcIndicatorDesc"/>
+        <keyMapping columnObjectName="Join_5" columnName="abcIndicatorDesc"/>
+      </attribute>
+      <attribute id="lastMeterReadDate" order="24" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="lastMeterReadDate"/>
+        <keyMapping columnObjectName="Join_5" columnName="lastMeterReadDate"/>
+      </attribute>
+      <attribute id="unitType" order="25" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_5" columnName="unitType"/>
+      </attribute>
+      <attribute id="profitCenter" order="27" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="profitCenter"/>
+        <keyMapping columnObjectName="Join_5" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="maintenancePlant" order="30" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant"/>
+        <keyMapping columnObjectName="Join_5" columnName="maintenancePlant"/>
+      </attribute>
+      <attribute id="maintenancePlantDescription" order="31" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="maintenancePlantDescription"/>
+      </attribute>
+      <attribute id="lineofBusinessDescription" order="33" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Join_5" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="ADUNIT_MMPT" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="cycleText"/>
+        <keyMapping columnObjectName="Join_5" columnName="ADUNIT_MMPT"/>
+      </attribute>
+      <attribute id="cycleText" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="cycleText"/>
+        <keyMapping columnObjectName="Join_5" columnName="cycleText"/>
+      </attribute>
+      <attribute id="actualCompletionDate" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="actualCompletionDateFin"/>
+        <keyMapping columnObjectName="Join_5" columnName="actualCompletionDate"/>
+      </attribute>
+      <attribute id="actualCompletionMonth" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="actualCompletionMonthFin"/>
+        <keyMapping columnObjectName="Join_5" columnName="actualCompletionMonth"/>
+      </attribute>
+      <attribute id="actualCompletionWeekNum" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="actualCompletionWeekNumFin"/>
+        <keyMapping columnObjectName="Join_5" columnName="actualCompletionWeekNum"/>
+      </attribute>
+      <attribute id="compliantFlag_Dim" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="compliantFlag_Dim"/>
+        <keyMapping columnObjectName="Join_5" columnName="compliantFlag"/>
+      </attribute>
+      <attribute id="orderCreationYear" order="42" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_5" columnName="orderCreationYear"/>
+      </attribute>
+      <attribute id="orderCreationMonth" order="43" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_5" columnName="orderCreationMonth"/>
+      </attribute>
+      <attribute id="orderCompletionYear" order="44" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Completion Year"/>
+        <keyMapping columnObjectName="Join_5" columnName="orderCompletionYear"/>
+      </attribute>
+      <attribute id="orderCompletionMonth" order="45" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Completion Month"/>
+        <keyMapping columnObjectName="Join_5" columnName="orderCompletionMonth"/>
+      </attribute>
+      <attribute id="orderCompletionWeek" order="46" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Completion Week"/>
+        <keyMapping columnObjectName="Join_5" columnName="orderCompletionWeek"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="currentMeterReading" order="20" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="currentMeterReading"/>
+        <measureMapping columnObjectName="Join_5" columnName="currentMeterReading"/>
+      </measure>
+      <measure id="lifetimeMeterReading" order="21" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="lifetimeMeterReading"/>
+        <measureMapping columnObjectName="Join_5" columnName="lifetimeMeterReading"/>
+      </measure>
+      <measure id="variance" order="22" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Join_5" columnName="variance"/>
+      </measure>
+      <measure id="compliantFlag" order="23" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Join_5" columnName="compliantFlag"/>
+      </measure>
+      <measure id="callNumber" order="26" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="callNumber"/>
+        <measureMapping columnObjectName="Join_5" columnName="callNumber"/>
+      </measure>
+      <measure id="cc_PMMeterDue" order="28" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="PM Meter Due"/>
+        <measureMapping columnObjectName="Join_5" columnName="cc_PMMeterDue"/>
+      </measure>
+      <measure id="cc_completedMeterReading" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Completed Meter Reading"/>
+        <measureMapping columnObjectName="Join_5" columnName="cc_completedMeterReading"/>
+      </measure>
+      <measure id="nonCompliantFlag" order="32" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="nonCompliantFlag"/>
+        <measureMapping columnObjectName="Join_5" columnName="nonCompliantFlag"/>
+      </measure>
+      <measure id="pmCount" order="36" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="pmCountFin"/>
+        <measureMapping columnObjectName="Join_5" columnName="pmCount"/>
+      </measure>
+      <measure id="completedMeterReading" order="40" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="completedMeterReading"/>
+        <measureMapping columnObjectName="Join_5" columnName="completedMeterReading"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="607" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="605" y="856"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="922" y="1496"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1029" y="1336"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1004" y="1996"/>
+        <rectangleSize height="64" width="150"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="1135" y="1846"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_14" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="875" y="1656"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_10" modelObjectNameSpace="Join_14" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_9" modelObjectNameSpace="Join_14" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_12" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="712" y="1514"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="679" y="1374"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_12" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_12" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="999" y="1176"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_3" modelObjectNameSpace="Join_12" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="189.3291015625"/>
+    </shape>
+    <shape modelObjectName="Aggregation_3" modelObjectNameSpace="Join_12" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="789" y="1176"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="921" y="1016"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_12" modelObjectNameSpace="Join_10" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_8" modelObjectNameSpace="Join_10" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Rank_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="711" y="1016"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_13" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="815" y="856"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_10" modelObjectNameSpace="Join_13" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Rank_2" modelObjectNameSpace="Join_13" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="599" y="696"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_13" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_10" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="809" y="696"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="j_equipmentDetails" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="680" y="536"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="j_equipmentDetails" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_10" modelObjectNameSpace="j_equipmentDetails" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="794" y="1996"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="600" y="1836"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="1996"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_11" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="783" y="1836"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_6" modelObjectNameSpace="Join_11" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_5" modelObjectNameSpace="Join_11" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="626" y="1656"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_11" modelObjectNameSpace="Join_8" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_5" modelObjectNameSpace="Join_8" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="390" y="1836"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="180" y="1836"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="363" y="1656"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Aggregation_4" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="404" y="1496"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_8" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Join_4" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="194" y="1336"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="404" y="1344"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221" y="1176"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_7" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_7" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Aggregation_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="395" y="856"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="221" y="1034"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="185" y="874"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="299" y="696"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Rank_4" modelObjectNameSpace="Join_9" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Aggregation_7" modelObjectNameSpace="Join_9" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="j_MODetails" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="272" y="536"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_9" modelObjectNameSpace="j_MODetails" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_5" modelObjectNameSpace="j_MODetails" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="654" y="376"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="j_equipmentDetails" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="j_MODetails" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="444" y="376"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="607" y="217"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_9" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

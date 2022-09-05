@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.plantMaintainance.base::ppOrderHeader" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DEFAULT" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="PP Order Header"/>
+  <metadata changedAt="2019-11-20 16:23:45.111"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="S4HANA::AFKO">
+      <resourceUri>S4HANA::AFKO</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="orderNumber"/>
+        <viewAttribute id="basicFinishDate"/>
+        <viewAttribute id="basicStartDate"/>
+        <viewAttribute id="totalScrapQuantity"/>
+        <viewAttribute id="totalOrderQuantity"/>
+        <viewAttribute id="baseUnitOfMeasure"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="routingNumber"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="S4HANA::AFKO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="orderNumber" source="AUFNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="basicFinishDate" source="GLTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="basicStartDate" source="GSTRP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalScrapQuantity" source="GASMG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalOrderQuantity" source="GAMNG"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="baseUnitOfMeasure" source="GMEIN"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="PLNBEZ"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="routingNumber" source="AUFPL"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Projection_1" columnName="client"/>
+      </attribute>
+      <attribute id="orderNumber" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Order Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="orderNumber"/>
+      </attribute>
+      <attribute id="materialNumber" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="materialNumber"/>
+      </attribute>
+      <attribute id="basicFinishDate" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Basic Finish Date"/>
+        <keyMapping columnObjectName="Projection_1" columnName="basicFinishDate"/>
+      </attribute>
+      <attribute id="basicStartDate" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Basic Start Date"/>
+        <keyMapping columnObjectName="Projection_1" columnName="basicStartDate"/>
+      </attribute>
+      <attribute id="baseUnitOfMeasure" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Base Unit of Measure"/>
+        <keyMapping columnObjectName="Projection_1" columnName="baseUnitOfMeasure"/>
+      </attribute>
+      <attribute id="routingNumber" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Routing Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="routingNumber"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="totalScrapQuantity" order="8" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Scrap Quantity"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalScrapQuantity"/>
+      </measure>
+      <measure id="totalOrderQuantity" order="9" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Total Order Quantity"/>
+        <measureMapping columnObjectName="Projection_1" columnName="totalOrderQuantity"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="92" y="112"/>
+        <rectangleSize height="0" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="92" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="3.0" id="rumpke.bi.reporting.finance.fip::incomeStatementFIP" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="incomeStatementFIP"/>
+  <metadata changedAt="2021-04-14 11:01:53.684"/>
+  <localVariables>
+    <variable id="ip_calMonth" parameter="true">
+      <descriptions defaultDescription="ip_calMonth"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="2020012" length="7" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod">
+      <targetVariable name="ip_calMonth" resourceUri="rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod"/>
+      <localVariable>ip_calMonth</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="incomeStatement">
+      <resourceUri>rumpke.bi.reporting.finance::incomeStatement</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod">
+      <resourceUri>rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="incomeStmt">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="functionalAreaGrpDescSort" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;functionalAreaGroupDescription&quot;='Total Revenue','A',
+if(&quot;functionalAreaGroupDescription&quot;='Cost of Goods Sold','B',
+if(&quot;functionalAreaGroupDescription&quot;='Gross Profit','C',
+if(&quot;functionalAreaGroupDescription&quot;='Maintenance','D',
+if(&quot;functionalAreaGroupDescription&quot;='Operations','E',
+if(&quot;functionalAreaGroupDescription&quot;='Cell Amortization','F',
+if(&quot;functionalAreaGroupDescription&quot;='Operations Allocation','G',
+if(&quot;functionalAreaGroupDescription&quot;='Taxes','H',
+if(&quot;functionalAreaGroupDescription&quot;='Other Operations','I',
+if(&quot;functionalAreaGroupDescription&quot;='SG&amp;A','J',
+if(&quot;functionalAreaGroupDescription&quot;='Corporate Allocation','K',
+if(&quot;functionalAreaGroupDescription&quot;='Depreciation','L',
+if(&quot;functionalAreaGroupDescription&quot;='Cost of Operations','M',
+if(&quot;functionalAreaGroupDescription&quot;='Operating Income','N',
+if(&quot;functionalAreaGroupDescription&quot;='Other Income','O',
+if(&quot;functionalAreaGroupDescription&quot;='Interest','P',
+if(&quot;functionalAreaGroupDescription&quot;='Amortization','Q',
+if(&quot;functionalAreaGroupDescription&quot;='Net Income Before Tax','R',
+if(&quot;functionalAreaGroupDescription&quot;='Income Tax','S',
+if(&quot;functionalAreaGroupDescription&quot;='Net Income','T',
+if(&quot;functionalAreaGroupDescription&quot;='EBITDA','U',
+if(&quot;functionalAreaGroupDescription&quot;='EBITDA TARGET','V',
+
+
+
+'X'))))))))))))))))))))))</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="NVARCHAR" id="areaDescSort" length="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(&quot;areaDescription&quot;='East Area','A',
+if(&quot;areaDescription&quot;='West Area','B','C'))</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="incomeStatement"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="timeSelection">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="rollingMonthNo"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.time::timeAttributesbyFiscalYearPeriod"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="inner">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="functionalAreaGrpDescSort"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="areaDescSort"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="incomeStmt">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGrpDescSort" source="functionalAreaGrpDescSort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescSort" source="areaDescSort"/>
+      </input>
+      <input node="timeSelection">
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ytd" source="ytd"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+      </input>
+    <joinAttribute name="fiscalYearPeriod"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="CM">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="functionalAreaGrpDescSort"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="areaDescSort"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'$$ip_calMonth$$'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1"/>
+    <filter>(&quot;rollingMonthNo&quot; ='0') AND (&quot;rollingYearNo&quot; ='0')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="YTD">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="ytd"/>
+        <viewAttribute id="functionalAreaGrpDescSort"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="areaDescSort"/>
+      </viewAttributes>
+    <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="source" length="10" expressionLanguage="COLUMN_ENGINE">
+          <formula>'YTD'</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="Join_1"/>
+    <filter>(&quot;rollingYearNo&quot; ='0') AND (&quot;ytd&quot; ='Y')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="functionalAreaGroupDescription"/>
+        <viewAttribute id="fiscalYearPeriod"/>
+        <viewAttribute id="actual"/>
+        <viewAttribute id="budget"/>
+        <viewAttribute id="variance"/>
+        <viewAttribute id="rollingMonthNo"/>
+        <viewAttribute id="rollingYearNo"/>
+        <viewAttribute id="source"/>
+        <viewAttribute id="functionalAreaGrpDescSort"/>
+        <viewAttribute id="areaDescription"/>
+        <viewAttribute id="regionDescription"/>
+        <viewAttribute id="areaDescSort"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input emptyUnionBehavior="NO_ROW" node="CM">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGrpDescSort" source="functionalAreaGrpDescSort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescSort" source="areaDescSort"/>
+      </input>
+      <input emptyUnionBehavior="NO_ROW" node="YTD">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGroupDescription" source="functionalAreaGroupDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fiscalYearPeriod" source="fiscalYearPeriod"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="actual" source="actual"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="budget" source="budget"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="variance" source="variance"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingMonthNo" source="rollingMonthNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="rollingYearNo" source="rollingYearNo"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="source" source="source"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaGrpDescSort" source="functionalAreaGrpDescSort"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescription" source="areaDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="regionDescription" source="regionDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="areaDescSort" source="areaDescSort"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Union_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="functionalAreaGroupDescription" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="functionalAreaGroupDescription"/>
+        <keyMapping columnObjectName="Union_1" columnName="functionalAreaGroupDescription"/>
+      </attribute>
+      <attribute id="fiscalYearPeriod" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fiscalYearPeriod"/>
+        <keyMapping columnObjectName="Union_1" columnName="fiscalYearPeriod"/>
+      </attribute>
+      <attribute id="source" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="source"/>
+        <keyMapping columnObjectName="Union_1" columnName="source"/>
+      </attribute>
+      <attribute id="functionalAreaGrpDescSort" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="functionalAreaGrpDescSort"/>
+        <keyMapping columnObjectName="Union_1" columnName="functionalAreaGrpDescSort"/>
+      </attribute>
+      <attribute id="areaDescription" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Area Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="areaDescription"/>
+      </attribute>
+      <attribute id="regionDescription" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Region Description"/>
+        <keyMapping columnObjectName="Union_1" columnName="regionDescription"/>
+      </attribute>
+      <attribute id="areaDescSort" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="areaDescSort"/>
+        <keyMapping columnObjectName="Union_1" columnName="areaDescSort"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="actual" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Actual"/>
+        <measureMapping columnObjectName="Union_1" columnName="actual"/>
+      </measure>
+      <measure id="budget" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Budget"/>
+        <measureMapping columnObjectName="Union_1" columnName="budget"/>
+      </measure>
+      <measure id="variance" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Variance"/>
+        <measureMapping columnObjectName="Union_1" columnName="variance"/>
+      </measure>
+      <measure id="rollingMonthNo" order="6" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="rollingMonthNo"/>
+        <measureMapping columnObjectName="Union_1" columnName="rollingMonthNo"/>
+      </measure>
+      <measure id="rollingYearNo" order="7" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="rollingYearNo"/>
+        <measureMapping columnObjectName="Union_1" columnName="rollingYearNo"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="243.11386177790735" y="112"/>
+        <rectangleSize width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="incomeStmt" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="91.99999999999999" y="661.9999964237213"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="timeSelection" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="302" y="661.9999964237213"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="134.3146497113139" y="501.9999976158142"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    <shape modelObjectName="incomeStmt" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="timeSelection" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="CM" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="317.6479830446473" y="356.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="YTD" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="107.64798304464728" y="356.9999988079071"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="243.11386177790735" y="217"/>
+        <rectangleSize height="-1" width="160"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>

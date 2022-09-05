@@ -1,0 +1,1684 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.reuse::equipmentMaster" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Equipment Reuse "/>
+  <metadata changedAt="2020-06-01 00:25:22.012"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="46"/>
+  <dataSources>
+    <DataSource id="rumpke.bi.masterData.base::equipment">
+      <resourceUri>rumpke.bi.masterData.base::equipment</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::equipmentTimeSegment">
+      <resourceUri>rumpke.bi.masterData.base::equipmentTimeSegment</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::pMObjectLocationAccountAssignment">
+      <resourceUri>rumpke.bi.masterData.base::pMObjectLocationAccountAssignment</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::functionalLocation">
+      <resourceUri>rumpke.bi.masterData.base::functionalLocation</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::fleet">
+      <resourceUri>rumpke.bi.masterData.base::fleet</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::costCenter">
+      <resourceUri>rumpke.bi.masterData.base::costCenter</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::profitCenter">
+      <resourceUri>rumpke.bi.masterData.base::profitCenter</resourceUri>
+    </DataSource>
+    <DataSource id="rumpke.bi.masterData.base::plantsBranches">
+      <resourceUri>rumpke.bi.masterData.base::plantsBranches</resourceUri>
+    </DataSource>
+    <DataSource id="Projection_9$$$$rumpke.bi.masterData.base::plantsBranches$$">
+      <resourceUri>rumpke.bi.masterData.base::plantsBranches</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="dateRecordCreated"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="languageEntered"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="utcTimeStamp"/>
+        <viewAttribute id="equipmentCategoryDescr"/>
+        <viewAttribute id="activityCode"/>
+        <viewAttribute id="activityCodeDesc"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="weightUoM"/>
+        <viewAttribute id="weight"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::equipment"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="validFromDate"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::equipmentTimeSegment">
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFromDate" source="validFrom"/>
+      </input>
+    <filter>(&quot;validToDate&quot; ='99991231')</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="dateRecordCreated"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="languageEntered"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="utcTimeStamp"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="equipmentCategoryDescr"/>
+        <viewAttribute id="activityCode"/>
+        <viewAttribute id="activityCodeDesc"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="weightUoM"/>
+        <viewAttribute id="weight"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateRecordCreated" source="dateRecordCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonCreatedObject" source="nameofPersonCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentLanguageEntered" source="equipmentLanguageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChanged" source="dateLastChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonWhoChanged" source="nameofPersonWhoChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inventoryNumber" source="inventoryNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="size" source="size"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionDate" source="acquisitionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionValue" source="acquisitionValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="currencyKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startupDateTechnicalObject" source="startupDateTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateWarrantyEnds" source="dateWarrantyEnds"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="guaranteeDate" source="guaranteeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerofAsset" source="manufacturerofAsset"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryofManufacture" source="countryofManufacture"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerSerialNumber" source="manufacturerSerialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerModelNumber" source="manufacturerModelNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearofConstruction" source="yearofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthofConstruction" source="monthofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipUsagePeriods" source="equipUsagePeriods"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="storageLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageEntered" source="languageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionofTechnicalObject" source="descriptionofTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utcTimeStamp" source="utcTimeStamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategoryDescr" source="equipmentCategoryDescr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCodeDesc" source="activityCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="authorizationGroup" source="authorizationGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUoM" source="weightUoM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weight" source="weight"/>
+      </input>
+      <input node="Projection_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="locationAccountAssignment" source="locationAccountAssignment"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFromDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="equipmentNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="locationAccountAssignment"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="nameCompanyCode"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="controllingArea"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::pMObjectLocationAccountAssignment"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="dateRecordCreated"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="languageEntered"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="utcTimeStamp"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="nameCompanyCode"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="equipmentCategoryDescr"/>
+        <viewAttribute id="activityCode"/>
+        <viewAttribute id="activityCodeDesc"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="weightUoM"/>
+        <viewAttribute id="weight"/>
+      <viewAttribute hidden="true" id="JOIN$locationAccountAssignment$locationAccountAssignment"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateRecordCreated" source="dateRecordCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonCreatedObject" source="nameofPersonCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentLanguageEntered" source="equipmentLanguageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChanged" source="dateLastChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonWhoChanged" source="nameofPersonWhoChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inventoryNumber" source="inventoryNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="size" source="size"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionDate" source="acquisitionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionValue" source="acquisitionValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="currencyKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startupDateTechnicalObject" source="startupDateTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateWarrantyEnds" source="dateWarrantyEnds"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="guaranteeDate" source="guaranteeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerofAsset" source="manufacturerofAsset"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryofManufacture" source="countryofManufacture"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerSerialNumber" source="manufacturerSerialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerModelNumber" source="manufacturerModelNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearofConstruction" source="yearofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthofConstruction" source="monthofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipUsagePeriods" source="equipUsagePeriods"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="storageLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageEntered" source="languageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionofTechnicalObject" source="descriptionofTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utcTimeStamp" source="utcTimeStamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategoryDescr" source="equipmentCategoryDescr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCodeDesc" source="activityCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="authorizationGroup" source="authorizationGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUoM" source="weightUoM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weight" source="weight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$locationAccountAssignment$locationAccountAssignment" source="locationAccountAssignment"/>
+      </input>
+      <input node="Projection_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameCompanyCode" source="nameCompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$locationAccountAssignment$locationAccountAssignment" source="locationAccountAssignment"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="JOIN$locationAccountAssignment$locationAccountAssignment"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_4">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="maintainancePlanningPlant"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::functionalLocation"/>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="dateRecordCreated"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="languageEntered"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="utcTimeStamp"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="nameCompanyCode"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="equipmentCategoryDescr"/>
+        <viewAttribute id="activityCode"/>
+        <viewAttribute id="activityCodeDesc"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="weightUoM"/>
+        <viewAttribute id="weight"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateRecordCreated" source="dateRecordCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonCreatedObject" source="nameofPersonCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentLanguageEntered" source="equipmentLanguageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChanged" source="dateLastChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonWhoChanged" source="nameofPersonWhoChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inventoryNumber" source="inventoryNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="size" source="size"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionDate" source="acquisitionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionValue" source="acquisitionValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="currencyKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startupDateTechnicalObject" source="startupDateTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateWarrantyEnds" source="dateWarrantyEnds"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="guaranteeDate" source="guaranteeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerofAsset" source="manufacturerofAsset"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryofManufacture" source="countryofManufacture"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerSerialNumber" source="manufacturerSerialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerModelNumber" source="manufacturerModelNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearofConstruction" source="yearofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthofConstruction" source="monthofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipUsagePeriods" source="equipUsagePeriods"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="storageLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageEntered" source="languageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionofTechnicalObject" source="descriptionofTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utcTimeStamp" source="utcTimeStamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameCompanyCode" source="nameCompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategoryDescr" source="equipmentCategoryDescr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCodeDesc" source="activityCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="authorizationGroup" source="authorizationGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUoM" source="weightUoM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weight" source="weight"/>
+      </input>
+      <input node="Projection_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="functionalLocation"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_5">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="fleetVin"/>
+        <viewAttribute id="fleetNumber"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="fleetObjectTypeDesc"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="totalWeight"/>
+        <viewAttribute id="totalWeightUoM"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::fleet">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectTypeDesc" source="fleetCategoryDesc"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_4" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="dateRecordCreated"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="languageEntered"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="utcTimeStamp"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="fleetVin"/>
+        <viewAttribute id="fleetNumber"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="fleetObjectTypeDesc"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="equipmentCategoryDescr"/>
+        <viewAttribute id="activityCode"/>
+        <viewAttribute id="activityCodeDesc"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="weightUoM"/>
+        <viewAttribute id="weight"/>
+        <viewAttribute id="totalWeight"/>
+        <viewAttribute id="totalWeightUoM"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateRecordCreated" source="dateRecordCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonCreatedObject" source="nameofPersonCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentLanguageEntered" source="equipmentLanguageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChanged" source="dateLastChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonWhoChanged" source="nameofPersonWhoChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inventoryNumber" source="inventoryNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="size" source="size"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionDate" source="acquisitionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionValue" source="acquisitionValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="currencyKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startupDateTechnicalObject" source="startupDateTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateWarrantyEnds" source="dateWarrantyEnds"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="guaranteeDate" source="guaranteeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerofAsset" source="manufacturerofAsset"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryofManufacture" source="countryofManufacture"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerSerialNumber" source="manufacturerSerialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerModelNumber" source="manufacturerModelNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearofConstruction" source="yearofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthofConstruction" source="monthofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipUsagePeriods" source="equipUsagePeriods"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="storageLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageEntered" source="languageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionofTechnicalObject" source="descriptionofTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utcTimeStamp" source="utcTimeStamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="nameCompanyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategoryDescr" source="equipmentCategoryDescr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCodeDesc" source="activityCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="authorizationGroup" source="authorizationGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUoM" source="weightUoM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weight" source="weight"/>
+      </input>
+      <input node="Projection_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetVin" source="fleetVin"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetNumber" source="fleetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="licensePlateNumber" source="licensePlateNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectTypeDesc" source="fleetObjectTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeight" source="totalWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeightUoM" source="totalWeightUoM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+      </input>
+    <joinAttribute name="client"/>
+    <joinAttribute name="equipmentNumber"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_6">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::costCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="description"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_5" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="dateRecordCreated"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="languageEntered"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="utcTimeStamp"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="fleetVin"/>
+        <viewAttribute id="fleetNumber"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="fleetObjectTypeDesc"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="equipmentCategoryDescr"/>
+        <viewAttribute id="activityCode"/>
+        <viewAttribute id="activityCodeDesc"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="weightUoM"/>
+        <viewAttribute id="weight"/>
+        <viewAttribute id="totalWeight"/>
+        <viewAttribute id="totalWeightUoM"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateRecordCreated" source="dateRecordCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonCreatedObject" source="nameofPersonCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentLanguageEntered" source="equipmentLanguageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChanged" source="dateLastChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonWhoChanged" source="nameofPersonWhoChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inventoryNumber" source="inventoryNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="size" source="size"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionDate" source="acquisitionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionValue" source="acquisitionValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="currencyKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startupDateTechnicalObject" source="startupDateTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateWarrantyEnds" source="dateWarrantyEnds"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="guaranteeDate" source="guaranteeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerofAsset" source="manufacturerofAsset"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryofManufacture" source="countryofManufacture"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerSerialNumber" source="manufacturerSerialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerModelNumber" source="manufacturerModelNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearofConstruction" source="yearofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthofConstruction" source="monthofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipUsagePeriods" source="equipUsagePeriods"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="storageLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageEntered" source="languageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionofTechnicalObject" source="descriptionofTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utcTimeStamp" source="utcTimeStamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="companyCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetVin" source="fleetVin"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetNumber" source="fleetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="licensePlateNumber" source="licensePlateNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectTypeDesc" source="fleetObjectTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategoryDescr" source="equipmentCategoryDescr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCodeDesc" source="activityCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="authorizationGroup" source="authorizationGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUoM" source="weightUoM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weight" source="weight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeight" source="totalWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeightUoM" source="totalWeightUoM"/>
+      </input>
+      <input node="Projection_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="costCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+      </input>
+    <joinAttribute name="costCenter"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_7">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="department"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenterGroup"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::profitCenter">
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDesc" source="longText"/></input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_6" joinType="leftOuter">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="dateRecordCreated"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="languageEntered"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="utcTimeStamp"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="fleetVin"/>
+        <viewAttribute id="fleetNumber"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="fleetObjectTypeDesc"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="equipmentCategoryDescr"/>
+        <viewAttribute id="activityCode"/>
+        <viewAttribute id="activityCodeDesc"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="weightUoM"/>
+        <viewAttribute id="weight"/>
+        <viewAttribute id="totalWeight"/>
+        <viewAttribute id="totalWeightUoM"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateRecordCreated" source="dateRecordCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonCreatedObject" source="nameofPersonCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentLanguageEntered" source="equipmentLanguageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChanged" source="dateLastChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonWhoChanged" source="nameofPersonWhoChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inventoryNumber" source="inventoryNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="size" source="size"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionDate" source="acquisitionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionValue" source="acquisitionValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="currencyKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startupDateTechnicalObject" source="startupDateTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateWarrantyEnds" source="dateWarrantyEnds"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="guaranteeDate" source="guaranteeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerofAsset" source="manufacturerofAsset"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryofManufacture" source="countryofManufacture"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerSerialNumber" source="manufacturerSerialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerModelNumber" source="manufacturerModelNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearofConstruction" source="yearofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthofConstruction" source="monthofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipUsagePeriods" source="equipUsagePeriods"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="storageLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageEntered" source="languageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionofTechnicalObject" source="descriptionofTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utcTimeStamp" source="utcTimeStamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="companyCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetVin" source="fleetVin"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetNumber" source="fleetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="licensePlateNumber" source="licensePlateNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="costCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectTypeDesc" source="fleetObjectTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategoryDescr" source="equipmentCategoryDescr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCodeDesc" source="activityCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="authorizationGroup" source="authorizationGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUoM" source="weightUoM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weight" source="weight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeight" source="totalWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeightUoM" source="totalWeightUoM"/>
+      </input>
+      <input node="Projection_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="department"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDesc" source="profitCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+      </input>
+    <joinAttribute name="profitCenter"/>
+    <joinAttribute name="client"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_8">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="plantDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="rumpke.bi.masterData.base::plantsBranches">
+        <mapping xsi:type="Calculation:AttributeMapping" target="plantDescription" source="name"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_7" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="dateRecordCreated"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="languageEntered"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="utcTimeStamp"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="fleetVin"/>
+        <viewAttribute id="fleetNumber"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="fleetObjectTypeDesc"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="equipmentCategoryDescr"/>
+        <viewAttribute id="activityCode"/>
+        <viewAttribute id="activityCodeDesc"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="weightUoM"/>
+        <viewAttribute id="weight"/>
+        <viewAttribute id="totalWeight"/>
+        <viewAttribute id="totalWeightUoM"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateRecordCreated" source="dateRecordCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonCreatedObject" source="nameofPersonCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentLanguageEntered" source="equipmentLanguageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChanged" source="dateLastChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonWhoChanged" source="nameofPersonWhoChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inventoryNumber" source="inventoryNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="size" source="size"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionDate" source="acquisitionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionValue" source="acquisitionValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="currencyKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startupDateTechnicalObject" source="startupDateTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateWarrantyEnds" source="dateWarrantyEnds"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="guaranteeDate" source="guaranteeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerofAsset" source="manufacturerofAsset"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryofManufacture" source="countryofManufacture"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerSerialNumber" source="manufacturerSerialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerModelNumber" source="manufacturerModelNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearofConstruction" source="yearofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthofConstruction" source="monthofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipUsagePeriods" source="equipUsagePeriods"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="storageLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageEntered" source="languageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionofTechnicalObject" source="descriptionofTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utcTimeStamp" source="utcTimeStamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="companyCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetVin" source="fleetVin"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetNumber" source="fleetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="licensePlateNumber" source="licensePlateNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="costCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectTypeDesc" source="fleetObjectTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDesc" source="profitCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategoryDescr" source="equipmentCategoryDescr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCodeDesc" source="activityCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="authorizationGroup" source="authorizationGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUoM" source="weightUoM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weight" source="weight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeight" source="totalWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeightUoM" source="totalWeightUoM"/>
+      </input>
+      <input node="Projection_8">
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="plantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="plant"/>
+      </input>
+    <joinAttribute name="maintenancePlant"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_9">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="maintenancePlanningPlantDescription"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Projection_9$$$$rumpke.bi.masterData.base::plantsBranches$$">
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlantDescription" source="name"/>
+      </input>
+    </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_8" joinType="referential">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="lineofBusinessDescription"/>
+        <viewAttribute id="profitCenterDesc"/>
+        <viewAttribute id="fleetObjectType"/>
+        <viewAttribute id="fleetObjectTypeDesc"/>
+        <viewAttribute id="lineOfBusiness"/>
+        <viewAttribute id="functionalAreaDesc"/>
+        <viewAttribute id="functionalArea"/>
+        <viewAttribute id="costCenterDesc"/>
+        <viewAttribute id="profitCenter"/>
+        <viewAttribute id="licensePlateNumber"/>
+        <viewAttribute id="fleetNumber"/>
+        <viewAttribute id="fleetVin"/>
+        <viewAttribute id="controllingArea"/>
+        <viewAttribute id="vehicleID"/>
+        <viewAttribute id="abcIndicatorDesc"/>
+        <viewAttribute id="abcIndicator"/>
+        <viewAttribute id="languageKey"/>
+        <viewAttribute id="companyCodeDesc"/>
+        <viewAttribute id="companyCode"/>
+        <viewAttribute id="costCenter"/>
+        <viewAttribute id="maintenancePlant"/>
+        <viewAttribute id="functionalLocation"/>
+        <viewAttribute id="objectIDWorkCenter"/>
+        <viewAttribute id="maintenancePlanningPlant"/>
+        <viewAttribute id="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <viewAttribute id="validToDate"/>
+        <viewAttribute id="utcTimeStamp"/>
+        <viewAttribute id="descriptionofTechnicalObject"/>
+        <viewAttribute id="languageEntered"/>
+        <viewAttribute id="storageLocation"/>
+        <viewAttribute id="plant"/>
+        <viewAttribute id="materialNumber"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="equipUsagePeriods"/>
+        <viewAttribute id="monthofConstruction"/>
+        <viewAttribute id="yearofConstruction"/>
+        <viewAttribute id="manufacturerModelNumber"/>
+        <viewAttribute id="manufacturerSerialNumber"/>
+        <viewAttribute id="countryofManufacture"/>
+        <viewAttribute id="manufacturerofAsset"/>
+        <viewAttribute id="guaranteeDate"/>
+        <viewAttribute id="dateWarrantyEnds"/>
+        <viewAttribute id="startupDateTechnicalObject"/>
+        <viewAttribute id="currencyKey"/>
+        <viewAttribute id="acquisitionValue"/>
+        <viewAttribute id="acquisitionDate"/>
+        <viewAttribute id="size"/>
+        <viewAttribute id="inventoryNumber"/>
+        <viewAttribute id="equipmentCategory"/>
+        <viewAttribute id="nameofPersonWhoChanged"/>
+        <viewAttribute id="dateLastChanged"/>
+        <viewAttribute id="equipmentLanguageEntered"/>
+        <viewAttribute id="nameofPersonCreatedObject"/>
+        <viewAttribute id="dateRecordCreated"/>
+        <viewAttribute id="equipmentDescription"/>
+        <viewAttribute id="equipmentNumber"/>
+        <viewAttribute id="client"/>
+        <viewAttribute id="maintenancePlanningPlantDescription"/>
+        <viewAttribute id="maintenancePlantDescription"/>
+        <viewAttribute id="equipmentCategoryDescr"/>
+        <viewAttribute id="activityCode"/>
+        <viewAttribute id="activityCodeDesc"/>
+        <viewAttribute id="validFrom"/>
+        <viewAttribute id="authorizationGroup"/>
+        <viewAttribute id="weightUoM"/>
+        <viewAttribute id="weight"/>
+        <viewAttribute id="totalWeight"/>
+        <viewAttribute id="totalWeightUoM"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineofBusinessDescription" source="lineofBusinessDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenterDesc" source="profitCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectType" source="fleetObjectType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetObjectTypeDesc" source="fleetObjectTypeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="lineOfBusiness" source="lineOfBusiness"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalAreaDesc" source="functionalAreaDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalArea" source="functionalArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenterDesc" source="costCenterDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="profitCenter" source="profitCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="licensePlateNumber" source="licensePlateNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetNumber" source="fleetNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="fleetVin" source="fleetVin"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="controllingArea" source="controllingArea"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="vehicleID" source="vehicleID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicatorDesc" source="abcIndicatorDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="abcIndicator" source="abcIndicator"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageKey" source="languageKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCodeDesc" source="companyCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="companyCode" source="companyCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="costCenter" source="costCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlant" source="maintenancePlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="functionalLocation" source="functionalLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectIDWorkCenter" source="objectIDWorkCenter"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="consecutiveNumberingEquipUsagePeriodsSameDay" source="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validToDate" source="validToDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="utcTimeStamp" source="utcTimeStamp"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="descriptionofTechnicalObject" source="descriptionofTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="languageEntered" source="languageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="storageLocation" source="storageLocation"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="plant" source="plant"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="materialNumber" source="materialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="objectNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipUsagePeriods" source="equipUsagePeriods"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="monthofConstruction" source="monthofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="yearofConstruction" source="yearofConstruction"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerModelNumber" source="manufacturerModelNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerSerialNumber" source="manufacturerSerialNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="countryofManufacture" source="countryofManufacture"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="manufacturerofAsset" source="manufacturerofAsset"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="guaranteeDate" source="guaranteeDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateWarrantyEnds" source="dateWarrantyEnds"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="startupDateTechnicalObject" source="startupDateTechnicalObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="currencyKey" source="currencyKey"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionValue" source="acquisitionValue"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="acquisitionDate" source="acquisitionDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="size" source="size"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="inventoryNumber" source="inventoryNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategory" source="equipmentCategory"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonWhoChanged" source="nameofPersonWhoChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateLastChanged" source="dateLastChanged"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentLanguageEntered" source="equipmentLanguageEntered"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="nameofPersonCreatedObject" source="nameofPersonCreatedObject"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="dateRecordCreated" source="dateRecordCreated"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentDescription" source="equipmentDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentNumber" source="equipmentNumber"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="client"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlantDescription" source="maintenancePlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="equipmentCategoryDescr" source="equipmentCategoryDescr"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCode" source="activityCode"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="activityCodeDesc" source="activityCodeDesc"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="validFrom" source="validFrom"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="authorizationGroup" source="authorizationGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weightUoM" source="weightUoM"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="weight" source="weight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeight" source="totalWeight"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="totalWeightUoM" source="totalWeightUoM"/>
+      </input>
+      <input node="Projection_9">
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlantDescription" source="maintenancePlanningPlantDescription"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="maintenancePlanningPlant" source="maintenancePlanningPlant"/>
+      </input>
+    <joinAttribute name="maintenancePlanningPlant"/>
+  </calculationView>
+</calculationViews>
+  <logicalModel id="Join_8">
+    <descriptions/>
+    <attributes>
+      <attribute id="lineofBusinessDescription" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business Description"/>
+        <keyMapping columnObjectName="Join_8" columnName="lineofBusinessDescription"/>
+      </attribute>
+      <attribute id="profitCenterDesc" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center Desc"/>
+        <keyMapping columnObjectName="Join_8" columnName="profitCenterDesc"/>
+      </attribute>
+      <attribute id="fleetObjectType" order="4" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fleetObjectType"/>
+        <keyMapping columnObjectName="Join_8" columnName="fleetObjectType"/>
+      </attribute>
+      <attribute id="fleetObjectTypeDesc" order="5" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="fleetObjectTypeDesc"/>
+        <keyMapping columnObjectName="Join_8" columnName="fleetObjectTypeDesc"/>
+      </attribute>
+      <attribute id="lineOfBusiness" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Line of Business"/>
+        <keyMapping columnObjectName="Join_8" columnName="lineOfBusiness"/>
+      </attribute>
+      <attribute id="functionalAreaDesc" order="7" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area Desc"/>
+        <keyMapping columnObjectName="Join_8" columnName="functionalAreaDesc"/>
+      </attribute>
+      <attribute id="functionalArea" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Area"/>
+        <keyMapping columnObjectName="Join_8" columnName="functionalArea"/>
+      </attribute>
+      <attribute id="costCenterDesc" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center Description"/>
+        <keyMapping columnObjectName="Join_8" columnName="costCenterDesc"/>
+      </attribute>
+      <attribute id="profitCenter" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Profit Center"/>
+        <keyMapping columnObjectName="Join_8" columnName="profitCenter"/>
+      </attribute>
+      <attribute id="licensePlateNumber" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="License Plate Number"/>
+        <keyMapping columnObjectName="Join_8" columnName="licensePlateNumber"/>
+      </attribute>
+      <attribute id="fleetNumber" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fleet Number"/>
+        <keyMapping columnObjectName="Join_8" columnName="fleetNumber"/>
+      </attribute>
+      <attribute id="fleetVin" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Fleet VIN"/>
+        <keyMapping columnObjectName="Join_8" columnName="fleetVin"/>
+      </attribute>
+      <attribute id="controllingArea" order="14" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Controlling Area"/>
+        <keyMapping columnObjectName="Join_8" columnName="controllingArea"/>
+      </attribute>
+      <attribute id="vehicleID" order="15" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Vehicle ID (VIN)"/>
+        <keyMapping columnObjectName="Join_8" columnName="vehicleID"/>
+      </attribute>
+      <attribute id="abcIndicatorDesc" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABC Indicator Desc"/>
+        <keyMapping columnObjectName="Join_8" columnName="abcIndicatorDesc"/>
+      </attribute>
+      <attribute id="abcIndicator" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ABC Indicator"/>
+        <keyMapping columnObjectName="Join_8" columnName="abcIndicator"/>
+      </attribute>
+      <attribute id="languageKey" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language Key"/>
+        <keyMapping columnObjectName="Join_8" columnName="languageKey"/>
+      </attribute>
+      <attribute id="companyCodeDesc" order="19" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Company Code Desc"/>
+        <keyMapping columnObjectName="Join_8" columnName="companyCodeDesc"/>
+      </attribute>
+      <attribute id="companyCode" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="companyCode"/>
+        <keyMapping columnObjectName="Join_8" columnName="companyCode"/>
+      </attribute>
+      <attribute id="costCenter" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Cost Center"/>
+        <keyMapping columnObjectName="Join_8" columnName="costCenter"/>
+      </attribute>
+      <attribute id="maintenancePlant" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant"/>
+        <keyMapping columnObjectName="Join_8" columnName="maintenancePlant"/>
+      </attribute>
+      <attribute id="functionalLocation" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Functional Location"/>
+        <keyMapping columnObjectName="Join_8" columnName="functionalLocation"/>
+      </attribute>
+      <attribute id="objectIDWorkCenter" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object ID of the Work Center"/>
+        <keyMapping columnObjectName="Join_8" columnName="objectIDWorkCenter"/>
+      </attribute>
+      <attribute id="maintenancePlanningPlant" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Planning Plant"/>
+        <keyMapping columnObjectName="Join_8" columnName="maintenancePlanningPlant"/>
+      </attribute>
+      <attribute id="consecutiveNumberingEquipUsagePeriodsSameDay" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Consecutive Numbering EquipUsage Periods Same Day"/>
+        <keyMapping columnObjectName="Join_8" columnName="consecutiveNumberingEquipUsagePeriodsSameDay"/>
+      </attribute>
+      <attribute id="validToDate" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valid To Date"/>
+        <keyMapping columnObjectName="Join_8" columnName="validToDate"/>
+      </attribute>
+      <attribute id="utcTimeStamp" order="28" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="UTC Time Stamp in Short For"/>
+        <keyMapping columnObjectName="Join_8" columnName="utcTimeStamp"/>
+      </attribute>
+      <attribute id="descriptionofTechnicalObject" order="29" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Description of technical object"/>
+        <keyMapping columnObjectName="Join_8" columnName="descriptionofTechnicalObject"/>
+      </attribute>
+      <attribute id="languageEntered" order="30" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language in Which the Piece of Equipment was Entered"/>
+        <keyMapping columnObjectName="Join_8" columnName="languageEntered"/>
+      </attribute>
+      <attribute id="storageLocation" order="31" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Storage location"/>
+        <keyMapping columnObjectName="Join_8" columnName="storageLocation"/>
+      </attribute>
+      <attribute id="plant" order="32" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Plant"/>
+        <keyMapping columnObjectName="Join_8" columnName="plant"/>
+      </attribute>
+      <attribute id="materialNumber" order="33" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Material Number"/>
+        <keyMapping columnObjectName="Join_8" columnName="materialNumber"/>
+      </attribute>
+      <attribute id="objectNumber" order="34" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Join_8" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="equipUsagePeriods" order="35" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Consecutive numbering of EquipUsagePeriods on same day"/>
+        <keyMapping columnObjectName="Join_8" columnName="equipUsagePeriods"/>
+      </attribute>
+      <attribute id="monthofConstruction" order="36" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Month of Construction"/>
+        <keyMapping columnObjectName="Join_8" columnName="monthofConstruction"/>
+      </attribute>
+      <attribute id="yearofConstruction" order="37" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Year of Construction"/>
+        <keyMapping columnObjectName="Join_8" columnName="yearofConstruction"/>
+      </attribute>
+      <attribute id="manufacturerModelNumber" order="38" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Manufacturer Model Number"/>
+        <keyMapping columnObjectName="Join_8" columnName="manufacturerModelNumber"/>
+      </attribute>
+      <attribute id="manufacturerSerialNumber" order="39" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Manufacturer Serial Number"/>
+        <keyMapping columnObjectName="Join_8" columnName="manufacturerSerialNumber"/>
+      </attribute>
+      <attribute id="countryofManufacture" order="40" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Country of manufacture"/>
+        <keyMapping columnObjectName="Join_8" columnName="countryofManufacture"/>
+      </attribute>
+      <attribute id="manufacturerofAsset" order="41" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Manufacturer of Asset"/>
+        <keyMapping columnObjectName="Join_8" columnName="manufacturerofAsset"/>
+      </attribute>
+      <attribute id="guaranteeDate" order="42" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Guarantee date"/>
+        <keyMapping columnObjectName="Join_8" columnName="guaranteeDate"/>
+      </attribute>
+      <attribute id="dateWarrantyEnds" order="43" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date on which the warranty ends"/>
+        <keyMapping columnObjectName="Join_8" columnName="dateWarrantyEnds"/>
+      </attribute>
+      <attribute id="startupDateTechnicalObject" order="44" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Start-up Date of the Technical Object"/>
+        <keyMapping columnObjectName="Join_8" columnName="startupDateTechnicalObject"/>
+      </attribute>
+      <attribute id="currencyKey" order="45" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Currency Key"/>
+        <keyMapping columnObjectName="Join_8" columnName="currencyKey"/>
+      </attribute>
+      <attribute id="acquisitionValue" order="46" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Acquisition Value"/>
+        <keyMapping columnObjectName="Join_8" columnName="acquisitionValue"/>
+      </attribute>
+      <attribute id="acquisitionDate" order="47" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Acquisition date"/>
+        <keyMapping columnObjectName="Join_8" columnName="acquisitionDate"/>
+      </attribute>
+      <attribute id="size" order="48" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Size/dimension"/>
+        <keyMapping columnObjectName="Join_8" columnName="size"/>
+      </attribute>
+      <attribute id="inventoryNumber" order="49" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Inventory number"/>
+        <keyMapping columnObjectName="Join_8" columnName="inventoryNumber"/>
+      </attribute>
+      <attribute id="equipmentCategory" order="50" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment category"/>
+        <keyMapping columnObjectName="Join_8" columnName="equipmentCategory"/>
+      </attribute>
+      <attribute id="nameofPersonWhoChanged" order="51" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name of person who changed object"/>
+        <keyMapping columnObjectName="Join_8" columnName="nameofPersonWhoChanged"/>
+      </attribute>
+      <attribute id="dateLastChanged" order="52" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date of Last Change"/>
+        <keyMapping columnObjectName="Join_8" columnName="dateLastChanged"/>
+      </attribute>
+      <attribute id="equipmentLanguageEntered" order="53" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Language in Which the Piece of Equipment was Entered"/>
+        <keyMapping columnObjectName="Join_8" columnName="equipmentLanguageEntered"/>
+      </attribute>
+      <attribute id="nameofPersonCreatedObject" order="54" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Name of Person who Created the Object"/>
+        <keyMapping columnObjectName="Join_8" columnName="nameofPersonCreatedObject"/>
+      </attribute>
+      <attribute id="dateRecordCreated" order="55" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Date on which the record was created"/>
+        <keyMapping columnObjectName="Join_8" columnName="dateRecordCreated"/>
+      </attribute>
+      <attribute id="equipmentDescription" order="56" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Description in Capital Letters"/>
+        <keyMapping columnObjectName="Join_8" columnName="equipmentDescription"/>
+      </attribute>
+      <attribute id="equipmentNumber" order="57" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Number"/>
+        <keyMapping columnObjectName="Join_8" columnName="equipmentNumber"/>
+      </attribute>
+      <attribute id="client" order="58" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Join_8" columnName="client"/>
+      </attribute>
+      <attribute id="maintenancePlanningPlantDescription" order="59" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Planning Plant Description"/>
+        <keyMapping columnObjectName="Join_8" columnName="maintenancePlanningPlantDescription"/>
+      </attribute>
+      <attribute id="maintenancePlantDescription" order="60" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Maintenance Plant Description"/>
+        <keyMapping columnObjectName="Join_8" columnName="maintenancePlantDescription"/>
+      </attribute>
+      <attribute id="equipmentCategoryDescr" order="61" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Category Desc"/>
+        <keyMapping columnObjectName="Join_8" columnName="equipmentCategoryDescr"/>
+      </attribute>
+      <attribute id="activityCode" order="62" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Activity Code"/>
+        <keyMapping columnObjectName="Join_8" columnName="activityCode"/>
+      </attribute>
+      <attribute id="activityCodeDesc" order="63" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Activity Code Desc"/>
+        <keyMapping columnObjectName="Join_8" columnName="activityCodeDesc"/>
+      </attribute>
+      <attribute id="validFrom" order="64" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Valid From Date"/>
+        <keyMapping columnObjectName="Join_8" columnName="validFrom"/>
+      </attribute>
+      <attribute id="authorizationGroup" order="65" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Authorization Group"/>
+        <keyMapping columnObjectName="Join_8" columnName="authorizationGroup"/>
+      </attribute>
+      <attribute id="weightUoM" order="66" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Weight Unit of Measure"/>
+        <keyMapping columnObjectName="Join_8" columnName="weightUoM"/>
+      </attribute>
+      <attribute id="weight" order="67" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Weight"/>
+        <keyMapping columnObjectName="Join_8" columnName="weight"/>
+      </attribute>
+      <attribute id="totalWeight" order="68" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Total Weight"/>
+        <keyMapping columnObjectName="Join_8" columnName="totalWeight"/>
+      </attribute>
+      <attribute id="totalWeightUoM" order="69" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Total Weight Unit of Measure"/>
+        <keyMapping columnObjectName="Join_8" columnName="totalWeightUoM"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes>
+      <calculatedAttribute id="vehicleIDEquipmentDesc" hidden="false" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Equipment Description (Vehicle ID - Equipment Desc)"/>
+        <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="75">
+          <formula>&quot;vehicleID&quot; + ' - ' + &quot;equipmentDescription&quot;</formula>
+        </keyCalculation>
+      </calculatedAttribute>
+    </calculatedAttributes>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="398" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="935"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="935"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="839"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="253" y="839"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="749"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="329" y="743"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="250" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    <shape modelObjectName="Join_2" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_4" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="404" y="647"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="324" y="551"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_3" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_5" modelObjectNameSpace="Join_4" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="478" y="551"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="399" y="455"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_4" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_6" modelObjectNameSpace="Join_5" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="553" y="455"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="475" y="359"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_5" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_7" modelObjectNameSpace="Join_6" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="321" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="398" y="263"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    <shape modelObjectName="Join_6" modelObjectNameSpace="Join_7" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_8" modelObjectNameSpace="Join_7" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+      <shape expanded="true" modelObjectName="Projection_9" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="553" y="271"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_8" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="398" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    
+    <shape modelObjectName="Join_7" modelObjectNameSpace="Join_8" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_9" modelObjectNameSpace="Join_8" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

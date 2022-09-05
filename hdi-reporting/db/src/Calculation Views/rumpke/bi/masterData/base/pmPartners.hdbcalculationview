@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="rumpke.bi.masterData.base::pmPartners" applyPrivilegeType="NONE" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="Plant Maintenance Partners"/>
+  <metadata changedAt="2019-12-10 19:08:15.409"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="IHPA">
+      <resourceUri>rumpke.bi.masterData.base.s4hana::IHPA</resourceUri>
+    </DataSource>
+  </dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <descriptions/>
+    <viewAttributes>
+        <viewAttribute id="client"/>
+        <viewAttribute id="objectNumber"/>
+        <viewAttribute id="partnerFunction"/>
+        <viewAttribute id="counter"/>
+        <viewAttribute id="objectCategory"/>
+        <viewAttribute id="partner"/>
+      </viewAttributes>
+    <calculatedViewAttributes/>
+      <input node="IHPA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="client" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectNumber" source="OBJNR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="partnerFunction" source="PARVW"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="counter" source="COUNTER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="objectCategory" source="OBTYP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="partner" source="PARNR"/>
+      </input>
+    </calculationView>
+</calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="client" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Client"/>
+        <keyMapping columnObjectName="Projection_1" columnName="client"/>
+      </attribute>
+      <attribute id="objectNumber" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Number"/>
+        <keyMapping columnObjectName="Projection_1" columnName="objectNumber"/>
+      </attribute>
+      <attribute id="partnerFunction" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Partner Function"/>
+        <keyMapping columnObjectName="Projection_1" columnName="partnerFunction"/>
+      </attribute>
+      <attribute id="counter" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Counter"/>
+        <keyMapping columnObjectName="Projection_1" columnName="counter"/>
+      </attribute>
+      <attribute id="objectCategory" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Object Category"/>
+        <keyMapping columnObjectName="Projection_1" columnName="objectCategory"/>
+      </attribute>
+      <attribute id="partner" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Partner"/>
+        <keyMapping columnObjectName="Projection_1" columnName="partner"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+<layout>
+  <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+</layout>
+</Calculation:scenario>
