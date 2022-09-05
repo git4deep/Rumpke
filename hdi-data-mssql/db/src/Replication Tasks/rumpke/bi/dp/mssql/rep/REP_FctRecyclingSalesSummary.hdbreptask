@@ -1,0 +1,70 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_FctRecyclingSalesSummary.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_RumpkeDW_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;dbo&quot;.&quot;FctRecyclingSalesSummary&quot;" SourceDisplayName="FctRecyclingSalesSummary">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="FctRecyclingSalesSummary" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="RecyclingSalesSummarySK" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="MaterialSK" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MarketSK" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthSK" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LineOfBusinessSK" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Version" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ActualInd" Datatype="TINYINT" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="BudgetInd" Datatype="TINYINT" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ReportingMarketInd" Datatype="TINYINT" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RecyclingSales" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RecyclingTons" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Source_System" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="FctRecyclingSalesSummary" RemoteObjectUniqueName="&quot;dbo&quot;.&quot;FctRecyclingSalesSummary&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="FctRecyclingSalesSummary">
+      <TargetColumns>
+        <TargetColumn Name="RecyclingSalesSummarySK" ProjectionExpression="&quot;RecyclingSalesSummarySK&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaterialSK" ProjectionExpression="&quot;MaterialSK&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MarketSK" ProjectionExpression="&quot;MarketSK&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthSK" ProjectionExpression="&quot;FiscalMonthSK&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LineOfBusinessSK" ProjectionExpression="&quot;LineOfBusinessSK&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Version" ProjectionExpression="&quot;Version&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ActualInd" ProjectionExpression="&quot;ActualInd&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BudgetInd" ProjectionExpression="&quot;BudgetInd&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ReportingMarketInd" ProjectionExpression="&quot;ReportingMarketInd&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RecyclingSales" ProjectionExpression="&quot;RecyclingSales&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RecyclingTons" ProjectionExpression="&quot;RecyclingTons&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Source_System" ProjectionExpression="&quot;Source_System&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

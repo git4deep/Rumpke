@@ -1,0 +1,162 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_OccupationalInjuryIllnessSummary.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_OccupationalInjuryIllnessSummary&quot;" SourceDisplayName="data_OccupationalInjuryIllnessSummary">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_OccupationalInjuryIllnessSummary" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="EmployeeHours_CurrentMonth" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="NonEmployeeHours_CurrentMonth" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AccrualHours_CurrentMonth" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EmployeeAmount_CurrentMonth" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="NonEmployeeAmount_CurrentMonth" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AccrualAmount_CurrentMonth" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EmployeeHours_YearToDate" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="NonEmployeeHours_YearToDate" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AccrualHours_YearToDate" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EmployeeAmount_YearToDate" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="NonEmployeeAmount_YearToDate" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AccrualAmount_YearToDate" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalIncidentCount_CurrentMonth" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalOSHARecordableCount_CurrentMonth" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalLostHours_CurrentMonth" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalFYICount_CurrentMonth" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalIncidentCount_YearToDate" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalOSHARecordableCount_YearToDate" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalLostHours_YearToDate" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalFYICount_YearToDate" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PY2_TotalHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PY2_TotalOSHA" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PY1_TotalHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PY1_TotalOSHA" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CYGoal_HoursPerOSHA" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalIncidentCount_CurrentMonth" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalOSHARecordableCount_CurrentMonth" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalFYICount_CurrentMonth" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PY4_TotalHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PY4_TotalOSHA" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PY3_TotalHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PY3_TotalOSHA" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_OccupationalInjuryIllnessSummary" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_OccupationalInjuryIllnessSummary&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_OccupationalInjuryIllnessSummary">
+      <TargetColumns>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EmployeeHours_CurrentMonth" ProjectionExpression="&quot;EmployeeHours_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="NonEmployeeHours_CurrentMonth" ProjectionExpression="&quot;NonEmployeeHours_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AccrualHours_CurrentMonth" ProjectionExpression="&quot;AccrualHours_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EmployeeAmount_CurrentMonth" ProjectionExpression="&quot;EmployeeAmount_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="NonEmployeeAmount_CurrentMonth" ProjectionExpression="&quot;NonEmployeeAmount_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AccrualAmount_CurrentMonth" ProjectionExpression="&quot;AccrualAmount_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EmployeeHours_YearToDate" ProjectionExpression="&quot;EmployeeHours_YearToDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="NonEmployeeHours_YearToDate" ProjectionExpression="&quot;NonEmployeeHours_YearToDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AccrualHours_YearToDate" ProjectionExpression="&quot;AccrualHours_YearToDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EmployeeAmount_YearToDate" ProjectionExpression="&quot;EmployeeAmount_YearToDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="NonEmployeeAmount_YearToDate" ProjectionExpression="&quot;NonEmployeeAmount_YearToDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AccrualAmount_YearToDate" ProjectionExpression="&quot;AccrualAmount_YearToDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalIncidentCount_CurrentMonth" ProjectionExpression="&quot;TotalIncidentCount_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalOSHARecordableCount_CurrentMonth" ProjectionExpression="&quot;TotalOSHARecordableCount_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalLostHours_CurrentMonth" ProjectionExpression="&quot;TotalLostHours_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalFYICount_CurrentMonth" ProjectionExpression="&quot;TotalFYICount_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalIncidentCount_YearToDate" ProjectionExpression="&quot;TotalIncidentCount_YearToDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalOSHARecordableCount_YearToDate" ProjectionExpression="&quot;TotalOSHARecordableCount_YearToDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalLostHours_YearToDate" ProjectionExpression="&quot;TotalLostHours_YearToDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalFYICount_YearToDate" ProjectionExpression="&quot;TotalFYICount_YearToDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PY2_TotalHours" ProjectionExpression="&quot;PY2_TotalHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PY2_TotalOSHA" ProjectionExpression="&quot;PY2_TotalOSHA&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PY1_TotalHours" ProjectionExpression="&quot;PY1_TotalHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PY1_TotalOSHA" ProjectionExpression="&quot;PY1_TotalOSHA&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CYGoal_HoursPerOSHA" ProjectionExpression="&quot;CYGoal_HoursPerOSHA&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalIncidentCount_CurrentMonth" ProjectionExpression="&quot;AdjustedTotalIncidentCount_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalOSHARecordableCount_CurrentMonth" ProjectionExpression="&quot;AdjustedTotalOSHARecordableCount_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalFYICount_CurrentMonth" ProjectionExpression="&quot;AdjustedTotalFYICount_CurrentMonth&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PY4_TotalHours" ProjectionExpression="&quot;PY4_TotalHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PY4_TotalOSHA" ProjectionExpression="&quot;PY4_TotalOSHA&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PY3_TotalHours" ProjectionExpression="&quot;PY3_TotalHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PY3_TotalOSHA" ProjectionExpression="&quot;PY3_TotalOSHA&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

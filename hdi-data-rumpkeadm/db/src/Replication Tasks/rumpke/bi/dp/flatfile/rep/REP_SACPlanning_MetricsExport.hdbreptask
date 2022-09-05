@@ -1,0 +1,45 @@
+<RepTask Name="file:/rumpke/bi/dp/flatfile/rep/REP_SACPlanning_MetricsExport.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_SFTP_SACPLANNING_RUMPKEADM" VirtualTableSchema="FLATFILE_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="/Analytics/metrics_export.cfg" SourceDisplayName="metrics_export.cfg">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="RUMPKEADM">
+    <TargetObject Type="TABLE" ObjectName="productivityMetrics_Staging" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="account" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="version" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="fiscalYearPeriod" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="costCenter" Datatype="VARCHAR" Length="24" Precision="24" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="profitCenter" Datatype="VARCHAR" Length="10" Precision="10" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="value" Datatype="DECIMAL" Length="34" Precision="34" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="productivityMetrics_Staging" RemoteObjectUniqueName="/Analytics/metrics_export.cfg" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="productivityMetrics_Staging">
+      <TargetColumns>
+        <TargetColumn Name="account" ProjectionExpression="TRIM(REPLACE(&quot;account&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;))">
+        </TargetColumn>
+        <TargetColumn Name="version" ProjectionExpression="REPLACE(&quot;version&quot;, &#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="fiscalYearPeriod" ProjectionExpression="CONCAT(CONCAT(SUBSTRING(REPLACE(&quot;fiscalYearPeriod&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;),1,4),&#x27;0&#x27;),SUBSTRING(REPLACE(&quot;fiscalYearPeriod&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;),5,2))">
+        </TargetColumn>
+        <TargetColumn Name="costCenter" ProjectionExpression="CASE WHEN REPLACE(&quot;costCenter&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;) = &#x27;#&#x27; THEN &#x27; &#x27; ELSE REPLACE(&quot;costCenter&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;) END">
+        </TargetColumn>
+        <TargetColumn Name="profitCenter" ProjectionExpression="REPLACE(&quot;profitCenter&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="value" ProjectionExpression="REPLACE(&quot;value&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

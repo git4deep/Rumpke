@@ -1,0 +1,62 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_RecyclingMaterialSales.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_RecyclingMaterialSales&quot;" SourceDisplayName="data_RecyclingMaterialSales">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_RecyclingMaterialSales" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" Datatype="NVARCHAR" Precision="0" Scale="0" Length="7" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Material" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="MaterialCategory" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="MaterialClass" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="ProcessingType" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Versions" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="RecyclingSales" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RecyclingTons" Datatype="DECIMAL" Length="38" Precision="38" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_RecyclingMaterialSales" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_RecyclingMaterialSales&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_RecyclingMaterialSales">
+      <TargetColumns>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Material" ProjectionExpression="&quot;Material&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaterialCategory" ProjectionExpression="&quot;MaterialCategory&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaterialClass" ProjectionExpression="&quot;MaterialClass&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProcessingType" ProjectionExpression="&quot;ProcessingType&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Versions" ProjectionExpression="&quot;Versions&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RecyclingSales" ProjectionExpression="&quot;RecyclingSales&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RecyclingTons" ProjectionExpression="&quot;RecyclingTons&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

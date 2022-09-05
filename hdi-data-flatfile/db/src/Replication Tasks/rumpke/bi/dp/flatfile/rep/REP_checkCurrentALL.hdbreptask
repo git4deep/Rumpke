@@ -1,0 +1,158 @@
+<RepTask Name="file:/rumpke/bi/dp/flatfile/rep/REP_checkCurrentALL.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_SFTP_CurrentStaging_FLATFILE" VirtualTableSchema="FLATFILE_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="/CURRENTSTAGING/current_ALL_Check.cfg" SourceDisplayName="current_ALL_Check.cfg">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="FLATFILE">
+    <TargetObject Type="TABLE" ObjectName="current_ALL_Check" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="LANDFILL" Datatype="VARCHAR" Length="20" Precision="20" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PROFIT_CENTER" Datatype="VARCHAR" Length="20" Precision="20" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PERIOD" Datatype="VARCHAR" Length="20" Precision="20" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DATE" Datatype="VARCHAR" Length="20" Precision="20" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="NAME" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TITLE" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PROJECT" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EQUIPMENT_NUMBER" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MODEL" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TYPE" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OPERATOR_HR" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OPERATOR_RATE" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OPERATOR_TOTAL" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EQUIPMENT_HOURS" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HR_EQ_RATE" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EQUIPMENT_TOTAL" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HR_DEP_RATE" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HR_DEPRECIATION" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TOTAL_EQ" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TASK" Datatype="VARCHAR" Length="55" Precision="55" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EXCAVATION_TYPE" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EXCAVATION_FROM" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="JUNS_FROM" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="NPK" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PLACEMENT_TO" Datatype="VARCHAR" Length="150" Precision="150" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="JENS_TO" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOADS" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CYLOAD" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CY" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CRUSHER_TONS" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ROAD_ROCK" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TOTAL" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MONTHLY_DEPRECIATION" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FUEL_GALLON" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="current_ALL_Check" RemoteObjectUniqueName="/CURRENTSTAGING/current_ALL_Check.cfg" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="current_ALL_Check">
+      <TargetColumns>
+        <TargetColumn Name="LANDFILL" ProjectionExpression="&quot;LANDFILL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PROFIT_CENTER" ProjectionExpression="&quot;PROFIT_CENTER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PERIOD" ProjectionExpression="&quot;PERIOD&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DATE" ProjectionExpression="&quot;DATE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="NAME" ProjectionExpression="&quot;NAME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TITLE" ProjectionExpression="&quot;TITLE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PROJECT" ProjectionExpression="&quot;PROJECT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EQUIPMENT_NUMBER" ProjectionExpression="&quot;EQUIPMENT_NUMBER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MODEL" ProjectionExpression="&quot;MODEL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TYPE" ProjectionExpression="&quot;TYPE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OPERATOR_HR" ProjectionExpression="&quot;OPERATOR_HR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OPERATOR_RATE" ProjectionExpression="&quot;OPERATOR_RATE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OPERATOR_TOTAL" ProjectionExpression="&quot;OPERATOR_TOTAL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EQUIPMENT_HOURS" ProjectionExpression="&quot;EQUIPMENT_HOURS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HR_EQ_RATE" ProjectionExpression="&quot;HR_EQ_RATE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EQUIPMENT_TOTAL" ProjectionExpression="&quot;EQUIPMENT_TOTAL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HR_DEP_RATE" ProjectionExpression="&quot;HR_DEP_RATE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HR_DEPRECIATION" ProjectionExpression="&quot;HR_DEPRECIATION&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TOTAL_EQ" ProjectionExpression="&quot;TOTAL_EQ&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TASK" ProjectionExpression="&quot;TASK&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EXCAVATION_TYPE" ProjectionExpression="&quot;EXCAVATION_TYPE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EXCAVATION_FROM" ProjectionExpression="&quot;EXCAVATION_FROM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="JUNS_FROM" ProjectionExpression="&quot;JUNS_FROM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="NPK" ProjectionExpression="&quot;NPK&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PLACEMENT_TO" ProjectionExpression="&quot;PLACEMENT_TO&quot;">
+        </TargetColumn>
+        <TargetColumn Name="JENS_TO" ProjectionExpression="&quot;JENS_TO&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOADS" ProjectionExpression="&quot;LOADS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CYLOAD" ProjectionExpression="&quot;CYLOAD&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CY" ProjectionExpression="&quot;CY&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CRUSHER_TONS" ProjectionExpression="&quot;CRUSHER_TONS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ROAD_ROCK" ProjectionExpression="&quot;ROAD_ROCK&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TOTAL" ProjectionExpression="&quot;TOTAL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MONTHLY_DEPRECIATION" ProjectionExpression="&quot;MONTHLY_DEPRECIATION&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FUEL_GALLON" ProjectionExpression="&quot;FUEL_GALLON&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

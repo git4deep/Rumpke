@@ -1,0 +1,166 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_LandfillScorecardHistory.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_LandfillScorecardHistory&quot;" SourceDisplayName="data_LandfillScorecardHistory">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_LandfillScorecardHistory" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Versions" Datatype="VARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TotalRevenue" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CostOfOperations" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EBITDATarget" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetRevenue" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetRevenuePerTon" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetLaborCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetLaborCostPerTon" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetEquipmentCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetEquipmentCostPerTon" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalCellSiteAmortizationCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalCellSiteAmorticationCostPerTon" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalOtherLandfillExpenses" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalOtherLandfillExpensesPerTon" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalLandfillOperatingExpense" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalLandfillOperatingExpensePerTon" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LandfillOperatingProfit" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LandfillOperatingProfitPerTon" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LandfillAllOtherCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LandfillTons_CM" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LandfillTons_CY_YTD" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LandfillTons_LY_CM" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LandfillTons_LY_YTD" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PayrollHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RTAHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EquipmentCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OwnershipCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintenanceCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FuelCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EquipmentCostPerHour" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OwnershipCostPerHour" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintenanceCostPerHour" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FuelCostPerHour" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_LandfillScorecardHistory" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_LandfillScorecardHistory&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_LandfillScorecardHistory">
+      <TargetColumns>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Versions" ProjectionExpression="&quot;Versions&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalRevenue" ProjectionExpression="&quot;TotalRevenue&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CostOfOperations" ProjectionExpression="&quot;CostOfOperations&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EBITDATarget" ProjectionExpression="&quot;EBITDATarget&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetRevenue" ProjectionExpression="&quot;TotalNetRevenue&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetRevenuePerTon" ProjectionExpression="&quot;TotalNetRevenuePerTon&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetLaborCost" ProjectionExpression="&quot;TotalNetLaborCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetLaborCostPerTon" ProjectionExpression="&quot;TotalNetLaborCostPerTon&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetEquipmentCost" ProjectionExpression="&quot;TotalNetEquipmentCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalNetEquipmentCostPerTon" ProjectionExpression="&quot;TotalNetEquipmentCostPerTon&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalCellSiteAmortizationCost" ProjectionExpression="&quot;TotalCellSiteAmortizationCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalCellSiteAmorticationCostPerTon" ProjectionExpression="&quot;TotalCellSiteAmorticationCostPerTon&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalOtherLandfillExpenses" ProjectionExpression="&quot;TotalOtherLandfillExpenses&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalOtherLandfillExpensesPerTon" ProjectionExpression="&quot;TotalOtherLandfillExpensesPerTon&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalLandfillOperatingExpense" ProjectionExpression="&quot;TotalLandfillOperatingExpense&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalLandfillOperatingExpensePerTon" ProjectionExpression="&quot;TotalLandfillOperatingExpensePerTon&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LandfillOperatingProfit" ProjectionExpression="&quot;LandfillOperatingProfit&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LandfillOperatingProfitPerTon" ProjectionExpression="&quot;LandfillOperatingProfitPerTon&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LandfillAllOtherCost" ProjectionExpression="&quot;LandfillAllOtherCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LandfillTons_CM" ProjectionExpression="&quot;LandfillTons_CM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LandfillTons_CY_YTD" ProjectionExpression="&quot;LandfillTons_CY_YTD&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LandfillTons_LY_CM" ProjectionExpression="&quot;LandfillTons_LY_CM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LandfillTons_LY_YTD" ProjectionExpression="&quot;LandfillTons_LY_YTD&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PayrollHours" ProjectionExpression="&quot;PayrollHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RTAHours" ProjectionExpression="&quot;RTAHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EquipmentCost" ProjectionExpression="&quot;EquipmentCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OwnershipCost" ProjectionExpression="&quot;OwnershipCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintenanceCost" ProjectionExpression="&quot;MaintenanceCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FuelCost" ProjectionExpression="&quot;FuelCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EquipmentCostPerHour" ProjectionExpression="&quot;EquipmentCostPerHour&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OwnershipCostPerHour" ProjectionExpression="&quot;OwnershipCostPerHour&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintenanceCostPerHour" ProjectionExpression="&quot;MaintenanceCostPerHour&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FuelCostPerHour" ProjectionExpression="&quot;FuelCostPerHour&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

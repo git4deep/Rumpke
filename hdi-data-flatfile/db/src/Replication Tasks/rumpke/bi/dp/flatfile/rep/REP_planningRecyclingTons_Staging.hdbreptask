@@ -1,0 +1,57 @@
+<RepTask Name="file:/rumpke/bi/dp/flatfile/rep/REP_planningRecyclingTons_Staging.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_SFTP_CurrentStaging_FLATFILE" VirtualTableSchema="FLATFILE_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="/CURRENTSTAGING/planningRecyclingTons.cfg" SourceDisplayName="planningRecyclingTons.cfg">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="FLATFILE">
+    <TargetObject Type="TABLE" ObjectName="planningRecyclingTons_Staging" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="MRF_MEASUREId" Datatype="NVARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VersionVersion" Datatype="NVARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DateMonth" Datatype="NVARCHAR" Precision="0" Scale="0" Length="7" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CompanyId" Datatype="NVARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CompanyDescription" Datatype="NVARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MATERIALDescription" Datatype="NVARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Profit_CenterId" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Value" Datatype="DECIMAL" Precision="28" Scale="6" Length="28" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ValueUnit" Datatype="NVARCHAR" Length="20" Precision="20" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="planningRecyclingTons_Staging" RemoteObjectUniqueName="/CURRENTSTAGING/planningRecyclingTons.cfg" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="planningRecyclingTons_Staging">
+      <TargetColumns>
+        <TargetColumn Name="MRF_MEASUREId" ProjectionExpression="&quot;MRF_MEASUREId&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VersionVersion" ProjectionExpression="&quot;VersionVersion&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DateMonth" ProjectionExpression="SUBSTRING(&quot;DateMonth&quot;, 1, 4) || &#x27;0&#x27; || SUBSTRING(&quot;DateMonth&quot;, 5, 2)">
+        </TargetColumn>
+        <TargetColumn Name="CompanyId" ProjectionExpression="&quot;CompanyId&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CompanyDescription" ProjectionExpression="&quot;CompanyDescription&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MATERIALDescription" ProjectionExpression="&quot;MATERIALDescription&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Profit_CenterId" ProjectionExpression="&quot;Profit_CenterId&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Value" ProjectionExpression="CASE WHEN &quot;Value&quot; = &#x27;null&#x27; THEN null ELSE cast(&quot;Value&quot; as decimal(28,6)) END">
+        </TargetColumn>
+        <TargetColumn Name="ValueUnit" ProjectionExpression="&quot;ValueUnit&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

@@ -1,0 +1,153 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_HaulingScorecardHistory.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_HaulingScorecardHistory&quot;" SourceDisplayName="data_HaulingScorecardHistory">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_HaulingScorecardHistory" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Version" Datatype="VARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TotalRevenue" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EBITDATarget" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Units" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HoursWithMech" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TruckHours" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostCapitalizedRepairs" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostWrecker" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostParts" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostTires" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostWarranty" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostLabor" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalMaintCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PartsCostExclCap" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintLaborExclCap" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Depreciation" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Accident" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Fuel" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DriverLaborCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Miles" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Tons" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Lifts" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Stops" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Yards" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Loads" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="BaseRevenue" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Commodity" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Discounts" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FuelSurcharge" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OtherRevenue" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_HaulingScorecardHistory" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_HaulingScorecardHistory&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_HaulingScorecardHistory">
+      <TargetColumns>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Version" ProjectionExpression="&quot;Version&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalRevenue" ProjectionExpression="&quot;TotalRevenue&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EBITDATarget" ProjectionExpression="&quot;EBITDATarget&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Units" ProjectionExpression="&quot;Units&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HoursWithMech" ProjectionExpression="&quot;HoursWithMech&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TruckHours" ProjectionExpression="&quot;TruckHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostCapitalizedRepairs" ProjectionExpression="&quot;MaintCostCapitalizedRepairs&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostWrecker" ProjectionExpression="&quot;MaintCostWrecker&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostParts" ProjectionExpression="&quot;MaintCostParts&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostTires" ProjectionExpression="&quot;MaintCostTires&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostWarranty" ProjectionExpression="&quot;MaintCostWarranty&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintCostLabor" ProjectionExpression="&quot;MaintCostLabor&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalMaintCost" ProjectionExpression="&quot;TotalMaintCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PartsCostExclCap" ProjectionExpression="&quot;PartsCostExclCap&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintLaborExclCap" ProjectionExpression="&quot;MaintLaborExclCap&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Depreciation" ProjectionExpression="&quot;Depreciation&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Accident" ProjectionExpression="&quot;Accident&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Fuel" ProjectionExpression="&quot;Fuel&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DriverLaborCost" ProjectionExpression="&quot;DriverLaborCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Miles" ProjectionExpression="&quot;Miles&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Tons" ProjectionExpression="&quot;Tons&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Lifts" ProjectionExpression="&quot;Lifts&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Stops" ProjectionExpression="&quot;Stops&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Yards" ProjectionExpression="&quot;Yards&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Loads" ProjectionExpression="&quot;Loads&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BaseRevenue" ProjectionExpression="&quot;BaseRevenue&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Commodity" ProjectionExpression="&quot;Commodity&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Discounts" ProjectionExpression="&quot;Discounts&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FuelSurcharge" ProjectionExpression="&quot;FuelSurcharge&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OtherRevenue" ProjectionExpression="&quot;OtherRevenue&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

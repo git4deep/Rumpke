@@ -1,0 +1,91 @@
+VIEW "VW_manual_planningRecyclingTons" ( "fiscalYearPeriod", "profitCenter", "measureType", "materialType", "processingType", "version", "value", "isActive" ) AS select
+
+ s."DateMonth" as "fiscalYearPeriod",
+
+ s."Profit_CenterId" as "profitCenter",
+
+ s."MRF_MEASUREId" as "measureType",
+
+ s."MATERIALDescription" as "materialType",
+
+ s."ProcessingType" as "processingType",
+
+ s."VersionVersion" as "version",
+
+ s."Value" as "value",
+
+ s."isActive" 
+
+from ( 
+
+	select
+
+	 "S"."MRF_MEASUREId" ,
+
+	 "S"."VersionVersion" ,
+
+	 left("S"."DateMonth", 4) || '0' || right("S"."DateMonth", 2) as "DateMonth",
+
+	 "S"."MATERIALDescription" ,
+
+	 "S"."Profit_CenterId" ,
+
+	 sum(cast(case when upper("S"."Value") = 'NULL' then null else "S"."Value" end as decimal(28, 6))) as "Value",
+
+	 case when upper(left(s."IsDelete", 1)) in ('Y', 'T') then 0 else 1 end as "isActive",
+
+	 max("PT"."ProcessingType") as "ProcessingType" 
+
+	from "manual_planningRecyclingTons_Staging" s 
+
+	left join ( 
+
+		select
+
+		 t."MATERIALDescription",
+
+		 xm."MaterialDescription",
+
+		 xm."ProcessingType",
+
+		 row_number() over( partition by t."MATERIALDescription" order by case when xm."numWords" >= t."numWords" then 0 else 1 end, case when length("MATERIALDescription") = length("MaterialDescription") then 0 else 1 end, xm."ProcessingType" ) as Line 
+
+		from (
+
+			select distinct "MATERIALDescription", length("MATERIALDescription") - length(replace("MATERIALDescription", ' ', '')) as "numWords" 
+
+			from "manual_planningRecyclingTons_Staging" t
+
+		) t 
+
+		left join ( 
+
+			select
+
+			 "MaterialDescription",
+
+			 "ProcessingType",
+
+			 length("MaterialDescription") - length(replace("MaterialDescription", ' ', '')) as "numWords" 
+
+			from ( 
+
+				select "MaterialDescription", "ProcessingType", row_number() over(partition by "MaterialDescription" order by "ProcessingType") as "Line" 
+
+				from (select distinct "materialDescription" as "MaterialDescription", "processingType" as "ProcessingType" from "dim_material") a 
+
+			) a 
+
+		) xm on xm."numWords" >= t."numWords" and ( 
+
+			t."MATERIALDescription" like '%' || replace(xm."MaterialDescription", ' ', '%') || '%' 
+
+			or xm."MaterialDescription" like '%' || replace(t."MATERIALDescription", ' ', '%') || '%' 
+
+		) 
+
+	) pt on pt."MATERIALDescription" = s."MATERIALDescription" and pt.Line = 1 
+
+	group by "S"."MRF_MEASUREId", "S"."VersionVersion", left("S"."DateMonth", 4) || '0' || right("S"."DateMonth", 2), "S"."MATERIALDescription", "S"."Profit_CenterId", case when upper(left(s."IsDelete", 1)) in ('Y', 'T') then 0 else 1 end
+
+) s WITH READ ONLY

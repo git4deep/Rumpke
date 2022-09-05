@@ -1,0 +1,41 @@
+###
+ # This file configures the project "Piper" pipeline of your project.
+ # For a reference of the configuration concept and available options, please have a look into its documentation. 
+# 
+# The documentation for the most recent pipeline version can always be found at:
+# https://sap.github.io/jenkins-library/ 
+# 
+# This is a YAML-file. YAML is an indentation-sensitive file format. Please make sure to properly indent changes to it. 
+### 
+
+### General project setup
+---
+general:
+  buildTool: "mta"
+service:
+  buildToolVersion: "MBTJ11N14"
+stages:
+  Build:
+    mavenExecuteStaticCodeChecks: false
+    npmExecuteLint: false
+  Additional Unit Tests:
+    npmExecuteScripts: false
+    karmaExecuteTests: false
+  Acceptance:
+    cloudFoundryDeploy: true
+    cfApiEndpoint: "https://api.cf.us10.hana.ondemand.com"
+    cfOrg: "Rumpke of Ohio, Inc._prd-cf-rumpke-2ydxhk66"
+    cfSpace: "HANA DB"
+    cfAppName: ""
+    cfCredentialsId: "rumpkecf"
+    uiVeri5ExecuteTests: false
+  Compliance:
+    sonarExecuteScan: false
+  Release:
+    cloudFoundryDeploy: false
+    tmsUpload: false
+steps:
+  artifactPrepareVersion:
+    versioningType: "cloud_noTag"
+  cloudFoundryDeploy:
+    mtaDeployParameters: ""

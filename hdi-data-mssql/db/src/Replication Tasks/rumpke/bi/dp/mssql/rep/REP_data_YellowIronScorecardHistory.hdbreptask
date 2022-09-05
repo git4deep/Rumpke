@@ -1,0 +1,77 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_YellowIronScorecardHistory.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_YellowIronScorecardHistory&quot;" SourceDisplayName="data_YellowIronScorecardHistory">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_YellowIronScorecardHistory" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TechnicalObjectType" Datatype="VARCHAR" Length="100" Precision="100" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="VehicleID" Datatype="VARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Location" Datatype="VARCHAR" Length="255" Precision="255" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Version" Datatype="VARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="RTAMonthlyHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DetailEquipmentHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Loads" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CubicYards" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DailyCoverCY" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalExcavationCY" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ExpenseCY" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_YellowIronScorecardHistory" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_YellowIronScorecardHistory&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_YellowIronScorecardHistory">
+      <TargetColumns>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TechnicalObjectType" ProjectionExpression="&quot;TechnicalObjectType&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VehicleID" ProjectionExpression="&quot;VehicleID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Location" ProjectionExpression="&quot;Location&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Version" ProjectionExpression="&quot;Version&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RTAMonthlyHours" ProjectionExpression="&quot;RTAMonthlyHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DetailEquipmentHours" ProjectionExpression="&quot;DetailEquipmentHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Loads" ProjectionExpression="&quot;Loads&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CubicYards" ProjectionExpression="&quot;CubicYards&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DailyCoverCY" ProjectionExpression="&quot;DailyCoverCY&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalExcavationCY" ProjectionExpression="&quot;TotalExcavationCY&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ExpenseCY" ProjectionExpression="&quot;ExpenseCY&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

@@ -1,0 +1,21 @@
+PROCEDURE "rumpke.bi.data.proc::current_combined_SP" ( ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER AS
+--	READS SQL DATA AS
+BEGIN
+/***************************** 
+	Write your procedure logic 
+ *****************************/
+ CALL "rumpke.bi.dp.flatfile.rep::REP_Current_Combined_Staging.START_REPLICATION";
+
+ Delete from "current_combined"  
+ Where 
+  Period = (Select MAX(Period) from "current_combined") and  
+  (select max(PERIOD) from "Current_Combined_Staging") = 
+  (select max(PERIOD) from  "current_combined");
+
+
+CALL "rumpke.bi.dp.flatfile.fg::FG_Current_Combined_SP";
+
+
+END;

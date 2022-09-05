@@ -1,0 +1,45 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_TransferLoads.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_TransferLoads" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="Id" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOBCode" Datatype="VARCHAR" Length="10" Precision="10" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Version" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OutboundLoads" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" VirtualTableSchema="MSSQL_VIRTUAL" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_TransferLoads&quot;" SourceDisplayName="data_TransferLoads">
+    </SourceObject>
+  </SourceObjects>
+  <Mappings>
+    <Mapping ObjectName="data_TransferLoads" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_TransferLoads&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_TransferLoads">
+      <TargetColumns>
+        <TargetColumn Name="Id" ProjectionExpression="&quot;Id&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOBCode" ProjectionExpression="&quot;LOBCode&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Version" ProjectionExpression="&quot;Version&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OutboundLoads" ProjectionExpression="&quot;OutboundLoads&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

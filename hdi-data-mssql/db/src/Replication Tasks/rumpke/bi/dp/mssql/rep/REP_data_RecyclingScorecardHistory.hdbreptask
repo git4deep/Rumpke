@@ -1,0 +1,98 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_RecyclingScorecardHistory.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_RecyclingScorecardHistory&quot;" SourceDisplayName="data_RecyclingScorecardHistory">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_RecyclingScorecardHistory" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Version" Datatype="VARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TotalRevenue" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="GrossProfit" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CostOfOperations" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EBITDATarget" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RecyclingMaterialSales" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SoldTons" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalProcessedTons" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalBenefits" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalWages" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintenanceCostOther" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaintenanceCostLabor" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RumpkeLaborCostDirect" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RumpkeLaborHoursDirect" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ContractLaborCostDirect" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ContractLaborHoursDirect" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_RecyclingScorecardHistory" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_RecyclingScorecardHistory&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_RecyclingScorecardHistory">
+      <TargetColumns>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Version" ProjectionExpression="&quot;Version&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalRevenue" ProjectionExpression="&quot;TotalRevenue&quot;">
+        </TargetColumn>
+        <TargetColumn Name="GrossProfit" ProjectionExpression="&quot;GrossProfit&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CostOfOperations" ProjectionExpression="&quot;CostOfOperations&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EBITDATarget" ProjectionExpression="&quot;EBITDATarget&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RecyclingMaterialSales" ProjectionExpression="&quot;RecyclingMaterialSales&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SoldTons" ProjectionExpression="&quot;SoldTons&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalProcessedTons" ProjectionExpression="&quot;TotalProcessedTons&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalBenefits" ProjectionExpression="&quot;TotalBenefits&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalWages" ProjectionExpression="&quot;TotalWages&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintenanceCostOther" ProjectionExpression="&quot;MaintenanceCostOther&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaintenanceCostLabor" ProjectionExpression="&quot;MaintenanceCostLabor&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RumpkeLaborCostDirect" ProjectionExpression="&quot;RumpkeLaborCostDirect&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RumpkeLaborHoursDirect" ProjectionExpression="&quot;RumpkeLaborHoursDirect&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ContractLaborCostDirect" ProjectionExpression="&quot;ContractLaborCostDirect&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ContractLaborHoursDirect" ProjectionExpression="&quot;ContractLaborHoursDirect&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

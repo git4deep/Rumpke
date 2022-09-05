@@ -1,0 +1,130 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_PayrollSummaryHistory.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_PayrollSummaryHistory&quot;" SourceDisplayName="data_PayrollSummaryHistory">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_PayrollSummaryHistory" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="keyid" Datatype="BIGINT" Length="24" Precision="24" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="date_date" Datatype="DATE" Length="10" Precision="10" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CompanyCode" Datatype="VARCHAR" Length="20" Precision="20" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter_Description" Datatype="VARCHAR" Length="100" Precision="100" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CostCenter" Datatype="VARCHAR" Length="24" Precision="24" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CostCenter_Description" Datatype="VARCHAR" Length="100" Precision="100" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Lob_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Account" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AccountDescription" Datatype="VARCHAR" Length="250" Precision="250" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AccountGroup" Datatype="VARCHAR" Length="250" Precision="250" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FunctionalAreaGroup" Datatype="VARCHAR" Length="150" Precision="150" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FunctionalArea" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="distributionchannel" Datatype="VARCHAR" Length="150" Precision="150" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OrderType" Datatype="VARCHAR" Length="150" Precision="150" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaterialGroup" Datatype="VARCHAR" Length="150" Precision="150" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ContractType" Datatype="VARCHAR" Length="150" Precision="150" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="job_code" Datatype="VARCHAR" Length="75" Precision="75" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="position_name" Datatype="VARCHAR" Length="250" Precision="250" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="pay_code" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="pay_code_description" Datatype="VARCHAR" Length="500" Precision="500" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="version" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="source_system" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="count_hourly" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="count_salary" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="hours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="wages" Datatype="DECIMAL" Length="18" Precision="18" Scale="3" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_PayrollSummaryHistory" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_PayrollSummaryHistory&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_PayrollSummaryHistory">
+      <TargetColumns>
+        <TargetColumn Name="keyid" ProjectionExpression="&quot;keyid&quot;">
+        </TargetColumn>
+        <TargetColumn Name="date_date" ProjectionExpression="&quot;date_date&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CompanyCode" ProjectionExpression="&quot;CompanyCode&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter_Description" ProjectionExpression="&quot;ProfitCenter_Description&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CostCenter" ProjectionExpression="&quot;CostCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CostCenter_Description" ProjectionExpression="&quot;CostCenter_Description&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Lob_Code" ProjectionExpression="&quot;Lob_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Account" ProjectionExpression="&quot;Account&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AccountDescription" ProjectionExpression="&quot;AccountDescription&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AccountGroup" ProjectionExpression="&quot;AccountGroup&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FunctionalAreaGroup" ProjectionExpression="&quot;FunctionalAreaGroup&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FunctionalArea" ProjectionExpression="&quot;FunctionalArea&quot;">
+        </TargetColumn>
+        <TargetColumn Name="distributionchannel" ProjectionExpression="&quot;distributionchannel&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OrderType" ProjectionExpression="&quot;OrderType&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaterialGroup" ProjectionExpression="&quot;MaterialGroup&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ContractType" ProjectionExpression="&quot;ContractType&quot;">
+        </TargetColumn>
+        <TargetColumn Name="job_code" ProjectionExpression="&quot;job_code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="position_name" ProjectionExpression="&quot;position_name&quot;">
+        </TargetColumn>
+        <TargetColumn Name="pay_code" ProjectionExpression="&quot;pay_code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="pay_code_description" ProjectionExpression="&quot;pay_code_description&quot;">
+        </TargetColumn>
+        <TargetColumn Name="version" ProjectionExpression="&quot;version&quot;">
+        </TargetColumn>
+        <TargetColumn Name="source_system" ProjectionExpression="&quot;source_system&quot;">
+        </TargetColumn>
+        <TargetColumn Name="count_hourly" ProjectionExpression="&quot;count_hourly&quot;">
+        </TargetColumn>
+        <TargetColumn Name="count_salary" ProjectionExpression="&quot;count_salary&quot;">
+        </TargetColumn>
+        <TargetColumn Name="hours" ProjectionExpression="&quot;hours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="wages" ProjectionExpression="&quot;wages&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

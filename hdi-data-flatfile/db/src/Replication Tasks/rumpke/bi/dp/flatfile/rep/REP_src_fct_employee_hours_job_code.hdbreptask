@@ -1,0 +1,66 @@
+<RepTask Name="file:/rumpke/bi/dp/flatfile/rep/REP_src_fct_employee_hours_job_code.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_SFTP_CurrentStaging_FLATFILE" VirtualTableSchema="FLATFILE_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="/CURRENTSTAGING/src_fct_employee_hours_job_code.cfg" SourceDisplayName="src_fct_employee_hours_job_code.cfg">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="FLATFILE">
+    <TargetObject Type="TABLE" ObjectName="src_fct_employee_hours_job_code" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="EMPLOYEE_ID" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="WORK_DATE" Datatype="VARCHAR" Length="10" Precision="10" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="IN_PUNCH" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OUT_PUNCH" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PAY_CODE_NUMBER" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SCHEDULED_HOURS" Datatype="DECIMAL" Length="20" Precision="20" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="REGULAR_HOURS" Datatype="DECIMAL" Length="20" Precision="20" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OVERTIME_HOURS" Datatype="DECIMAL" Length="20" Precision="20" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="WORKED_HOURS" Datatype="DECIMAL" Length="20" Precision="20" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="JOB_CODE" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="COST_CENTER" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="src_fct_employee_hours_job_code" RemoteObjectUniqueName="/CURRENTSTAGING/src_fct_employee_hours_job_code.cfg" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="src_fct_employee_hours_job_code">
+      <TargetColumns>
+        <TargetColumn Name="EMPLOYEE_ID" ProjectionExpression="&quot;EMPLOYEE_ID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WORK_DATE" ProjectionExpression="&quot;WORK_DATE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="IN_PUNCH" ProjectionExpression="&quot;IN_PUNCH&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OUT_PUNCH" ProjectionExpression="&quot;OUT_PUNCH&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PAY_CODE_NUMBER" ProjectionExpression="&quot;PAY_CODE_NUMBER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SCHEDULED_HOURS" ProjectionExpression="&quot;SCHEDULED_HOURS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="REGULAR_HOURS" ProjectionExpression="&quot;REGULAR_HOURS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OVERTIME_HOURS" ProjectionExpression="&quot;OVERTIME_HOURS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WORKED_HOURS" ProjectionExpression="&quot;WORKED_HOURS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="JOB_CODE" ProjectionExpression="&quot;JOB_CODE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="COST_CENTER" ProjectionExpression="&quot;COST_CENTER&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

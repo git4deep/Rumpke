@@ -1,0 +1,25 @@
+COLUMN TABLE "sac_data_YellowIronScorecardHistory" (
+  "ProfitCenter" VARCHAR(8) NOT NULL,
+  "FiscalMonthID" VARCHAR(7) NOT NULL,
+  "LOB_Code" VARCHAR(2) NOT NULL,
+  "TechnicalObjectType" VARCHAR(100) NOT NULL,
+  "VehicleID" VARCHAR(10) NOT NULL,
+  "Location" VARCHAR(255) NOT NULL,
+  "Version" VARCHAR(6) NOT NULL,
+  "RTAMonthlyHours" DECIMAL(18, 2),
+  "DetailEquipmentHours" DECIMAL(18, 6),
+  "Loads" DECIMAL(18, 6),
+  "CubicYards" DECIMAL(18, 6),
+  "DailyCoverCY" DECIMAL(18, 6),
+  "TotalExcavationCY" DECIMAL(18, 6),
+  "ExpenseCY" DECIMAL(18, 6),
+  PRIMARY KEY (
+    "ProfitCenter",
+    "FiscalMonthID",
+    "LOB_Code",
+    "TechnicalObjectType",
+    "VehicleID",
+    "Location",
+    "Version"
+  )
+) UNLOAD PRIORITY 5 AUTO MERGE

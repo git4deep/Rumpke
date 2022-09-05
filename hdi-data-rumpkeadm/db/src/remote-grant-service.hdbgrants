@@ -1,0 +1,47 @@
+{
+	"remote-grant-service": {
+		"object_owner": {
+            "roles": [
+				"S4HANA::external_access_g",
+                "FLATFILE::external_access_g",
+                "MSSQL::external_access_g"			
+            ],
+			 "global_object_privileges":[
+            {
+               "name":"rs_SFTP_SACPLANNING_RUMPKEADM",
+               "type":"REMOTE SOURCE",
+               "privileges":[
+                  "CREATE VIRTUAL TABLE",
+                  "CREATE VIRTUAL FUNCTION",
+                  "CREATE REMOTE SUBSCRIPTION",
+                  "PROCESS REMOTE SUBSCRIPTION EXCEPTION",
+                  "ALTER",
+                  "DROP"
+               ]
+            }
+         ]
+        },
+        
+		"application_user": {
+            "roles": [
+				"S4HANA::external_access_g",
+                "FLATFILE::external_access_g",
+                "MSSQL::external_access_g"
+            ],
+			"global_object_privileges":[
+            {
+               "name":"rs_SFTP_SACPLANNING_RUMPKEADM",
+               "type":"REMOTE SOURCE",
+               "privileges":[
+                  "CREATE VIRTUAL TABLE",
+                  "CREATE VIRTUAL FUNCTION",
+                  "CREATE REMOTE SUBSCRIPTION",
+                  "PROCESS REMOTE SUBSCRIPTION EXCEPTION",
+                  "ALTER",
+                  "DROP"
+               ]
+            }
+         ]
+		}
+	}
+}

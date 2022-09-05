@@ -1,0 +1,101 @@
+<RepTask Name="file:/rumpke/bi/dp/flatfile/rep/REP_Bartholomew_Landfill_Staging.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_SFTP_CurrentStaging_FLATFILE" VirtualTableSchema="FLATFILE_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="/CURRENTSTAGING/bartholomew.cfg" SourceDisplayName="bartholomew.cfg">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="FLATFILE">
+    <TargetObject Type="TABLE" ObjectName="Bartholomew_Landfill_Staging" DropTargetTableIfExists="TRUE">
+      <TargetColumns>
+        <TargetColumn Name="MARKET" Datatype="VARCHAR" Length="30" Precision="30" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DISTRICT" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LANDFILL_DT" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FISCAL_MONTH" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TRUCKNUMBER" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CUSTOMER_NUMBER" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CUSTOMER_NAME" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="COUNTRY_NUMBER" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="COUNTRY_NAME" Datatype="VARCHAR" Length="30" Precision="30" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="WASTE_NUMBER" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="WASTE_NAME" Datatype="VARCHAR" Length="30" Precision="30" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ACT_GROSS_WEIGHT" Datatype="DECIMAL" Length="20" Precision="20" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ACT_TARE_WEIGHT" Datatype="DECIMAL" Length="20" Precision="20" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ACT_NET_WEIGHT" Datatype="DECIMAL" Length="12" Precision="12" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ACT_GEN_FEE" Datatype="DECIMAL" Length="20" Precision="20" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ACT_TOWNSHIP_FEE" Datatype="DECIMAL" Length="20" Precision="20" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ACT_STATE_FEE" Datatype="DECIMAL" Length="20" Precision="20" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ACT_OTHER_FEE" Datatype="DECIMAL" Length="20" Precision="20" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ACT_DISP_REV" Datatype="DECIMAL" Length="20" Precision="20" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="INTERCOMPANY" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="Bartholomew_Landfill_Staging" RemoteObjectUniqueName="/CURRENTSTAGING/bartholomew.cfg" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="Bartholomew_Landfill_Staging">
+      <TargetColumns>
+        <TargetColumn Name="MARKET" ProjectionExpression="&quot;MARKET&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DISTRICT" ProjectionExpression="&quot;DISTRICT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LANDFILL_DT" ProjectionExpression="&quot;LANDFILL_DT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FISCAL_MONTH" ProjectionExpression="&quot;FISCAL_MONTH&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TRUCKNUMBER" ProjectionExpression="&quot;TRUCKNUMBER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CUSTOMER_NUMBER" ProjectionExpression="&quot;CUSTOMER_NUMBER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CUSTOMER_NAME" ProjectionExpression="&quot;CUSTOMER_NAME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="COUNTRY_NUMBER" ProjectionExpression="&quot;COUNTRY_NUMBER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="COUNTRY_NAME" ProjectionExpression="&quot;COUNTRY_NAME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WASTE_NUMBER" ProjectionExpression="&quot;WASTE_NUMBER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WASTE_NAME" ProjectionExpression="&quot;WASTE_NAME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ACT_GROSS_WEIGHT" ProjectionExpression="&quot;ACT_GROSS_WEIGHT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ACT_TARE_WEIGHT" ProjectionExpression="&quot;ACT_TARE_WEIGHT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ACT_NET_WEIGHT" ProjectionExpression="&quot;ACT_NET_WEIGHT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ACT_GEN_FEE" ProjectionExpression="&quot;ACT_GEN_FEE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ACT_TOWNSHIP_FEE" ProjectionExpression="&quot;ACT_TOWNSHIP_FEE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ACT_STATE_FEE" ProjectionExpression="&quot;ACT_STATE_FEE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ACT_OTHER_FEE" ProjectionExpression="&quot;ACT_OTHER_FEE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ACT_DISP_REV" ProjectionExpression="&quot;ACT_DISP_REV&quot;">
+        </TargetColumn>
+        <TargetColumn Name="INTERCOMPANY" ProjectionExpression="&quot;INTERCOMPANY&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

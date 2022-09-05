@@ -1,0 +1,14 @@
+PROCEDURE "rumpke.bi.dp.flatfile.pro::prc_SACPlanningArchiveTR" ( )
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   READS SQL DATA AS
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+   CALL "rumpke.bi.dp.flatfile.pro.flatfile_virtual::VT_prc_sacPlanningMetricsArchive"(
+	PATH => '/usr/sap/S4D/dataprovagent/SACPlanningTRArchive.sh',
+	PARAM => ' ',
+	FLAG => 4,
+	PARAM_3 => ?);
+END

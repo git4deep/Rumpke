@@ -1,0 +1,27 @@
+_schema-version: "2.1"
+ID: RUMPKEADM
+version: 0.0.1
+modules:
+  - name: rumpkeadm_db
+    type: hdb
+    path: db
+    requires:
+      - name: RUMPKEADM_hdi_db
+        properties:
+          TARGET_CONTAINER: ~{hdi-container-name}
+      - name: remote-grant-service
+resources:
+- name: RUMPKEADM_hdi_db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service-name: HDI_DATA_RUMPKEADM
+    config:
+      schema: RUMPKEADM
+      makeUniqueName: false
+  properties:
+    hdi-container-name: ${service-name}
+- name: remote-grant-service
+  type: org.cloudfoundry.existing-service
+  parameters:
+    service-name: remote-grant-service
+

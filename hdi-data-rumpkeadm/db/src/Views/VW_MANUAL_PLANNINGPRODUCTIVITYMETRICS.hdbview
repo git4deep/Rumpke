@@ -1,0 +1,10 @@
+VIEW "VW_manual_planningProductivityMetrics" ( "fiscalYearPeriod", "profitCenter", "costCenter", "account", "version", "value", "isActive" ) AS select
+		left(s."fiscalYearPeriod",4) || '0' || right(s."fiscalYearPeriod",2) as "fiscalYearPeriod",
+		s."profitCenter",
+		s."costCenter",
+		s."account",
+		s."version",
+		sum(s."value") as "value",
+		case when left(max(s."isdelete"), 1) in ('Y', 'T') then 0 else 1 end as "isActive"
+	from "manual_planningMetrics_Staging" s
+	group by s."fiscalYearPeriod", s."profitCenter", s."costCenter", s."account", s."version" WITH READ ONLY

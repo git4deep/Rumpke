@@ -1,0 +1,122 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_ScaleTransactions.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_ScaleTransactions&quot;" SourceDisplayName="data_ScaleTransactions">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_ScaleTransactions" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="ScaleID" Datatype="VARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="ScaleType" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TransferProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="AccountNumber" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TransactionNumber" Datatype="VARCHAR" Length="15" Precision="15" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="CountyMunicipalType" Datatype="VARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="CountyMunicipalCode" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="CountyMunicipalName" Datatype="VARCHAR" Length="40" Precision="40" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="WasteID" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="WasteDescription" Datatype="VARCHAR" Length="25" Precision="25" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="InOutDistrictState" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="DistrictDisposalFee" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="GenerationFee" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TownshipFee" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="StateFee" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OtherFee" Datatype="DECIMAL" Length="18" Precision="18" Scale="6" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FeesCountyCode" Datatype="VARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="FeesStateCode" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="InDateTime" Datatype="TIMESTAMP" Length="27" Precision="27" Scale="7" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="InDate" Datatype="DATE" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="InTime" Datatype="TIME" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="NetWeight" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_ScaleTransactions" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_ScaleTransactions&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_ScaleTransactions">
+      <TargetColumns>
+        <TargetColumn Name="ScaleID" ProjectionExpression="&quot;ScaleID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ScaleType" ProjectionExpression="&quot;ScaleType&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TransferProfitCenter" ProjectionExpression="&quot;TransferProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AccountNumber" ProjectionExpression="&quot;AccountNumber&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TransactionNumber" ProjectionExpression="&quot;TransactionNumber&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CountyMunicipalType" ProjectionExpression="&quot;CountyMunicipalType&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CountyMunicipalCode" ProjectionExpression="&quot;CountyMunicipalCode&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CountyMunicipalName" ProjectionExpression="&quot;CountyMunicipalName&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WasteID" ProjectionExpression="&quot;WasteID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WasteDescription" ProjectionExpression="&quot;WasteDescription&quot;">
+        </TargetColumn>
+        <TargetColumn Name="InOutDistrictState" ProjectionExpression="&quot;InOutDistrictState&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DistrictDisposalFee" ProjectionExpression="&quot;DistrictDisposalFee&quot;">
+        </TargetColumn>
+        <TargetColumn Name="GenerationFee" ProjectionExpression="&quot;GenerationFee&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TownshipFee" ProjectionExpression="&quot;TownshipFee&quot;">
+        </TargetColumn>
+        <TargetColumn Name="StateFee" ProjectionExpression="&quot;StateFee&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OtherFee" ProjectionExpression="&quot;OtherFee&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FeesCountyCode" ProjectionExpression="&quot;FeesCountyCode&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FeesStateCode" ProjectionExpression="&quot;FeesStateCode&quot;">
+        </TargetColumn>
+        <TargetColumn Name="InDateTime" ProjectionExpression="&quot;InDateTime&quot;">
+        </TargetColumn>
+        <TargetColumn Name="InDate" ProjectionExpression="&quot;InDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="InTime" ProjectionExpression="&quot;InTime&quot;">
+        </TargetColumn>
+        <TargetColumn Name="NetWeight" ProjectionExpression="&quot;NetWeight&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

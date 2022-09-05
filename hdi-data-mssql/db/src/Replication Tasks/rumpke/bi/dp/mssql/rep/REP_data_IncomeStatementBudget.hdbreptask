@@ -1,0 +1,130 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_IncomeStatementBudget.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_IncomeStatementBudget&quot;" SourceDisplayName="data_IncomeStatementBudget">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_IncomeStatementBudget" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Precision="0" Scale="0" Length="7" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SubDistrict" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="originalSD" Datatype="SMALLINT" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="dim_SubDistrictMaster_dwID" Datatype="SMALLINT" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="lob" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="originalLOB" Datatype="SMALLINT" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="dim_LineOfBusinessMaster_dwID" Datatype="SMALLINT" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PNLItemID" Datatype="BIGINT" Length="24" Precision="24" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="GLAccountSummaryID" Datatype="BIGINT" Length="24" Precision="24" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TaxCompanyID" Datatype="BIGINT" Length="24" Precision="24" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PNLGroupDescription" Datatype="VARCHAR" Length="100" Precision="100" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PNLSummaryDescription" Datatype="VARCHAR" Length="100" Precision="100" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PNLLineItemDescription" Datatype="VARCHAR" Length="100" Precision="100" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="GLAccountSummaryDescription" Datatype="VARCHAR" Length="100" Precision="100" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="GLAccountSummaryNumber" Datatype="BIGINT" Length="24" Precision="24" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Account" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CostCenter" Datatype="VARCHAR" Length="24" Precision="24" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CompanyCode" Datatype="VARCHAR" Length="20" Precision="20" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FunctionalArea" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DistributionChannel" Datatype="VARCHAR" Length="150" Precision="150" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OrderType" Datatype="VARCHAR" Length="150" Precision="150" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaterialGroup" Datatype="VARCHAR" Length="150" Precision="150" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ContractType" Datatype="VARCHAR" Length="150" Precision="150" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Budget" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Forecast" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_IncomeStatementBudget" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_IncomeStatementBudget&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_IncomeStatementBudget">
+      <TargetColumns>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SubDistrict" ProjectionExpression="&quot;SubDistrict&quot;">
+        </TargetColumn>
+        <TargetColumn Name="originalSD" ProjectionExpression="&quot;originalSD&quot;">
+        </TargetColumn>
+        <TargetColumn Name="dim_SubDistrictMaster_dwID" ProjectionExpression="&quot;dim_SubDistrictMaster_dwID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="lob" ProjectionExpression="&quot;lob&quot;">
+        </TargetColumn>
+        <TargetColumn Name="originalLOB" ProjectionExpression="&quot;originalLOB&quot;">
+        </TargetColumn>
+        <TargetColumn Name="dim_LineOfBusinessMaster_dwID" ProjectionExpression="&quot;dim_LineOfBusinessMaster_dwID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PNLItemID" ProjectionExpression="&quot;PNLItemID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="GLAccountSummaryID" ProjectionExpression="&quot;GLAccountSummaryID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TaxCompanyID" ProjectionExpression="&quot;TaxCompanyID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PNLGroupDescription" ProjectionExpression="&quot;PNLGroupDescription&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PNLSummaryDescription" ProjectionExpression="&quot;PNLSummaryDescription&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PNLLineItemDescription" ProjectionExpression="&quot;PNLLineItemDescription&quot;">
+        </TargetColumn>
+        <TargetColumn Name="GLAccountSummaryDescription" ProjectionExpression="&quot;GLAccountSummaryDescription&quot;">
+        </TargetColumn>
+        <TargetColumn Name="GLAccountSummaryNumber" ProjectionExpression="&quot;GLAccountSummaryNumber&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Account" ProjectionExpression="&quot;Account&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CostCenter" ProjectionExpression="&quot;CostCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CompanyCode" ProjectionExpression="&quot;CompanyCode&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FunctionalArea" ProjectionExpression="&quot;FunctionalArea&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DistributionChannel" ProjectionExpression="&quot;DistributionChannel&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OrderType" ProjectionExpression="&quot;OrderType&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaterialGroup" ProjectionExpression="&quot;MaterialGroup&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ContractType" ProjectionExpression="&quot;ContractType&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Budget" ProjectionExpression="&quot;Budget&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Forecast" ProjectionExpression="&quot;Forecast&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

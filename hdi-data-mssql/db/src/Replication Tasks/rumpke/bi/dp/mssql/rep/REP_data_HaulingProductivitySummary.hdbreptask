@@ -1,0 +1,118 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_HaulingProductivitySummary.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_HaulingProductivitySummary&quot;" SourceDisplayName="data_HaulingProductivitySummary">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_HaulingProductivitySummary" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Versions" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Record_Type" Datatype="VARCHAR" Length="5" Precision="5" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Stops" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ExtraStops" Datatype="SMALLINT" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Lifts" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ExtraLifts" Datatype="SMALLINT" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Loads" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Tons" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Yards" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ExtraYards" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Hours" Datatype="DECIMAL" Length="18" Precision="18" Scale="5" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MechHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LandfillFee" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LaborCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FuelCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VehicleCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MechCost" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="GrossRevenue" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ExtraRevenue" Datatype="DECIMAL" Length="19" Precision="19" Scale="4" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RouteCustomerMiles" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DownMiles" Datatype="SMALLINT" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_HaulingProductivitySummary" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_HaulingProductivitySummary&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_HaulingProductivitySummary">
+      <TargetColumns>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Versions" ProjectionExpression="&quot;Versions&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Record_Type" ProjectionExpression="&quot;Record_Type&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Stops" ProjectionExpression="&quot;Stops&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ExtraStops" ProjectionExpression="&quot;ExtraStops&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Lifts" ProjectionExpression="&quot;Lifts&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ExtraLifts" ProjectionExpression="&quot;ExtraLifts&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Loads" ProjectionExpression="&quot;Loads&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Tons" ProjectionExpression="&quot;Tons&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Yards" ProjectionExpression="&quot;Yards&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ExtraYards" ProjectionExpression="&quot;ExtraYards&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Hours" ProjectionExpression="&quot;Hours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MechHours" ProjectionExpression="&quot;MechHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LandfillFee" ProjectionExpression="&quot;LandfillFee&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LaborCost" ProjectionExpression="&quot;LaborCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FuelCost" ProjectionExpression="&quot;FuelCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VehicleCost" ProjectionExpression="&quot;VehicleCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MechCost" ProjectionExpression="&quot;MechCost&quot;">
+        </TargetColumn>
+        <TargetColumn Name="GrossRevenue" ProjectionExpression="&quot;GrossRevenue&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ExtraRevenue" ProjectionExpression="&quot;ExtraRevenue&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RouteCustomerMiles" ProjectionExpression="&quot;RouteCustomerMiles&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DownMiles" ProjectionExpression="&quot;DownMiles&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

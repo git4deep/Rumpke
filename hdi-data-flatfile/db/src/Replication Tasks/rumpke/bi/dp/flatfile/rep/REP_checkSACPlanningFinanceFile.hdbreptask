@@ -1,0 +1,70 @@
+<RepTask Name="file:/rumpke/bi/dp/flatfile/rep/REP_checkSACPlanningFinanceFile.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <TargetObjects SchemaName="FLATFILE">
+    <TargetObject Type="TABLE" ObjectName="SACPlanningFinanceFileCheck" DropTargetTableIfExists="TRUE">
+      <TargetColumns>
+        <TargetColumn Name="AccountId" Datatype="NVARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VersionVersion" Datatype="NVARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DateMonth" Datatype="NVARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Cost_CenterId" Datatype="NVARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Profit_CenterId" Datatype="NVARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CompanyId" Datatype="NVARCHAR" Length="50" Precision="50" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Contract_TypeId" Datatype="NVARCHAR" Length="250" Precision="250" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Material_GroupId" Datatype="NVARCHAR" Length="250" Precision="250" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Order_TypeId" Datatype="NVARCHAR" Length="250" Precision="250" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DISTRIBUTION_CHANNELId" Datatype="NVARCHAR" Length="250" Precision="250" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Value" Datatype="NVARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ValueUnit" Datatype="NVARCHAR" Length="25" Precision="25" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" VirtualTableSchema="FLATFILE_VIRTUAL" RemoteSourceName="rs_SFTP_SACPlanningFinanceFile" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="/Errors/financeErrorCheck.cfg" SourceDisplayName="financeErrorCheck.cfg">
+    </SourceObject>
+  </SourceObjects>
+  <Mappings>
+    <Mapping ObjectName="SACPlanningFinanceFileCheck" RemoteObjectUniqueName="/Errors/financeErrorCheck.cfg" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="SACPlanningFinanceFileCheck">
+      <TargetColumns>
+        <TargetColumn Name="AccountId" ProjectionExpression="REPLACE(&quot;AccountId&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="VersionVersion" ProjectionExpression="REPLACE(&quot;VersionVersion&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="DateMonth" ProjectionExpression="REPLACE(&quot;DateMonth&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="Cost_CenterId" ProjectionExpression="REPLACE(&quot;Cost_CenterId&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="Profit_CenterId" ProjectionExpression="REPLACE(&quot;Profit_CenterId&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="CompanyId" ProjectionExpression="REPLACE(&quot;CompanyId&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="Contract_TypeId" ProjectionExpression="REPLACE(&quot;Contract_TypeId&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="Material_GroupId" ProjectionExpression="REPLACE(&quot;Material_GroupId&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="Order_TypeId" ProjectionExpression="REPLACE(&quot;Order_TypeId&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="DISTRIBUTION_CHANNELId" ProjectionExpression="REPLACE(&quot;DISTRIBUTION_CHANNELId&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="Value" ProjectionExpression="REPLACE(&quot;Value&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+        <TargetColumn Name="ValueUnit" ProjectionExpression="REPLACE(&quot;ValueUnit&quot;,&#x27;&quot;&#x27;,&#x27;&#x27;)">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

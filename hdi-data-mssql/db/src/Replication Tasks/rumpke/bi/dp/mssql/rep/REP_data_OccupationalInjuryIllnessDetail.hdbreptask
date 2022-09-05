@@ -1,0 +1,106 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_OccupationalInjuryIllnessDetail.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_OccupationalInjuryIllnessDetail&quot;" SourceDisplayName="data_OccupationalInjuryIllnessDetail">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_OccupationalInjuryIllnessDetail" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="Record_Type" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="EmployeeID" Datatype="VARCHAR" Length="9" Precision="9" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="VendorID" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="job_code" Datatype="NVARCHAR" Length="52" Precision="52" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="position_name" Datatype="NVARCHAR" Length="250" Precision="250" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LastPayrollDate" Datatype="DATE" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="SalaryHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HourlyHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OvertimeHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalAmount" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalReportedIncidentCount" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalOSHARecordableCount" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalLostHours" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalFYIReportedCount" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalReportedIncidentCount" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalOSHARecordableCount" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalFYIReportedCount" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_OccupationalInjuryIllnessDetail" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_OccupationalInjuryIllnessDetail&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_OccupationalInjuryIllnessDetail">
+      <TargetColumns>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Record_Type" ProjectionExpression="&quot;Record_Type&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EmployeeID" ProjectionExpression="&quot;EmployeeID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VendorID" ProjectionExpression="&quot;VendorID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="job_code" ProjectionExpression="&quot;job_code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="position_name" ProjectionExpression="&quot;position_name&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LastPayrollDate" ProjectionExpression="&quot;LastPayrollDate&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SalaryHours" ProjectionExpression="&quot;SalaryHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HourlyHours" ProjectionExpression="&quot;HourlyHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OvertimeHours" ProjectionExpression="&quot;OvertimeHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalHours" ProjectionExpression="&quot;TotalHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalAmount" ProjectionExpression="&quot;TotalAmount&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalReportedIncidentCount" ProjectionExpression="&quot;TotalReportedIncidentCount&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalOSHARecordableCount" ProjectionExpression="&quot;TotalOSHARecordableCount&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalLostHours" ProjectionExpression="&quot;TotalLostHours&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalFYIReportedCount" ProjectionExpression="&quot;TotalFYIReportedCount&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalReportedIncidentCount" ProjectionExpression="&quot;AdjustedTotalReportedIncidentCount&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalOSHARecordableCount" ProjectionExpression="&quot;AdjustedTotalOSHARecordableCount&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AdjustedTotalFYIReportedCount" ProjectionExpression="&quot;AdjustedTotalFYIReportedCount&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

@@ -1,0 +1,19 @@
+VIEW "VW_manual_planningTransferTons" ( "fiscalYearPeriod", "profitCenter", "measureType", "customerID", "version", "value", "isActive" ) AS select
+
+	left(s."DateMonth", 4) || '0' || right(s."DateMonth", 2) as "fiscalYearPeriod",
+
+	s."Profit_CenterId" as "profitCenter",
+
+	s."Measures___OperationsId" as "measureType",
+
+	s."Service_CustomerId" as "customerID",
+
+	s."VersionVersion" as "version",
+
+	sum(s."Value") as "value",
+
+	case when upper(left(max(s."IsDelete"), 1)) in ('Y', 'T') then 0 else 1 end as "isActive"
+
+from "manual_planningTransferTons_Staging" s 
+
+group by s."Measures___OperationsId", s."VersionVersion", left(s."DateMonth", 4) || '0' || right(s."DateMonth", 2), s."Service_CustomerId", s."Profit_CenterId" WITH READ ONLY

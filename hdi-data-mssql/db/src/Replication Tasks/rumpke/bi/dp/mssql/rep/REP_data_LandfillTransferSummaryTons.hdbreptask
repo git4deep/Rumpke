@@ -1,0 +1,90 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_LandfillTransferSummaryTons.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_LandfillTransferSummaryTons&quot;" SourceDisplayName="data_LandfillTransferSummaryTons">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_LandfillTransferSummaryTons" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="LandfillTransferSummaryTonsID" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Version" Datatype="VARCHAR" Length="10" Precision="10" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ScaleHouseCode" Datatype="VARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ScaleHouseType" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Source_ProfitCenter" Datatype="VARCHAR" Length="8" Precision="8" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Source_LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AccountType" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AccountGroup" Datatype="VARCHAR" Length="50" Precision="50" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MaterialClass" Datatype="VARCHAR" Length="100" Precision="100" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Tons" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Disposal" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="Surcharge" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LandfillMgmtRevenue" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FuelSurcharge" Datatype="DECIMAL" Length="18" Precision="18" Scale="2" Nullable="TRUE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_LandfillTransferSummaryTons" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_LandfillTransferSummaryTons&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_LandfillTransferSummaryTons">
+      <TargetColumns>
+        <TargetColumn Name="LandfillTransferSummaryTonsID" ProjectionExpression="&quot;LandfillTransferSummaryTonsID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Version" ProjectionExpression="&quot;Version&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ScaleHouseCode" ProjectionExpression="&quot;ScaleHouseCode&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ScaleHouseType" ProjectionExpression="&quot;ScaleHouseType&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Source_ProfitCenter" ProjectionExpression="&quot;Source_ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Source_LOB_Code" ProjectionExpression="&quot;Source_LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AccountType" ProjectionExpression="&quot;AccountType&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AccountGroup" ProjectionExpression="&quot;AccountGroup&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MaterialClass" ProjectionExpression="&quot;MaterialClass&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Tons" ProjectionExpression="&quot;Tons&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Disposal" ProjectionExpression="&quot;Disposal&quot;">
+        </TargetColumn>
+        <TargetColumn Name="Surcharge" ProjectionExpression="&quot;Surcharge&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LandfillMgmtRevenue" ProjectionExpression="&quot;LandfillMgmtRevenue&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FuelSurcharge" ProjectionExpression="&quot;FuelSurcharge&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

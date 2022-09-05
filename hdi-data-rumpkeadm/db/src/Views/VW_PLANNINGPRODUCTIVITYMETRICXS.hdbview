@@ -1,0 +1,54 @@
+VIEW "VW_planningProductivityMetricxs" ( "fiscalYearPeriod", "profitCenter", "costCenter", "account", "version", "isActive", "value" ) AS WITH "STAGE" AS (select
+	 s."fiscalYearPeriod",
+	 s."profitCenter",
+	 s."costCenter",
+	 s."account",
+	 s."version",
+	 sum(s."value") as "value" 
+	from "productivityMetrics_Staging" s 
+	group by s."fiscalYearPeriod",
+	 s."profitCenter",
+	 s."costCenter",
+	 s."account",
+	 s."version"), "DIST_VERDATE" AS (select
+	 distinct s."version",
+	 s."fiscalYearPeriod" 
+	from "productivityMetrics_Staging" s), "TARGET" AS (select
+	 t."fiscalYearPeriod",
+	 t."profitCenter",
+	 t."costCenter",
+	 t."account",
+	 t."version",
+	 t."value",
+	 t."isActive" 
+	from "rumpke.bi.data.ddl::transactionData.productivityMetrics" t 
+	inner join dist_verDate d on d."version" = t."version" 
+	and d."fiscalYearPeriod" = t."fiscalYearPeriod") select
+	 coalesce(s."fiscalYearPeriod",
+	 t."fiscalYearPeriod") as "fiscalYearPeriod",
+	 coalesce(s."profitCenter",
+	 t."profitCenter") as "profitCenter",
+	 coalesce(s."costCenter",
+	 t."costCenter") as "costCenter",
+	 coalesce(s."account",
+	 t."account") as "account",
+	 coalesce(s."version",
+	 t."version") as "version",
+	 case when s."fiscalYearPeriod" is not null 
+then 1 
+else 0 
+end as "isActive",
+	 coalesce(s."value",
+	 t."value") as "value" 
+from stage s full join target t on t."fiscalYearPeriod" = s."fiscalYearPeriod" 
+and t."profitCenter" = s."profitCenter" 
+and t."costCenter" = s."costCenter" 
+and t."account" = s."account" 
+and t."version" = s."version" 
+where t."fiscalYearPeriod" is null 
+or ( s."fiscalYearPeriod" is not null 
+	and ( coalesce(t."isActive",
+	0) = 0 
+		or coalesce(t."value",
+	 0.0) <> coalesce(s."value",
+	 0.0) ) ) WITH READ ONLY

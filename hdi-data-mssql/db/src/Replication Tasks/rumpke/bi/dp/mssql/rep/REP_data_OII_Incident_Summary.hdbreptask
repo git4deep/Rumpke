@@ -1,0 +1,66 @@
+<RepTask Name="file:/rumpke/bi/dp/mssql/rep/REP_data_OII_Incident_Summary.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_ExternalStage_MSSQL" VirtualTableSchema="MSSQL_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_OII_Incident_Summary&quot;" SourceDisplayName="data_OII_Incident_Summary">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="MSSQL">
+    <TargetObject Type="TABLE" ObjectName="data_OII_Incident_Summary" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="FiscalMonthID" Datatype="VARCHAR" Length="7" Precision="7" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" Datatype="VARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" Datatype="VARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TotalFYICount_CM" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ReportedIncidentCount_CM" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalOSHARecordableCount_CM" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalIncidentCount_CM" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalFYICount_YTD" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ReportedIncidentCount_YTD" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalOSHARecordableCount_YTD" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TotalIncidentCount_YTD" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="data_OII_Incident_Summary" RemoteObjectUniqueName="&quot;sac&quot;.&quot;data_OII_Incident_Summary&quot;" FilterExpression="" ReplicationBehavior="InitLoadOnly" VTObjectName="data_OII_Incident_Summary">
+      <TargetColumns>
+        <TargetColumn Name="FiscalMonthID" ProjectionExpression="&quot;FiscalMonthID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ProfitCenter" ProjectionExpression="&quot;ProfitCenter&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOB_Code" ProjectionExpression="&quot;LOB_Code&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalFYICount_CM" ProjectionExpression="&quot;TotalFYICount_CM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ReportedIncidentCount_CM" ProjectionExpression="&quot;ReportedIncidentCount_CM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalOSHARecordableCount_CM" ProjectionExpression="&quot;TotalOSHARecordableCount_CM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalIncidentCount_CM" ProjectionExpression="&quot;TotalIncidentCount_CM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalFYICount_YTD" ProjectionExpression="&quot;TotalFYICount_YTD&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ReportedIncidentCount_YTD" ProjectionExpression="&quot;ReportedIncidentCount_YTD&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalOSHARecordableCount_YTD" ProjectionExpression="&quot;TotalOSHARecordableCount_YTD&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TotalIncidentCount_YTD" ProjectionExpression="&quot;TotalIncidentCount_YTD&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

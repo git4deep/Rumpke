@@ -1,0 +1,39 @@
+VIEW "VW_planningTransferTons" ( "fiscalYearPeriod", "profitCenter", "measureType", "customerID", "version", "value", "isActive" ) AS WITH "STAGE" AS (select
+		s."Measures___OperationsId",
+		s."VersionVersion",
+		s."DateMonth",
+		s."Service_CustomerId",
+		s."Profit_CenterId",	
+		sum(s."Value") as "Value"
+	from "SACPlanningTransferTons_Staging" s
+	group by
+		s."Measures___OperationsId",
+		s."VersionVersion",
+		s."DateMonth",
+		s."Service_CustomerId",
+		s."Profit_CenterId"), "DIST_VERDATE" AS (select distinct
+		s."VersionVersion",
+		s."DateMonth"
+		from "SACPlanningTransferTons_Staging" s), "TARGET" AS (select
+		t."fiscalYearPeriod", 
+		t."profitCenter", 
+		t."measureType",
+		t."customerID",
+		t."version",
+		t."value"
+	from "rumpke.bi.data.ddl::transactionData.planningTransferTons" t
+	inner join dist_verDate d on d."VersionVersion" = t."version" and d."DateMonth" = t."fiscalYearPeriod") select
+	coalesce(s."DateMonth", t."fiscalYearPeriod") as "fiscalYearPeriod",
+	coalesce(s."Profit_CenterId",	t."profitCenter") as "profitCenter",
+	coalesce(s."Measures___OperationsId", t."measureType") as "measureType",
+	coalesce(s."Service_CustomerId", t."customerID") as "customerID",
+	coalesce(s."VersionVersion", t."version") as "version",
+	coalesce(s."Value", t."value") as "value",
+	case when s."DateMonth" is null then 0 else 1 end as "isActive"
+from stage s
+full join target t on
+	t."fiscalYearPeriod" = s."DateMonth" and
+	t."profitCenter" = s."Profit_CenterId" and
+	t."measureType" = s."Measures___OperationsId" and
+	t."customerID" = s."Service_CustomerId" and
+	t."version" = s."VersionVersion" WITH READ ONLY

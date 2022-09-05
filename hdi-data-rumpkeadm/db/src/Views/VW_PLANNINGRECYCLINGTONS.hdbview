@@ -1,0 +1,90 @@
+VIEW "VW_planningRecyclingTons" ( "fiscalYearPeriod", "profitCenter", "measureType", "materialType", "processingType", "version", "value", "isActive" ) AS select
+	 coalesce(s."DateMonth",
+	 t."fiscalYearPeriod") as "fiscalYearPeriod",
+	 coalesce(s."Profit_CenterId",
+	 t."profitCenter") as "profitCenter",
+	 coalesce(s."MRF_MEASUREId",
+	 t."measureType") as "measureType",
+	 coalesce(s."MATERIALDescription",
+	 t."materialType") as "materialType",
+	 coalesce(s."ProcessingType",
+	 t."processingType") as "processingType",
+	 coalesce(s."VersionVersion",
+	 t."version") as "version",
+	 coalesce(s."Value",
+	 t."value") as "value",
+	 case when s."DateMonth" is null 
+then 0 
+else 1 
+end as "isActive" 
+from ( select
+	 "S"."MRF_MEASUREId" ,
+	 "S"."VersionVersion" ,
+	 "S"."DateMonth" ,
+	 "S"."MATERIALDescription" ,
+	 "S"."Profit_CenterId" ,
+	 sum(cast(case when upper("S"."Value") = 'NULL' 
+			then null 
+			else "S"."Value" 
+			end as decimal(28,
+	 6))) as "Value",
+	 max("PT"."ProcessingType") as "ProcessingType" 
+	from "SACPlanningRecyclingTons_Staging" s 
+	left join ( select
+	 t."MATERIALDescription",
+	 xm."MaterialDescription",
+	 xm."ProcessingType",
+	 row_number() over( partition by t."MATERIALDescription" 
+			order by case when xm."numWords" >= t."numWords" 
+			then 0 
+			else 1 
+			end,
+	 case when length("MATERIALDescription") = length("MaterialDescription") 
+			then 0 
+			else 1 
+			end,
+	 xm."ProcessingType" ) as Line 
+		from (select
+	 distinct "MATERIALDescription",
+	 length("MATERIALDescription") - length(replace("MATERIALDescription",
+	 ' ',
+	 '')) as "numWords" 
+			from "SACPlanningRecyclingTons_Staging" t) t 
+		left join ( select
+	 "MaterialDescription",
+	 "ProcessingType",
+	 length("MaterialDescription") - length(replace("MaterialDescription",
+	 ' ',
+	 '')) as "numWords" 
+			from ( select
+	 "MaterialDescription",
+	 "ProcessingType",
+	 row_number() over(partition by "MaterialDescription" 
+					order by "ProcessingType") as "Line" 
+				from (select
+	 distinct "materialDescription" as "MaterialDescription",
+	 "processingType" as "ProcessingType" 
+					from "dim_material") a ) a ) xm on xm."numWords" >= t."numWords" 
+		and ( t."MATERIALDescription" like '%' || replace(xm."MaterialDescription",
+	 ' ',
+	 '%') || '%' 
+			or xm."MaterialDescription" like '%' || replace(t."MATERIALDescription",
+	 ' ',
+	 '%') || '%' ) ) pt on pt."MATERIALDescription" = s."MATERIALDescription" 
+	and pt.Line = 1 
+	group by "S"."MRF_MEASUREId",
+	 "S"."VersionVersion",
+	 "S"."DateMonth",
+	 "S"."MATERIALDescription",
+	 "S"."Profit_CenterId" ) s full join ( select
+	 prt.* 
+	from "rumpke.bi.data.ddl::transactionData.planningRecyclingTons" prt 
+	inner join (select
+	 distinct "VersionVersion",
+	 "DateMonth" 
+		from "SACPlanningRecyclingTons_Staging") s on s."VersionVersion" = "version" 
+	and s."DateMonth" = "fiscalYearPeriod" ) t on s."DateMonth" = t."fiscalYearPeriod" 
+and s."Profit_CenterId" = t."profitCenter" 
+and s."MRF_MEASUREId" = t."measureType" 
+and s."MATERIALDescription" = t."materialType" 
+and s."VersionVersion" = t."version" WITH READ ONLY
