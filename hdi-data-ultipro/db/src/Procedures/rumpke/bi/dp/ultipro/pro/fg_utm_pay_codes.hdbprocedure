@@ -1,0 +1,31 @@
+PROCEDURE "rumpke.bi.dp.ultipro.pro::fg_utm_pay_codes"()
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+   	AS
+BEGIN
+
+DELETE FROM "XML_UTM_PAY_CODES";
+
+insert into "XML_UTM_PAY_CODES" (
+select 
+TO_NCLOB(REPLACE(REPLACE(TO_NVARCHAR(SOAP_BODY),'<soap:GetUTMPayCodesSoapOut xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><GetUTMPayCodesResponse xmlns="http://www.outsystems.com">',''),'</GetUTMPayCodesResponse>   </soap:GetUTMPayCodesSoapOut>','')) as "P2"
+FROM "GetUTMPayCodes"
+('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:out="http://www.outsystems.com">
+<Body>    
+<out:GetUTMPayCodes>
+      <out:Username>sac_service_account</out:Username>
+      <out:Password>ENTEReCAMOXi</out:Password>
+    </out:GetUTMPayCodes>
+</Body></soapenv:Envelope>'));
+
+UPSERT "UTM_PAY_CODES"
+SELECT COALESCE(PAY_CODE_NUMBER,'') as PAY_CODE_NUMBER, COALESCE(PAY_CODE_DESCRIPTION,'') as PAY_CODE_DESCRIPTION from (
+SELECT * FROM
+XMLTABLE('/Result/UTMPayCode/src_utm_pay_codes' PASSING
+"XML_UTM_PAY_CODES".XML
+COLUMNS
+"PAY_CODE_NUMBER" NVARCHAR(5000) PATH 'Pay_Code_Number',
+"PAY_CODE_DESCRIPTION" NVARCHAR(5000) PATH 'pay_code_desc'
+) as XTABLE );
+
+END;

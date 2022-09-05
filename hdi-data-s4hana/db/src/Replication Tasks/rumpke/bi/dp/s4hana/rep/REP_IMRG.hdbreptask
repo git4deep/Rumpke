@@ -1,0 +1,242 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_IMRG.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;IMRG&quot;" SourceDisplayName="IMRG">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="IMRG" DropTargetTableIfExists="TRUE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="MDOCM" Datatype="NVARCHAR" Length="20" Precision="20" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="POINT" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="IDATE" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ITIME" Datatype="NVARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="INVTS" Datatype="NVARCHAR" Length="11" Precision="11" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CNTRG" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MDTXT" Datatype="NVARCHAR" Length="40" Precision="40" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MLANG" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KZLTX" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="READR" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ERDAT" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ERUHR" Datatype="NVARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ERNAM" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AEDAT" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AENAM" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LVORM" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="GENER" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PRUEFLOS" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VORGLFNR" Datatype="NVARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MERKNR" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DETAILERG" Datatype="NVARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ROOTD" Datatype="NVARCHAR" Length="20" Precision="20" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TOLTY" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TOLID" Datatype="NVARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="WOOBJ" Datatype="NVARCHAR" Length="22" Precision="22" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DOCAF" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="READG" Datatype="DOUBLE" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="READGI" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RECDV" Datatype="DOUBLE" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RECDVI" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RECDU" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CNTRR" Datatype="DOUBLE" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CNTRRI" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CDIFF" Datatype="DOUBLE" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CDIFFI" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="IDIFF" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EXCHG" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TOTEX" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CODCT" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CODGR" Datatype="NVARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VLCOD" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CVERS" Datatype="NVARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PREST" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CANCL" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="WOOB1" Datatype="NVARCHAR" Length="22" Precision="22" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PROBENR" Datatype="NVARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MBEWERTG" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="INTVL" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="IDAT1" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ITIM1" Datatype="NVARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TMSTP_BW" Datatype="DECIMAL" Length="16" Precision="16" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ZZSOURCE" Datatype="NVARCHAR" Length="15" Precision="15" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOGSYSTEM" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ZZSTATE" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="IMRG" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;IMRG&quot;" FilterExpression="" ReplicationBehavior="InitAndRealtime" VTObjectName="IMRG">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MDOCM" ProjectionExpression="&quot;MDOCM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="POINT" ProjectionExpression="&quot;POINT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="IDATE" ProjectionExpression="&quot;IDATE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ITIME" ProjectionExpression="&quot;ITIME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="INVTS" ProjectionExpression="&quot;INVTS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CNTRG" ProjectionExpression="&quot;CNTRG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MDTXT" ProjectionExpression="&quot;MDTXT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MLANG" ProjectionExpression="&quot;MLANG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KZLTX" ProjectionExpression="&quot;KZLTX&quot;">
+        </TargetColumn>
+        <TargetColumn Name="READR" ProjectionExpression="&quot;READR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ERDAT" ProjectionExpression="&quot;ERDAT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ERUHR" ProjectionExpression="&quot;ERUHR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ERNAM" ProjectionExpression="&quot;ERNAM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AEDAT" ProjectionExpression="&quot;AEDAT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AENAM" ProjectionExpression="&quot;AENAM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LVORM" ProjectionExpression="&quot;LVORM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="GENER" ProjectionExpression="&quot;GENER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PRUEFLOS" ProjectionExpression="&quot;PRUEFLOS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VORGLFNR" ProjectionExpression="&quot;VORGLFNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MERKNR" ProjectionExpression="&quot;MERKNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DETAILERG" ProjectionExpression="&quot;DETAILERG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ROOTD" ProjectionExpression="&quot;ROOTD&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TOLTY" ProjectionExpression="&quot;TOLTY&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TOLID" ProjectionExpression="&quot;TOLID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WOOBJ" ProjectionExpression="&quot;WOOBJ&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DOCAF" ProjectionExpression="&quot;DOCAF&quot;">
+        </TargetColumn>
+        <TargetColumn Name="READG" ProjectionExpression="&quot;READG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="READGI" ProjectionExpression="&quot;READGI&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RECDV" ProjectionExpression="&quot;RECDV&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RECDVI" ProjectionExpression="&quot;RECDVI&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RECDU" ProjectionExpression="&quot;RECDU&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CNTRR" ProjectionExpression="&quot;CNTRR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CNTRRI" ProjectionExpression="&quot;CNTRRI&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CDIFF" ProjectionExpression="&quot;CDIFF&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CDIFFI" ProjectionExpression="&quot;CDIFFI&quot;">
+        </TargetColumn>
+        <TargetColumn Name="IDIFF" ProjectionExpression="&quot;IDIFF&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EXCHG" ProjectionExpression="&quot;EXCHG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TOTEX" ProjectionExpression="&quot;TOTEX&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CODCT" ProjectionExpression="&quot;CODCT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CODGR" ProjectionExpression="&quot;CODGR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VLCOD" ProjectionExpression="&quot;VLCOD&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CVERS" ProjectionExpression="&quot;CVERS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PREST" ProjectionExpression="&quot;PREST&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CANCL" ProjectionExpression="&quot;CANCL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WOOB1" ProjectionExpression="&quot;WOOB1&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PROBENR" ProjectionExpression="&quot;PROBENR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MBEWERTG" ProjectionExpression="&quot;MBEWERTG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="INTVL" ProjectionExpression="&quot;INTVL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="IDAT1" ProjectionExpression="&quot;IDAT1&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ITIM1" ProjectionExpression="&quot;ITIM1&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TMSTP_BW" ProjectionExpression="&quot;TMSTP_BW&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ZZSOURCE" ProjectionExpression="&quot;ZZSOURCE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOGSYSTEM" ProjectionExpression="&quot;LOGSYSTEM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ZZSTATE" ProjectionExpression="&quot;ZZSTATE&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

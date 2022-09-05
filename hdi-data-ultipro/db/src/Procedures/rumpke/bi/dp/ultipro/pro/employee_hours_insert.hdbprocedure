@@ -1,0 +1,91 @@
+PROCEDURE "rumpke.bi.dp.ultipro.pro::employee_hours_insert"(
+		OUT INSERTS "EMPLOYEE_HOURS"
+	)
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+	READS SQL DATA
+AS
+BEGIN
+	INSERTS = SELECT  NULL AS "TASK_ID", 
+				 NULL AS "ROW_ID", 
+				NULL AS "PARENT_KEY", 
+				NULL AS "KEY", 
+				"EMPLOYEE_ID", 
+				 WORK_DATE, 
+				IN_PUNCH, 
+				 OUT_PUNCH, 
+				 PAY_CODE_NUMBER, 
+				SCHEDULED_HOURS, 
+				 REGULAR_HOURS, 
+				 OVERTIME_HOURS, 
+			 WORKED_HOURS, 
+				JOB_CODE, 
+				COST_CENTER, 
+				HASH_SHA256(
+					TO_BINARY("EMPLOYEE_ID"), 
+					IFNULL(
+						TO_VARCHAR(
+							"WORK_DATE", 
+							'YYYYMMDD'
+						), 
+						'||'
+					), 
+					IFNULL(
+						TO_VARCHAR(
+							"IN_PUNCH", 
+							'YYYYMMDD'
+						), 
+						'||'
+					), 
+					IFNULL(
+						TO_VARCHAR(
+							"IN_PUNCH", 
+							'HHMISS'
+						), 
+						'||'
+					), 
+					TO_BINARY(IFNULL(
+							TO_VARCHAR(
+								"OUT_PUNCH", 
+								'YYYYMMDD'
+							), 
+							'||'
+						)), 
+					TO_BINARY(IFNULL(
+							TO_VARCHAR(
+								"OUT_PUNCH", 
+								'HHMISS'
+							), 
+							'||'
+						)), 
+					TO_BINARY(IFNULL(
+							TO_VARCHAR(
+								"PAY_CODE_NUMBER", 
+								'00'
+							), 
+							'||'
+						)), 
+					TO_BINARY(IFNULL(
+							TO_VARCHAR(
+								"REGULAR_HOURS", 
+								'00.00'
+							), 
+							'||'
+						)), 
+					TO_BINARY(IFNULL(
+							TO_VARCHAR(
+								"OVERTIME_HOURS", 
+								'00.00'
+							), 
+							'||'
+						)), 
+					TO_BINARY(IFNULL(
+							TO_VARCHAR(
+								"WORKED_HOURS", 
+								'00.00'
+							), 
+							'||'
+						))
+				) AS "HASH"
+			FROM "EMPLOYEE_HOURS_STAGING";
+END;

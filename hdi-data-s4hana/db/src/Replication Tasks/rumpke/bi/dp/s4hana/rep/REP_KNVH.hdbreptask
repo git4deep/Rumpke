@@ -1,0 +1,85 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_KNVH.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;KNVH&quot;" SourceDisplayName="KNVH">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="KNVH" DropTargetTableIfExists="TRUE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="HITYP" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="KUNNR" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="VKORG" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="VTWEG" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="SPART" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="DATAB" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="DATBI" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HKUNNR" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HVKORG" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HVTWEG" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HSPART" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="GRPNO" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="BOKRE" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PRFRE" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HZUOR" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="KNVH" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;KNVH&quot;" FilterExpression=" " ReplicationBehavior="InitAndRealtime" VTObjectName="KNVH">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HITYP" ProjectionExpression="&quot;HITYP&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KUNNR" ProjectionExpression="&quot;KUNNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VKORG" ProjectionExpression="&quot;VKORG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VTWEG" ProjectionExpression="&quot;VTWEG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SPART" ProjectionExpression="&quot;SPART&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DATAB" ProjectionExpression="&quot;DATAB&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DATBI" ProjectionExpression="&quot;DATBI&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HKUNNR" ProjectionExpression="&quot;HKUNNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HVKORG" ProjectionExpression="&quot;HVKORG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HVTWEG" ProjectionExpression="&quot;HVTWEG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HSPART" ProjectionExpression="&quot;HSPART&quot;">
+        </TargetColumn>
+        <TargetColumn Name="GRPNO" ProjectionExpression="&quot;GRPNO&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BOKRE" ProjectionExpression="&quot;BOKRE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PRFRE" ProjectionExpression="&quot;PRFRE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HZUOR" ProjectionExpression="&quot;HZUOR&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

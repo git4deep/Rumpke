@@ -1,0 +1,45 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_JEST.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;JEST&quot;" SourceDisplayName="JEST">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="JEST" DropTargetTableIfExists="TRUE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="OBJNR" Datatype="NVARCHAR" Length="22" Precision="22" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="STAT" Datatype="NVARCHAR" Length="5" Precision="5" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="INACT" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CHGNR" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="_DATAAGING" Datatype="NVARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="JEST" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;JEST&quot;" FilterExpression=" " ReplicationBehavior="InitAndRealtime" VTObjectName="JEST">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OBJNR" ProjectionExpression="&quot;OBJNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="STAT" ProjectionExpression="&quot;STAT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="INACT" ProjectionExpression="&quot;INACT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CHGNR" ProjectionExpression="&quot;CHGNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="_DATAAGING" ProjectionExpression="&quot;_DATAAGING&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

@@ -1,0 +1,42 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_T023T.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;T023T&quot;" SourceDisplayName="T023T">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="T023T" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="SPRAS" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="MATKL" Datatype="NVARCHAR" Length="9" Precision="9" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="WGBEZ" Datatype="NVARCHAR" Length="20" Precision="20" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="WGBEZ60" Datatype="NVARCHAR" Length="60" Precision="60" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="T023T" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;T023T&quot;" FilterExpression="" ReplicationBehavior="InitAndRealtime" VTObjectName="T023T">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SPRAS" ProjectionExpression="&quot;SPRAS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MATKL" ProjectionExpression="&quot;MATKL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WGBEZ" ProjectionExpression="&quot;WGBEZ&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WGBEZ60" ProjectionExpression="&quot;WGBEZ60&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

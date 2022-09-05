@@ -1,0 +1,35 @@
+PROCEDURE "rumpke.bi.data.proc::loadEmployeeHours_SP"
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY DEFINER
+AS
+BEGIN
+	DECLARE v_loadNumberOfDays INT := 10;
+	DECLARE v_CurrentDate DATE := add_days(CURRENT_DATE, -1* :v_loadNumberOfDays);
+	DECLARE v_Inserts TABLE (
+			"TASK_ID" BIGINT,
+			"ROW_ID" BIGINT,
+			"PARENT_KEY" BIGINT,
+			"KEY" BIGINT,
+			"EMPLOYEE_ID" NVARCHAR(5000),
+			"WORK_DATE" DATE,
+			"IN_PUNCH" LONGDATE,
+			"OUT_PUNCH" LONGDATE,
+			"PAY_CODE_NUMBER" DECIMAL(38, 5),
+			"SCHEDULED_HOURS" DECIMAL(38, 5),
+			"REGULAR_HOURS" DECIMAL(38, 5),
+			"OVERTIME_HOURS" DECIMAL(38, 5),
+			"WORKED_HOURS" DECIMAL(38, 5),
+			"JOB_CODE" NVARCHAR(5000),
+			"COST_CENTER" NVARCHAR(5000),
+			"HASH" VARBINARY(32)
+		);
+
+	CALL "rumpke.bi.dp.ultipro.pro::fg_employee_hours_staging"();
+	CALL "rumpke.bi.dp.ultipro.fg::FG_EMPLOYEE_HOURS_FINAL_SP"();
+	CALL "rumpke.bi.dp.ultipro.pro::employee_hours_insert"(INSERTS => v_Inserts);
+	
+	DELETE FROM "EMPLOYEE_HOURS"
+	WHERE "WORK_DATE" >= :v_CurrentDate
+		AND ("HASH" NOT IN (SELECT "HASH"
+				FROM :v_Inserts));
+END;

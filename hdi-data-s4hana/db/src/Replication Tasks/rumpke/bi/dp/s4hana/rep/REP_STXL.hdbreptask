@@ -1,0 +1,53 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_STXL.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;STXL&quot;" SourceDisplayName="STXL">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="STXL" DropTargetTableIfExists="TRUE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="RELID" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TDOBJECT" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TDNAME" Datatype="NVARCHAR" Length="70" Precision="70" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TDID" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TDSPRAS" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="SRTF2" Datatype="SMALLINT" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="CLUSTR" Datatype="SMALLINT" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="STXL" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;STXL&quot;" FilterExpression="" ReplicationBehavior="InitAndRealtimeWithTableLevel" VTObjectName="STXL">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RELID" ProjectionExpression="&quot;RELID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TDOBJECT" ProjectionExpression="&quot;TDOBJECT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TDNAME" ProjectionExpression="&quot;TDNAME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TDID" ProjectionExpression="&quot;TDID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TDSPRAS" ProjectionExpression="&quot;TDSPRAS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SRTF2" ProjectionExpression="&quot;SRTF2&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CLUSTR" ProjectionExpression="&quot;CLUSTR&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

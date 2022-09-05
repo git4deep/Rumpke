@@ -1,0 +1,98 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_CRCO.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;CRCO&quot;" SourceDisplayName="CRCO">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="CRCO" DropTargetTableIfExists="TRUE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="OBJTY" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="OBJID" Datatype="NVARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LASET" Datatype="NVARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="ENDDA" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LANUM" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="BEGDA" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AEDAT_KOST" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="AENAM_KOST" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KOKRS" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KOSTL" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LSTAR" Datatype="NVARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LSTAR_REF" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FORML" Datatype="NVARCHAR" Length="6" Precision="6" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PRZ" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ACTXY" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ACTXK" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LEINH" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="BDE" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SAKL" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="CRCO" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;CRCO&quot;" FilterExpression="" ReplicationBehavior="InitAndRealtimeWithTableLevel" VTObjectName="CRCO">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OBJTY" ProjectionExpression="&quot;OBJTY&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OBJID" ProjectionExpression="&quot;OBJID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LASET" ProjectionExpression="&quot;LASET&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ENDDA" ProjectionExpression="&quot;ENDDA&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LANUM" ProjectionExpression="&quot;LANUM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BEGDA" ProjectionExpression="&quot;BEGDA&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AEDAT_KOST" ProjectionExpression="&quot;AEDAT_KOST&quot;">
+        </TargetColumn>
+        <TargetColumn Name="AENAM_KOST" ProjectionExpression="&quot;AENAM_KOST&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KOKRS" ProjectionExpression="&quot;KOKRS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KOSTL" ProjectionExpression="&quot;KOSTL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LSTAR" ProjectionExpression="&quot;LSTAR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LSTAR_REF" ProjectionExpression="&quot;LSTAR_REF&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FORML" ProjectionExpression="&quot;FORML&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PRZ" ProjectionExpression="&quot;PRZ&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ACTXY" ProjectionExpression="&quot;ACTXY&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ACTXK" ProjectionExpression="&quot;ACTXK&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LEINH" ProjectionExpression="&quot;LEINH&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BDE" ProjectionExpression="&quot;BDE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SAKL" ProjectionExpression="&quot;SAKL&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

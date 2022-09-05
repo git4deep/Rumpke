@@ -1,0 +1,55 @@
+PROCEDURE "rumpke.bi.dp.ultipro.pro::fg_employee"()
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+   	AS
+BEGIN
+
+DELETE FROM "XML_EMPLOYEES";
+
+insert into "XML_EMPLOYEES" (
+select 
+TO_NCLOB(REPLACE(REPLACE(TO_NVARCHAR(SOAP_BODY),'<soap:GetEmployeesSoapOut xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><GetEmployeesResponse xmlns="http://www.outsystems.com">',''),'</GetEmployeesResponse>   </soap:GetEmployeesSoapOut>','')) as "P2"
+FROM "GetEmployees"
+('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:out="http://www.outsystems.com">
+<Body>    <out:GetEmployees>      <out:Username>sac_service_account</out:Username>
+<out:Password>ENTEReCAMOXi</out:Password>    </out:GetEmployees>  </Body></soapenv:Envelope>'));
+
+UPSERT "EMPLOYEE"
+SELECT * FROM
+XMLTABLE('/Result/Employee/Lsrc_dim_employee' PASSING
+"XML_EMPLOYEES".XML
+COLUMNS
+"EMPLOYEE_ID" NVARCHAR(5000) PATH 'Employee_id',
+"EMPLOYEE_FULL_NAME" NVARCHAR(5000) PATH 'Employee_full_name',
+"EMPLOYEE_FIRST_NAME" NVARCHAR(5000) PATH 'Employee_first_name',
+"EMPLOYEE_MIDDLE_NAME" NVARCHAR(5000) PATH 'Employee_middle_name',
+"EMPLOYEE_LAST_NAME" NVARCHAR(5000) PATH 'Employee_last_name',
+"RESIDENCE_LOCATION_ZIP_CODE" NVARCHAR(5000) PATH 'Resident_location_zip_code',
+"DATE_HIRE" DATE PATH 'Date_hire',
+"DATE_HIRE_ADJUSTED" DATE PATH 'Date_hire_adjusted',
+"DATE_START" DATE PATH 'Date_start',
+"DATE_START_ADJUSTED" DATE PATH 'Date_start_adjusted',
+"DATE_TERMINATION" DATE PATH 'Date_termination',
+"TERMINATION_CODE" NVARCHAR(5000) PATH 'Termination_code',
+"TERMINATION_DESCRIPTION" NVARCHAR(5000) PATH 'Termination_description',
+"CURRENT_LOCATION" NVARCHAR(5000) PATH 'Current_location',
+"CURRENT_LOCATION_CODE" NVARCHAR(5000) PATH 'Current_location_code',
+"CURRENT_WAGE_CODE" NVARCHAR(5000) PATH 'Current_wage_code',
+"ORG_CODE_1" NVARCHAR(5000) PATH 'Org_code_1',
+"ORG_CODE_2" NVARCHAR(5000) PATH 'Org_code_2',
+"ORG_CODE_3" NVARCHAR(5000) PATH 'Org_code_3',
+"ORG_CODE_4" NVARCHAR(5000) PATH 'Org_code_4',
+"CURRENT_JOB_CODE" NVARCHAR(5000) PATH 'Current_job_code',
+"CURRENT_POSITION_TITLE" NVARCHAR(5000) PATH 'Current_position_title',
+"CURRENT_MANAGER_ID" NVARCHAR(5000) PATH 'Current_manager_id',
+"CURRENT_MANAGER_NAME" NVARCHAR(5000) PATH 'Current_manager_name',
+"COMPANY_CODE" NVARCHAR(5000) PATH 'Company_code',
+"COMPANY" NVARCHAR(5000) PATH 'Company',
+"EEP_DATETIME_CREATED" TIMESTAMP PATH 'EepDatetimeCreated',
+"EEP_DATETIME_CHANGED" TIMESTAMP PATH 'EepDatetimeChanged',
+"EMPLOYMENT_BUILDING" NVARCHAR(5000) PATH 'Employment_Building',
+"EMPLOYMENT_DRUG_TEST_REQUIRED" NVARCHAR(5000) PATH 'Employment_DrugTestRequired',
+"EMPLOYMENT_OPERATE_COMPANY_VEHICLE" NVARCHAR(5000) PATH 'Employment_OperateCompanyVehicle',
+"EMPLOYMENT_TYPE_OF_VEHICLE_USER" NVARCHAR(5000) PATH 'Employment_TypeofVehicleUser'
+) as XTABLE;
+END;

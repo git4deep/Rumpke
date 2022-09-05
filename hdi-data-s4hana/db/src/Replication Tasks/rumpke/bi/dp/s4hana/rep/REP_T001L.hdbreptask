@@ -1,0 +1,109 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_T001L.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;T001L&quot;" SourceDisplayName="T001L">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="T001L" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="WERKS" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LGORT" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LGOBE" Datatype="NVARCHAR" Length="16" Precision="16" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SPART" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="XLONG" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="XBUFX" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DISKZ" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="XBLGO" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="XRESS" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="XHUPF" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PARLG" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VKORG" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VTWEG" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VSTEL" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LIFNR" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KUNNR" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MESBS" Datatype="NVARCHAR" Length="60" Precision="60" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MESST" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OIH_LICNO" Datatype="NVARCHAR" Length="15" Precision="15" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OIG_ITRFL" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OIB_TNKASSIGN" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="T001L" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;T001L&quot;" FilterExpression="" ReplicationBehavior="InitAndRealtime" VTObjectName="T001L">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WERKS" ProjectionExpression="&quot;WERKS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LGORT" ProjectionExpression="&quot;LGORT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LGOBE" ProjectionExpression="&quot;LGOBE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SPART" ProjectionExpression="&quot;SPART&quot;">
+        </TargetColumn>
+        <TargetColumn Name="XLONG" ProjectionExpression="&quot;XLONG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="XBUFX" ProjectionExpression="&quot;XBUFX&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DISKZ" ProjectionExpression="&quot;DISKZ&quot;">
+        </TargetColumn>
+        <TargetColumn Name="XBLGO" ProjectionExpression="&quot;XBLGO&quot;">
+        </TargetColumn>
+        <TargetColumn Name="XRESS" ProjectionExpression="&quot;XRESS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="XHUPF" ProjectionExpression="&quot;XHUPF&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PARLG" ProjectionExpression="&quot;PARLG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VKORG" ProjectionExpression="&quot;VKORG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VTWEG" ProjectionExpression="&quot;VTWEG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VSTEL" ProjectionExpression="&quot;VSTEL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LIFNR" ProjectionExpression="&quot;LIFNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KUNNR" ProjectionExpression="&quot;KUNNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MESBS" ProjectionExpression="&quot;MESBS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MESST" ProjectionExpression="&quot;MESST&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OIH_LICNO" ProjectionExpression="&quot;OIH_LICNO&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OIG_ITRFL" ProjectionExpression="&quot;OIG_ITRFL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OIB_TNKASSIGN" ProjectionExpression="&quot;OIB_TNKASSIGN&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

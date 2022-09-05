@@ -1,0 +1,40 @@
+PROCEDURE "rumpke.bi.dp.ultipro.pro::fg_employee_hours_staging"()
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+   	AS
+BEGIN
+
+DELETE FROM "XML_EMPLOYEE_HOURS_STAGING";
+
+insert into "XML_EMPLOYEE_HOURS_STAGING" (
+select 
+TO_NCLOB(REPLACE(REPLACE(TO_NVARCHAR(SOAP_BODY),'<soap:GetEmployeeHoursSoapOut xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><GetEmployeeHoursResponse xmlns="http://www.outsystems.com">',''),'</GetEmployeeHoursResponse>   </soap:GetEmployeeHoursSoapOut>','')) as "P2"
+FROM "GetEmployeeHoursV2"
+('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:out="http://www.outsystems.com">
+<Body>    
+<out:GetEmployeeHours>
+      <out:NumberOfDays>10</out:NumberOfDays>
+      <out:Username>sac_service_account</out:Username>
+      <out:Password>ENTEReCAMOXi</out:Password>
+    </out:GetEmployeeHours>
+</Body></soapenv:Envelope>'));
+
+DELETE FROM "EMPLOYEE_HOURS_STAGING";
+INSERT INTO "EMPLOYEE_HOURS_STAGING"(
+SELECT * FROM
+XMLTABLE('/Result/EmployeeHours/Lsrc_fct_employee_hours' PASSING
+"XML_EMPLOYEE_HOURS_STAGING".XML
+COLUMNS
+"EMPLOYEE_ID" NVARCHAR(100) PATH 'Employee_ID',
+"WORK_DATE" date PATH 'Work_Date',
+"IN_PUNCH" TIMESTAMP PATH 'In_Punch',
+"OUT_PUNCH" TIMESTAMP PATH 'Out_Punch',
+"PAY_CODE_NUMBER" DECIMAL PATH 'pay_code_number',
+"SCHEDULED_HOURS" DECIMAL PATH 'Scheduled_Hours',
+"REGULAR_HOURS" DECIMAL PATH 'Regular_Hours',
+"OVERTIME_HOURS" DECIMAL PATH 'Overtime_Hours',
+"WORKED_HOURS" DECIMAL PATH 'worked_hours',
+"JOB_CODE" NVARCHAR(5000) PATH 'Job_Code',
+"COST_CENTER" NVARCHAR(5000) PATH 'Cost_Center'
+) as XTABLE);
+END;

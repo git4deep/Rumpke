@@ -1,0 +1,57 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_TCURF.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;TCURF&quot;" SourceDisplayName="TCURF">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="TCURF" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="KURST" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="FCURR" Datatype="NVARCHAR" Length="5" Precision="5" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="TCURR" Datatype="NVARCHAR" Length="5" Precision="5" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="GDATU" Datatype="NVARCHAR" Precision="0" Scale="0" Length="8" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="FFACT" Datatype="DECIMAL" Length="9" Precision="9" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="TFACT" Datatype="DECIMAL" Length="9" Precision="9" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ABWCT" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ABWGA" Datatype="NVARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="TCURF" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;TCURF&quot;" FilterExpression=" " ReplicationBehavior="InitAndRealtime" VTObjectName="TCURF">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KURST" ProjectionExpression="&quot;KURST&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FCURR" ProjectionExpression="&quot;FCURR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TCURR" ProjectionExpression="&quot;TCURR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="GDATU" ProjectionExpression="&quot;GDATU&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FFACT" ProjectionExpression="&quot;FFACT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="TFACT" ProjectionExpression="&quot;TFACT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ABWCT" ProjectionExpression="&quot;ABWCT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ABWGA" ProjectionExpression="&quot;ABWGA&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

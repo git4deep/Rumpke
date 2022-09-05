@@ -1,0 +1,58 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_SETNODE.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;SETNODE&quot;" SourceDisplayName="SETNODE">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="SETNODE" DropTargetTableIfExists="TRUE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="SETCLASS" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="SUBCLASS" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="SETNAME" Datatype="NVARCHAR" Length="24" Precision="24" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LINEID" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="SUBSETCLS" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SUBSETSCLS" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SUBSETNAME" Datatype="NVARCHAR" Length="24" Precision="24" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SEQNR" Datatype="INTEGER" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE">
+        </Annotation>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="SETNODE" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;SETNODE&quot;" FilterExpression="" ReplicationBehavior="InitAndRealtime" VTObjectName="SETNODE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SETCLASS" ProjectionExpression="&quot;SETCLASS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SUBCLASS" ProjectionExpression="&quot;SUBCLASS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SETNAME" ProjectionExpression="&quot;SETNAME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LINEID" ProjectionExpression="&quot;LINEID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SUBSETCLS" ProjectionExpression="&quot;SUBSETCLS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SUBSETSCLS" ProjectionExpression="&quot;SUBSETSCLS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SUBSETNAME" ProjectionExpression="&quot;SUBSETNAME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SEQNR" ProjectionExpression="&quot;SEQNR&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

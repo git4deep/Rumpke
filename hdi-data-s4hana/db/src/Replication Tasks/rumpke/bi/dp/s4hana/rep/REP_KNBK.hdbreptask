@@ -1,0 +1,77 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_KNBK.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;KNBK&quot;" SourceDisplayName="KNBK">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="KNBK" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="KUNNR" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="BANKS" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="BANKL" Datatype="NVARCHAR" Length="15" Precision="15" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="BANKN" Datatype="NVARCHAR" Length="18" Precision="18" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="BKONT" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="BVTYP" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="XEZER" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="BKREF" Datatype="NVARCHAR" Length="20" Precision="20" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KOINH" Datatype="NVARCHAR" Length="60" Precision="60" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EBPP_ACCNAME" Datatype="NVARCHAR" Length="40" Precision="40" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EBPP_BVSTATUS" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KOVON" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KOBIS" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="KNBK" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;KNBK&quot;" FilterExpression=" " ReplicationBehavior="InitAndRealtime" VTObjectName="KNBK">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KUNNR" ProjectionExpression="&quot;KUNNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BANKS" ProjectionExpression="&quot;BANKS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BANKL" ProjectionExpression="&quot;BANKL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BANKN" ProjectionExpression="&quot;BANKN&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BKONT" ProjectionExpression="&quot;BKONT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BVTYP" ProjectionExpression="&quot;BVTYP&quot;">
+        </TargetColumn>
+        <TargetColumn Name="XEZER" ProjectionExpression="&quot;XEZER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BKREF" ProjectionExpression="&quot;BKREF&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KOINH" ProjectionExpression="&quot;KOINH&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EBPP_ACCNAME" ProjectionExpression="&quot;EBPP_ACCNAME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EBPP_BVSTATUS" ProjectionExpression="&quot;EBPP_BVSTATUS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KOVON" ProjectionExpression="&quot;KOVON&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KOBIS" ProjectionExpression="&quot;KOBIS&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

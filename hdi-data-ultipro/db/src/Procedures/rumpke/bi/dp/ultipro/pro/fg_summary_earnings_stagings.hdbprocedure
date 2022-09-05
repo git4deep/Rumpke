@@ -1,0 +1,42 @@
+PROCEDURE "rumpke.bi.dp.ultipro.pro::fg_summary_earnings_stagings"()
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+   	AS
+BEGIN
+
+DELETE FROM "XML_SUMMARY_EARNINGS";
+
+insert into "XML_SUMMARY_EARNINGS" (
+select 
+TO_NCLOB(REPLACE(REPLACE(TO_NVARCHAR(SOAP_BODY),'<soap:GetSummaryEarningsSoapOut xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><GetSummaryEarningsResponse xmlns="http://www.outsystems.com">',''),'</GetSummaryEarningsResponse>   </soap:GetSummaryEarningsSoapOut>','')) as "P2"
+FROM "GetSummaryEarnings"
+('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:out="http://www.outsystems.com">
+<Body>    
+<out:GetSummaryEarnings>
+      <out:NumberOfDays>20</out:NumberOfDays>
+      <out:Username>sac_service_account</out:Username>
+      <out:Password>ENTEReCAMOXi</out:Password>
+    </out:GetSummaryEarnings>
+</Body></soapenv:Envelope>'));
+
+DELETE FROM "SUMMARY_EARNINGS_STAGING";
+INSERT INTO "SUMMARY_EARNINGS_STAGING"(
+SELECT * FROM
+XMLTABLE('/Result/SummaryEarning/Lsrc_fct_payroll_summary_earnings' PASSING
+"XML_SUMMARY_EARNINGS".XML
+COLUMNS
+"PERIOD_END_DATE" DATE PATH 'Period_end_date',
+"PAY_DATE" DATE PATH 'Pay_date',
+"COMPANY_CODE" NVARCHAR(100) PATH 'Company_code',
+"EARNINGS_CODE" NVARCHAR(200) PATH 'Earnings_code',
+"EMPLOYEE_NUMBER" NVARCHAR(200) PATH 'Employee_number',
+"JOB_CODE" NVARCHAR(200) PATH 'Job_code',
+"ORG2_GL_SEGMENT" NVARCHAR(200) PATH 'Org_2_gl_segment',
+"ORG4_GL_SEGMENT" NVARCHAR(200) PATH 'Org_4_gl_segment',
+"BASE_ACCOUNT_CODE" NVARCHAR(200) PATH 'Base_account_code',
+"SEQUENCE_CODE" NVARCHAR(200) PATH 'Sequence_code',
+"CURRENT_HOURS" DECIMAL PATH 'Current_hours',
+"CURRENT_AMOUNT" DECIMAL PATH 'Current_amount'
+) as XTABLE);
+
+END;

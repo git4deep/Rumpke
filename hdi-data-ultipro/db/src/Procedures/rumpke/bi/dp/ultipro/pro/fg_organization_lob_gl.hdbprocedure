@@ -1,0 +1,36 @@
+PROCEDURE "rumpke.bi.dp.ultipro.pro::fg_organization_lob_gl"()
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+   	AS
+BEGIN
+
+DELETE FROM "XML_ORGANIZATION_LOB_GL";
+
+insert into "XML_ORGANIZATION_LOB_GL" (
+    select 
+    TO_NCLOB(REPLACE(REPLACE(TO_NVARCHAR(SOAP_BODY),'<soap:GetJOrganizationLOBGLsSoapOut xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><GetJOrganizationLOBGLsResponse xmlns="http://www.outsystems.com">',''),'</GetJOrganizationLOBGLsResponse>   </soap:GetJOrganizationLOBGLsSoapOut>','')) as "P2"
+    FROM "GetJOrganizationLOBGLs"
+    ('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:out="http://www.outsystems.com">
+    <Body>    <out:GetJOrganizationLOBGLs>      <out:Username>sac_service_account</out:Username>
+    <out:Password>ENTEReCAMOXi</out:Password>    </out:GetJOrganizationLOBGLs>  </Body></soapenv:Envelope>'));
+
+DELETE FROM "ORGANIZATION_LOB_GL";
+INSERT INTO "ORGANIZATION_LOB_GL"(
+SELECT * FROM
+XMLTABLE('/Result/OrganizationLOBGL/src_organization_LOB_GL' PASSING
+"XML_ORGANIZATION_LOB_GL".XML
+COLUMNS 
+"COMPANY_CODE" NVARCHAR(5000) PATH 'Company_Code', 
+"COMPANY_GL_SEGMENT" NVARCHAR(5000) PATH 'Company_GL_Seg',
+"ORG_LEVEL1_CODE" NVARCHAR(5000) PATH 'Org_Level_1_Code',
+"ORG_LEVEL1_GL_SEG" NVARCHAR(5000) PATH 'Org_Level_1_GL_Seg',
+"ORG_LEVEL2_CODE" NVARCHAR(5000) PATH 'Org_Level_2_Code',
+"ORG_LEVEL2_GL_SEG" NVARCHAR(5000) PATH 'Org_Level_2_GL_Seg',
+"ORG_LEVEL3_CODE" NVARCHAR(5000) PATH 'Org_Level_3_Code',
+"ORG_LEVEL3_GL_SEG" NVARCHAR(5000) PATH 'Org_Level_3_GL_Seg',
+"ORG_LEVEL4_CODE" NVARCHAR(5000) PATH 'Org_Level_4_Code',
+"ORG_LEVEL4_GL_SEG" NVARCHAR(5000) PATH 'Org_Level_4_GL_Seg',
+"GL_MASK" NVARCHAR(5000) PATH 'GL_Mask'
+) as XTABLE);
+
+END;

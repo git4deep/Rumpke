@@ -1,0 +1,293 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_MARD.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;MARD&quot;" SourceDisplayName="MARD">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="MARD" DropTargetTableIfExists="FALSE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="MATNR" Datatype="NVARCHAR" Length="40" Precision="40" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="WERKS" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="LGORT" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="PSTAT" Datatype="NVARCHAR" Length="15" Precision="15" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LVORM" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LFGJA" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LFMON" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SPERR" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LABST" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="UMLME" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="INSME" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EINME" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SPEME" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="RETME" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VMLAB" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VMUML" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VMINS" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VMEIN" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VMSPE" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VMRET" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KZILL" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KZILQ" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KZILE" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KZILS" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KZVLL" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KZVLQ" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KZVLE" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KZVLS" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DISKZ" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LSOBS" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LMINB" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LBSTF" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HERKL" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EXPPG" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EXVER" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LGPBE" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KLABS" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KINSM" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KEINM" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KSPEM" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DLINL" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PRCTL" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ERSDA" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VKLAB" Datatype="DECIMAL" Length="13" Precision="13" Scale="2" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VKUML" Datatype="DECIMAL" Length="13" Precision="13" Scale="2" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LWMKB" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="BSKRF" Datatype="DOUBLE" Length="0" Precision="0" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MDRUE" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MDJIN" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DUMMY_STL_INCL_EEW_PS" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FSH_SALLOC_QTY_S" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/LABST" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/INSME" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/EINME" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/SPEME" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/RETME" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/UMLME" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/KLABS" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/KINSM" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/KEINM" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/KSPEM" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMLAB" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMINS" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMEIN" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMSPE" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMRET" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMUML" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="MARD" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;MARD&quot;" FilterExpression=" " ReplicationBehavior="InitAndRealtime" VTObjectName="MARD">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MATNR" ProjectionExpression="&quot;MATNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WERKS" ProjectionExpression="&quot;WERKS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LGORT" ProjectionExpression="&quot;LGORT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PSTAT" ProjectionExpression="&quot;PSTAT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LVORM" ProjectionExpression="&quot;LVORM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LFGJA" ProjectionExpression="&quot;LFGJA&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LFMON" ProjectionExpression="&quot;LFMON&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SPERR" ProjectionExpression="&quot;SPERR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LABST" ProjectionExpression="&quot;LABST&quot;">
+        </TargetColumn>
+        <TargetColumn Name="UMLME" ProjectionExpression="&quot;UMLME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="INSME" ProjectionExpression="&quot;INSME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EINME" ProjectionExpression="&quot;EINME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SPEME" ProjectionExpression="&quot;SPEME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="RETME" ProjectionExpression="&quot;RETME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VMLAB" ProjectionExpression="&quot;VMLAB&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VMUML" ProjectionExpression="&quot;VMUML&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VMINS" ProjectionExpression="&quot;VMINS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VMEIN" ProjectionExpression="&quot;VMEIN&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VMSPE" ProjectionExpression="&quot;VMSPE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VMRET" ProjectionExpression="&quot;VMRET&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KZILL" ProjectionExpression="&quot;KZILL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KZILQ" ProjectionExpression="&quot;KZILQ&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KZILE" ProjectionExpression="&quot;KZILE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KZILS" ProjectionExpression="&quot;KZILS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KZVLL" ProjectionExpression="&quot;KZVLL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KZVLQ" ProjectionExpression="&quot;KZVLQ&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KZVLE" ProjectionExpression="&quot;KZVLE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KZVLS" ProjectionExpression="&quot;KZVLS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DISKZ" ProjectionExpression="&quot;DISKZ&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LSOBS" ProjectionExpression="&quot;LSOBS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LMINB" ProjectionExpression="&quot;LMINB&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LBSTF" ProjectionExpression="&quot;LBSTF&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HERKL" ProjectionExpression="&quot;HERKL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EXPPG" ProjectionExpression="&quot;EXPPG&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EXVER" ProjectionExpression="&quot;EXVER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LGPBE" ProjectionExpression="&quot;LGPBE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KLABS" ProjectionExpression="&quot;KLABS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KINSM" ProjectionExpression="&quot;KINSM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KEINM" ProjectionExpression="&quot;KEINM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KSPEM" ProjectionExpression="&quot;KSPEM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DLINL" ProjectionExpression="&quot;DLINL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PRCTL" ProjectionExpression="&quot;PRCTL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ERSDA" ProjectionExpression="&quot;ERSDA&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VKLAB" ProjectionExpression="&quot;VKLAB&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VKUML" ProjectionExpression="&quot;VKUML&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LWMKB" ProjectionExpression="&quot;LWMKB&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BSKRF" ProjectionExpression="&quot;BSKRF&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MDRUE" ProjectionExpression="&quot;MDRUE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MDJIN" ProjectionExpression="&quot;MDJIN&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DUMMY_STL_INCL_EEW_PS" ProjectionExpression="&quot;DUMMY_STL_INCL_EEW_PS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FSH_SALLOC_QTY_S" ProjectionExpression="&quot;FSH_SALLOC_QTY_S&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/LABST" ProjectionExpression="&quot;/CWM/LABST&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/INSME" ProjectionExpression="&quot;/CWM/INSME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/EINME" ProjectionExpression="&quot;/CWM/EINME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/SPEME" ProjectionExpression="&quot;/CWM/SPEME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/RETME" ProjectionExpression="&quot;/CWM/RETME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/UMLME" ProjectionExpression="&quot;/CWM/UMLME&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/KLABS" ProjectionExpression="&quot;/CWM/KLABS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/KINSM" ProjectionExpression="&quot;/CWM/KINSM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/KEINM" ProjectionExpression="&quot;/CWM/KEINM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/KSPEM" ProjectionExpression="&quot;/CWM/KSPEM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMLAB" ProjectionExpression="&quot;/CWM/VMLAB&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMINS" ProjectionExpression="&quot;/CWM/VMINS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMEIN" ProjectionExpression="&quot;/CWM/VMEIN&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMSPE" ProjectionExpression="&quot;/CWM/VMSPE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMRET" ProjectionExpression="&quot;/CWM/VMRET&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/CWM/VMUML" ProjectionExpression="&quot;/CWM/VMUML&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

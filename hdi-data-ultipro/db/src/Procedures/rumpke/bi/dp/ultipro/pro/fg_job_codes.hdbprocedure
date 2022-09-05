@@ -1,0 +1,26 @@
+PROCEDURE "rumpke.bi.dp.ultipro.pro::fg_job_codes"()
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+   	AS
+BEGIN
+
+DELETE FROM "XML_JOB_CODES";
+
+insert into "XML_JOB_CODES" (
+    select 
+TO_NCLOB(REPLACE(REPLACE(TO_NVARCHAR(SOAP_BODY),'<soap:GetJobCodesSoapOut xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><GetJobCodesResponse xmlns="http://www.outsystems.com">',''),'</GetJobCodesResponse>   </soap:GetJobCodesSoapOut>','')) as "P2"
+FROM "GetJobCodes"
+('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:out="http://www.outsystems.com">
+<Body>    <out:GetJobCodes>      <out:Username>sac_service_account</out:Username>
+<out:Password>ENTEReCAMOXi</out:Password>    </out:GetJobCodes>  </Body></soapenv:Envelope>'));
+
+UPSERT "JOB_CODES"
+SELECT * FROM
+XMLTABLE('/Result/JobCode/src_job_codes' PASSING
+"XML_JOB_CODES".XML
+COLUMNS 
+"JOB_CODE" NVARCHAR(100) PATH 'Job_Code', 
+"JOB_TITLE" NVARCHAR(200) PATH 'Job_Title'
+) as XTABLE;
+
+END;

@@ -1,0 +1,65 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_TJ30.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;TJ30&quot;" SourceDisplayName="TJ30">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="TJ30" DropTargetTableIfExists="TRUE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="STSMA" Datatype="NVARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="ESTAT" Datatype="NVARCHAR" Length="5" Precision="5" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="INIST" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="STONR" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="HSONR" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="NSONR" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LINEP" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="STATP" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="BERSL" Datatype="NVARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CRM_VRGNG" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="TJ30" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;TJ30&quot;" FilterExpression=" " ReplicationBehavior="InitAndRealtime" VTObjectName="TJ30">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="STSMA" ProjectionExpression="&quot;STSMA&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ESTAT" ProjectionExpression="&quot;ESTAT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="INIST" ProjectionExpression="&quot;INIST&quot;">
+        </TargetColumn>
+        <TargetColumn Name="STONR" ProjectionExpression="&quot;STONR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="HSONR" ProjectionExpression="&quot;HSONR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="NSONR" ProjectionExpression="&quot;NSONR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LINEP" ProjectionExpression="&quot;LINEP&quot;">
+        </TargetColumn>
+        <TargetColumn Name="STATP" ProjectionExpression="&quot;STATP&quot;">
+        </TargetColumn>
+        <TargetColumn Name="BERSL" ProjectionExpression="&quot;BERSL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CRM_VRGNG" ProjectionExpression="&quot;CRM_VRGNG&quot;">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

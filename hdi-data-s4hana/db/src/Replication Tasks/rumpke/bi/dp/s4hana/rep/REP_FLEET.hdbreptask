@@ -1,0 +1,245 @@
+<RepTask Name="file:/rumpke/bi/dp/s4hana/rep/REP_FLEET.hdbreptask:workspace" Description="" Type="REALTIME" RepVersion="2.1">
+  <SourceObjects SourceType="REMOTE_OBJ" TTFullyQualifiedName="false" VTFullyQualifiedName="false" RemoteSourceName="rs_S4_S4HANA" VirtualTableSchema="S4HANA_VIRTUAL" VirtualTableNamePrefix="VT_">
+    <SourceObject RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;FLEET&quot;" SourceDisplayName="FLEET">
+    </SourceObject>
+  </SourceObjects>
+  <TargetObjects SchemaName="S4HANA">
+    <TargetObject Type="TABLE" ObjectName="FLEET" DropTargetTableIfExists="TRUE">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="OBJNR" Datatype="NVARCHAR" Length="22" Precision="22" Scale="0" Nullable="FALSE" PartOfPrimaryKey="TRUE">
+        </TargetColumn>
+        <TargetColumn Name="OBJECT_GRP" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_CAT" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_NUM" Datatype="NVARCHAR" Length="18" Precision="18" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_VIN" Datatype="NVARCHAR" Length="30" Precision="30" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CHASSIS_NUM" Datatype="NVARCHAR" Length="30" Precision="30" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LICENSE_NUM" Datatype="NVARCHAR" Length="15" Precision="15" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="EXPIRY_DATE" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_HGT" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_WID" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_LEN" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="DIM_UNIT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="PRI_CALC" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="REPLA_DATE" Datatype="DATE" Precision="0" Scale="0" Length="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="REPLA_ODOM" Datatype="NVARCHAR" Length="22" Precision="22" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="REPLA_OPH" Datatype="NVARCHAR" Length="22" Precision="22" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="NUM_AXLE" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="MAX_OCCUPANTS" Datatype="NVARCHAR" Length="4" Precision="4" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CARD_NUM" Datatype="NVARCHAR" Length="30" Precision="30" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="KEY_NUM" Datatype="NVARCHAR" Length="20" Precision="20" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_USE" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ENGINE_TYPE" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ENGINE_POWER" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="UNIT_POWER" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="REVOLUTIONS" Datatype="NVARCHAR" Length="7" Precision="7" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ENGINE_CYL" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ENGINE_CAP" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="UNIT_CAP" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ENGINE_SNR" Datatype="NVARCHAR" Length="30" Precision="30" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FUEL_PRI" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="FUEL_SEC" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="OIL_TYPE" Datatype="NVARCHAR" Length="12" Precision="12" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="GROSS_WGT" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_WGT" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="WGT_UNIT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_HGT" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_WID" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_LEN" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_DIM_UNIT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_VOL" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="VOL_UNIT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="NO_COMPART" Datatype="NVARCHAR" Length="2" Precision="2" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SPEED_MAX" Datatype="DECIMAL" Length="9" Precision="9" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="SPEED_UNIT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CONSUMP_TOL" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="CONSUMP_MOVE" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/DSD/RP_EIGEN" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/DSD/RP_AHLAST" Datatype="DECIMAL" Length="13" Precision="13" Scale="3" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/DSD/RP_AHLAST_U" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/DSD/RP_VARKAP" Datatype="DECIMAL" Length="7" Precision="7" Scale="2" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/DSD/RP_KAPUNIT" Datatype="NVARCHAR" Length="3" Precision="3" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/BEV1/LULEINH" Datatype="NVARCHAR" Length="8" Precision="8" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="/VSO/M_VSO_FTYPE" Datatype="NVARCHAR" Length="10" Precision="10" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="IS_SI_UNIT" Datatype="NVARCHAR" Length="1" Precision="1" Scale="0" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+        <TargetColumn Name="ZZEQUNR" Datatype="NVARCHAR" Precision="0" Scale="0" Length="18" Nullable="FALSE" PartOfPrimaryKey="FALSE">
+        </TargetColumn>
+      </TargetColumns>
+      <Annotations Key="sap.im.properties" Value="">
+        <Annotation Key="truncateTable" Value="TRUE"/>
+      </Annotations>
+    </TargetObject>
+  </TargetObjects>
+  <Mappings>
+    <Mapping ObjectName="FLEET" RemoteObjectUniqueName="&quot;SAPHANADB&quot;.&quot;FLEET&quot;" FilterExpression=" " ReplicationBehavior="InitAndRealtime" VTObjectName="FLEET">
+      <TargetColumns>
+        <TargetColumn Name="MANDT" ProjectionExpression="&quot;MANDT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OBJNR" ProjectionExpression="&quot;OBJNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OBJECT_GRP" ProjectionExpression="&quot;OBJECT_GRP&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_CAT" ProjectionExpression="&quot;FLEET_CAT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_NUM" ProjectionExpression="&quot;FLEET_NUM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_VIN" ProjectionExpression="&quot;FLEET_VIN&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CHASSIS_NUM" ProjectionExpression="&quot;CHASSIS_NUM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LICENSE_NUM" ProjectionExpression="&quot;LICENSE_NUM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="EXPIRY_DATE" ProjectionExpression="&quot;EXPIRY_DATE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_HGT" ProjectionExpression="&quot;FLEET_HGT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_WID" ProjectionExpression="&quot;FLEET_WID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_LEN" ProjectionExpression="&quot;FLEET_LEN&quot;">
+        </TargetColumn>
+        <TargetColumn Name="DIM_UNIT" ProjectionExpression="&quot;DIM_UNIT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="PRI_CALC" ProjectionExpression="&quot;PRI_CALC&quot;">
+        </TargetColumn>
+        <TargetColumn Name="REPLA_DATE" ProjectionExpression="&quot;REPLA_DATE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="REPLA_ODOM" ProjectionExpression="&quot;REPLA_ODOM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="REPLA_OPH" ProjectionExpression="&quot;REPLA_OPH&quot;">
+        </TargetColumn>
+        <TargetColumn Name="NUM_AXLE" ProjectionExpression="&quot;NUM_AXLE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="MAX_OCCUPANTS" ProjectionExpression="&quot;MAX_OCCUPANTS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CARD_NUM" ProjectionExpression="&quot;CARD_NUM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="KEY_NUM" ProjectionExpression="&quot;KEY_NUM&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FLEET_USE" ProjectionExpression="&quot;FLEET_USE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ENGINE_TYPE" ProjectionExpression="&quot;ENGINE_TYPE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ENGINE_POWER" ProjectionExpression="&quot;ENGINE_POWER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="UNIT_POWER" ProjectionExpression="&quot;UNIT_POWER&quot;">
+        </TargetColumn>
+        <TargetColumn Name="REVOLUTIONS" ProjectionExpression="&quot;REVOLUTIONS&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ENGINE_CYL" ProjectionExpression="&quot;ENGINE_CYL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ENGINE_CAP" ProjectionExpression="&quot;ENGINE_CAP&quot;">
+        </TargetColumn>
+        <TargetColumn Name="UNIT_CAP" ProjectionExpression="&quot;UNIT_CAP&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ENGINE_SNR" ProjectionExpression="&quot;ENGINE_SNR&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FUEL_PRI" ProjectionExpression="&quot;FUEL_PRI&quot;">
+        </TargetColumn>
+        <TargetColumn Name="FUEL_SEC" ProjectionExpression="&quot;FUEL_SEC&quot;">
+        </TargetColumn>
+        <TargetColumn Name="OIL_TYPE" ProjectionExpression="&quot;OIL_TYPE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="GROSS_WGT" ProjectionExpression="&quot;GROSS_WGT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_WGT" ProjectionExpression="&quot;LOAD_WGT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="WGT_UNIT" ProjectionExpression="&quot;WGT_UNIT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_HGT" ProjectionExpression="&quot;LOAD_HGT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_WID" ProjectionExpression="&quot;LOAD_WID&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_LEN" ProjectionExpression="&quot;LOAD_LEN&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_DIM_UNIT" ProjectionExpression="&quot;LOAD_DIM_UNIT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="LOAD_VOL" ProjectionExpression="&quot;LOAD_VOL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="VOL_UNIT" ProjectionExpression="&quot;VOL_UNIT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="NO_COMPART" ProjectionExpression="&quot;NO_COMPART&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SPEED_MAX" ProjectionExpression="&quot;SPEED_MAX&quot;">
+        </TargetColumn>
+        <TargetColumn Name="SPEED_UNIT" ProjectionExpression="&quot;SPEED_UNIT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CONSUMP_TOL" ProjectionExpression="&quot;CONSUMP_TOL&quot;">
+        </TargetColumn>
+        <TargetColumn Name="CONSUMP_MOVE" ProjectionExpression="&quot;CONSUMP_MOVE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/DSD/RP_EIGEN" ProjectionExpression="&quot;/DSD/RP_EIGEN&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/DSD/RP_AHLAST" ProjectionExpression="&quot;/DSD/RP_AHLAST&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/DSD/RP_AHLAST_U" ProjectionExpression="&quot;/DSD/RP_AHLAST_U&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/DSD/RP_VARKAP" ProjectionExpression="&quot;/DSD/RP_VARKAP&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/DSD/RP_KAPUNIT" ProjectionExpression="&quot;/DSD/RP_KAPUNIT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/BEV1/LULEINH" ProjectionExpression="&quot;/BEV1/LULEINH&quot;">
+        </TargetColumn>
+        <TargetColumn Name="/VSO/M_VSO_FTYPE" ProjectionExpression="&quot;/VSO/M_VSO_FTYPE&quot;">
+        </TargetColumn>
+        <TargetColumn Name="IS_SI_UNIT" ProjectionExpression="&quot;IS_SI_UNIT&quot;">
+        </TargetColumn>
+        <TargetColumn Name="ZZEQUNR" ProjectionExpression="RIGHT(OBJNR,18)">
+        </TargetColumn>
+      </TargetColumns>
+    </Mapping>
+  </Mappings>
+</RepTask>

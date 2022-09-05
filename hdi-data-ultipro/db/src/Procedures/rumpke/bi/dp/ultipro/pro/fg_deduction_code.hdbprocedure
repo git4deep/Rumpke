@@ -1,0 +1,26 @@
+PROCEDURE "rumpke.bi.dp.ultipro.pro::fg_deduction_code"()
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+   	AS
+BEGIN
+
+DELETE FROM "XML_DEDUCTION_CODE";
+
+insert into "XML_DEDUCTION_CODE" (
+select 
+TO_NCLOB(REPLACE(REPLACE(TO_NVARCHAR(SOAP_BODY),'<soap:GetDeductionCodesSoapOut xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><GetDeductionCodesResponse xmlns="http://www.outsystems.com">',''),'</GetDeductionCodesResponse>   </soap:GetDeductionCodesSoapOut>','')) as "P2"
+FROM "GetDeductionCodes"
+('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:out="http://www.outsystems.com">
+<Body>    <out:GetDeductionCodes>      <out:Username>sac_service_account</out:Username>
+<out:Password>ENTEReCAMOXi</out:Password>    </out:GetDeductionCodes>  </Body></soapenv:Envelope>'));
+
+UPSERT "DEDUCTION_CODE" 
+SELECT * FROM
+XMLTABLE('/Result/DeductionCode/src_deduction_codes' PASSING
+"XML_DEDUCTION_CODE".XML
+COLUMNS 
+"DEDUCTION_CODE" NVARCHAR(5000) PATH 'Deduction_Code', 
+"DEDUCTION_DESCRIPTION" NVARCHAR(5000) PATH 'Deduction_Desc'
+) as XTABLE;
+
+END;
